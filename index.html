@@ -806,7 +806,7 @@ function person(x,y,o,walk){
   // viso
   r(hx+9.5,hy,2.5,12,sd);r(hx,hy+11.5,12,.5,sd);r(hx+1,hy+1,2.5,.5,sl);
   const ey=hy+5;
-  if(!o.shut)[hx+2,hx+7].forEach(ex=>{r(ex,ey,2.5,2,"#f4f4ff");r(ex+1,ey+.5,1.5,1.5,"#1a1a24");r(ex+1,ey+.5,.5,.5,"#fff")});
+  if(!o.shut)[hx+2,hx+7].forEach(ex=>{r(ex,ey,2.5,2,"#f4f4ff");r(ex+1+(o.gaze||0),ey+.5,1.5,1.5,"#1a1a24");r(ex+1+(o.gaze||0),ey+.5,.5,.5,"#fff")});
   else [hx+2,hx+7].forEach(ex=>r(ex,ey+1,2.5,.5,"#1a1a24"));
   r(hx+2,ey-1.5,2.5,.5,hr||sh(sk,.6));r(hx+7,ey-1.5,2.5,.5,hr||sh(sk,.6));
   r(hx+5.5,ey+2.5,1,1.5,sd);r(hx+5.5,ey+4,1.5,.5,sh(sk,.68));
@@ -1230,7 +1230,7 @@ function postScene(){r(0,0,384,216,"#120a14");r(0,0,384,30,"#2a1a20");for(let i=
   r(0,150,384,66,"#2a2a34");r(0,150,384,1,"#4a4a5a");for(let i=0;i<5;i++){const x=12+i*78;box(x,112,30,40,"#3f4f80");box(x+4,106,22,8,"#4a5a90")}
   r(0,82,384,2,"#c9a15a");disc(192,20,6,"#ffe8a0");al(.18,()=>poly([[186,22],[198,22],[260,216],[124,216]],"#ffe8a0"));
   g.save();g.translate(150,206);g.scale(2.6,2.6);person(0,0,BONB,false);g.restore();
-  g.save();g.translate(214,206);g.scale(2.6,2.6);person(0,0,Object.assign({},PAO,{gag:0,rope:0}),false);g.restore();
+  g.save();g.translate(214,206);g.scale(2.6,2.6);person(0,0,Object.assign({},PAO,{gag:0,rope:0,gaze:-(S.gz||0)}),false);g.restore();
   r(120,206,40,4,"#8a8a8a");r(124,208,30,1,"#6a6a6a");}
 /* ---------- ritratti ---------- */
 const IMG={};
@@ -1298,7 +1298,7 @@ function render(){
     <p class="sub">Musiche a 8 bit: un computer molto paziente<br>Nessun presidente è stato maltrattato durante la lavorazione. Quasi.</p>
     <div class="last"><img src="${VALIMG()}" alt="Valentino"><p>«Felice año nuevo, compañeros. Y mañana... ¿chi lo pulisce el autobús?»</p></div>
     <p class="sub">FINE</p></div><button class="go cgo" id="bagain" type="button">GIOCA ANCORA</button><button class="hb cpost" id="bpost" type="button">ASPETTA...</button></div>`}
-  else if(ph==="post"){const l=POST[S.pi];h=(S.pf||0)<36||!l||S.pdark||(S.pi===POST.length-1&&(S.pz||0)<PZ)?"":`<div class="pres post ${l[0]==="paolucci"?"r":""}"><img src="${IMGD[l[0]]}" alt=""><div><b>${l[0].toUpperCase()}</b><span>${esc(l[1])}</span></div></div>${S.pi===POST.length-1?"":`<div class="tap">TOCCA PER CONTINUARE · ${S.pi+1}/${POST.length}</div>`}`}
+  else if(ph==="post"){const l=POST[S.pi];h=(S.pf||0)<36||!l||S.pdark||(S.pi===POST.length-1&&!S.pLine)?"":`<div class="pres post ${l[0]==="paolucci"?"r":""}"><img src="${IMGD[l[0]]}" alt=""><div><b>${l[0].toUpperCase()}</b><span>${esc(l[1])}</span></div></div>${S.pi===POST.length-1?"":`<div class="tap">TOCCA PER CONTINUARE · ${S.pi+1}/${POST.length}</div>`}`}
   else if(ph==="vint")h=vintHTML();
   else if(ph==="scossa")h=scossaHTML();
   else if(ph==="op"){const O=S.op;h=O.end?`<div class="ov rev2 tm"><p><b>OPERAZIONE VALENTINO</b></p><p class="big">${O.end===2?"Operazione riuscita!":"Il paziente si è svegliato."}</p><p>${O.end===2?"Valentino si alza, si tocca il naso e torna a pulire. «¡Gracias, doctor!»":"«¡Ay! ¿Qué cosa mi state facendo?» Valentino si toglie il nasone e se ne va."}</p><button class="go gold" id="bop" type="button">TORNA AL GIOCO</button></div>`:`<button class="hb eggx" id="beggx" type="button" aria-label="Chiudi" title="Chiudi">✕</button>`}
@@ -1326,8 +1326,8 @@ function render(){
   on("bbrk",()=>{S.phase="play";S.mode="explore";S.bk=null;render()});
   on("btimmy",()=>{S.phase="play";S.mode="explore";S.wm=null;render()});
   on("bagain",()=>{nuova();S.phase="brief";render()});
-  on("bpost",()=>{theme(false);S.phase="post";S.pi=0;S.pf=0;S.pz=0;S.pdark=0;render()});
-  const crr=document.querySelector(".credits .cr");if(crr)crr.addEventListener("animationend",()=>{if(S.phase==="end"){theme(false);S.phase="post";S.pi=0;S.pf=0;S.pz=0;S.pdark=0;sfx("blip");render()}},{once:true});
+  on("bpost",()=>{theme(false);S.phase="post";S.pi=0;S.pf=0;S.pz=0;S.pdark=0;S.pT=0;S.pLine=0;S.gz=0;render()});
+  const crr=document.querySelector(".credits .cr");if(crr)crr.addEventListener("animationend",()=>{if(S.phase==="end"){theme(false);S.phase="post";S.pi=0;S.pf=0;S.pz=0;S.pdark=0;S.pT=0;S.pLine=0;S.gz=0;sfx("blip");render()}},{once:true});
   const rd=$("brdone");if(rd)rd.onclick=e=>{e.stopPropagation();endRadio()};
   const gm=$("bgoalmap");if(gm)gm.onclick=e=>{e.stopPropagation();openMap()};
   const bk=$("bask");if(bk)bk.onclick=e=>{e.stopPropagation();openTalk(S.say.pid)};
@@ -1783,7 +1783,7 @@ function bindGear(){const g_=$("bgear");if(g_)g_.onclick=e=>{e.stopPropagation()
     if(x==="win"){jumpTo(STEPS.length-1);S.t=END;S.phase="win";S.wf=0;theme(true,"tension");render();return}
     if(x==="end"){nuova();S.menu=false;S.phase="end";render();return}
     if(x==="scossa"){nuova();S.menu=false;S.phase="scossa";S.sf=0;render();return}
-    if(x==="post"){nuova();S.menu=false;theme(false);S.phase="post";S.pi=0;S.pf=0;S.pz=0;S.pdark=0;render();return}
+    if(x==="post"){nuova();S.menu=false;theme(false);S.phase="post";S.pi=0;S.pf=0;S.pz=0;S.pdark=0;S.pT=0;S.pLine=0;S.gz=0;render();return}
     jumpTo(+b.dataset.j)});
   const m=$("menu");if(m)m.onclick=e=>e.stopPropagation()}
 /* SCENA FINALE: SCOSSAAAAA! E L'ISOLA DEL 2027 */
@@ -2251,7 +2251,7 @@ document.addEventListener("keydown",e=>{if(S&&S.phase==="ape"&&S.ape&&!S.ape.end
   if(e.key==="m"&&S.phase==="play"&&S.mode==="explore")openMap();if(e.key==="Escape"&&S.phase==="play"&&(S.mode==="map"||S.mode==="talk")){S.mode="explore";render()}});
 
 function tick(){F++;if(S.phase==="title"&&SND){if(!TA)titleAudio();vanSound()}else if(TA)stopTitleAudio();if(S.phase==="scossa")scossaTick();if(S.phase==="vint"&&S.vi)vintTick();if(S.phase==="timmy"&&S.wm)timmyTick();if(S.phase==="play"&&S.loc==="foyer"&&!S.catOk&&(S.mode==="explore")){S.catF=(S.catF||0)+1;if(S.catF>=170){S.catOk=1;S.mode="say";S.say={pid:"mario",txt:"Marra! Cash! Smettetela!",code:"52"};sfx("blip");render()}}if(S.called)for(const k in S.called)if(S.called[k]<30){S.called[k]++;if(S.called[k]===30)render()}if(S.phase==="win"){S.wf=(S.wf||0)+1;if(S.wf===44)render();if(S.wf>44&&S.wf<80&&S.wf%6===0)sfx("step");if(S.wf===118)sfx("whoosh");if(S.wf===150)sfx("laugh");if(S.wf===185)render()}
-  if(S.phase==="post"){S.pf=(S.pf||0)+1;if(S.pf===36)render();if(S.pi===POST.length-1&&!S.pdark&&(S.pz||0)<PZ){S.pz=(S.pz||0)+1;if(S.pz===PZ){theme(false);render();setTimeout(()=>{if(S.phase!=="post"||S.pi!==POST.length-1)return;S.phase="tbc";S.tbcShake=8;boomSfx();render()},3000)}}}
+  if(S.phase==="post"){S.pf=(S.pf||0)+1;if(S.pf===36)render();if(S.pi===POST.length-1&&!S.pdark&&(S.pz||0)<PZ){S.pz=(S.pz||0)+1;if(S.pz===PZ){theme(false);S.pT=performance.now();S.gz=0;S.pLine=0}}if(S.pi===POST.length-1&&S.pT){const el=performance.now()-S.pT;S.gz=Math.max(0,Math.min(1,(el-1000)/600));if(el>=2600&&!S.pLine){S.pLine=1;render()}if(el>=5600){S.pT=0;S.phase="tbc";S.tbcShake=8;boomSfx();render()}}}
   if(S.phase==="play"&&S.mode==="travel"){S.travel.f++;if(S.travel.f>(calmo?3:28)){const k=S.travel.to;S.travel=null;enter(k)}}
   if(S.phase==="play"&&S.mode==="arrive"&&presReady()){
     if(S.seqT===0)render();S.seqT++;const b=S.seq[S.seqI];if(b&&S.seqT>Math.round((1100+b.txt.length*42)/90))advance()}
