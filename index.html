@@ -1538,10 +1538,11 @@ function opUp(){const O=S.op;if(!O)return;const T=opTw();T.held=0;if(O.drag){opR
 function opCheck(){const O=S.op,p=O.drag,T=O.tw;if(!p)return;p.x=T.x+O.wx;p.y=T.y+O.wy;const cl=p.cx-p.w/2-4,cr=p.cx+p.w/2+4,ct=p.cy-4,cb=p.cy+p.h+4;
   if(p.y<ct-1){p.done=1;O.drag=null;sfx("clue");if(O.p.every(q=>q.done)){O.end=2;sfx("tbc");render()}draw();return}
   if(p.y-p.h/2<ct)return draw();
-  if(p.x-p.w/2<cl+1||p.x+p.w/2>cr-1||p.y+p.h/2>cb-1){const now=performance.now();if(!O.hitT){O.hitT=now;sfx("blip")}else if(now-O.hitT>500){O.hitT=0;O.drag=null;opReset(p);opBuzz()}}else O.hitT=0;draw()}
+  const hw=OPV[p.k][0]*.8,hh=OPV[p.k][1]*.8;if(p.x-hw<cl+.5||p.x+hw>cr-.5||p.y+hh>cb-.5){const now=performance.now();if(!O.hitT){O.hitT=now;sfx("blip")}else if(now-O.hitT>200){O.hitT=0;O.drag=null;opReset(p);opBuzz()}}else O.hitT=0;draw()}
 function opWobble(){const O=S.op,p=O&&O.drag;if(!p||O.end||O.buzz>0)return;const out=(p.cy+p.h*.5-1-p.y)/(p.h+6);
   O.dv=O.dv*.92+(Math.random()-.5)*(.16+.2*Math.min(1,Math.max(0,out)));O.wx+=O.dv;opCheck()}
-function opNear(p){return Math.min(p.x-p.w/2-(p.cx-p.w/2-3),(p.cx+p.w/2+3)-(p.x+p.w/2))}
+const OPV={mocio:[6,17],chiave:[11,5.5],polpetta:[7.4,7.4],copione:[8,12],radiolina:[6,15],anello:[7.6,9]};
+function opNear(p){const hw=OPV[p.k][0]*.8;return Math.min(p.x-hw-(p.cx-p.w/2-4),(p.cx+p.w/2+4)-(p.x+hw))}
 function opTweezers(){const O=S.op;if(O.end)return;const T=opTw(),x=T.x,y=T.y,op=O.drag?.4:(T.held?1.4:3);
   if(!T.held){al(.5,()=>{g.save();g.translate(x+7,y-20);g.scale(1,.35);disc(0,0,24,"#000");g.restore()});if((F>>3)%2)al(.5,()=>{g.strokeStyle="#ffd23c";g.lineWidth=1;g.strokeRect(x-8,y-46,30,50)})}
   const arm=(dx,c,w)=>{g.strokeStyle=c;g.lineWidth=w;g.lineCap="round";g.beginPath();g.moveTo(x+dx,y);g.lineTo(x+dx*1.8+6,y-18);g.lineTo(x+14,y-40);g.stroke()};
