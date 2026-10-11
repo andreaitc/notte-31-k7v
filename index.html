@@ -1418,6 +1418,11 @@ function vanSound(){if(!TA||S.phase!=="title")return;if(AC.state==="running"&&AC
 let THG=null;
 function theme(on,kind){THEME.forEach(o=>{try{o.stop()}catch(e){}});THEME=[];if(THG){try{THG.gain.value=0;THG.disconnect()}catch(e){}THG=null}if(!on||!SND)return;try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();THG=AC.createGain();THG.connect(AC.destination);
   const nt=(f,t,d,type,v)=>{const o=AC.createOscillator(),gg=AC.createGain();o.type=type;o.frequency.value=f;gg.gain.setValueAtTime(v,t);gg.gain.linearRampToValueAtTime(0,t+d*.95);o.connect(gg);gg.connect(THG);o.start(t);o.stop(t+d);THEME.push(o)};
+  if(kind==="fight"){let t=AC.currentTime+.05;const bt=.11,NB=AC.createBuffer(1,AC.sampleRate*.12,AC.sampleRate),nd=NB.getChannelData(0);for(let i=0;i<nd.length;i++)nd[i]=(Math.random()*2-1)*(1-i/nd.length);
+    const hit=(t,v,f)=>{const s=AC.createBufferSource(),gg=AC.createGain(),hp=AC.createBiquadFilter();hp.type="highpass";hp.frequency.value=f;s.buffer=NB;gg.gain.value=v;s.connect(hp);hp.connect(gg);gg.connect(THG);s.start(t);THEME.push(s)};
+    const B=[41,41,53,41,44,41,53,46],L=[77,76,77,80,77,76,73,72];
+    for(let i=0;i<256;i++){const M=440*Math.pow(2,(B[(i>>1)%8]-69)/12);nt(M,t,.1,"sawtooth",.05);if(i%4===0)nt(55,t,.12,"square",.09);if(i%8===4)hit(t,.18,1500);if(i%2===1)hit(t,.04,6000);
+      if(i%16===0||i%16===6||i%16===12)nt(440*Math.pow(2,(L[(i>>4)%8]-69)/12),t,.2,"square",.028);t+=bt}return}
   if(kind==="tension"){let t=AC.currentTime+.05;const bt=.18,hi=[659,698,659,622,587,622,659,740,784,740,698,659];
     for(let i=0;i<120;i++){nt([82,82,87,82][i%4],t,.15,"triangle",.09);if(i%8===0)nt(hi[(i>>3)%hi.length],t,1.3,"square",.022);if(i%8===4){nt(55,t,.1,"square",.08);nt(55,t+.12,.08,"square",.06)}t+=bt}return}
   const M=n=>440*Math.pow(2,(n-69)/12);
@@ -1545,8 +1550,9 @@ const SGC=[["biljana","Non ti permettere! Dieci anni che lavoro qui e non mi hai
   ["izzo","Ah sì? E allora vieni qua!",1,1]];
 const SGN={biljana:"BILIANA",izzo:"IZZO",caterina:"CATERINA",gio:"GIOVANNI"};
 function sgFight(){return false}
-function startSgc(){S.phase="sgc";S.ci=0;S.cf=0;sfx("shout");render()}
-function sgcEnd(){if(S.phase!=="sgc")return;S.phase="play";S.ci=0;S.zT=0;S.sgLook=1;S.vx=stopX();S.seq=[{who:"gio",txt:"«Bene! Bravissimi. Questa volta ci ho creduto anch'io. La rifacciamo.»"},{who:"caterina",txt:"«Dall'inizio?»"},{who:"mattia",txt:"«Valentino! Entra pure, tranquillo: sono le prove del secondo atto.»"}];S.seqI=0;S.seqT=0;S.mode="arrive";render()}
+function startSgc(){S.phase="sgc";S.ci=0;S.cf=0;S.cT=performance.now();theme(true,"fight");sfx("shout");render()}
+function sgcNext(){S.cT=performance.now();S.ci++;if(S.ci>=SGC.length){S.ci=SGC.length-1;S.zT=performance.now();S.zS=0;sfx("shout");render();return}const l=SGC[S.ci];sfx(l[3]?"shout":"blip");render()}
+function sgcEnd(){if(S.phase!=="sgc")return;theme(false);S.phase="play";S.ci=0;S.zT=0;S.sgLook=1;S.vx=stopX();S.seq=[{who:"gio",txt:"«Bene! Bravissimi. Questa volta ci ho creduto anch'io. La rifacciamo.»"},{who:"caterina",txt:"«Dall'inizio?»"},{who:"mattia",txt:"«Valentino! Entra pure, tranquillo: sono le prove del secondo atto.»"}];S.seqI=0;S.seqT=0;S.mode="arrive";render()}
 function sgcScene(){const l=SGC[Math.min(S.ci,SGC.length-1)],fight=l[2],sk=(S.zT?(performance.now()-S.zT<3400):(fight&&l[3]))?Math.sin(F*2.1)*(S.zT?3:2):0;g.save();g.translate(sk,0);
   r(-4,0,392,216,"#1c1c26");r(-4,0,392,22,"#121218");for(let x=10;x<384;x+=64){r(x,16,2,6,"#2a2a34");disc(x+1,24,3,"#fff3d0")}
   sgCurtains(-4,388,26,84);al(.14,()=>poly([[392,0],[392,40],[150,216],[20,216]],"#fff3c8"));
@@ -2467,7 +2473,7 @@ $("screen").addEventListener("click",e=>{
   if(S.phase==="seats"){seatClick(e);return}
   if(S.phase==="brk"){brkMove(e);brkLaunch();return}
   if(S.phase==="op"||S.phase==="ape"||S.phase==="pac")return;
-  if(S.phase==="sgc"){if(S.zT){const el=performance.now()-S.zT;if(el<3400)S.zT-=3400-el;else if(el>4000)sgcEnd();return}S.ci++;if(S.ci>=SGC.length){S.ci=SGC.length-1;S.zT=performance.now();S.zS=0;sfx("shout");render();return}const l=SGC[S.ci];sfx(l[3]?"shout":"blip");render();return}
+  if(S.phase==="sgc"){if(S.zT){const el=performance.now()-S.zT;if(el<3400)S.zT-=3400-el;else if(el>4000)sgcEnd();return}sgcNext();return}
   if(S.phase==="post"){if((S.pf||0)<36){S.pf=36;render();return}if(S.pdark)return;if(S.pi===POST.length-1)return;S.pi++;S.pz=0;sfx("blip");if(S.pi===POST.length-1)theme(true,"tension");render();return}
   if(S.phase!=="play")return;
   if(S.mode==="arrive")return advance();
@@ -2482,7 +2488,8 @@ document.addEventListener("keydown",e=>{if(S&&S.phase==="pac"&&S.pac){const d={A
   if(e.key==="m"&&S.phase==="play"&&S.mode==="explore")openMap();if(e.key==="Escape"&&S.phase==="play"&&(S.mode==="map"||S.mode==="talk")){S.mode="explore";render()}});
 
 function tick(){F++;if(S.phase==="title"&&SND){if(!TA)titleAudio();vanSound()}else if(TA)stopTitleAudio();if(S.phase==="scossa")scossaTick();if(S.phase==="vint"&&S.vi)vintTick();if(S.phase==="timmy"&&S.wm)timmyTick();if(S.phase==="play"&&S.loc==="foyer"&&!S.catOk&&(S.mode==="explore")){S.catF=(S.catF||0)+1;if(S.catF>=170){S.catOk=1;S.mode="say";S.say={pid:"mario",txt:"Marra! Cash! Smettetela!",code:"52"};sfx("blip");render()}}if(S.called)for(const k in S.called)if(S.called[k]<30){S.called[k]++;if(S.called[k]===30)render()}if(S.phase==="win"){S.wf=(S.wf||0)+1;if(S.wf===44)render();if(S.wf>44&&S.wf<80&&S.wf%6===0)sfx("step");if(S.wf===118)sfx("whoosh");if(S.wf===150)sfx("laugh");if(S.wf===185)render()}
-  if(S.phase==="sgc"&&S.zT){const el=performance.now()-S.zT;if(F%4===0&&el<3400)sfx("step");if(el>=3400&&!S.zS){S.zS=1;sfx("shout")}if(el>=6000)sgcEnd()}
+  if(S.phase==="sgc"&&!S.zT&&performance.now()-S.cT>=2000)sgcNext();
+  if(S.phase==="sgc"&&S.zT){const el=performance.now()-S.zT;if(F%4===0&&el<3400)sfx("step");if(el>=3400&&!S.zS){S.zS=1;theme(false);sfx("shout")}if(el>=6000)sgcEnd()}
   if(S.phase==="post"){S.pf=(S.pf||0)+1;if(S.pf===36)render();if(S.pi===POST.length-1&&!S.pdark&&(S.pz||0)<PZ){S.pz=(S.pz||0)+1;if(S.pz===PZ){theme(false);S.pT=performance.now();S.gz=0;S.pLine=0}}if(S.pi===POST.length-1&&S.pT){const el=performance.now()-S.pT;S.gz=Math.max(0,Math.min(1,(el-1000)/600));if(el>=2600&&!S.pLine){S.pLine=1;render()}if(el>=5600){S.pT=0;S.phase="tbc";S.tbcShake=8;boomSfx();render()}}}
   if(S.phase==="play"&&S.mode==="travel"){S.travel.f++;if(S.travel.f>(calmo?3:28)){const k=S.travel.to;S.travel=null;enter(k)}}
   if(S.phase==="play"&&S.mode==="arrive"&&presReady()){
