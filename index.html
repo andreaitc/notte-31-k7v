@@ -1813,8 +1813,9 @@ function seatScene(){const E=S.se;r(0,0,384,216,"#2a2a2e");r(0,0,384,30,"#0e0e10
     r(x-1.5*s,bt+bh*.55,3*s,h-bh*.55,"#2a2a30");r(x+w-1.5*s,bt+bh*.55,3*s,h-bh*.55,"#2a2a30");r(x-1.5*s,bt+bh*.55,3*s,1*s,"#5a5a66");r(x+w-1.5*s,bt+bh*.55,3*s,1*s,"#5a5a66");
     r(x+2*s,bt+bh+1*s,w-4*s,h-bh-1*s,"#2a2a30");r(x+2*s,bt+bh+1*s,w-4*s,1*s,"#4a4a54");
     if(o&&t>=1){const mx=x+w/2,my=top-2*s;if(k===E.target)seatIcon("radio",mx,my+1*s,2*s);else if(E.junk[k][0]!=="niente")seatIcon(E.junk[k][0],mx,my,2*s)}});
-  txt("CERCA LA RADIOLINA",192,12,8,"#ffd23c");txt("POLTRONE GUARDATE: "+E.tries,192,21,4,"#9aa3e0");
-  r(40,25,304,15,"#000000dd");r(40,25,304,1,"#ffd23c");r(40,39,304,1,"#ffd23c");r(40,25,1,15,"#ffd23c");r(343,25,1,15,"#ffd23c");txt(E.msg,192,35,5,E.found?"#5eff8a":"#f4f4ff")}
+  txt("CERCA LA RADIOLINA",192,12,8,"#ffd23c");
+  r(30,18,324,28,"#0a0a0e");r(30,18,324,1,"#ffd23c");r(30,45,324,1,"#ffd23c");r(30,18,1,28,"#ffd23c");r(353,18,1,28,"#ffd23c");
+  {const m=E.msg,c=E.found?"#5eff8a":"#f4f4ff";if(m.length<52)txt(m,192,34.5,5.5,c);else{let k=Math.floor(m.length/2),a=m.lastIndexOf(" ",k),b=m.indexOf(" ",k);k=(b<0||(a>=0&&k-a<=b-k))?a:b;txt(m.slice(0,k),192,29.5,5.5,c);txt(m.slice(k+1),192,40,5.5,c)}}}
 /* EASTER EGG: COLPISCI TIMMY (una lepre) */
 const WM_X=[[110,148],[192,148],[274,148],[80,190],[192,190],[304,190]];
 function startTimmy(){S.phase="timmy";S.wm={t:0,score:0,miss:0,h:WM_X.map(()=>({u:0,life:0,hit:0})),end:0};theme(false);sfx("start");render()}
