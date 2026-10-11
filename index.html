@@ -1205,7 +1205,7 @@ function draw(){
   if(ph==="scossa"){scossaDraw();return}
   if(ph==="vint"){vintDraw();return}
   if(ph==="post"){if((S.pf||0)<36){r(0,0,384,216,"#000");txt("DA QUALCHE PARTE,",192,100,8,"#ff3b5c");txt("A QUALCHE CHILOMETRO DA LÌ...",192,116,8,"#ff3b5c");return}if(S.pdark){r(0,0,384,216,"#000");return}if(S.pi===POST.length-1){const k=Math.min(1,(S.pz||0)/PZ),e=k*k*(3-2*k),s=1+e*2.4;g.save();g.translate(240+(120-240)*e,119+(134-119)*e);g.scale(s,s);g.translate(-240,-119);postScene();g.restore();return}postScene();return}
-  if(ph==="tbc"){r(0,0,384,216,"#000");if(S.tbcShake>0){S.tbcShake-=.25;const k=S.tbcShake;g.translate((Math.random()-.5)*k,(Math.random()-.5)*k);al(Math.min(.8,k/10),()=>r(-20,-20,424,256,"#fff"))}txt("TO BE",192,82,24,"#ffd23c");txt("CONTINUE...",192,114,24,(F>>2)%2||calmo?"#ff3b5c":"#ffd23c");txt("SEE YOU IN DICEMBRE 2027",192,142,8,"#f4f4ff");return}
+  if(ph==="tbc"){r(0,0,384,216,"#000");if(S.tbcShake>0){S.tbcShake-=.25;const k=S.tbcShake;g.translate((Math.random()-.5)*k,(Math.random()-.5)*k);al(Math.min(.8,k/10),()=>r(-20,-20,424,256,"#fff"))}txt("TU BI",192,82,24,"#ffd23c");txt("CONTINUED...",192,114,24,(F>>2)%2||calmo?"#ff3b5c":"#ffd23c");txt("SI IU IN DICEMBER 2027",192,142,8,"#f4f4ff");return}
   if(ph==="fuga"||ph==="end"){const f=ph==="end"?999:S.f;if(f>=190){r(0,0,384,216,"#000");return}
     yard(false);
     if(f<20){const j=f>6?(F%2)*2:0;if(f>6)for(let i=0;i<4;i++)al(.45,()=>disc(244-i*9-(F%4)*2,GY-6-i*6,3+i,"#b0b0c0"));bus(250+j,GY+2,1,f>6)}
