@@ -1588,7 +1588,7 @@ function apeLoop(now){const A=S.ape;if(S.phase!=="ape"||!A)return;const dt=Math.
       A.x+=A.steer*dt*1.7*(.45+sr*.55);A.x-=seg*dt*.32*sr;A.x=Math.max(-2,Math.min(2,A.x));
       A.pos+=A.sp*dt;A.bg+=seg*A.sp*dt*.35;A.score+=Math.round(A.sp*dt*10);A.time-=dt;
       for(const c of A.cars){c.z+=c.v*dt;const dz=c.z-A.pos;
-        if(dz>-.25&&dz<.55&&Math.abs(c.x-A.x)<(c.t==="cono"?.32:.5)&&A.crash<=0){A.crash=.6;A.sp*=.4;c.z+=4;sfx("bonk");A.time=Math.max(0,A.time-5);A.pen=1.2;A.x+=(A.x<c.x?-.25:.25)}
+        if(dz>-.25&&dz<.55&&Math.abs(c.x-A.x)<(c.t==="cono"?.32:.5)&&A.crash<=0){A.crash=.6;A.sp*=.4;c.z+=4;sfx("bonk");const pn=c.t==="cono"?1:5;A.time=Math.max(0,A.time-pn);A.pen=1.2;A.pn=pn;A.x+=(A.x<c.x?-.25:.25)}
         if(dz<-5)c.z+=180+Math.random()*60}
       if(A.cp<3&&A.pos>=APE_CP[A.cp]){A.cp++;if(A.cp>=3){A.end=2;A.score+=Math.round(A.time*100);sfx("goal");render()}else{A.time+=26;A.msg="TEMPO EXTRA!";A.mt=2;sfx("clue")}}
       if(A.mt>0)A.mt-=dt;
@@ -1636,7 +1636,7 @@ function apeScene(){const A=S.ape;
     for(const c of A.cars){const dz=c.z-A.pos;if(dz>=n-1&&dz<n){const t=(dz-(n-1)),pa=P[n-1],pb=P[n];const sy=pa.sy+(pb.sy-pa.sy)*t,cx=pa.cx+(pb.cx-pa.cx)*t,w=pa.w+(pb.w-pa.w)*t,sc=pa.sc+(pb.sc-pa.sc)*t;spr.push(()=>apeCar(cx+c.x*w,sy,sc*1.45,c.c,c.t))}}
     spr.forEach(f=>f());spr.length=0}
   const bob=A.sp>1?((F>>1)%2):0,shake=A.crash>0?(Math.random()*4-2):0;apeSprite(192+shake,206-bob,1.15,A.steer);
-  if(A.crash>0&&(F>>1)%2)txt("BONK!",192,140,10,"#ff3b5c");if(A.pen>0){A.pen-=.03;txt("-5 SECONDI",192,40,8,"#ff3b5c")}
+  if(A.crash>0&&(F>>1)%2)txt("BONK!",192,140,10,"#ff3b5c");if(A.pen>0){A.pen-=.03;txt("-"+(A.pn||5)+(A.pn===1?" SECONDO":" SECONDI"),192,40,8,"#ff3b5c")}
   r(0,0,384,22,"#00000088");txt("TEMPO",192,8,5,"#ffd23c");txt(String(Math.ceil(A.time)).padStart(2,"0"),192,20,11,A.time<8&&(F>>2)%2?"#ff3b5c":"#ffd23c");
   txt("PUNTI",8,8,5,"#ff7ad0","left");txt(String(A.score).padStart(6,"0"),8,18,6,"#f4f4f4","left");
   txt("TAPPA "+Math.min(3,A.cp+1)+"/3",350,8,5,"#7ad8ff","right");txt(Math.round(A.sp*2.7)+" KM/H",350,18,6,"#f4f4f4","right");
