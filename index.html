@@ -592,6 +592,7 @@ function sfx(n){ if(!SND) return; try{
   if(n==="step"){tone(220,t,.05,"square",.04);tone(170,t+.09,.05,"square",.04)}
   if(n==="talk"){tone(440,t,.06,"square",.04);tone(520,t+.08,.06,"square",.04);tone(470,t+.16,.06,"square",.04)}
   if(n==="blip")tone(660,t,.03,"square",.025);
+  if(n==="blink"){tone(880,t,.06,"triangle",.05,440);tone(330,t+.08,.12,"triangle",.05,220)}
   if(n==="bonk"){tone(120,t,.25,"square",.09,40);tone(900,t,.05,"sawtooth",.05,200)}
   if(n==="clue")[523,659,784,1047].forEach((f,i)=>tone(f,t+i*.09,.1,"square",.05));
   if(n==="nada")tone(150,t,.25,"sawtooth",.05,80);
@@ -1683,7 +1684,7 @@ function startVint(){S.phase="vint";S.vi={f:0,end:0};S.loc="corridoi";sfx("step"
 function vintNext(){const V=S.vi;if(!V.end){V.end=1;V.g=0}}
 const VLINES=[[8,"Otro trentuno de dicembre."],[50,"Esta noce todo es lindo, y a casa prestissimo."],[96,"¿Qué cosa può andare estorto?"]];
 function vintTick(){const V=S.vi;V.f++;if(V.f%5===0&&!V.end&&V.f<118)sfx("step");if(V.f%2===0&&!V.end&&V.f<120)sfx(V.f%4?"type":"");if(V.f===134)sfx("shout");
-  if(V.f>=177&&!V.end){S.phase="play";S.vi=null;enter("organizzatrici");return}if(V.end){V.g++;if(V.g>=14){S.phase="play";S.vi=null;enter("organizzatrici");return}}render()}
+  if(V.f>=144&&!V.tF)V.tF=performance.now();const dt=V.tF?performance.now()-V.tF:0;V.hide=dt>=1000;if(dt>=3000&&!V.shut){V.shut=1;sfx("blink")}if(dt>=5200&&!V.end){S.phase="play";S.vi=null;enter("organizzatrici");return}if(V.end){V.g++;if(V.g>=14){S.phase="play";S.vi=null;enter("organizzatrici");return}}render()}
 const CZ={hc:96,wd:68,hf:108,hu:118,zb:4.4};
 const cxL=z=>192-CZ.wd/z,cxR=z=>192+CZ.wd/z,cyF=z=>CZ.hc+CZ.hf/z,cyC=z=>CZ.hc-CZ.hu/z,cyH=(z,m)=>cyF(z)-(m/2.6)*(CZ.hf+CZ.hu)/z;
 function vpos(V){const p=Math.min(1,V.f/118),e=p*p*(3-2*p),z=CZ.zb-.45-(CZ.zb-.45-.74)*e,yb=cyF(z),s=2.9/z;return{yb,s,z}}
@@ -1751,13 +1752,13 @@ function vintDraw(){const V=S.vi,Z0=.32,ZB=CZ.zb;
   al(.38,()=>{wq(-1,Z0,.75,0,2.7,"#000");wq(1,Z0,.75,0,2.7,"#000")});al(.2,()=>{wq(-1,.75,1.1,0,2.7,"#000");wq(1,.75,1.1,0,2.7,"#000")});al(.3,()=>poly([[cxL(Z0),cyF(Z0)],[cxR(Z0),cyF(Z0)],[cxR(.7),cyF(.7)],[cxL(.7),cyF(.7)]],"#000"));
   copier();
   const {yb,s,z}=vpos(V);const near=Math.min(1,Math.max(0,1-Math.abs(z-NE.reduce((a,b)=>Math.abs(b-z)<Math.abs(a-z)?b:a))/.8));
-  g.save();g.translate(192-10*s,yb);g.scale(s,s);person(0,0,V.f>=124?Object.assign({},VAL,{back:0},V.f>=155?{shut:1}:{}):VAL,!V.end&&V.f<118&&V.f%4<2);r(19,-42,1.3,42,"#8a6a3a");r(16,-3,8,3,"#d8d8d0");g.restore();
+  g.save();g.translate(192-10*s,yb);g.scale(s,s);person(0,0,V.f>=124?Object.assign({},VAL,{back:0},V.shut?{shut:1}:{}):VAL,!V.end&&V.f<118&&V.f%4<2);r(19,-42,1.3,42,"#8a6a3a");r(16,-3,8,3,"#d8d8d0");g.restore();
   al(.28*(1-near),()=>r(192-12*s,yb-60*s,24*s+10,60*s,"#06081e"));
   al(.22,()=>{r(0,0,384,14,"#000");r(0,204,384,12,"#000")});
   if(V.end)al(Math.min(1,V.g/12),()=>r(0,0,384,216,"#000"));
   S.vx=182}
 
-function vintHTML(){const V=S.vi;if(V.end||V.f>=155)return"";if(V.f>=134){const n=Math.min(15,Math.floor((V.f-134)*1.6));return`<div class="shout"><span>${"VALENTINOOOOOO!".slice(0,n)}</span></div>`}let cur=null;for(const L of VLINES)if(V.f>=L[0])cur=L;if(!cur)return"";
+function vintHTML(){const V=S.vi;if(V.end||V.hide)return"";if(V.f>=134){const n=Math.min(15,Math.floor((V.f-134)*1.6));return`<div class="shout"><span>${"VALENTINOOOOOO!".slice(0,n)}</span></div>`}let cur=null;for(const L of VLINES)if(V.f>=L[0])cur=L;if(!cur)return"";
   const n=Math.min(cur[1].length,Math.floor((V.f-cur[0])*2.2));const{yb,s}=vpos(V);let hy=yb-56*s;const top=Math.max(20,Math.min(60,hy/216*100-2));
   return`<div class="vbub" style="left:calc(var(--cx) + var(--cw) * .5);top:calc(var(--cy) + var(--ch) * ${top/100})"><span>${esc(cur[1].slice(0,n))}</span></div>`}
 /* MENU IMPOSTAZIONI (ingranaggio) */
