@@ -1313,7 +1313,7 @@ function render(){
   const on=(id,fn)=>{const e=$(id);if(e)e.onclick=ev=>{ev.stopPropagation();fn()}};
   on("bstart",()=>{stopTitleAudio();fullscreen(true);S.phase="brief";theme(true);render();setTimeout(fitScreen,400)});
   on("bgo",()=>{theme(false);startVint()});
-  const ct=document.querySelector(".crawl .ct");if(ct){const fin=()=>{if(S.phase==="brief"){theme(false);startVint()}};ct.addEventListener("animationend",fin,{once:true});const cw=ct.parentElement,lp=ct.lastElementChild;const chk=()=>{if(S.phase!=="brief"||!lp.isConnected)return;const a=lp.getBoundingClientRect(),c=cw.getBoundingClientRect();if(a.bottom<c.top+c.height*.12){fin();return}requestAnimationFrame(chk)};requestAnimationFrame(chk)}
+  const ct=document.querySelector(".crawl .ct");if(ct){const fin=()=>{if(S.phase==="brief"){theme(false);startVint()}};ct.addEventListener("animationend",fin,{once:true});const cw=ct.parentElement,lp=ct.lastElementChild;const chk=()=>{if(S.phase!=="brief"||!lp.isConnected)return;const a=lp.getBoundingClientRect(),c=cw.getBoundingClientRect();if(a.bottom<c.top+1){setTimeout(fin,500);return}requestAnimationFrame(chk)};requestAnimationFrame(chk)}
   on("bskip",()=>{S.wf=185;render()});
   on("bvideo",()=>{theme(false);noise(false);if(unlockAudio.el)unlockAudio.el.pause();S.phase="video";render();const v=$("vid");if(v){v.onended=()=>{if(unlockAudio.el)unlockAudio.el.play().catch(()=>{});S.phase="fuga";S.f=0;sfx("engine");render()};const srcs=v.querySelectorAll("source");srcs[srcs.length-1].onerror=()=>{$("verr").hidden=false};const pr=v.play();if(pr&&pr.catch)pr.catch(()=>{})}});
   on("bplay",()=>{const v=$("vid");if(v){if(v.paused)v.play().catch(()=>{});else v.pause()}});
