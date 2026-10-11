@@ -514,17 +514,17 @@ const ROOMS = {
       {n:"l'aula E",b:[262,48,38,102],txt:"Aula E: disegni dei bambini. In uno c'è un autobus che vola.",th:"¿Un autobús que vola?"},
       {n:"l'aula F",b:[312,48,38,102],txt:"Aula F: chiusa a chiave. Valentino ha la chiave. Dentro, niente. Ma è tutto pulito: bene.",th:"Perfecto."}]},
   sg:{n:"ITC Studio, aula G",m:"Aula G",z:"studio",wall:"#1c1c26",
-    ppl:[P("mattia","Mattia","drammaturgo",{body:"#2a2a3a",hair:"#3a2a1a",beard:"#3a2a1a"},150,{
+    ppl:[P("mattia","Mattia","drammaturgo",{body:"#2a2a3a",hair:"#3a2a1a",beard:"#3a2a1a"},128,{
       greet:["Valentino! Entra, stiamo provando. Il testo è mio, gli errori sono degli attori.", "Se vedi Gio, digli che la sua entrata era debole. Lui lo sa, ma diglielo."],again:["Prova ancora, Valentino."],
       foto:"«Paolucci? Te l'ho detto: è rimasto in piedi vicino al leggio, bianco come un lenzuolo. La signora invece alla fine ha detto “bello, ma troppo lungo”, con un accento stranissimo.»",
       strano:"«Gli attori dicono che dal baule manca un impermeabile rosso.»",
       aiuto:"«Una mano? Sì: siediti lì e fai il pubblico. Ci serve una reazione vera.»",
-      clue:{cappello:"«Questo è un cappello di scena. Ma non nostro. Troppo bello.»"}}),P("gio","Gio","attore e regista",{body:"#5a4a3a",hair:"#1a1a20",gl:1},178,{
+      clue:{cappello:"«Questo è un cappello di scena. Ma non nostro. Troppo bello.»"}}),P("gio","Gio","attore e regista",{body:"#5a4a3a",hair:"#1a1a20",gl:1},160,{
       greet:["Anzi no: esci e rientra. L'entrata era debole."],again:["Più convinto, Valentino."],
       foto:"«Se fosse uno spettacolo, la scomparsa del presidente sarebbe il primo atto. Nel secondo ci si chiede sempre: a chi conviene?»",
       strano:"«Durante la prova una signora ha fatto “bravo, bravo” con un accento stranissimo. Mi è piaciuta.»",
-      aiuto:"«Gentile. Guarda il baule dei costumi. Qualcuno ci ha rimesso dentro una cosa sbagliata.»"}),P("biljana","Biliana","attrice",{body:"#444",hair:"#222"},232,{greet:["Ciao Valentino! Vuoi un po' di ajvar? L'ho portato per la festa."],again:["L'ajvar è ancora lì, se vuoi."],foto:"«Povero Paolucci. Spero che stia bene. Se lo trovi, digli che gli ho tenuto da parte un po' di ajvar.»",strano:"«Durante la prova una donna col cappello rosso ha recitato una battuta da dietro la porta. Recitava male, ma con tanto cuore.»"}),P("caterina","Caterina","drammaturga e attrice",{body:"#444",hair:"#222"},262,{greet:["Valentino! Sto scrivendo una scena per ragazzi: un presidente scomparso. Ti suona familiare?"],again:["La scena va avanti. Il presidente è ancora scomparso."],foto:"«Nel teatro ragazzi c'è sempre un cattivo che non è davvero cattivo. Vuole solo essere guardato. Chi conosci che vuole essere guardato a fine anno?»",strano:"«La signora in rosso guardava la prova come guarda chi il teatro lo conosce bene. Troppo bene.»"})],
-    objs:[{n:"il baule di scena",b:[22,152,56,36],txt:"Il baule dei costumi di scena. Dentro, solo cappelli. Nessuno rosso.",th:"Nada."},{n:"le finestre",b:[80,40,190,90],main:1},{n:"il copione sul leggio",b:[300,104,22,46],txt:"Il titolo del copione è corretto a penna: “Il ritorno”. Il ritorno di chi?",th:"El ritorno..."},{n:"gli attori",b:[226,138,96,54],txt:"Gli attori ripetono la stessa battuta da un'ora: “Dov'è il presidente?”. Nessuno ha ancora trovato il tono giusto.",th:"Neanche yo."}]}
+      aiuto:"«Gentile. Guarda il baule dei costumi. Qualcuno ci ha rimesso dentro una cosa sbagliata.»"}),P("biljana","Biliana","attrice",{body:"#444",hair:"#222"},204,{greet:["Ciao Valentino! Vuoi un po' di ajvar? L'ho portato per la festa."],again:["L'ajvar è ancora lì, se vuoi."],foto:"«Povero Paolucci. Spero che stia bene. Se lo trovi, digli che gli ho tenuto da parte un po' di ajvar.»",strano:"«Durante la prova una donna col cappello rosso ha recitato una battuta da dietro la porta. Recitava male, ma con tanto cuore.»"}),P("caterina","Caterina","drammaturga e attrice",{body:"#444",hair:"#222"},280,{greet:["Valentino! Sto scrivendo una scena per ragazzi: un presidente scomparso. Ti suona familiare?"],again:["La scena va avanti. Il presidente è ancora scomparso."],foto:"«Nel teatro ragazzi c'è sempre un cattivo che non è davvero cattivo. Vuole solo essere guardato. Chi conosci che vuole essere guardato a fine anno?»",strano:"«La signora in rosso guardava la prova come guarda chi il teatro lo conosce bene. Troppo bene.»"})],
+    objs:[{n:"il baule di scena",b:[22,152,56,36],txt:"Il baule dei costumi di scena. Dentro, solo cappelli. Nessuno rosso.",th:"Nada."},{n:"le finestre",b:[80,40,190,90],main:1},{n:"il copione sul leggio",b:[300,104,22,46],txt:"Il titolo del copione è corretto a penna: “Il ritorno”. Il ritorno di chi?",th:"El ritorno..."},{n:"gli attori",b:[200,138,104,54],txt:"Gli attori ripassano la scena del litigio. Adesso sembrano tranquillissimi.",th:"Me la sono bevuta tutta."}]}
 };
 const CLUES = [
   {id:"cappello",n:"il cappello rosso",txt:"Un cappello rosso a tesa larga. Non è di nessun costume in inventario.",th:"Este cappello no es del teatro.",react:"«Un cappello così l'ho visto solo in un vecchio videogioco. Quello della ladra che girava il mondo.»"},
@@ -536,9 +536,9 @@ let VALPHOTO=IMGD.valentino;
 ROOMS.tin={n:"Dentro il tendone",z:"fuori",hidden:1,ppl:[],th:"Dentro al circo.",
   objs:[{n:"il buffet",b:[86,130,90,62]},{n:"il palco",b:[60,124,264,30],txt:"Il palco del tendone. Legno scuro, graffiato da mille prove. In fondo, una panca sola, come in uno spettacolo che non è ancora cominciato.",th:"Que bello."},{n:"le americane",b:[48,10,280,40],txt:"Le americane delle luci. Tutti i fari puntati sul centro. Sul centro, nessuno.",th:"Silencio."},{n:"le gradinate",b:[0,118,42,90],txt:"Novanta posti. Stasera tutti vuoti, tranne uno: c'è una sciarpa dimenticata. Non rossa, per fortuna.",th:"Meno male."},{n:"l'uscita",b:[344,86,40,120],txt:"L'uscita del tendone. Valentino torna fuori.",th:"Fuori, ¡vamos!",go:"lab"}]};
 function moveP(id,to,x,extra){for(const k in ROOMS){const R=ROOMS[k],i=R.ppl.findIndex(p=>p.id===id);if(i>=0){const p=R.ppl.splice(i,1)[0];p.x=x;Object.assign(p,extra||{});ROOMS[to].ppl.push(p);return}}}
-moveP("stella","tin",196,{hang:1});moveP("izzo","sg",300);moveP("clio","tin",252,{hang:1});moveP("martina","tin",140);
+moveP("stella","tin",196,{hang:1});moveP("izzo","sg",242);moveP("clio","tin",252,{hang:1});moveP("martina","tin",140);
 ROOMS.lab.objs=[{n:"la porta del tendone",b:[220,146,40,42],txt:"La porta del tendone è aperta. Dentro, le lezioni.",th:"Dentro.",go:"tin"},{n:"la luna",b:[46,20,28,28],txt:"«Di’ su, Ottorino, te cosa pensi che ci sia là sopra? Io mi figuro… ecco io mi figuro che c’è la risposta a tutti i nostri mali»",th:"¡El pueblo unido jamás será vencido!"},{n:"l'insegna",b:[66,144,66,18],txt:"ITC LAB. Una lampadina è fulminata. Valentino se lo segna.",th:"Domani. Mañana. Forse."}];
-ROOMS.sg.objs=[{n:"il baule di scena",b:[22,152,56,36],txt:"Il baule dei costumi di scena. Dentro, solo cappelli. Nessuno rosso.",th:"Nada."},{n:"le tende",b:[80,40,190,90],txt:"Sulle tende c'è una nota, come se l'avesse lasciata chi ha programmato questo gioco: “E ricordatevi di aprire le tende se dovete aprire o chiudere le finestre. Abbiamo già speso troppo!”",th:"Capito, capitissimo."},{n:"il copione sul leggio",b:[298,98,26,52],txt:"Il copione di Mattia. Sul margine, scritto a mano da Paolucci: SOS CANALE 14.",th:"Canal 14."},{n:"gli attori",b:[226,138,96,54],txt:"Gli attori ripetono la stessa battuta da un'ora: “Dov'è il presidente?”. Nessuno ha ancora trovato il tono giusto.",th:"Neanche yo."}];
+ROOMS.sg.objs=[{n:"il baule di scena",b:[22,152,56,36],txt:"Il baule dei costumi di scena. Dentro, solo cappelli. Nessuno rosso.",th:"Nada."},{n:"le tende",b:[80,40,190,90],txt:"Sulle tende c'è una nota, come se l'avesse lasciata chi ha programmato questo gioco: “E ricordatevi di aprire le tende se dovete aprire o chiudere le finestre. Abbiamo già speso troppo!”",th:"Capito, capitissimo."},{n:"il copione sul leggio",b:[298,98,26,52],txt:"Il copione di Mattia. Sul margine, scritto a mano da Paolucci: SOS CANALE 14.",th:"Canal 14."},{n:"gli attori",b:[200,138,104,54],txt:"Gli attori ripassano la scena del litigio. Adesso sembrano tranquillissimi.",th:"Me la sono bevuta tutta."}];
 ROOMS.saule.objs.forEach(o=>{const m=o.n.match(/^l'aula ([A-F])$/);if(m)o.b=[58+"ABCDEF".indexOf(m[1])*46,48,38,102]});
 ROOMS.saule.objs.push({n:"l'aula G",b:[334,48,38,102],txt:()=>S.step>=4?"L'aula G, la più grande. Da dentro arrivano le voci delle prove. Valentino entra.":"L'aula G. Da dentro arrivano le voci delle prove. Meglio non disturbare, per ora.",th:"Silencio, provano.",go:()=>S.step>=4?"sg":null});
 ROOMS.sfront.objs.forEach(o=>{if(o.n==="la bacheca dei corsi"){o.txt="Corsi di teatro per tutte le età. Uno dei fogli appesi è dell'anno scorso: “Discorso di fine anno del presidente: ore 23:55”. Qualcuno ci ha disegnato sopra dei baffi.";o.th="El año passato..."}});
@@ -1208,7 +1208,7 @@ function draw(){
     if(k==="foyer")cats();
     const s=stopX();if(S.vx<s)S.vx=Math.min(s,S.vx+(calmo?400:7));else if(S.vx>s)S.vx=Math.max(s,S.vx-(calmo?400:7));
     const spk=S.mode==="arrive"&&S.seq[S.seqI]&&presReady()?S.seq[S.seqI].who:(S.mode==="say"&&S.say?S.say.pid:null);if(spk&&spk!=="val"){const[hx,hy]=headPos(spk);for(let yy=62;yy<hy-4;yy+=4)r(hx-.5,yy,1,2,"#f4f4ff")}
-    R.ppl.filter(p=>!gone(p.id)).forEach(p=>{if(p.screen)screenFace(p);else if(p.hang){const cf=S.called[p.id],dr=cf!=null&&cf<30?Math.max(0,1-cf/26):0,sy=NPCY-46+Math.sin(F/6)*1.5-dr*dr*120;r(p.x+9,0,2,sy-36,"#d0203a");r(p.x+9.5,0,.5,sy-36,"#ff6a7a");person(p.x,sy,p.c,false);r(p.x+9,sy-24,2,22,"#d0203a")}else if(p.id==="cristina"&&S.loc==="direzione")person(p.x,NPCY,!(S.turned&&S.turned.cristina)&&S.visited.direzione?Object.assign({},p.c,{back:1}):p.c,false);else if(p.id==="micaela"&&S.loc==="direzione"){person(p.x,NPCY,Object.assign({},p.c,{tel:1}),false);phone(p.x,NPCY,p.c)}else person(p.x,NPCY-plift(p),p.c,false)});
+    R.ppl.filter(p=>!gone(p.id)).forEach(p=>{if(p.screen)screenFace(p);else if(p.hang){const cf=S.called[p.id],dr=cf!=null&&cf<30?Math.max(0,1-cf/26):0,sy=NPCY-46+Math.sin(F/6)*1.5-dr*dr*120;r(p.x+9,0,2,sy-36,"#d0203a");r(p.x+9.5,0,.5,sy-36,"#ff6a7a");person(p.x,sy,p.c,false);r(p.x+9,sy-24,2,22,"#d0203a")}else if(p.id==="cristina"&&S.loc==="direzione")person(p.x,NPCY,!(S.turned&&S.turned.cristina)&&S.visited.direzione?Object.assign({},p.c,{back:1}):p.c,false);else if(p.id==="micaela"&&S.loc==="direzione"){person(p.x,NPCY,Object.assign({},p.c,{tel:1}),false);phone(p.x,NPCY,p.c)}else if(sgFight()&&(p.id==="biljana"||p.id==="izzo"||p.id==="caterina")){const i=p.id==="biljana"?0:p.id==="izzo"?1:2,j=Math.sin(F*1.3+i*2)*1.4,hop=-Math.abs(Math.sin(F/3+i))*3,dir=i===0?1:i===2?-1:((F>>4)%2?1:-1);personSide(p.x+j,NPCY+hop,p.c,dir,(F>>2)%3===i)}else person(p.x,NPCY-plift(p),p.c,false)});
     const vy=k==="bus"?NPCY+8:NPCY+4;cart(S.vx+24,vy);person(S.vx,vy,VAL,S.vx!==s);
     if(R.z==="fuori"&&k!=="tin")fog();
     const lk=k==="cortile"?"yard":k==="bus"?"bus"+(S.found.length===3?1:0):k;light(lk,spec(k==="cortile"?"yard":k)||SPEC2[k]);
@@ -1449,7 +1449,7 @@ const STEPS=[
   open:"«Valentino! Vieni a vedere i disegni dei bambini?»",ov:"¡Ciertamente que sì!",
   pics:1,say:"«Guarda: i bambini hanno disegnato il presidente. Chi Paolucci, chi Bonazzi, uno Floridia. Paolucci è passato a vederli con la signora in rosso, lei si è fermata un sacco. Poi sono andati in aula G, da Mattia.»",th:"Aula G."},
  {room:"sg",who:"mattia",goal:"In aula G: chiedi a Mattia",tell:"In aula G, Mattia ha visto la prova con loro.",
-  open:"«Valentino! Entra pure, la prova è ferma.»",ov:"Permesso, permesito.",
+  open:"«Scusa la scenata, era il secondo atto. Dimmi tutto, Valentino.»",ov:"Permesso, permesito.",
   say:"«Sì, sono passati. La signora in rosso ha guardato la prova in prima fila, senza fiatare. Paolucci invece, mentre lei non guardava, ha scarabocchiato qualcosa sul mio copione. Guarda qua:»",paper:"SOS CANALE 14",th:"Canale catorche... ¡una radiolina! William."},
  {room:"sala",who:"william",goal:"Torna al teatro: chiedi a William una radiolina",tell:"Canale 14 è una frequenza delle radioline dei tecnici: chiedi a William, in sala.",yes:"Cerca la radiolina",
   open:"«Veniamo a noi. Mi hanno telefonato dallo Studio. Canale 14? Quello lo usiamo noi tecnici. La radiolina è da qualche parte in platea, sotto una poltrona. Me la trovi?»",ov:"Canale catorche... vediamos.",seats:1,
@@ -1518,8 +1518,21 @@ function enter(k){
   S.vx=FROMR[k]?(first?424:364):first||k==="bus"?-40:20;const pp=R.ppl.filter(p=>!gone(p.id));S.seq=[];
   if(first&&pp.length)pp.forEach(p=>p.L.greet.forEach(t=>S.seq.push(typeof t==="string"?{who:p.id,txt:t}:Object.assign({who:p.id,txt:t.t},t))));
   else if(first||!pp.length)S.seq=[{who:"val",txt:R.th||"..."}];
+  if(k==="sg"&&first)S.seq=SG_SEQ.map(b=>Object.assign({},b));
   S.seqI=0;S.seqT=0;sfx("step");if(!S.seq.length)S.mode="explore";render();
 }
+const SG_SEQ=[{who:"biljana",txt:"«Non ti permettere! Dieci anni che lavoro qui e non mi hai MAI detto grazie!»",fight:1,now:1,urlo:1},
+  {who:"izzo",txt:"«Grazie? GRAZIE?! Hai mollato il mio cavo in mezzo al palco!»",fight:1,now:1},
+  {who:"caterina",txt:"«Basta! Siete due egoisti! Io me ne vado e non torno più!»",fight:1,now:1},
+  {who:"izzo",txt:"«E vai! Chi ti trattiene?!»",fight:1,now:1},
+  {who:"biljana",txt:"«Bravo, falla piangere! Sei sempre il solito!»",fight:1,now:1},
+  {who:"caterina",txt:"«IO VI ODIO! TUTTI E DUE!»",fight:1,urlo:1},
+  {who:"val",txt:"¡Madre mía! ¿Qué pasa aquí?",fight:1},
+  {who:"gio",txt:"«Stop! Stop.»"},
+  {who:"gio",txt:"«Bene. Molto bene. La rifacciamo.»"},
+  {who:"caterina",txt:"«Ok! Dall'inizio?»"},
+  {who:"mattia",txt:"«Valentino! Entra pure, tranquillo: stavano recitando.»"}];
+function sgFight(){const b=S.mode==="arrive"&&S.seq&&S.seq[S.seqI];return S.loc==="sg"&&b&&b.fight}
 function presReady(){const b=S.seq&&S.seq[S.seqI];return ((FROMR[S.loc]?S.vx<=stopX():S.vx>=stopX())||(b&&b.now))&&!(b&&b.call&&!(S.called[b.call]>=30))}
 function advance(){
   if(!presReady()){S.vx=stopX();const b0=S.seq[S.seqI];if(b0&&b0.call)S.called[b0.call]=30;render();return}
