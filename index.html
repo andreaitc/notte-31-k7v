@@ -1749,10 +1749,11 @@ function pacScene(){const A=S.pac;r(0,0,384,216,"#140a10");
 /* MINIGIOCO: CERCA LA RADIOLINA TRA LE POLTRONE */
 const SEAT_ROWS=[{y:96,s:.78,n:8},{y:146,s:.9,n:8},{y:204,s:1.04,n:8}];
 const SEAT_JUNK=[["niente","Niente. Solo polvere."],["biglietto","Un biglietto strappato: fila F, posto 12."],["caramella","Una caramella alla menta, mezza scartata."],["calzino","Un calzino spaiato. ¿Ma come?"],["monete","Due centesimi. Ricchezza."],["programma","Il programma di sala di uno spettacolo del 2009."],["popcorn","Un pop-corn solitario."],["niente","Niente."],["occhiali","Un paio di occhiali da lettura. Di chi saranno?"],["niente","Vuota."]];
+const SEAT_MEMO={3:["corno","Un corno di cartapesta. È scappato dal Minotauro di ATENE e nessuno l'ha più cercato."],10:["habil","Il programma di sala di Habil delle città, con un appunto a matita sul margine."],14:["naso","Un naso rosso da clown. Nel tendone ne spariscono sempre, e prima o poi ricompaiono qui."],19:["spilla","Una spilla di Politico Poetico. Qualcuno l'ha persa mentre faceva cittadinanza attiva."],29:["seme","Un seme e una poesia arrotolata: avanzati da Radici di pace."],33:["cartolina","Una cartolina di Casa Maltoni, souvenir delle visite di Beata Solitudo."],38:["badge","Un vecchio cartellino plastificato con scritto 17-05-1994. Il giorno in cui è cominciato tutto."],44:["biglietto","Un biglietto del Teatrobus: corsa unica, nessuna fermata."]};
 function seatList(){const L=[];[[74,17],[94,19.5],[115,22],[138,24.5],[163,27]].forEach(([y,w],ri)=>{const n=8,tot=n*w+(n-1)*2,x0=192-tot/2;for(let i=0;i<n;i++){const s=w/40;L.push({ri,i,x:x0+i*(w+2),y,w,h:58*s,s})}});
   [[218,36]].forEach(([y,w],fi)=>{const s=w/40;for(let i=0;i<4;i++){L.push({ri:5+fi,i,x:164-(4-i)*(w+2)+2,y,w,h:58*s,s});L.push({ri:5+fi,i:i+4,x:220+i*(w+2),y,w,h:58*s,s})}});return L}
-function startSeats(){S.phase="seats";const L=seatList();S.se={L,open:{},target:Math.floor(Math.random()*L.length),found:0,msg:"Tocca le poltrone per abbassare la seduta e guardarci sopra.",tries:0,junk:{}};
-  L.forEach((p,k)=>{S.se.junk[k]=SEAT_JUNK[(k*7+Math.floor(Math.random()*5))%SEAT_JUNK.length]});sfx("blip");render()}
+function startSeats(){S.phase="seats";const L=seatList();S.se={L,open:{},target:24,found:0,msg:"Tocca le poltrone per abbassare la seduta e guardarci sopra.",tries:0,junk:{}};
+  L.forEach((p,k)=>{S.se.junk[k]=SEAT_MEMO[k]||SEAT_JUNK[(k*7+Math.floor(Math.random()*5))%SEAT_JUNK.length]});sfx("blip");render()}
 function seatClick(e){const E=S.se;if(!E||E.found)return;const[x,y]=toLogic(e);
   let k=-1;for(let j=E.L.length-1;j>=0;j--){const p=E.L[j];if(x>=p.x&&x<=p.x+p.w&&y>=p.y-p.h&&y<=p.y){k=j;break}}if(k<0||E.open[k])return;E.open[k]=performance.now();E.tries++;
   if(k===E.target){E.found=1;E.msg="¡LA RADIOLINA! Eccola qui.";sfx("clue");render();setTimeout(()=>{if(S.phase!=="seats")return;S.phase="play";S.mode="talk";S.seatFound=1;render();ask("si")},1600)}
@@ -1765,6 +1766,13 @@ function seatIcon(kind,x,y,s){g.save();g.translate(x,y);g.scale(s,s);
   else if(kind==="monete"){disc(-1.5,-1.5,1.6,"#c9a15a");disc(1.5,-1,1.6,"#e0b060")}
   else if(kind==="programma"){r(-4,-6,8,7,"#ffd23c");r(-3,-4,6,.6,"#2a1a10");r(-3,-2.5,4,.6,"#2a1a10")}
   else if(kind==="popcorn"){disc(0,-2,1.8,"#fff3c8");disc(.8,-2.8,.8,"#fff")}
+  else if(kind==="corno"){poly([[-4,0],[-1,0],[3,-9],[1.5,-9.5]],"#e8dcc0");poly([[-4,0],[-2.5,0],[1,-7],[0,-7.5]],"#c8b890")}
+  else if(kind==="habil"){r(-5,-7,10,8,"#1a1a1a");r(-4,-6,8,3,"#c0283a");r(-4,-2,6,.6,"#d8d8d8");r(-4,-.8,4,.6,"#8a8a8a")}
+  else if(kind==="naso"){disc(0,-2,2.6,"#ff2a3a");disc(-.8,-2.8,.8,"#ffb0b0")}
+  else if(kind==="spilla"){disc(0,-2.5,2.6,"#2f6fd0");disc(0,-2.5,1.6,"#ffd23c");r(-.4,-3,.8,1,"#2f6fd0")}
+  else if(kind==="seme"){disc(-2,-1.5,1.2,"#7a5a2a");r(0,-4,5,3,"#f4ecd8");r(.5,-3.2,4,.4,"#3a8a3a");r(.5,-2.2,3,.4,"#3a8a3a")}
+  else if(kind==="cartolina"){r(-5,-6,10,6.5,"#f4ecd8");r(-4,-5,4.5,4.5,"#5a9ae0");r(1.5,-4.5,2.5,.4,"#8a8a8a");r(1.5,-3.3,2.5,.4,"#8a8a8a")}
+  else if(kind==="badge"){r(-3.5,-7,7,9,"#e8e8ec");r(-3.5,-7,7,2,"#c0283a");r(-2.5,-3.5,5,.6,"#1a1a1a");r(-.4,-9,.8,2,"#8a8a8a")}
   else if(kind==="occhiali"){g.strokeStyle="#1a1a1a";g.lineWidth=.8;g.beginPath();g.arc(-2.4,-2,1.8,0,7);g.moveTo(4.2,-2);g.arc(2.4,-2,1.8,0,7);g.stroke();r(-.6,-2.4,1.2,.6,"#1a1a1a")}
   g.restore()}
 function seatScene(){const E=S.se;r(0,0,384,216,"#2a2a2e");r(0,0,384,30,"#0e0e10");for(let x=10;x<384;x+=62)r(x,22,40,2,"#3a2e26");
@@ -1774,14 +1782,15 @@ function seatScene(){const E=S.se;r(0,0,384,216,"#2a2a2e");r(0,0,384,30,"#0e0e10
       poly([[ix,y],[ox,y],[ox+d*1.2,y+9.4],[ix+d*-3.4,y+9.4]].map(([x,yy])=>[x,yy]),k%2?"#c08a52":"#ca955c");r(Math.min(ix,ox),y,Math.abs(ox-ix),.6,"#e0b07a");if(k>0)r((ix+ox)/2-1,y+5,2,1.2,"#ffd890")}
     g.strokeStyle="#141416";g.lineWidth=1.4;g.beginPath();g.moveTo(d<0?84:300,52);g.lineTo(d<0?30:354,176);g.stroke()}
   poly([[164,166],[220,166],[232,216],[152,216]],"#b07a44");for(let y=168;y<216;y+=6)r(156,y,72,.5,"#9a6a3a");
-  E.L.forEach((p,k)=>{const{x,y,w,h,s}=p,o=E.open[k],t=o?Math.min(1,(performance.now()-o)/220):0;
-    r(x-1.5*s,y-h+4*s,2*s,h-4*s,"#2a1a20");r(x+w-.5*s,y-h+4*s,2*s,h-4*s,"#2a1a20");
-    r(x+1*s,y-h,w-2*s,h*.56,"#a01f30");r(x+1*s,y-h,w-2*s,2*s,"#e04a5a");r(x+3*s,y-h+4*s,w-6*s,h*.4,"#8a1a2a");
-    const cy=y-h*.44,ch=h*.36;
-    if(!o||t<1){const hh=ch*(1-t)+ch*.4*t;r(x+2*s,cy,w-4*s,hh,"#b02435");r(x+2*s,cy,w-4*s,1.5*s,"#e04a5a")}
-    if(o){const top=cy+ch*.55;al(t,()=>{poly([[x+2*s,top],[x+w-2*s,top],[x+w,top+ch*.45],[x,top+ch*.45]],"#c0283a");r(x,top+ch*.45,w,2.5*s,"#7a1424")});
-      if(t>=1){if(k===E.target)seatIcon("radio",x+w/2,top+ch*.32,1.5*s);else if(E.junk[k][0]!=="niente")seatIcon(E.junk[k][0],x+w/2,top+ch*.3,1.4*s)}}
-    r(x,y-2*s,w,2*s,"#1a1014")});
+  E.L.forEach((p,k)=>{const{x,y,w,h,s}=p,o=E.open[k],t=o?Math.min(1,(performance.now()-o)/260):0;
+    const bt=y-h,bh=h*.62;r(x-1.5*s,bt+1*s,w+3*s,h,"#120c0e");
+    const drop=bh*.58*t,top=bt+2*s+drop;
+    if(o){r(x+1*s,bt+2*s,w-2*s,drop+2*s,"#1a1014");poly([[x+2*s,bt+3*s],[x+w-2*s,bt+3*s],[x+w-1*s,top],[x+1*s,top]],"#d8344a");r(x+3*s,bt+3.5*s,w-6*s,1.2*s,"#ff7a8a");r(x+1*s,top-1.5*s,w-2*s,1.5*s,"#6a0e1a")}
+    const BH=bh-drop;r(x+1*s,top,w-2*s,BH,"#9a1626");r(x+2*s,top-1*s,w-4*s,1*s,"#9a1626");r(x+2*s,top-1*s,w-4*s,.6*s,"#e04a5a");r(x+1*s,top,w-2*s,1.4*s,"#e04a5a");
+    if(BH>6*s){r(x+4*s,top+3*s,w-8*s,BH-6*s,"#c42234");r(x+4*s,top+3*s,w-8*s,1*s,"#e85a6a");r(x+4*s,top+BH-3.5*s,w-8*s,1.2*s,"#7a1020")}
+    r(x-1.5*s,bt+bh*.55,3*s,h-bh*.55,"#2a2a30");r(x+w-1.5*s,bt+bh*.55,3*s,h-bh*.55,"#2a2a30");r(x-1.5*s,bt+bh*.55,3*s,1*s,"#5a5a66");r(x+w-1.5*s,bt+bh*.55,3*s,1*s,"#5a5a66");
+    r(x+2*s,bt+bh+1*s,w-4*s,h-bh-1*s,"#2a2a30");r(x+2*s,bt+bh+1*s,w-4*s,1*s,"#4a4a54");
+    if(o&&t>=1){const mx=x+w/2,my=top-2*s;if(k===E.target)seatIcon("radio",mx,my+1*s,2*s);else if(E.junk[k][0]!=="niente")seatIcon(E.junk[k][0],mx,my,2*s)}});
   txt("CERCA LA RADIOLINA",192,14,8,"#ffd23c");txt("POLTRONE GUARDATE: "+E.tries,192,25,4,"#9aa3e0");
   r(0,206,384,10,"#000000aa");txt(E.msg,192,213,5,E.found?"#5eff8a":"#f4f4ff")}
 /* EASTER EGG: COLPISCI TIMMY (una lepre) */
