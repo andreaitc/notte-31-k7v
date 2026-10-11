@@ -1152,7 +1152,7 @@ function busFront(x,y){/* Teatrobus visto da davanti */const CR="#e8d8a8",GR="#4
 function fenceWall(x0){const WY=175,TOP=146;
   for(let x=x0;x<384;x+=26){r(x,TOP,1.6,WY-TOP,"#5a5e6a");r(x,TOP,1.6,.6,"#8a8e9a")}
   r(x0,TOP,384-x0,1,"#6a6e7a");
-  al(.42,()=>{g.strokeStyle="#9aa0b0";g.lineWidth=.4;g.beginPath();for(let k=-40;k<400;k+=4){g.moveTo(Math.max(x0,k),TOP+Math.max(0,x0-k));g.lineTo(k+WY-TOP,WY);g.moveTo(Math.min(384,k+WY-TOP),TOP+Math.max(0,k+WY-TOP-384));g.lineTo(k,WY)}g.stroke()});
+  al(.42,()=>{g.save();g.beginPath();g.rect(x0,TOP,384-x0,WY-TOP);g.clip();g.strokeStyle="#9aa0b0";g.lineWidth=.4;g.beginPath();for(let k=-40;k<400;k+=4){g.moveTo(Math.max(x0,k),TOP+Math.max(0,x0-k));g.lineTo(k+WY-TOP,WY);g.moveTo(Math.min(384,k+WY-TOP),TOP+Math.max(0,k+WY-TOP-384));g.lineTo(k,WY)}g.stroke();g.restore()});
   r(x0,WY,384-x0,13,"#7a2a22");for(let row=0;row<3;row++){const y=WY+1+row*4,off=(row%2)*4;for(let x=x0-4+off;x<384;x+=8){const c=mix("#7a2a22","#9a3a2a",hs(x,row+3));r(x,y,7.5,3.5,c);r(x,y,7.5,.5,sh(c,1.2))}}
   r(x0-1,WY-2,385-x0,2.5,"#8a8a90");r(x0-1,WY-2,385-x0,.5,"#b0b0b8")}
 function sidewalk(){r(0,188,384,28,"#6a6a72");r(0,188,384,1.5,"#9a9aa2");for(let x=0;x<384;x+=24)r(x,189.5,.6,12,"#55555c");r(0,201,384,1,"#4a4a52");r(0,202,384,14,"#4a4a50");for(let i=0;i<60;i++)r(hs(i,3)*384,203+hs(3,i)*12,.6,.6,"#5c5c64");
