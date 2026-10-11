@@ -2219,7 +2219,8 @@ function hintFor(pid){const s=cur();
   return s.tell;
 }
 const TACC=["...pi... krrr... ù... f...orte!","An...cora pi...ù f... krrr... orte, mam...mo...letta!","Tut...to qui? krrr... Pro...va...ci an...cora, se... hai co... krrr... raggio!"];
-function circost(pid){if(pid==="tacconi"&&S.step>6){S.tacN=S.tacN||0;if(S.tacN>=TACC.length){S.tacN=0;startTimmy();return}S.mode="say";S.say={pid,txt:TACC[S.tacN],code:"53."+(S.tacN+1),glitch:1};crackle(2600);voice(TACC[S.tacN],"tac");S.tacN++;render();return}
+function circost(pid){if(S.loc==="sg"&&S.sgLook&&!S.sgHi&&["mattia","gio","biljana","izzo","caterina"].includes(pid)){S.sgHi=1;S.mode="say";S.say={pid,txt:"«Ciao Valentino! Che ci fai qui di sera?»",code:"34.h"};sfx("blip");render();return}
+if(pid==="tacconi"&&S.step>6){S.tacN=S.tacN||0;if(S.tacN>=TACC.length){S.tacN=0;startTimmy();return}S.mode="say";S.say={pid,txt:TACC[S.tacN],code:"53."+(S.tacN+1),glitch:1};crackle(2600);voice(TACC[S.tacN],"tac");S.tacN++;render();return}
 const t=hintFor(pid);if(!t)return openTalk(pid);S.mode="say";S.say={pid,txt:t,code:SC(S.step)+".c"};sfx("blip");render()}
 
 /* INTERROGATORIO: fascia 1 chi parla, fascia 2 Valentino, fascia 3 le domande */
