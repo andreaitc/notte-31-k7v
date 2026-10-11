@@ -1578,8 +1578,8 @@ function apeTrack(){const c=new Float32Array(APE_N);let i=0;const add=(n,v)=>{fo
   while(i<APE_N)for(const[n,v]of plan)add(n,v);return c}
 const APE_CARCOL=["#2f6fd0","#ffd23c","#1f8a4f","#f4f4f4","#8a2a9a","#e07a1a"];
 function startApe(){theme(false);sfx("engine");$("screen").style.touchAction="none";S.phase="ape";
-  const cars=[];for(let k=0;k<36;k++)cars.push({z:70+k*40+Math.random()*12,x:(Math.random()*1.4-.7),v:6+Math.random()*7,c:APE_CARCOL[k%6],t:k%5===4?"cono":"auto"});
-  S.ape={pos:0,x:0,sp:0,steer:0,time:36,score:0,cars,curve:apeTrack(),cp:0,end:0,last:performance.now(),cd:3.2,bg:0,crash:0,msg:null,mt:0,eng:0,best:0};render();requestAnimationFrame(apeLoop)}
+  const cars=[];for(let k=0;k<28;k++)cars.push({z:80+k*52+Math.random()*12,x:(Math.random()*1.4-.7),v:6+Math.random()*7,c:APE_CARCOL[k%6],t:k%5===4?"cono":"auto"});
+  S.ape={pos:0,x:0,sp:0,steer:0,time:40,score:0,cars,curve:apeTrack(),cp:0,end:0,last:performance.now(),cd:3.2,bg:0,crash:0,msg:null,mt:0,eng:0,best:0};render();requestAnimationFrame(apeLoop)}
 function apeLoop(now){const A=S.ape;if(S.phase!=="ape"||!A)return;const dt=Math.min(.05,(now-A.last)/1000);A.last=now;
   if(!A.end){if(A.cd>0){const before=Math.ceil(A.cd);A.cd-=dt;if(Math.ceil(A.cd)!==before&&A.cd>0)sfx("blip");if(A.cd<=0)sfx("boot")}
     else{A.gt=(A.gt||0)+dt;const MAX=24,off=Math.abs(A.x)>1;const top=off?MAX*.45:MAX;
@@ -1588,9 +1588,9 @@ function apeLoop(now){const A=S.ape;if(S.phase!=="ape"||!A)return;const dt=Math.
       A.x+=A.steer*dt*1.7*(.45+sr*.55);A.x-=seg*dt*.32*sr;A.x=Math.max(-2,Math.min(2,A.x));
       A.pos+=A.sp*dt;A.bg+=seg*A.sp*dt*.35;A.score+=Math.round(A.sp*dt*10);A.time-=dt;
       for(const c of A.cars){c.z+=c.v*dt;const dz=c.z-A.pos;
-        if(dz>-.25&&dz<.55&&Math.abs(c.x-A.x)<(c.t==="cono"?.32:.5)&&A.crash<=0){A.crash=.6;A.sp*=.4;c.z+=4;sfx("bonk");A.x+=(A.x<c.x?-.25:.25)}
+        if(dz>-.25&&dz<.55&&Math.abs(c.x-A.x)<(c.t==="cono"?.32:.5)&&A.crash<=0){A.crash=.6;A.sp*=.4;c.z+=4;sfx("bonk");A.time=Math.max(0,A.time-5);A.pen=1.2;A.x+=(A.x<c.x?-.25:.25)}
         if(dz<-5)c.z+=180+Math.random()*60}
-      if(A.cp<3&&A.pos>=APE_CP[A.cp]){A.cp++;if(A.cp>=3){A.end=2;A.score+=Math.round(A.time*100);sfx("goal");render()}else{A.time+=26;A.msg="TEMPO EXTRA!";A.mt=2;sfx("clue")}}
+      if(A.cp<3&&A.pos>=APE_CP[A.cp]){A.cp++;if(A.cp>=3){A.end=2;A.score+=Math.round(A.time*100);sfx("goal");render()}else{A.time+=28;A.msg="TEMPO EXTRA!";A.mt=2;sfx("clue")}}
       if(A.mt>0)A.mt-=dt;
       if(A.time<=0&&!A.end){A.time=0;A.end=1;sfx("tbc");render()}
       A.eng-=dt;if(A.eng<=0&&SND&&AC){A.eng=.13;try{tone(55+A.sp*3.2,AC.currentTime,.12,"sawtooth",.018)}catch(e){}}}}
@@ -1636,7 +1636,7 @@ function apeScene(){const A=S.ape;
     for(const c of A.cars){const dz=c.z-A.pos;if(dz>=n-1&&dz<n){const t=(dz-(n-1)),pa=P[n-1],pb=P[n];const sy=pa.sy+(pb.sy-pa.sy)*t,cx=pa.cx+(pb.cx-pa.cx)*t,w=pa.w+(pb.w-pa.w)*t,sc=pa.sc+(pb.sc-pa.sc)*t;spr.push(()=>apeCar(cx+c.x*w,sy,sc*1.45,c.c,c.t))}}
     spr.forEach(f=>f());spr.length=0}
   const bob=A.sp>1?((F>>1)%2):0,shake=A.crash>0?(Math.random()*4-2):0;apeSprite(192+shake,206-bob,1.15,A.steer);
-  if(A.crash>0&&(F>>1)%2)txt("BONK!",192,140,10,"#ff3b5c");
+  if(A.crash>0&&(F>>1)%2)txt("BONK!",192,140,10,"#ff3b5c");if(A.pen>0){A.pen-=.03;txt("-5 SECONDI",192,40,8,"#ff3b5c")}
   r(0,0,384,22,"#00000088");txt("TEMPO",192,8,5,"#ffd23c");txt(String(Math.ceil(A.time)).padStart(2,"0"),192,20,11,A.time<8&&(F>>2)%2?"#ff3b5c":"#ffd23c");
   txt("PUNTI",8,8,5,"#ff7ad0","left");txt(String(A.score).padStart(6,"0"),8,18,6,"#f4f4f4","left");
   txt("TAPPA "+Math.min(3,A.cp+1)+"/3",350,8,5,"#7ad8ff","right");txt(Math.round(A.sp*2.7)+" KM/H",350,18,6,"#f4f4f4","right");
