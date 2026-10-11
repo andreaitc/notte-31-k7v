@@ -1669,10 +1669,10 @@ function pacLoop(now){const A=S.pac;if(S.phase!=="pac"||!A)return;const dt=Math.
     else{const P=A.p;A.mouth+=dt*12;
       if(P.t===0){if(pacOpen(P.c,P.r,P.want))P.d=P.want}
       else if(P.want===(P.d+2)%4){P.d=P.want;P.c+=PDIR[(P.d+2)%4][0];P.r+=PDIR[(P.d+2)%4][1];P.t=1-P.t}
-      if(pacOpen(P.c,P.r,P.d)||P.t>0)pacStep(P,6.2,dt,e=>{pacEat(e);if(pacOpen(e.c,e.r,e.want))e.d=e.want});
+      if(pacOpen(P.c,P.r,P.d)||P.t>0)pacStep(P,4.8,dt,e=>{pacEat(e);if(pacOpen(e.c,e.r,e.want))e.d=e.want});
       if(P.t===0)pacEat(P);
       if(A.fright>0)A.fright-=dt;
-      A.g.forEach((G,i)=>{if(G.wait>0){G.wait-=dt;return}const sp=G.eaten?9:A.fright>0?3.2:4.6+Math.min(.8,(1-A.left/120));
+      A.g.forEach((G,i)=>{if(G.wait>0){G.wait-=dt;return}const sp=G.eaten?7:A.fright>0?2.5:3.6+Math.min(.6,(1-A.left/120));
         if(G.t===0)pacGhostTurn(G,i);pacStep(G,sp,dt,e=>{if(e.eaten&&e.c===e.home.c&&e.r===e.home.r){e.eaten=0}pacGhostTurn(e,i)})});
       const pp=pacPos(P);A.g.forEach(G=>{if(G.wait>0)return;const gp=pacPos(G);if(Math.hypot(gp[0]-pp[0],gp[1]-pp[1])<PT*.6){
         if(G.eaten)return;if(A.fright>0&&!G.scared0){G.eaten=1;A.score+=200;sfx("clue")}else if(!G.eaten){A.lives--;A.dead=1.4;sfx("nada")}}});
