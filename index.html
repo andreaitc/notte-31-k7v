@@ -1338,7 +1338,7 @@ function render(){
     <p class="sub">Musiche a 8 bit: un computer molto paziente<br>Nessun presidente è stato maltrattato durante la lavorazione. Quasi.</p>
     <div class="last"><img src="${VALIMG()}" alt="Valentino"><p>«Felice año nuevo, compañeros. Y mañana... ¿chi lo pulisce el autobús?»</p></div>
     <p class="sub">FINE</p></div><button class="go cgo" id="bagain" type="button">GIOCA ANCORA</button><button class="hb cpost" id="bpost" type="button">ASPETTA...</button></div>`}
-  else if(ph==="sgc"){const l=SGC[S.ci];h=!l?"":`<div class="pres post ${l[0]==="caterina"||l[0]==="izzo"?"r":""}"><img src="${IMGD[l[0]]}" alt=""><div><b>${SGN[l[0]]}</b><span>${esc(l[1])}</span></div></div><div class="tap">TOCCA PER CONTINUARE · ${S.ci+1}/${SGC.length}</div>`}
+  else if(ph==="sgc"){const l=SGC[S.ci];h=!l||S.zT?"":`<div class="pres post ${l[0]==="caterina"||l[0]==="izzo"?"r":""}"><img src="${IMGD[l[0]]}" alt=""><div><b>${SGN[l[0]]}</b><span>${esc(l[1])}</span></div></div><div class="tap">TOCCA PER CONTINUARE · ${S.ci+1}/${SGC.length}</div>`}
   else if(ph==="post"){const l=POST[S.pi];h=(S.pf||0)<36||!l||S.pdark||(S.pi===POST.length-1&&!S.pLine)?"":`<div class="pres post ${l[0]==="paolucci"?"r":""}"><img src="${IMGD[l[0]]}" alt=""><div><b>${l[0].toUpperCase()}</b><span>${esc(l[1])}</span></div></div>${S.pi===POST.length-1?"":`<div class="tap">TOCCA PER CONTINUARE · ${S.pi+1}/${POST.length}</div>`}`}
   else if(ph==="vint")h=vintHTML();
   else if(ph==="scossa")h=scossaHTML();
@@ -1529,26 +1529,26 @@ const SGC=[["biljana","Non ti permettere! Dieci anni che lavoro qui e non mi hai
   ["izzo","E vai! Chi ti trattiene?!",1],
   ["biljana","Bravo, falla piangere! Sei sempre il solito!",1],
   ["caterina","IO VI ODIO! TUTTI E DUE!",1,1],
-  ["gio","Stop! Stop.",0,0,1],
-  ["gio","Bene. Molto bene. La rifacciamo.",0,0,1],
-  ["caterina","Ok! Dall'inizio?",0]];
+  ["izzo","Ah sì? E allora vieni qua!",1,1]];
 const SGN={biljana:"BILIANA",izzo:"IZZO",caterina:"CATERINA",gio:"GIOVANNI"};
 function sgFight(){return false}
 function startSgc(){S.phase="sgc";S.ci=0;S.cf=0;sfx("shout");render()}
-function sgcEnd(){S.phase="play";S.ci=0;S.seq=[{who:"mattia",txt:"«Valentino! Entra pure, tranquillo: stavano recitando.»"}];S.seqI=0;S.seqT=0;S.mode="arrive";render()}
-function sgcScene(){const l=SGC[Math.min(S.ci,SGC.length-1)],fight=l[2],sk=fight&&l[3]?Math.sin(F*2.1)*2:0;g.save();g.translate(sk,0);
+function sgcEnd(){S.phase="play";S.ci=0;S.zT=0;S.seq=[{who:"gio",txt:"«Bene! Bravissimi. Questa volta ci ho creduto anch'io. La rifacciamo.»"},{who:"caterina",txt:"«Dall'inizio?»"},{who:"mattia",txt:"«Valentino! Entra pure, tranquillo: sono le prove del secondo atto.»"}];S.seqI=0;S.seqT=0;S.mode="arrive";render()}
+function sgcScene(){const l=SGC[Math.min(S.ci,SGC.length-1)],fight=l[2],sk=(fight&&l[3])||S.zT?Math.sin(F*2.1)*(S.zT?3:2):0;g.save();g.translate(sk,0);
   r(-4,0,392,216,"#1c1c26");r(-4,0,392,22,"#121218");for(let x=10;x<384;x+=64){r(x,16,2,6,"#2a2a34");disc(x+1,24,3,"#fff3d0")}
   for(let i=0;i<5;i++){const x=20+i*74;r(x,34,46,96,"#2a3448");r(x+3,37,40,90,"#7f9cc4");r(x+3,37,40,90,"#00000055");r(x+22,37,2,90,"#2a3448");al(.25,()=>r(x+6,40,8,80,"#ffffff"))}
   r(-4,138,392,78,"#3a3a46");for(let y=142;y<216;y+=9)r(-4,y,392,.6,"#2e2e38");
-  /* regista e drammaturgo al tavolo, in fondo */
-  box(14,124,74,6,"#5a4030");r(18,130,3,20,"#3a2a20");r(80,130,3,20,"#3a2a20");
-  for(const[id,x]of[["mattia",20],["gio",50]]){const P=PID[id];g.save();g.translate(x,150);g.scale(1.4,1.4);person(0,0,P.c,false);g.restore()}
-  r(14,124,74,6,"#6a4a38");r(30,120,14,4,"#f4f4ec");
+  const zt=S.zT?(performance.now()-S.zT)/1000:-1;
+  if(zt>=0){const vx=Math.min(44,-30+zt*40);g.save();g.translate(vx,146);g.scale(1.3,1.3);person(0,0,zt>1.9?Object.assign({},VAL,{gaze:1}):VAL,zt<1.9);g.restore()}
   /* i tre attori in primo piano */
-  [["biljana",96],["izzo",172],["caterina",248]].forEach(([id,x],i)=>{const P=PID[id];g.save();
+  if(zt>=0){const cx=180,cy=168;for(let k=0;k<14;k++){const a=k/14*6.28+F*.2,rr=34+Math.sin(F*.9+k)*8;disc(cx+Math.cos(a)*rr*1.3,cy+Math.sin(a)*rr*.8,16+hs(k,F>>1)*8,k%2?"#d8d8e0":"#b8b8c4")}
+    for(let k=0;k<6;k++){const a=hs(k,F>>1)*6.28,len=26,x0=cx+Math.cos(a)*40,y0=cy+Math.sin(a)*24;g.save();g.translate(x0,y0);g.rotate(a);r(0,-3,len,6,k%3===0?"#f0c8a0":k%3===1?"#24305a":"#1a1a1a");r(len-2,-4,7,8,k%2?"#f0c8a0":"#1d1d26");g.restore()}
+    disc(cx,cy,30,"#e8e8f0");["@#!","%&*!","BAM!","SBEM!"].forEach((t,k)=>{if(((F>>2)+k)%3===0)txt(t,cx-40+k*26,cy-24+hs(k,F>>2)*40,9,["#ff3b3b","#ffd23c","#2f4fd0","#c0283a"][k])});
+    if(zt>=3.4){al(.85,()=>r(-4,0,392,216,"#000"));txt("STOP!",192,110,34,"#ffd23c");txt("STOP!",190,108,34,"#ff3b3b")}}
+  else [["biljana",96],["izzo",172],["caterina",248]].forEach(([id,x],i)=>{const P=PID[id];g.save();
     if(fight){const hop=-Math.abs(Math.sin(F/3+i*1.7))*6,j=Math.sin(F*1.3+i*2)*2.5,dir=i===0?1:i===2?-1:((F>>4)%2?1:-1);g.translate(x+j,208+hop);g.scale(2.6,2.6);personSide(0,0,P.c,dir,(F>>2)%3===i)}
     else{g.translate(x,208);g.scale(2.6,2.6);person(0,0,P.c,false)}g.restore()});
-  if(fight&&l[3])for(let k=0;k<3;k++){const a=F*.3+k*2.1;r(150+Math.cos(a)*90,40+Math.sin(a*1.3)*10,4,1,"#ffd23c")}
+  if(fight&&l[3]&&!S.zT)for(let k=0;k<3;k++){const a=F*.3+k*2.1;r(150+Math.cos(a)*90,40+Math.sin(a*1.3)*10,4,1,"#ffd23c")}
   g.restore()}
 function presReady(){const b=S.seq&&S.seq[S.seqI];return ((FROMR[S.loc]?S.vx<=stopX():S.vx>=stopX())||(b&&b.now))&&!(b&&b.call&&!(S.called[b.call]>=30))}
 function advance(){
@@ -2447,7 +2447,7 @@ $("screen").addEventListener("click",e=>{
   if(S.phase==="seats"){seatClick(e);return}
   if(S.phase==="brk"){brkMove(e);brkLaunch();return}
   if(S.phase==="op"||S.phase==="ape"||S.phase==="pac")return;
-  if(S.phase==="sgc"){S.ci++;if(S.ci>=SGC.length){sfx("blip");sgcEnd();return}const l=SGC[S.ci];sfx(l[3]?"shout":"blip");render();return}
+  if(S.phase==="sgc"){if(S.zT){const el=performance.now()-S.zT;if(el<3400)S.zT-=3400-el;return}S.ci++;if(S.ci>=SGC.length){S.ci=SGC.length-1;S.zT=performance.now();S.zS=0;sfx("shout");render();return}const l=SGC[S.ci];sfx(l[3]?"shout":"blip");render();return}
   if(S.phase==="post"){if((S.pf||0)<36){S.pf=36;render();return}if(S.pdark)return;if(S.pi===POST.length-1)return;S.pi++;S.pz=0;sfx("blip");if(S.pi===POST.length-1)theme(true,"tension");render();return}
   if(S.phase!=="play")return;
   if(S.mode==="arrive")return advance();
@@ -2462,6 +2462,7 @@ document.addEventListener("keydown",e=>{if(S&&S.phase==="pac"&&S.pac){const d={A
   if(e.key==="m"&&S.phase==="play"&&S.mode==="explore")openMap();if(e.key==="Escape"&&S.phase==="play"&&(S.mode==="map"||S.mode==="talk")){S.mode="explore";render()}});
 
 function tick(){F++;if(S.phase==="title"&&SND){if(!TA)titleAudio();vanSound()}else if(TA)stopTitleAudio();if(S.phase==="scossa")scossaTick();if(S.phase==="vint"&&S.vi)vintTick();if(S.phase==="timmy"&&S.wm)timmyTick();if(S.phase==="play"&&S.loc==="foyer"&&!S.catOk&&(S.mode==="explore")){S.catF=(S.catF||0)+1;if(S.catF>=170){S.catOk=1;S.mode="say";S.say={pid:"mario",txt:"Marra! Cash! Smettetela!",code:"52"};sfx("blip");render()}}if(S.called)for(const k in S.called)if(S.called[k]<30){S.called[k]++;if(S.called[k]===30)render()}if(S.phase==="win"){S.wf=(S.wf||0)+1;if(S.wf===44)render();if(S.wf>44&&S.wf<80&&S.wf%6===0)sfx("step");if(S.wf===118)sfx("whoosh");if(S.wf===150)sfx("laugh");if(S.wf===185)render()}
+  if(S.phase==="sgc"&&S.zT){const el=performance.now()-S.zT;if(F%4===0&&el<3400)sfx("step");if(el>=3400&&!S.zS){S.zS=1;sfx("shout")}if(el>=5200)sgcEnd()}
   if(S.phase==="post"){S.pf=(S.pf||0)+1;if(S.pf===36)render();if(S.pi===POST.length-1&&!S.pdark&&(S.pz||0)<PZ){S.pz=(S.pz||0)+1;if(S.pz===PZ){theme(false);S.pT=performance.now();S.gz=0;S.pLine=0}}if(S.pi===POST.length-1&&S.pT){const el=performance.now()-S.pT;S.gz=Math.max(0,Math.min(1,(el-1000)/600));if(el>=2600&&!S.pLine){S.pLine=1;render()}if(el>=5600){S.pT=0;S.phase="tbc";S.tbcShake=8;boomSfx();render()}}}
   if(S.phase==="play"&&S.mode==="travel"){S.travel.f++;if(S.travel.f>(calmo?3:28)){const k=S.travel.to;S.travel=null;enter(k)}}
   if(S.phase==="play"&&S.mode==="arrive"&&presReady()){
