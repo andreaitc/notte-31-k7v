@@ -2228,7 +2228,8 @@ function hintFor(pid){const s=cur();
   return s.tell;
 }
 const TACC=["...pi... krrr... ù... f...orte!","An...cora pi...ù f... krrr... orte, mam...mo...letta!","Tut...to qui? krrr... Pro...va...ci an...cora, se... hai co... krrr... raggio!"];
-function circost(pid){if(S.loc==="sg"&&S.sgLook&&!S.sgHi&&["mattia","gio","biljana","izzo","caterina"].includes(pid)){S.sgHi=1;S.mode="say";S.say={pid,txt:"«Ciao Valentino! Che ci fai qui di sera?»",code:"34.h"};sfx("blip");render();return}
+function circost(pid){if(S.loc==="sg"&&S.sgLook&&["biljana","izzo","caterina"].includes(pid)){S.sgOpen=S.sgHi?null:"«Ciao Valentino! Che ci fai qui di sera?»";S.sgHi=1;return openTalk(pid)}
+if(S.loc==="sg"&&S.sgLook&&!S.sgHi&&["mattia","gio"].includes(pid)){S.sgHi=1;S.mode="say";S.say={pid,txt:"«Ciao Valentino! Che ci fai qui di sera?»",code:"34.h"};sfx("blip");render();return}
 if(pid==="tacconi"&&S.step>6){S.tacN=S.tacN||0;if(S.tacN>=TACC.length){S.tacN=0;startTimmy();return}S.mode="say";S.say={pid,txt:TACC[S.tacN],code:"53."+(S.tacN+1),glitch:1};crackle(2600);voice(TACC[S.tacN],"tac");S.tacN++;render();return}
 const t=hintFor(pid);if(!t)return openTalk(pid);S.mode="say";S.say={pid,txt:t,code:SC(S.step)+".c"};sfx("blip");render()}
 
@@ -2238,7 +2239,7 @@ function openTalk(pid){const p=PID[pid];S.met[pid]=true;S.mode="talk";S.say=null
   const s=cur();let a,msg=null,after=null,v=null,media=null,code=PC(pid)+".0";
   if(isKey(pid)&&!S.sub&&!S.heard[S.step]){code=SC(S.step)+".a";a=s.open;msg=s.msg||null;after=s.after||null;v=s.ov||null;
     if(s.give&&!s.yes){media=s.media||null;S.heard[S.step]=true;S.found.push(s.give);S.step++;S.sub=false;newGoal()}}
-  else{if(pid==="cristina")v=pick(["Buonasera, señorita Cristina...","Sì, señorita Cristina. Subito, señorita."]);a=p.screen&&S.step>6?"«...krrr... (il monitor è nero: NESSUN SEGNALE)»":p.screen?"«Ti sento a scatti, Valentino! Dimmi!»":`«${OPEN[(pid.length+Object.keys(S.asked).length)%OPEN.length]}»`}
+  else{if(pid==="cristina")v=pick(["Buonasera, señorita Cristina...","Sì, señorita Cristina. Subito, señorita."]);a=p.screen&&S.step>6?"«...krrr... (il monitor è nero: NESSUN SEGNALE)»":p.screen?"«Ti sento a scatti, Valentino! Dimmi!»":S.sgOpen||`«${OPEN[(pid.length+Object.keys(S.asked).length)%OPEN.length]}»`;S.sgOpen=null}
   S.talk={pid,q:null,a,msg,after,v:v?`«${v}»`:null,media,code};typeOn();render()}
 function questions(){const s=cur(),T=S.talk;if(T&&isKey(T.pid)&&s.only&&!S.sub)return S.heard[S.step]?[]:s.only;if(T&&T.done0)return[];
   const out=[];if(T&&isKey(T.pid)&&!S.sub&&!S.heard[S.step]&&s.yes)out.push({k:"si",l:s.yes});
