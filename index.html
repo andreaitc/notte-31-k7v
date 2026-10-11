@@ -1077,7 +1077,7 @@ function roomAnim(k){
   if(k==="foyer"){for(let i=0;i<32;i++){const x=i*12,y=6+Math.sin(i/31*Math.PI*3)*5+6;r(x,y,.5,2.5,"#3a2a2a");poly([[x-2,y+2.5],[x+2.5,y+2.5],[x+.25,y+7]],["#ff3b5c","#ffd23c","#5ee6ff","#1f8a4f"][(i+(F>>3))%4])}
     disc(68,68,10,"#2a2a2e");disc(68,68,9,"#141418");for(let i=0;i<12;i++){const a=i*Math.PI/6;r(68+Math.cos(a)*7.5,68+Math.sin(a)*7.5,.8,.8,"#f4f4f4")}
     const m=S.t%60,h=(S.t/60)%12;[[m/60,7,.5],[h/12,4.5,.8]].forEach(([qq,L,w])=>{const a=qq*Math.PI*2-Math.PI/2;for(let d=0;d<L;d+=.5)r(68+Math.cos(a)*d,68+Math.sin(a)*d,w,w,"#f4f4f4")});disc(68,68,.8,"#c0283a")}
-  if(k==="sala"){r(195,178,2,2,(F>>2)%2?"#ff3b5c":"#600");if(!S.found.includes("b2")){box(228,154,6,10,"#2a2a30");r(229,156,4,3,(F>>3)%2?"#5eff8a":"#3a8a4a");r(232,149,1,5,"#2a2a30");r(229,160,4,.6,"#5a5a66")}}
+  if(k==="sala"){r(195,178,2,2,(F>>2)%2?"#ff3b5c":"#600")}
   if(k==="organizzatrici")r(256,108,(F>>1)%2?6:.5,.5,"#5ee6ff");
 }
 function tenda(){const W="#ddd4c2",Wd="#bdb4a2",RB="#7a1a22";
@@ -1240,6 +1240,7 @@ function draw(){
   if(ph==="op"){opScene();return}
   if(ph==="ape"){apeScene();return}
   if(ph==="pac"){pacScene();return}
+  if(ph==="seats"){seatScene();return}
   if(ph==="scossa"){scossaDraw();return}
   if(ph==="vint"){vintDraw();return}
   if(ph==="post"){if((S.pf||0)<36){r(0,0,384,216,"#000");txt("DA QUALCHE PARTE,",192,100,8,"#ff3b5c");txt("A QUALCHE CHILOMETRO DA LÌ...",192,116,8,"#ff3b5c");return}if(S.pdark){r(0,0,384,216,"#000");return}if(S.pi===POST.length-1){const k=Math.min(1,(S.pz||0)/PZ),e=k*k*(3-2*k),s=1+e*2.4;g.save();g.translate(240+(120-240)*e,119+(134-119)*e);g.scale(s,s);g.translate(-240,-119);postScene();g.restore();return}postScene();return}
@@ -1340,6 +1341,7 @@ function render(){
   else if(ph==="vint")h=vintHTML();
   else if(ph==="scossa")h=scossaHTML();
   else if(ph==="op"){const O=S.op;h=O.end?`<div class="ov rev2 tm"><p><b>OPERAZIONE VALENTINO</b></p><p class="big">${O.end===2?"Operazione riuscita!":"Il paziente si è svegliato."}</p><p>${O.end===2?"Valentino si alza, si tocca il naso e torna a pulire. «¡Gracias, doctor!»":"«¡Ay! ¿Qué cosa mi state facendo?» Valentino si toglie il nasone e se ne va."}</p><button class="go gold" id="bop" type="button">TORNA AL GIOCO</button></div>`:`<button class="hb eggx" id="beggx" type="button" aria-label="Chiudi" title="Chiudi">✕</button>`}
+  else if(ph==="seats"){h=`<button class="hb eggx" id="bseatx" type="button" aria-label="Chiudi" title="Chiudi">✕</button>`}
   else if(ph==="pac"){const A=S.pac;h=A.end?`<div class="ov rev2 tm"><p><b>POLPETTA-MAN</b></p><p class="big">${A.end===2?"Hai mangiato tutte le polpette!":"Le polpette hanno vinto."}</p><p>PUNTI ${A.score}</p><p>${A.end===2?"Martina conta il vassoio vuoto: «Zero. Le ho contate due volte.»":"«Te l'avevo detto, Valentino: stanotte le polpette ti vengono a cercare.»"}</p><span style="display:flex;gap:1em;justify-content:center;flex-wrap:wrap"><button class="go gold" id="bpac2" type="button">RIPROVA</button><button class="go gold" id="bpac" type="button">TORNA AL GIOCO</button></span></div>`:`<button class="hb eggx" id="beggx" type="button" aria-label="Chiudi" title="Chiudi">✕</button>`}
   else if(ph==="ape"){const A=S.ape;h=A.end?`<div class="ov rev2 tm"><p><b>APEATRO RALLY</b></p><p class="big">${A.end===2?"Sei arrivato all'ITC Teatro!":"TEMPO SCADUTO"}</p><p>PUNTI ${A.score}</p><p>${A.end===2?"«Brum brum. Te l'avevo detto che ero una leggenda.»":"«Brum... la salita di San Lazzaro mi frega sempre.»"}</p><span style="display:flex;gap:1em;justify-content:center;flex-wrap:wrap"><button class="go gold" id="bape2" type="button">RIPROVA</button><button class="go gold" id="bape" type="button">TORNA AL GIOCO</button></span></div>`:`<button class="hb eggx" id="beggx" type="button" aria-label="Chiudi" title="Chiudi">✕</button>`}
   else if(ph==="brk"){const B=S.bk;h=B.end?`<div class="ov rev2 tm"><p><b>FALDONI COLORATI · IL VIDEOGIOCO</b></p><p class="big">${B.end===2?"Hai abbattuto tutti i faldoni!":"Hai abbattuto "+B.br.filter(q=>!q.on).length+" faldoni su "+B.br.length+"."}</p><p>${B.end===2?"Vittoria A. ti guarda male: adesso chi li rimette in ordine?":"I faldoni colorati vincono sempre. Sono sempre quelli."}</p><button class="go gold" id="bbrk" type="button">TORNA AL GIOCO</button></div>`:`<button class="hb eggx" id="beggx" type="button" aria-label="Chiudi" title="Chiudi">✕</button>`}
@@ -1359,6 +1361,7 @@ function render(){
   on("bplay",()=>{const v=$("vid");if(v){if(v.paused)v.play().catch(()=>{});else v.pause()}});
   on("bfine",()=>{const v=$("vid");if(v)v.pause();if(unlockAudio.el)unlockAudio.el.play().catch(()=>{});S.phase="fuga";S.f=0;sfx("engine");render()});
   on("beggx",()=>{$("screen").style.touchAction="";S.phase="play";S.mode="explore";S.wm=null;S.bk=null;S.op=null;S.ape=null;S.pac=null;theme(false);render()});
+  on("bseatx",()=>{S.phase="play";S.mode="talk";S.se=null;render()});
   on("bpac",()=>{$("screen").style.touchAction="";S.phase="play";S.mode="explore";S.pac=null;render()});
   on("bpac2",()=>startPac());
   on("bape",()=>{$("screen").style.touchAction="";S.phase="play";S.mode="explore";S.ape=null;render()});
@@ -1448,9 +1451,9 @@ const STEPS=[
  {room:"sg",who:"mattia",goal:"In aula G: chiedi a Mattia",tell:"In aula G, Mattia ha visto la prova con loro.",
   open:"«Valentino! Entra pure, la prova è ferma.»",ov:"Permesso, permesito.",
   say:"«Sì, sono passati. La signora in rosso ha guardato la prova in prima fila, senza fiatare. Paolucci invece, mentre lei non guardava, ha scarabocchiato qualcosa sul mio copione. Guarda qua:»",paper:"SOS CANALE 14",th:"Canale catorche... ¡una radiolina! William."},
- {room:"sala",who:"william",goal:"Torna al teatro: chiedi a William una radiolina",tell:"Canale 14 è una frequenza delle radioline dei tecnici: chiedi a William, in sala.",yes:"Prendi la radiolina",
-  open:"«Valentino, ti stavo aspettando: mi hanno chiamato dallo Studio. Canale 14? Quello lo usiamo noi tecnici. Passami la radiolina. È lì sulla poltrona.»",ov:"Canale catorche... vediamos.",
-  say:"«Eccola. Mettiamola sul 14 e sentiamo.»",th:"Silencio...",radio:1,
+ {room:"sala",who:"william",goal:"Torna al teatro: chiedi a William una radiolina",tell:"Canale 14 è una frequenza delle radioline dei tecnici: chiedi a William, in sala.",yes:"Cerca la radiolina",
+  open:"«Valentino, ti stavo aspettando: mi hanno chiamato dallo Studio. Canale 14? Quello lo usiamo noi tecnici. La radiolina è da qualche parte in platea, sotto una poltrona. Me la trovi?»",ov:"Canale catorche... vediamos.",seats:1,
+  say:"«Eccola, bravo! Mettiamola sul 14 e sentiamo.»",th:"Silencio...",radio:1,
   post:"William: «Era Paolucci! E quel colpo... non mi piace per niente. Ma cosa avrà voluto dire? Cosa c'entra la Tacconi? Vai a parlarle, Valentino.»"},
  {room:"amministrazione",who:"tacconi",goal:"Trova la Tacconi",tell:"La Tacconi? Prova in amministrazione.",
   open:"«Valentino! Mi senti? Ti vedo a scatti, ma ti vedo!»",ov:"¿La Tacconi... nella televisiona? ¡Madre de Dios! ¿Dove andaremos a finire?",
@@ -1743,6 +1746,38 @@ function pacScene(){const A=S.pac;r(0,0,384,216,"#140a10");
   if(A.ready>0&&!A.end)txt("PRONTI!",192,PY0+7*PT+11,9,"#ffd23c");
   if(A.fright>0&&!A.end)txt("PANETTONE!",330,210,5,"#e0a046");
   if(!A.end&&A.score===0&&A.ready<=0&&(F>>3)%2)txt("SCORRI IL DITO PER GIRARE",60,210,4,"#9aa3e0","left")}
+/* MINIGIOCO: CERCA LA RADIOLINA TRA LE POLTRONE */
+const SEAT_ROWS=[{y:96,s:.78,n:8},{y:146,s:.9,n:8},{y:204,s:1.04,n:8}];
+const SEAT_JUNK=[["niente","Niente. Solo polvere."],["biglietto","Un biglietto strappato: fila F, posto 12."],["caramella","Una caramella alla menta, mezza scartata."],["calzino","Un calzino spaiato. ¿Ma come?"],["monete","Due centesimi. Ricchezza."],["programma","Il programma di sala di uno spettacolo del 2009."],["popcorn","Un pop-corn solitario."],["niente","Niente."],["occhiali","Un paio di occhiali da lettura. Di chi saranno?"],["niente","Vuota."]];
+function seatList(){const L=[];SEAT_ROWS.forEach((R,ri)=>{const w=40*R.s,gap=4*R.s,aisle=26*R.s,half=R.n/2;for(let i=0;i<R.n;i++){const x=192+(i<half?-(aisle/2+(half-i)*(w+gap)-gap):aisle/2+(i-half)*(w+gap));L.push({ri,i,x,y:R.y,w,h:58*R.s,s:R.s})}});return L}
+function startSeats(){S.phase="seats";const L=seatList();S.se={L,open:{},target:Math.floor(Math.random()*L.length),found:0,msg:"Tocca le poltrone per abbassare la seduta e guardarci sopra.",tries:0,junk:{}};
+  L.forEach((p,k)=>{S.se.junk[k]=SEAT_JUNK[(k*7+Math.floor(Math.random()*5))%SEAT_JUNK.length]});sfx("blip");render()}
+function seatClick(e){const E=S.se;if(!E||E.found)return;const[x,y]=toLogic(e);
+  let k=-1;for(let j=E.L.length-1;j>=0;j--){const p=E.L[j];if(x>=p.x&&x<=p.x+p.w&&y>=p.y-p.h&&y<=p.y){k=j;break}}if(k<0||E.open[k])return;E.open[k]=performance.now();E.tries++;
+  if(k===E.target){E.found=1;E.msg="¡LA RADIOLINA! Eccola qui.";sfx("clue");render();setTimeout(()=>{if(S.phase!=="seats")return;S.phase="play";S.mode="talk";S.seatFound=1;render();ask("si")},1600)}
+  else{E.msg=E.junk[k][1];sfx("step");render()}}
+function seatIcon(kind,x,y,s){g.save();g.translate(x,y);g.scale(s,s);
+  if(kind==="radio"){box(-3,-9,6,10,"#2a2a30");r(-2,-7,4,3,(F>>2)%2?"#5eff8a":"#3a8a4a");r(1.5,-14,1,5,"#2a2a30");r(-2,-3,4,.6,"#5a5a66")}
+  else if(kind==="biglietto"){r(-5,-3,10,5,"#f4ecd8");r(-4,-2,6,.6,"#c0283a");r(3,-3,.6,5,"#bba")}
+  else if(kind==="caramella"){disc(0,-2,2,"#5ee6ff");poly([[-2,-2],[-5,-4],[-5,0]],"#f4f4ff");poly([[2,-2],[5,-4],[5,0]],"#f4f4ff")}
+  else if(kind==="calzino"){r(-2,-7,3,6,"#c0283a");r(-2,-2,6,3,"#c0283a");r(-2,-7,3,1.2,"#f4f4f4")}
+  else if(kind==="monete"){disc(-1.5,-1.5,1.6,"#c9a15a");disc(1.5,-1,1.6,"#e0b060")}
+  else if(kind==="programma"){r(-4,-6,8,7,"#ffd23c");r(-3,-4,6,.6,"#2a1a10");r(-3,-2.5,4,.6,"#2a1a10")}
+  else if(kind==="popcorn"){disc(0,-2,1.8,"#fff3c8");disc(.8,-2.8,.8,"#fff")}
+  else if(kind==="occhiali"){g.strokeStyle="#1a1a1a";g.lineWidth=.8;g.beginPath();g.arc(-2.4,-2,1.8,0,7);g.moveTo(4.2,-2);g.arc(2.4,-2,1.8,0,7);g.stroke();r(-.6,-2.4,1.2,.6,"#1a1a1a")}
+  g.restore()}
+function seatScene(){const E=S.se;r(0,0,384,216,"#1a1418");r(0,0,384,30,"#100c10");al(.15,()=>poly([[150,0],[234,0],[300,216],[84,216]],"#fff3d0"));
+  r(186,30,12,186,"#3a3238");
+  E.L.forEach((p,k)=>{const{x,y,w,h,s}=p,o=E.open[k],t=o?Math.min(1,(performance.now()-o)/220):0;
+    r(x-1.5*s,y-h+4*s,2*s,h-4*s,"#2a1a20");r(x+w-.5*s,y-h+4*s,2*s,h-4*s,"#2a1a20");
+    r(x+1*s,y-h,w-2*s,h*.56,"#a01f30");r(x+1*s,y-h,w-2*s,2*s,"#e04a5a");r(x+3*s,y-h+4*s,w-6*s,h*.4,"#8a1a2a");
+    const cy=y-h*.44,ch=h*.36;
+    if(!o||t<1){const hh=ch*(1-t)+ch*.4*t;r(x+2*s,cy,w-4*s,hh,"#b02435");r(x+2*s,cy,w-4*s,1.5*s,"#e04a5a")}
+    if(o){const top=cy+ch*.55;al(t,()=>{poly([[x+2*s,top],[x+w-2*s,top],[x+w,top+ch*.45],[x,top+ch*.45]],"#c0283a");r(x,top+ch*.45,w,2.5*s,"#7a1424")});
+      if(t>=1){if(k===E.target)seatIcon("radio",x+w/2,top+ch*.32,1.5*s);else if(E.junk[k][0]!=="niente")seatIcon(E.junk[k][0],x+w/2,top+ch*.3,1.4*s)}}
+    r(x,y-2*s,w,2*s,"#1a1014")});
+  txt("CERCA LA RADIOLINA",192,14,8,"#ffd23c");txt("POLTRONE GUARDATE: "+E.tries,192,25,4,"#9aa3e0");
+  r(0,206,384,10,"#000000aa");txt(E.msg,192,213,5,E.found?"#5eff8a":"#f4f4ff")}
 /* EASTER EGG: COLPISCI TIMMY (una lepre) */
 const WM_X=[[110,148],[192,148],[274,148],[80,190],[192,190],[304,190]];
 function startTimmy(){S.phase="timmy";S.wm={t:0,score:0,miss:0,h:WM_X.map(()=>({u:0,life:0,hit:0})),end:0};theme(false);sfx("start");render()}
@@ -2079,7 +2114,7 @@ const RC={organizzatrici:10,direzione:11,amministrazione:12,biglietteria:13,foye
 const SC=i=>30+i, PC=pid=>100+PEOPLE.findIndex(p=>p.id===pid);
 const QN={pao:1,wa:2,strano:3,radio:3,brin:4,scar:4,foto:5,si:6,start:6};
 function svcCode(){const ph=S.phase;
-  if(ph==="title")return"1";if(ph==="scossa")return S.sf<48?"69":S.sf<75?"69.d":"70."+((S.si||0)+1);if(ph==="vint")return"3";if(ph==="timmy")return"54";if(ph==="brk")return"55";if(ph==="op")return"56";if(ph==="ape")return"57";if(ph==="pac")return"58";if(ph==="brief")return"2";
+  if(ph==="title")return"1";if(ph==="scossa")return S.sf<48?"69":S.sf<75?"69.d":"70."+((S.si||0)+1);if(ph==="vint")return"3";if(ph==="timmy")return"54";if(ph==="brk")return"55";if(ph==="op")return"56";if(ph==="ape")return"57";if(ph==="pac")return"58";if(ph==="seats")return"35.s";if(ph==="brief")return"2";
   if(ph==="win")return(S.wf||0)<185?"60":"61";if(ph==="video")return"62";
   if(ph==="fuga")return S.f<190?"63":"64";if(ph==="end")return"65";
   if(ph==="post")return(S.pf||0)<36?"66":"67."+(S.pi+1);if(ph==="tbc")return"68";
@@ -2179,7 +2214,8 @@ function resolveStep(){const s=cur();S.heard[S.step]=true;
 function ask(kind){
   const p=PID[S.talk.pid],C=p.L,key=p.id+kind,again=S.asked[key];S.asked[key]=true;spend(COST.chiedi);
   const Q={start:"Valentino allarga le braccia: da dove comincio?",si:"Valentino annuisce: sì!",wa:p.screen?"Valentino mostra il messaggio alla webcam.":"Valentino mostra il messaggio WhatsApp.",strano:"Valentino si guarda intorno, alza le sopracciglia, allarga le braccia.",radio:"Valentino accende la radiolina sul canale 14.",scar:"Valentino mostra lo scarabocchio.",brin:"Valentino alza un bicchiere immaginario.",pao:"Valentino mostra una foto di Paolucci.",foto:"Valentino chiede di rivedere la foto."}[kind];
-  let a,th,done0=false,media=null,cut=null,auto=null,paper=null,a2=null;const s=cur();let code=PC(p.id)+"."+(QN[kind]||0);
+  let a,th,done0=false,media=null,cut=null,auto=null,paper=null,a2=null;const s=cur();
+  if(kind==="si"&&s.seats&&!S.seatFound&&isKey(p.id)&&!S.sub){startSeats();return}let code=PC(p.id)+"."+(QN[kind]||0);
   if(p.screen&&S.step>6){a="«...krrr...» (Il monitor è nero. Nessun segnale.)";th="Los problemas de comunicassione de siempre.";sfx("nada")}
   else if(kind==="foto"){a="«Eccola di nuovo: Paolucci e la signora in rosso, di spalle. E il tuo scarabocchio, girato: una linea e due ruote. Il Teatrobus.»";th="El Teatrobus.";media="photo";sfx("talk")}
   else if(isKey(p.id)&&!S.sub&&!s.final&&!s.lock&&trigOf(s).includes(kind)){a=s.say;th=s.th;sfx("talk");if(s.only)done0=true;code=SC(S.step)+".b";a2=s.say2||null;cut=s.cut||null;paper=s.paper||null;auto=s.radio?"radio":s.call?"call":null;media=s.pics?"pics":null;if(s.give){S.found.push(s.give);media=s.media||null;sfx("clue")}
@@ -2195,7 +2231,7 @@ function ask(kind){
     else a=(again&&C.foto)?C.foto:(C.strano||pick(STRANO));
     const h=hintFor(p.id);if(h)a+=" «"+h+"»";
     th=th||(p.id==="cristina"?pick(["Sì, señorita Cristina... (¡qué paura!)","Perdone, señorita Cristina.","La señorita Cristina mi fa un pochito de paura."]):kind==="wa"?"Hmm.":kind==="brin"?"¡Salud!":"Interesantissimo.");sfx("talk")}
-  const qq=kind==="si"&&s.yes&&/^(Mostra|Prendi|Chiedi|Dove|Guarda)/.test(s.yes)?"Valentino: "+lc(s.yes)+".":Q[kind];
+  const qq=kind==="si"&&s.yes&&/^(Mostra|Prendi|Chiedi|Dove|Guarda|Cerca)/.test(s.yes)?"Valentino: "+lc(s.yes)+".":Q[kind];
   S.talk={pid:p.id,q:qq,a,a2,v:th?`«${th}»`:null,done0,media,cut,auto,paper,code};typeOn();render();
 }
 function trigOf(s){return s.trig||(s.only?["start"]:s.yes?["si"]:["pao","wa"])}
@@ -2333,6 +2369,7 @@ $("screen").addEventListener("click",e=>{
   if(S.phase==="title"){if(SND&&!e.target.closest("#bstart")&&(!TA||!AC||AC.state!=="running")){titleAudio();if(AC)AC.resume();return}const b=$("bstart");if(b)b.click();return}
   if(S.phase==="vint"){vintNext();return}
   if(S.phase==="timmy"){const[x,y]=toLogic(e);timmyHit(x,y);return}
+  if(S.phase==="seats"){seatClick(e);return}
   if(S.phase==="brk"){brkMove(e);brkLaunch();return}
   if(S.phase==="op"||S.phase==="ape"||S.phase==="pac")return;
   if(S.phase==="post"){if((S.pf||0)<36){S.pf=36;render();return}if(S.pdark)return;if(S.pi===POST.length-1)return;S.pi++;S.pz=0;sfx("blip");if(S.pi===POST.length-1)theme(true,"tension");render();return}
