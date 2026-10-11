@@ -1424,7 +1424,7 @@ const STEPS=[
  {room:"foyer",who:"giuliappi",goal:"Nel foyer: chiedi a Giuliappi le foto della serata",tell:"Giuliappi, nel foyer, ha fatto foto tutta la sera.",give:"b3",media:"photo",yes:"Chiedi le foto della serata",
   open:"«Valentino! Sorridi, sto facendo una storia per i social.»",ov:"Las fotos... de esta noce...",
   say:"«Le foto di stasera? Eccole. Guarda questa: Paolucci e la signora in rosso nel cortile, di spalle. Lui indica qualcosa. Dietro c'è il Teatrobus.»",
-  th:"Paolucci no ha fatto en tiempo a finirlo... qualcuno lo ha interrotto. ¡Qué cojones!"},
+  th:"¡Al Teatrobus, ahora mismo! Vamos, Valentino, vamos."},
  {room:"bus",goal:"Vai al Teatrobus, in fondo al cortile",tell:"Il Teatrobus, in fondo al cortile! Vai!",lock:1},
  {room:"cortile",who:"igor",goal:"Cerca le chiavi del Teatrobus: chiedi nel cortile",tell:"Nel cortile qualcuno sa qualcosa delle chiavi.",yes:"Chiedi delle chiavi",
   open:"«Ciao Valentino. Fa freddo, eh?»",ov:"Las chiaves del autobús...",
@@ -2023,7 +2023,7 @@ function questions(){const s=cur(),T=S.talk;if(T&&isKey(T.pid)&&s.only&&!S.sub)r
   out.push(S.found.includes("b1")?{k:"scar",l:"Mostra lo scarabocchio"}:{k:"brin",l:"Mima un brindisi di buon anno"});
   return out}
 function mviewHTML(T){if(!T.mview)return"";let c="";
-  if(T.media==="photo")c=`<img class="phot v" src="${photoSrc()}" alt="La storia di Giuliappi"><div class="mvcol"><span class="mvth ${T.turned>=1?"on":""}" id="mvth"><img src="${VALIMG()}" alt=""><span id="mvtx">${T.turned>=2?MVT[1]:MVT[0]}</span></span><span class="scrbox ${T.turned>=3?"in":""}" id="scrb"><img class="scr ${T.turned>=4?"turned":""}" id="scr" src="${scribSrc()}" alt="Lo scarabocchio"></span></div>`;
+  if(T.media==="photo")c=`<img class="phot v" src="${photoSrc()}" alt="La storia di Giuliappi"><div class="mvcol"><span class="mvth ${T.turned>=1?"on":""}" id="mvth"><img src="${VALIMG()}" alt=""><span id="mvtx">${T.turned>=5?MVT[2]:T.turned>=2?MVT[1]:MVT[0]}</span></span><span class="scrbox ${T.turned>=3?"in":""}" id="scrb"><img class="scr ${T.turned>=4?"turned":""}" id="scr" src="${scribSrc()}" alt="Lo scarabocchio"></span></div>`;
   else if(T.media==="pics")c=`<img class="phot k" src="${kidsSrc()}" alt="I disegni dei bambini">`;
   else if(T.paper)c=`<span class="paper"><b>IL COPIONE DI MATTIA · A MARGINE, A MANO</b>${esc(T.paper)}</span>`;
   return `<div class="ov mview" id="mview"><div class="mvin">${c}</div><div class="tap">TOCCA PER CONTINUARE</div></div>`}
@@ -2049,12 +2049,13 @@ function bindTalk(){
   const s=$("talk");if(s)s.onclick=e=>{if(e.target.closest("button"))return;e.stopPropagation();skipType()};
   const mv=$("mview");if(mv)mv.onclick=e=>{e.stopPropagation();closeMedia()};
 }
-const MVT=["Quel autobús... me ricuerda qualchecosa.","¡Ma claro! ¡El scarabocchio!"];
+const MVT=["Quel autobús... me ricuerda qualchecosa.","¡Ma claro! ¡El scarabocchio!","Paolucci no ha fatto en tiempo a finirlo... qualcuno lo ha interrotto. ¡Qué cojones!"];
 function turnLater(T){if(T.media!=="photo"||T.turned)return;const d=calmo?0:1;T.turned=0;
   setTimeout(()=>{T.turned=1;const e=$("mvth");if(e)e.classList.add("on");sfx("type")},1000*d);
   setTimeout(()=>{T.turned=2;const e=$("mvtx");if(e)e.textContent=MVT[1];const m=$("mvth");if(m){m.classList.remove("on");void m.offsetWidth;m.classList.add("on")}sfx("type")},3200*d);
   setTimeout(()=>{T.turned=3;const e=$("scrb");if(e)e.classList.add("in");sfx("blip")},4200*d);
-  setTimeout(()=>{T.turned=4;const e=$("scr");if(e)e.classList.add("turned");sfx("clue")},5400*d)}
+  setTimeout(()=>{T.turned=4;const e=$("scr");if(e)e.classList.add("turned");sfx("clue")},5400*d);
+  setTimeout(()=>{T.turned=5;const e=$("mvtx");if(e)e.textContent=MVT[2];const m=$("mvth");if(m){m.classList.remove("on");void m.offsetWidth;m.classList.add("on")}sfx("type")},7600*d)}
 function talkDone(T){if(T.auto&&!T.autoRun)setTimeout(()=>{if(S.talk!==T||T.autoRun)return;T.autoRun=1;S.talk=null;runAuto(T)},1400)}
 function needMedia(T){return T.media&&!T.mseen}
 function openMedia(T){T.mview=true;render();turnLater(T)}
