@@ -439,7 +439,7 @@ const ROOMS = {
       strano:"«Qualcuno ha tirato una prolunga dal palco fino al cortile. Non sono stato io, e io so dove va ogni cavo.»",
       aiuto:"«Grazie, qui ci penso io. Però sotto le poltrone della prima fila ho visto qualcosa luccicare.»",
       clue:{cappello:"«Bella falda. In scena ci vorrebbe un controluce.»",timbro:"«Il Teatrobus? La batteria l'ho ricaricata io la settimana scorsa. Mi avevano detto “per sicurezza”. Chi me l'aveva chiesto?»"}},{img:IMGD.william_32}),P("izzo","Izzo","attore",{body:"#1a1a20",hair:"#3a2a1a"},120,{greet:["Ciao Valentino! Sono qui a dare una mano ai tecnici.", "Porto cavi, tengo scale, passo nastri. Stasera faccio il tecnico onorario."],again:["Auguri, auguri, auguri. Ci sto lavorando."],foto:"«Paolucci mi ha detto: “tienimi il posto in prima fila”. Io gliel'ho tenuto. Lui non è tornato.»",strano:"«Strano? Stasera i cavi si sono annodati da soli. Tre volte.»"})],
-    objs:[{n:"le poltrone della prima fila",b:[0,184,384,32],txt:"Le poltrone della prima fila. Sono tutte rotte. Da anni.",th:"Pobrecitas poltronchinas."},{n:"la scala",b:[54,58,30,76],txt:"La scala. Controllata, collaudata, a norma. William non sbaglia.",th:"A norma."},{n:"il leggio",b:[176,74,32,58],txt:"Il leggio è vuoto. Il microfono è acceso. Manca solo chi parla.",th:"Silencio."},{n:"la telecamera",b:[166,164,44,46],txt:"La telecamera inquadra il leggio vuoto da un'ora. Nessuno ha il coraggio di spegnerla.",th:"Muy profesionale."}]},
+    objs:[{n:"le poltrone della prima fila",b:[0,184,384,32],txt:"Le poltrone della prima fila. Sono tutte rotte. Da anni.",th:"Pobrecitas poltronchinas."},{n:"la scala",b:[54,58,30,76],txt:"La scala. Controllata, collaudata, a norma. William non sbaglia.",th:"A norma."},{n:"il leggio",b:[176,74,32,58],txt:"Il leggio è vuoto. Il microfono è acceso. Manca solo chi parla.",th:"Silencio."},{n:"la telecamera",b:[172,162,40,48],txt:"La telecamera inquadra il leggio vuoto da un'ora. Nessuno ha il coraggio di spegnerla.",th:"Muy profesionale."}]},
   camerini:{n:"I tre camerini",m:"Camerini",z:"itc",wall:"#5a2a2a",
     ppl:[P("lea","Lea C.","attrice",{body:"#c0283a",hair:"#16161d",long:1},176,{
       greet:["Amore! Che luce terribile stasera."],again:["Sono ancora al trucco, amore."],
@@ -937,9 +937,13 @@ function room(k){
     for(let s=0;s<5;s++){const y=134+s*6.5,w=28+s*3;r(192-w/2,y,w,6.5,s%2?"#2a2a30":"#222228");r(192-w/2,y,w,1,"#6a6a74");r(192-w/2,y,1,6.5,"#3a3a42");r(192+w/2-1,y,1,6.5,"#3a3a42")}
     const rowY=[150,160,171,183,196];rowY.forEach((y,ri)=>{const sc=.7+ri*.12,sw=18*sc,sh2=9*sc;for(const side of[0,1]){for(let n=0;n<10;n++){const x=side?212+ri*3+n*(sw+2):172-ri*3-(n+1)*(sw+2);if(x<-sw||x>384)continue;
       r(x,y-sh2,sw,sh2,"#a01f30");r(x,y-sh2,sw,1.2,"#e04a5a");r(x+1,y-1,sw-2,3*sc,"#7a1424");r(x+sw-1,y-sh2,1,sh2+2,"#6a1020")}}});
-    {const lx=58,top=62,bot=130,M="#9a9aa6",L="#c8c8d8";poly([[lx+8,top],[lx+11,top],[lx+3,bot],[lx,bot]],M);poly([[lx+8,top],[lx+11,top],[lx+19,bot],[lx+16,bot]],"#7a7a86");r(lx+6,top-2,7,3,"#5a5a66");for(let k2=1;k2<6;k2++){const t=k2/6,y=top+(bot-top)*t;r(lx+8-8*t+1,y,4+16*t-2,1.5,L)}r(lx+4,(top+bot)/2+8,12,.6,"#5a5a66")}
+    {const lx=58,top=62,bot=130,ax=lx+12;poly([[ax-1,top],[ax+1.5,top],[lx+2.5,bot],[lx,bot]],"#a8a8b4");poly([[ax-.5,top],[ax+2,top],[lx+26,bot],[lx+23.5,bot]],"#7a7a86");r(ax-3,top-2.5,7,3,"#5a5a66");
+      for(let k2=1;k2<7;k2++){const t=k2/7,y=top+(bot-top)*t,fx=ax-(ax-lx)*t;r(fx-1.5,y,5,1.6,"#c8c8d8");r(fx-1.5,y+1.6,5,.6,"#6a6a76")}
+      const sy=top+(bot-top)*.62;r(lx+6,sy,ax+(lx+25-ax)*.62-lx-6,.7,"#5a5a66");r(lx-.5,bot-1,4,1.5,"#2a2a30");r(lx+23,bot-1,4,1.5,"#2a2a30")}
     r(190,100,4,30,"#c9a15a");r(190.5,100,.5,30,"#f4d080");r(184,129,16,2,"#8a7a4a");box(180,92,24,8,"#c9a15a");r(200,78,1,14,"#8a8a96");disc(200.5,78,2,K);
-    r(191,186,2,22,"#444");poly([[192,190],[181,210],[184,210]],"#444");poly([[192,190],[203,210],[200,210]],"#444");box(180,172,26,14,"#222");box(172,175,8,8,"#333");r(170,177,2,4,"#5ee6ff");box(186,168,8,4,"#222");
+    r(191,186,2,22,"#444");poly([[192,190],[181,210],[184,210]],"#444");poly([[192,190],[203,210],[200,210]],"#444");r(190,186,4,3,"#333");
+    box(181,170,22,16,"#222");r(184,167,16,4,"#2a2a30");box(184,173,16,10,"#111");r(185,174,14,8,"#0d1a3a");r(191.5,176,1,5,"#c9a15a");r(189,175,6,1.6,"#c9a15a");r(196,175,.4,1.5,"#8a8a96");
+    r(203,176,3,6,"#333");r(186,183.5,3,1,"#5ee6ff");
     box(4,26,30,12,"#0d3a1a");txt("USCITA",19,35,5,"#5eff8a");
     al(.12,()=>poly([[180,22],[204,22],[240,114],[144,114]],"#fff3d0"))}
   if(k==="camerini"){wall(R.wall);floor("#5a4a40");
