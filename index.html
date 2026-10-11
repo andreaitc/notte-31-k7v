@@ -174,7 +174,7 @@ button:focus-visible{outline:2px solid var(--giallo);outline-offset:2px}
 .revp{display:flex;gap:1em;align-items:center}
 .revp img{width:4.5em;height:4.5em;image-rendering:pixelated;border:3px solid var(--rosso);flex:none}
 .bottom.top{bottom:auto;top:3%;font-size:.92em}
-.crawl{inset:0;background:radial-gradient(ellipse at 50% 120%,rgba(20,26,68,.6),rgba(0,0,0,.97) 55%);overflow:hidden;perspective:18em}
+.crawl{inset:0;background:#000;overflow:hidden;perspective:18em}
 .crawl .far{position:absolute;top:6%;left:0;right:0;text-align:center;margin:0;color:var(--ciano);font-size:1.1em;animation:fade 4s ease-out forwards}
 .crawl .cw{position:absolute;left:14%;right:14%;top:12%;bottom:0;transform:rotateX(16deg);transform-origin:50% 100%;overflow:hidden;-webkit-mask-image:linear-gradient(transparent,#000 35%);mask-image:linear-gradient(transparent,#000 35%)}
 .crawl .ct{position:absolute;left:0;right:0;top:100%;color:var(--giallo);text-align:justify;font-size:1.45em;line-height:1.12;animation:crawl 62s linear 1.5s forwards}
@@ -1313,7 +1313,7 @@ function render(){
   const on=(id,fn)=>{const e=$(id);if(e)e.onclick=ev=>{ev.stopPropagation();fn()}};
   on("bstart",()=>{stopTitleAudio();fullscreen(true);S.phase="brief";theme(true);render();setTimeout(fitScreen,400)});
   on("bgo",()=>{theme(false);startVint()});
-  const ct=document.querySelector(".crawl .ct");if(ct)ct.addEventListener("animationend",()=>{if(S.phase==="brief"){theme(false);startVint()}},{once:true});
+  const ct=document.querySelector(".crawl .ct");if(ct){const fin=()=>{if(S.phase==="brief"){theme(false);startVint()}};ct.addEventListener("animationend",fin,{once:true});const cw=ct.parentElement,lp=ct.lastElementChild;const chk=()=>{if(S.phase!=="brief"||!lp.isConnected)return;const a=lp.getBoundingClientRect(),c=cw.getBoundingClientRect();if(a.bottom<c.top+c.height*.12){fin();return}requestAnimationFrame(chk)};requestAnimationFrame(chk)}
   on("bskip",()=>{S.wf=185;render()});
   on("bvideo",()=>{theme(false);noise(false);if(unlockAudio.el)unlockAudio.el.pause();S.phase="video";render();const v=$("vid");if(v){v.onended=()=>{if(unlockAudio.el)unlockAudio.el.play().catch(()=>{});S.phase="fuga";S.f=0;sfx("engine");render()};const srcs=v.querySelectorAll("source");srcs[srcs.length-1].onerror=()=>{$("verr").hidden=false};const pr=v.play();if(pr&&pr.catch)pr.catch(()=>{})}});
   on("bplay",()=>{const v=$("vid");if(v){if(v.paused)v.play().catch(()=>{});else v.pause()}});
