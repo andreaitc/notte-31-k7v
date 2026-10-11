@@ -433,13 +433,13 @@ const ROOMS = {
       clueTh:{biglietto:"¡Finalmente qualcuno que mi capisce!"}}),P("cristina","Cristina","vicepresidente",{body:"#2f6fd0",hair:"#34200f"},330,{greet:["Oddiodio... tocca a me.",{t:"Haaaah...",turn:1},"Valentino. Se Paolucci non si trova entro mezzanotte, il discorso tocca a me. A me! Davanti a tutti!",{who:"val",t:"Tranquila, señorita Cristina... (¡madre mía, che paura che mi fa!)"},"Io non ho niente di pronto. Ho solo l'ansia. Quella sì, prontissima, con le slide."],again:["Ho scritto tre righe di discorso. Le ho cancellate. Ne ho scritte due. Cancellate anche quelle."],wa:"«“Mezzano...”. Mezzanotte. Mancano poche ore. E se non torna... no, non ci voglio pensare.»",foto:"«Paolucci mi ha sempre detto: “se non ci sono io, tocca a te”. Pensavo fosse un modo di dire. Non lo era!»",strano:"«Strano? Strano è che tutti mi guardino come se il discorso toccasse già a me. Smettetela. Vi prego.»",aiuto:"«Aiutami tu! Trovalo, così il discorso non lo faccio io. Ti prego.»"})],
     objs:[{n:"la scrivania di Paolucci",b:[168,126,98,46],main:1},{n:"il discorso",b:[196,120,26,8],txt:"Il discorso di fine anno. Si interrompe a metà frase: “E quest'anno, care colleghe e cari colleghi, vorrei”",th:"¿Vorrei qué cosa?"},{n:"la finestra",b:[214,56,112,36],txt:"Fuori è buio. I fuochi d'artificio non sono ancora cominciati. Riflesso nel vetro, per un attimo, un cappello a tesa larga.",th:"¿L'ho vistado de verdad?"},{n:"il quadro",b:[182,66,26,22],txt:"Il manifesto di Habil delle città, incorniciato. Sul vetro, l'impronta di una mano con il guanto.",th:"Hmm."},{n:"il divano",b:[82,118,84,36],txt:"Il divano grigio della direzione. Sotto i cuscini: due penne, una caramella e nessun Paolucci.",th:"Aquí no está."},{n:"l'Apeatro",b:[283,89,17,13]},{n:"la luna",b:[298,62,16,16],txt:"«Dov’era la luna? chè il cielo notava in un’alba di perla» (Giovanni Pascoli, L’assiuolo)",th:"¡Mica pippas!"}]},
   sala:{n:"Sala grande",z:"itc",wall:"#1a1a2a",
-    ppl:[P("william","William Sheldon","capo dei tecnici",{body:"#1c1c22",hair:"#2a1a10",beard:"#2a1a10",gl:1},300,{
+    ppl:[P("william","William Sheldon","capo dei tecnici",{body:"#1c1c22",hair:"#2a1a10",beard:"#2a1a10",gl:1},98,{
       greet:["Ehi Valentino. Audio, luci, camera: tutto pronto, tutto testato, tutto a norma.", "Manca solo Paolucci. E quello non lo posso cablare io."],again:["Ancora tutto pronto. Tocca a te."],
       foto:"«Paolucci? Mi ha chiesto di provare il microfono. Ha detto “prova, prova”, poi è uscito dalla porta del cortile.»",
       strano:"«Qualcuno ha tirato una prolunga dal palco fino al cortile. Non sono stato io, e io so dove va ogni cavo.»",
       aiuto:"«Grazie, qui ci penso io. Però sotto le poltrone della prima fila ho visto qualcosa luccicare.»",
       clue:{cappello:"«Bella falda. In scena ci vorrebbe un controluce.»",timbro:"«Il Teatrobus? La batteria l'ho ricaricata io la settimana scorsa. Mi avevano detto “per sicurezza”. Chi me l'aveva chiesto?»"}},{img:IMGD.william_32}),P("izzo","Izzo","attore",{body:"#1a1a20",hair:"#3a2a1a"},120,{greet:["Ciao Valentino! Sono qui a dare una mano ai tecnici.", "Porto cavi, tengo scale, passo nastri. Stasera faccio il tecnico onorario."],again:["Auguri, auguri, auguri. Ci sto lavorando."],foto:"«Paolucci mi ha detto: “tienimi il posto in prima fila”. Io gliel'ho tenuto. Lui non è tornato.»",strano:"«Strano? Stasera i cavi si sono annodati da soli. Tre volte.»"})],
-    objs:[{n:"le poltrone della prima fila",b:[0,184,384,32],txt:"Le poltrone della prima fila. Sono tutte rotte. Da anni.",th:"Pobrecitas poltronchinas."},{n:"la scala",b:[212,36,28,98],txt:"La scala. Controllata, collaudata, a norma. William non sbaglia.",th:"A norma."},{n:"il leggio",b:[264,74,32,58],txt:"Il leggio è vuoto. Il microfono è acceso. Manca solo chi parla.",th:"Silencio."},{n:"la telecamera",b:[94,146,42,46],txt:"La telecamera inquadra il leggio vuoto da un'ora. Nessuno ha il coraggio di spegnerla.",th:"Muy profesionale."}]},
+    objs:[{n:"le poltrone della prima fila",b:[0,184,384,32],txt:"Le poltrone della prima fila. Sono tutte rotte. Da anni.",th:"Pobrecitas poltronchinas."},{n:"la scala",b:[54,58,30,76],txt:"La scala. Controllata, collaudata, a norma. William non sbaglia.",th:"A norma."},{n:"il leggio",b:[176,74,32,58],txt:"Il leggio è vuoto. Il microfono è acceso. Manca solo chi parla.",th:"Silencio."},{n:"la telecamera",b:[166,164,44,46],txt:"La telecamera inquadra il leggio vuoto da un'ora. Nessuno ha il coraggio di spegnerla.",th:"Muy profesionale."}]},
   camerini:{n:"I tre camerini",m:"Camerini",z:"itc",wall:"#5a2a2a",
     ppl:[P("lea","Lea C.","attrice",{body:"#c0283a",hair:"#16161d",long:1},176,{
       greet:["Amore! Che luce terribile stasera."],again:["Sono ancora al trucco, amore."],
@@ -536,7 +536,7 @@ let VALPHOTO=IMGD.valentino;
 ROOMS.tin={n:"Dentro il tendone",z:"fuori",hidden:1,ppl:[],th:"Dentro al circo.",
   objs:[{n:"il buffet",b:[86,130,90,62]},{n:"il palco",b:[60,124,264,30],txt:"Il palco del tendone. Legno scuro, graffiato da mille prove. In fondo, una panca sola, come in uno spettacolo che non è ancora cominciato.",th:"Que bello."},{n:"le americane",b:[48,10,280,40],txt:"Le americane delle luci. Tutti i fari puntati sul centro. Sul centro, nessuno.",th:"Silencio."},{n:"le gradinate",b:[0,118,42,90],txt:"Novanta posti. Stasera tutti vuoti, tranne uno: c'è una sciarpa dimenticata. Non rossa, per fortuna.",th:"Meno male."},{n:"l'uscita",b:[344,86,40,120],txt:"L'uscita del tendone. Valentino torna fuori.",th:"Fuori, ¡vamos!",go:"lab"}]};
 function moveP(id,to,x,extra){for(const k in ROOMS){const R=ROOMS[k],i=R.ppl.findIndex(p=>p.id===id);if(i>=0){const p=R.ppl.splice(i,1)[0];p.x=x;Object.assign(p,extra||{});ROOMS[to].ppl.push(p);return}}}
-moveP("stella","tin",196,{hang:1});moveP("clio","tin",252,{hang:1});moveP("martina","tin",140);
+moveP("stella","tin",196,{hang:1});moveP("izzo","sg",300);moveP("clio","tin",252,{hang:1});moveP("martina","tin",140);
 ROOMS.lab.objs=[{n:"la porta del tendone",b:[220,146,40,42],txt:"La porta del tendone è aperta. Dentro, le lezioni.",th:"Dentro.",go:"tin"},{n:"la luna",b:[46,20,28,28],txt:"«Di’ su, Ottorino, te cosa pensi che ci sia là sopra? Io mi figuro… ecco io mi figuro che c’è la risposta a tutti i nostri mali»",th:"¡El pueblo unido jamás será vencido!"},{n:"l'insegna",b:[66,144,66,18],txt:"ITC LAB. Una lampadina è fulminata. Valentino se lo segna.",th:"Domani. Mañana. Forse."}];
 ROOMS.sg.objs=[{n:"il baule di scena",b:[22,152,56,36],txt:"Il baule dei costumi di scena. Dentro, solo cappelli. Nessuno rosso.",th:"Nada."},{n:"le tende",b:[80,40,190,90],txt:"Sulle tende c'è una nota, come se l'avesse lasciata chi ha programmato questo gioco: “E ricordatevi di aprire le tende se dovete aprire o chiudere le finestre. Abbiamo già speso troppo!”",th:"Capito, capitissimo."},{n:"il copione sul leggio",b:[298,98,26,52],txt:"Il copione di Mattia. Sul margine, scritto a mano da Paolucci: SOS CANALE 14.",th:"Canal 14."},{n:"gli attori",b:[226,138,96,54],txt:"Gli attori ripetono la stessa battuta da un'ora: “Dov'è il presidente?”. Nessuno ha ancora trovato il tono giusto.",th:"Neanche yo."}];
 ROOMS.saule.objs.forEach(o=>{const m=o.n.match(/^l'aula ([A-F])$/);if(m)o.b=[58+"ABCDEF".indexOf(m[1])*46,48,38,102]});
@@ -659,7 +659,7 @@ function spec(k){
     organizzatrici:{amb:[.6,.6,.62],L:[lamp,[262,114,40,[.05,.25,.35]]]},
     amministrazione:{amb:[.6,.6,.66],L:[lamp,[312,126,40,[.05,.25,.35]]]},
     direzione:{amb:[.74,.72,.76],L:[[100,10,150,[.5,.48,.4]],[320,10,150,[.5,.48,.4]],[306,70,40,[.15,.18,.3]]]},
-    sala:{amb:[.66,.64,.7],L:[[192,90,150,[.9,.82,.6]],[20,32,40,[.1,.3,.1]],[192,200,170,[.45,.4,.32]],[282,95,60,[.6,.5,.3]]]},
+    sala:{amb:[.66,.64,.7],L:[[192,90,150,[.9,.82,.6]],[20,32,40,[.1,.3,.1]],[192,200,170,[.45,.4,.32]],[110,100,70,[.5,.42,.28]]]},
     camerini:{amb:[.68,.64,.66],L:[[158,60,70,[.5,.42,.22]],[240,60,70,[.5,.42,.22]],[322,60,70,[.5,.42,.22]],lamp]},
     magazzino:{amb:[.62,.6,.6],L:[[192,10,190,[.5,.48,.42]],[196,40,96,[.5,.56,.62]]]},
     biglietteria:{amb:[.72,.7,.7],L:[[190,90,160,[.5,.45,.32]],lamp]},
@@ -937,9 +937,9 @@ function room(k){
     for(let s=0;s<5;s++){const y=134+s*6.5,w=28+s*3;r(192-w/2,y,w,6.5,s%2?"#2a2a30":"#222228");r(192-w/2,y,w,1,"#6a6a74");r(192-w/2,y,1,6.5,"#3a3a42");r(192+w/2-1,y,1,6.5,"#3a3a42")}
     const rowY=[150,160,171,183,196];rowY.forEach((y,ri)=>{const sc=.7+ri*.12,sw=18*sc,sh2=9*sc;for(const side of[0,1]){for(let n=0;n<10;n++){const x=side?212+ri*3+n*(sw+2):172-ri*3-(n+1)*(sw+2);if(x<-sw||x>384)continue;
       r(x,y-sh2,sw,sh2,"#a01f30");r(x,y-sh2,sw,1.2,"#e04a5a");r(x+1,y-1,sw-2,3*sc,"#7a1424");r(x+sw-1,y-sh2,1,sh2+2,"#6a1020")}}});
-    r(216,40,2,92,"#9a9aa6");r(234,40,2,92,"#9a9aa6");r(216.5,40,.5,92,"#c8c8d8");for(let y=44;y<132;y+=11)r(216,y,20,1.5,"#8a8a96");
-    r(280,100,4,30,"#c9a15a");r(280.5,100,.5,30,"#f4d080");r(274,129,16,2,"#8a7a4a");box(270,92,24,8,"#c9a15a");r(290,78,1,14,"#8a8a96");disc(290.5,78,2,K);
-    r(108,166,2,24,"#444");poly([[109,170],[98,192],[101,192]],"#444");poly([[109,170],[120,192],[117,192]],"#444");box(98,152,26,14,"#222");box(124,155,8,8,"#333");r(132,157,2,4,"#5ee6ff");box(102,148,8,4,"#222");
+    {const lx=58,top=62,bot=130,M="#9a9aa6",L="#c8c8d8";poly([[lx+8,top],[lx+11,top],[lx+3,bot],[lx,bot]],M);poly([[lx+8,top],[lx+11,top],[lx+19,bot],[lx+16,bot]],"#7a7a86");r(lx+6,top-2,7,3,"#5a5a66");for(let k2=1;k2<6;k2++){const t=k2/6,y=top+(bot-top)*t;r(lx+8-8*t+1,y,4+16*t-2,1.5,L)}r(lx+4,(top+bot)/2+8,12,.6,"#5a5a66")}
+    r(190,100,4,30,"#c9a15a");r(190.5,100,.5,30,"#f4d080");r(184,129,16,2,"#8a7a4a");box(180,92,24,8,"#c9a15a");r(200,78,1,14,"#8a8a96");disc(200.5,78,2,K);
+    r(191,186,2,22,"#444");poly([[192,190],[181,210],[184,210]],"#444");poly([[192,190],[203,210],[200,210]],"#444");box(180,172,26,14,"#222");box(172,175,8,8,"#333");r(170,177,2,4,"#5ee6ff");box(186,168,8,4,"#222");
     box(4,26,30,12,"#0d3a1a");txt("USCITA",19,35,5,"#5eff8a");
     al(.12,()=>poly([[180,22],[204,22],[240,114],[144,114]],"#fff3d0"))}
   if(k==="camerini"){wall(R.wall);floor("#5a4a40");
@@ -1074,7 +1074,7 @@ function roomAnim(k){
   if(k==="foyer"){for(let i=0;i<32;i++){const x=i*12,y=6+Math.sin(i/31*Math.PI*3)*5+6;r(x,y,.5,2.5,"#3a2a2a");poly([[x-2,y+2.5],[x+2.5,y+2.5],[x+.25,y+7]],["#ff3b5c","#ffd23c","#5ee6ff","#1f8a4f"][(i+(F>>3))%4])}
     disc(68,68,10,"#2a2a2e");disc(68,68,9,"#141418");for(let i=0;i<12;i++){const a=i*Math.PI/6;r(68+Math.cos(a)*7.5,68+Math.sin(a)*7.5,.8,.8,"#f4f4f4")}
     const m=S.t%60,h=(S.t/60)%12;[[m/60,7,.5],[h/12,4.5,.8]].forEach(([qq,L,w])=>{const a=qq*Math.PI*2-Math.PI/2;for(let d=0;d<L;d+=.5)r(68+Math.cos(a)*d,68+Math.sin(a)*d,w,w,"#f4f4f4")});disc(68,68,.8,"#c0283a")}
-  if(k==="sala"){r(102,160,2,2,(F>>2)%2?"#ff3b5c":"#600")}
+  if(k==="sala"){r(195,178,2,2,(F>>2)%2?"#ff3b5c":"#600")}
   if(k==="organizzatrici")r(256,108,(F>>1)%2?6:.5,.5,"#5ee6ff");
 }
 function tenda(){const W="#ddd4c2",Wd="#bdb4a2",RB="#7a1a22";
