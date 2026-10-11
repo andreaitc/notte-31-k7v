@@ -2208,9 +2208,9 @@ function mapHTML(){const cell=(k,b,lab,o)=>{o=o||{};const here=k===S.loc,ld=acti
    <div class="zone zt" style="left:0;top:0;width:36.5%;height:100%"><b>ITC TEATRO</b></div>
    <div class="zone zc" style="left:38%;top:0;width:22.5%;height:100%"><b>CORTILE</b></div>
    <div class="zone zs" style="left:61.5%;top:0;width:38.5%;height:100%"><b>ITC STUDIO</b></div>
-   ${cell("sala",[1,7,21,37],"Sala grande")}${cell("camerini",[23,7,13,18],"Camerini")}${cell("magazzino",[23,26,13,18],"Magazzino")}
-   ${cell("organizzatrici",[1,46,6.5,52],"Organizzazione",{vert:1})}${cell("biglietteria",[7.5,46,11,15],"Bigliet|teria")}${cell("corridoi",[19,46,9,15],"Bagni")}
-   ${cell("foyer",[7.5,62,8,36],"Foyer")}${cell("amministrazione",[16,62,12,36],"Ammini|strazione")}${cell("direzione",[28.5,46,7.5,52],"Direzione",{vert:1})}
+   ${cell("sala",[1,7,20.5,33],"Sala grande")}${cell("camerini",[22,7,14,16],"Camerini")}${cell("magazzino",[22,24,14,16],"Magazzino")}
+   ${cell("organizzatrici",[1,41.5,6.5,56.5],"Organizzazione",{vert:1})}${cell("corridoi",[8,41.5,13.5,10],"Bagni")}${cell("biglietteria",[8,52.5,13.5,14],"Bigliet|teria")}
+   ${cell("foyer",[8,67.5,13.5,30.5],"Foyer")}${cell("amministrazione",[22,41.5,8,56.5],"Amministrazione",{vert:1})}${cell("direzione",[30.5,41.5,5.5,56.5],"Direzione",{vert:1})}
    ${cell("lab",[49.25,6,"c",40],"Tendone",{cls:"tent"})}${cell("cortile",[39,50,12,46],"Cortile")}${cell("bus",[52.5,50,6.5,46],"Teatrobus",{vert:1})}
    ${"ABCDEF".split("").map((l,n)=>cell("saule",afb[l],"Sala"+("CDE".includes(l)?"~":" ")+l,{cls:"af",nohere:n>0})).join("")}${cell("sfront",[71.5,6,6.5,92],"Front office",{vert:1})}${cell("sg",[78.5,60,12.5,38],"Sala G")}
   </div></div>`}
