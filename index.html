@@ -1802,17 +1802,19 @@ function seatScene(){const E=S.se;r(0,0,384,216,"#2a2a2e");r(0,0,384,30,"#0e0e10
   for(const d of[-1,1]){for(let k=0;k<12;k++){const y=58+k*9.4,t=(y+4.7-58)/112,edge=d<0?117-40*t-2:267+40*t+2,ix=edge,ox=edge+d*(30+k*1.2);
       poly([[ix,y],[ox,y],[ox+d*1.2,y+9.4],[ix+d*-3.4,y+9.4]].map(([x,yy])=>[x,yy]),k%2?"#c08a52":"#ca955c");r(Math.min(ix,ox),y,Math.abs(ox-ix),.6,"#e0b07a");if(k>0)r((ix+ox)/2-1,y+5,2,1.2,"#ffd890")}
     g.strokeStyle="#141416";g.lineWidth=1.4;g.beginPath();g.moveTo(d<0?84:300,52);g.lineTo(d<0?30:354,176);g.stroke()}
-  poly([[164,166],[220,166],[232,216],[152,216]],"#b07a44");for(let y=168;y<216;y+=6)r(156,y,72,.5,"#9a6a3a");
+  poly([[164,166],[220,166],[232,216],[152,216]],"#b07a44");
   E.L.forEach((p,k)=>{const{x,y,w,h,s}=p,o=E.open[k],t=o?Math.min(1,(performance.now()-o)/260):0;
     const bt=y-h,bh=h*.62;r(x-1.5*s,bt+1*s,w+3*s,h,"#120c0e");
     const drop=bh*.58*t,top=bt+2*s+drop;
     if(o){r(x+1*s,bt+2*s,w-2*s,drop+2*s,"#1a1014");poly([[x+2*s,bt+3*s],[x+w-2*s,bt+3*s],[x+w-1*s,top],[x+1*s,top]],"#d8344a");r(x+3*s,bt+3.5*s,w-6*s,1.2*s,"#ff7a8a");r(x+1*s,top-1.5*s,w-2*s,1.5*s,"#6a0e1a")}
     const BH=bh-drop;r(x+1*s,top,w-2*s,BH,"#9a1626");r(x+2*s,top-1*s,w-4*s,1*s,"#9a1626");r(x+2*s,top-1*s,w-4*s,.6*s,"#e04a5a");r(x+1*s,top,w-2*s,1.4*s,"#e04a5a");
     if(BH>6*s){r(x+4*s,top+3*s,w-8*s,BH-6*s,"#c42234");r(x+4*s,top+3*s,w-8*s,1*s,"#e85a6a");r(x+4*s,top+BH-3.5*s,w-8*s,1.2*s,"#7a1020")}
-    if(o&&t>=1){const lab="PONMLH"[p.ri]+(8-p.i),fs=Math.max(4.6,4.4*s),pw=Math.max(13,12*s),ph=fs*1.45,ly=Math.min(y-2,top+BH/2+ph/2);r(x+w/2-pw/2,ly-ph+.6,pw,ph,"#f4ecd8");txt(lab,x+w/2,ly-ph*.18,fs,"#1a1014")}
+    if(o&&t>=1){const lab=""+(8-p.i),fs=Math.max(4.6,4.4*s),pw=Math.max(13,12*s),ph=fs*1.45,ly=Math.min(y-2,top+BH/2+ph/2);r(x+w/2-pw/2,ly-ph+.6,pw,ph,"#f4ecd8");txt(lab,x+w/2,ly-ph*.18,fs,"#1a1014")}
     r(x-1.5*s,bt+bh*.55,3*s,h-bh*.55,"#2a2a30");r(x+w-1.5*s,bt+bh*.55,3*s,h-bh*.55,"#2a2a30");r(x-1.5*s,bt+bh*.55,3*s,1*s,"#5a5a66");r(x+w-1.5*s,bt+bh*.55,3*s,1*s,"#5a5a66");
     r(x+2*s,bt+bh+1*s,w-4*s,h-bh-1*s,"#2a2a30");r(x+2*s,bt+bh+1*s,w-4*s,1*s,"#4a4a54");
     if(o&&t>=1){const mx=x+w/2,my=top-2*s;if(k===E.target)seatIcon("radio",mx,my+1*s,2*s);else if(E.junk[k][0]!=="niente")seatIcon(E.junk[k][0],mx,my,2*s)}});
+  [[74,17],[94,19.5],[115,22],[138,24.5],[163,27]].forEach(([y,w],ri)=>{const tot=8*w+14,yy=y-w*.9;for(const x of[192-tot/2-8,192+tot/2+8]){r(x-4,yy-4.5,8,7,"#f4ecd8");r(x-4,yy+2.5,8,.8,"#7a5020");txt("PONML"[ri],x,yy+1.2,5,"#1a1014")}});
+  for(const x of[7,377]){r(x-4.5,180,9,8,"#f4ecd8");txt("H",x,186,5.5,"#1a1014")}
   txt("CERCA LA RADIOLINA",192,12,8,"#ffd23c");txt("POLTRONE GUARDATE: "+E.tries,192,21,4,"#9aa3e0");
   r(40,25,304,15,"#000000dd");r(40,25,304,1,"#ffd23c");r(40,39,304,1,"#ffd23c");r(40,25,1,15,"#ffd23c");r(343,25,1,15,"#ffd23c");txt(E.msg,192,35,5,E.found?"#5eff8a":"#f4f4ff")}
 /* EASTER EGG: COLPISCI TIMMY (una lepre) */
