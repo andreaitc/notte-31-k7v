@@ -1325,8 +1325,8 @@ function render(){
   on("bbrk",()=>{S.phase="play";S.mode="explore";S.bk=null;render()});
   on("btimmy",()=>{S.phase="play";S.mode="explore";S.wm=null;render()});
   on("bagain",()=>{nuova();S.phase="brief";render()});
-  on("bpost",()=>{S.phase="post";S.pi=0;S.pf=0;S.pz=0;S.pdark=0;render()});
-  const crr=document.querySelector(".credits .cr");if(crr)crr.addEventListener("animationend",()=>{if(S.phase==="end"){S.phase="post";S.pi=0;S.pf=0;S.pz=0;S.pdark=0;sfx("blip");render()}},{once:true});
+  on("bpost",()=>{theme(false);S.phase="post";S.pi=0;S.pf=0;S.pz=0;S.pdark=0;render()});
+  const crr=document.querySelector(".credits .cr");if(crr)crr.addEventListener("animationend",()=>{if(S.phase==="end"){theme(false);S.phase="post";S.pi=0;S.pf=0;S.pz=0;S.pdark=0;sfx("blip");render()}},{once:true});
   const rd=$("brdone");if(rd)rd.onclick=e=>{e.stopPropagation();endRadio()};
   const gm=$("bgoalmap");if(gm)gm.onclick=e=>{e.stopPropagation();openMap()};
   const bk=$("bask");if(bk)bk.onclick=e=>{e.stopPropagation();openTalk(S.say.pid)};
@@ -1781,7 +1781,7 @@ function bindGear(){const g_=$("bgear");if(g_)g_.onclick=e=>{e.stopPropagation()
     if(x==="win"){jumpTo(STEPS.length-1);S.t=END;S.phase="win";S.wf=0;theme(true,"tension");render();return}
     if(x==="end"){nuova();S.menu=false;S.phase="end";render();return}
     if(x==="scossa"){nuova();S.menu=false;S.phase="scossa";S.sf=0;render();return}
-    if(x==="post"){nuova();S.menu=false;S.phase="post";S.pi=0;S.pf=0;S.pz=0;S.pdark=0;render();return}
+    if(x==="post"){nuova();S.menu=false;theme(false);S.phase="post";S.pi=0;S.pf=0;S.pz=0;S.pdark=0;render();return}
     jumpTo(+b.dataset.j)});
   const m=$("menu");if(m)m.onclick=e=>e.stopPropagation()}
 /* SCENA FINALE: SCOSSAAAAA! E L'ISOLA DEL 2027 */
@@ -2235,7 +2235,7 @@ $("screen").addEventListener("click",e=>{
   if(S.phase==="timmy"){const[x,y]=toLogic(e);timmyHit(x,y);return}
   if(S.phase==="brk"){brkMove(e);brkLaunch();return}
   if(S.phase==="op"||S.phase==="ape")return;
-  if(S.phase==="post"){if((S.pf||0)<36){S.pf=36;render();return}if(S.pdark)return;if(S.pi===POST.length-1)return;S.pi++;S.pz=0;sfx("blip");if(S.pi===POST.length-2)theme(true,"tension");render();return}
+  if(S.phase==="post"){if((S.pf||0)<36){S.pf=36;render();return}if(S.pdark)return;if(S.pi===POST.length-1)return;S.pi++;S.pz=0;sfx("blip");if(S.pi===POST.length-1)theme(true,"tension");render();return}
   if(S.phase!=="play")return;
   if(S.mode==="arrive")return advance();
   if(S.mode==="look")return noteClick();
