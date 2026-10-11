@@ -1809,11 +1809,12 @@ function seatScene(){const E=S.se;r(0,0,384,216,"#2a2a2e");r(0,0,384,30,"#0e0e10
     if(o){r(x+1*s,bt+2*s,w-2*s,drop+2*s,"#1a1014");poly([[x+2*s,bt+3*s],[x+w-2*s,bt+3*s],[x+w-1*s,top],[x+1*s,top]],"#d8344a");r(x+3*s,bt+3.5*s,w-6*s,1.2*s,"#ff7a8a");r(x+1*s,top-1.5*s,w-2*s,1.5*s,"#6a0e1a")}
     const BH=bh-drop;r(x+1*s,top,w-2*s,BH,"#9a1626");r(x+2*s,top-1*s,w-4*s,1*s,"#9a1626");r(x+2*s,top-1*s,w-4*s,.6*s,"#e04a5a");r(x+1*s,top,w-2*s,1.4*s,"#e04a5a");
     if(BH>6*s){r(x+4*s,top+3*s,w-8*s,BH-6*s,"#c42234");r(x+4*s,top+3*s,w-8*s,1*s,"#e85a6a");r(x+4*s,top+BH-3.5*s,w-8*s,1.2*s,"#7a1020")}
+    if(o&&t>=1){const lab="PONMLH"[p.ri]+(8-p.i),fs=Math.max(4.6,4.4*s),pw=Math.max(13,12*s),ph=fs*1.45,ly=Math.min(y-2,top+BH/2+ph/2);r(x+w/2-pw/2,ly-ph+.6,pw,ph,"#f4ecd8");txt(lab,x+w/2,ly-ph*.18,fs,"#1a1014")}
     r(x-1.5*s,bt+bh*.55,3*s,h-bh*.55,"#2a2a30");r(x+w-1.5*s,bt+bh*.55,3*s,h-bh*.55,"#2a2a30");r(x-1.5*s,bt+bh*.55,3*s,1*s,"#5a5a66");r(x+w-1.5*s,bt+bh*.55,3*s,1*s,"#5a5a66");
     r(x+2*s,bt+bh+1*s,w-4*s,h-bh-1*s,"#2a2a30");r(x+2*s,bt+bh+1*s,w-4*s,1*s,"#4a4a54");
     if(o&&t>=1){const mx=x+w/2,my=top-2*s;if(k===E.target)seatIcon("radio",mx,my+1*s,2*s);else if(E.junk[k][0]!=="niente")seatIcon(E.junk[k][0],mx,my,2*s)}});
-  txt("CERCA LA RADIOLINA",192,14,8,"#ffd23c");txt("POLTRONE GUARDATE: "+E.tries,192,25,4,"#9aa3e0");
-  r(0,206,384,10,"#000000aa");txt(E.msg,192,213,5,E.found?"#5eff8a":"#f4f4ff")}
+  txt("CERCA LA RADIOLINA",192,12,8,"#ffd23c");txt("POLTRONE GUARDATE: "+E.tries,192,21,4,"#9aa3e0");
+  r(40,25,304,15,"#000000dd");r(40,25,304,1,"#ffd23c");r(40,39,304,1,"#ffd23c");r(40,25,1,15,"#ffd23c");r(343,25,1,15,"#ffd23c");txt(E.msg,192,35,5,E.found?"#5eff8a":"#f4f4ff")}
 /* EASTER EGG: COLPISCI TIMMY (una lepre) */
 const WM_X=[[110,148],[192,148],[274,148],[80,190],[192,190],[304,190]];
 function startTimmy(){S.phase="timmy";S.wm={t:0,score:0,miss:0,h:WM_X.map(()=>({u:0,life:0,hit:0})),end:0};theme(false);sfx("start");render()}
