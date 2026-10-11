@@ -1114,10 +1114,11 @@ function studioAule(){const R=ROOMS.saule;wall(R.wall);floor("#4a4a56");ceilingL
   "ABCDEFG".split("").forEach((L,i)=>{const x=58+i*46;box(x-2,46,42,104,"#8a8a96");box(x,48,38,102,["#c0283a","#2f6fd0","#1f8a4f","#c9a15a","#8a4ac0","#e8742a","#2a8a8a"][i]);r(x+30,96,3,6,"#ffd23c");box(x+12,54,14,12,"#f4f4ff");txt(L,x+19,64.5,8,"#16161f");box(x+8,74,22,18,"#bfe3ff");r(x+9,75,20,.5,"#ffffff");
     for(let k=0;k<2;k++)box(x+2+k*20,22,16,14,["#ff8ab0","#ffd23c","#9ad0ff","#bfffbf"][(i+k)%4])});
   box(16,70,32,118,"#7a8a9a");r(31.75,70,.5,118,"#5a6a7a");for(let i=0;i<6;i++)r(20,76+i*4,8,.5,"#5a6a7a");r(28,120,2,6,"#c8c8d8");shadow(16,187,32)}
+function sgParquet(y0,y1,ph){r(-4,y0,392,y1-y0,"#4a2e1c");let row=0;for(let y=y0;y<y1;y+=ph,row++){const off=(row*23)%48;for(let x=-48+off;x<392;x+=48){r(x,y,48,ph,["#4a2e1c","#553522","#432818","#5a3a24"][(row*3+Math.floor(x/48)*5+16)%4]);r(x,y,.6,ph,"#2a1810")}r(-4,y,392,.6,"#2e1a10");r(-4,y+.6,392,.4,"#6a4630")}}
 function sgCurtains(x0,x1,y0,y1){r(x0,y0,x1-x0,y1-y0,"#241c2c");for(let x=x0;x<x1;x+=9){r(x,y0,4,y1-y0,"#2e2438");r(x+1,y0,1,y1-y0,"#3a2e46");r(x+6,y0,1.5,y1-y0,"#1a1420")}
   for(let x=x0;x<x1;x+=9)for(let y=y0+6;y<y1;y+=14)r(x+2+Math.sin(y*.2+x)*1,y,1,6,"#40344e");r(x0,y0,x1-x0,3,"#141018");r(x0,y1-3,x1-x0,3,"#1a1420")}
 function studioG(){r(0,0,384,150,"#34344c");r(0,0,384,30,"#26263a");r(0,146,384,4,"#141420");
-  r(0,150,384,66,"#3e3e4a");for(let x=0;x<384;x+=32)r(x,150,.5,66,"#222228");for(let y=158;y<216;y+=10)r(0,y,384,.5,"#222228");
+  sgParquet(150,216,6);
   r(10,10,364,3,"#5a5a66");for(let i=0;i<8;i++){const x=24+i*46;r(x,13,2,6,"#5a5a66");box(x-4,19,10,8,"#2a2a34");disc(x+1,27,2,"#fff3b0")}
   /* parete sinistra: tende */
   sgCurtains(0,226,32,92);r(0,30,228,3,"#5a5a66");
@@ -1549,7 +1550,7 @@ function sgcEnd(){if(S.phase!=="sgc")return;S.phase="play";S.ci=0;S.zT=0;S.sgLoo
 function sgcScene(){const l=SGC[Math.min(S.ci,SGC.length-1)],fight=l[2],sk=(S.zT?(performance.now()-S.zT<3400):(fight&&l[3]))?Math.sin(F*2.1)*(S.zT?3:2):0;g.save();g.translate(sk,0);
   r(-4,0,392,216,"#1c1c26");r(-4,0,392,22,"#121218");for(let x=10;x<384;x+=64){r(x,16,2,6,"#2a2a34");disc(x+1,24,3,"#fff3d0")}
   sgCurtains(-4,388,26,84);al(.14,()=>poly([[392,0],[392,40],[150,216],[20,216]],"#fff3c8"));
-  r(-4,138,392,78,"#3a3a46");for(let y=142;y<216;y+=9)r(-4,y,392,.6,"#2e2e38");
+  sgParquet(138,216,9);
   const zt=S.zT?(performance.now()-S.zT)/1000:-1;
   if(zt>=0){const vx=Math.max(282,420-zt*70);g.save();g.translate(vx,236);g.scale(2.4,2.4);cart(24,0);person(0,0,zt>1.9?Object.assign({},VAL,{gaze:-1}):VAL,zt<1.9);g.restore()}
   /* i tre attori in primo piano */
