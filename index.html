@@ -1077,7 +1077,7 @@ function roomAnim(k){
   if(k==="foyer"){for(let i=0;i<32;i++){const x=i*12,y=6+Math.sin(i/31*Math.PI*3)*5+6;r(x,y,.5,2.5,"#3a2a2a");poly([[x-2,y+2.5],[x+2.5,y+2.5],[x+.25,y+7]],["#ff3b5c","#ffd23c","#5ee6ff","#1f8a4f"][(i+(F>>3))%4])}
     disc(68,68,10,"#2a2a2e");disc(68,68,9,"#141418");for(let i=0;i<12;i++){const a=i*Math.PI/6;r(68+Math.cos(a)*7.5,68+Math.sin(a)*7.5,.8,.8,"#f4f4f4")}
     const m=S.t%60,h=(S.t/60)%12;[[m/60,7,.5],[h/12,4.5,.8]].forEach(([qq,L,w])=>{const a=qq*Math.PI*2-Math.PI/2;for(let d=0;d<L;d+=.5)r(68+Math.cos(a)*d,68+Math.sin(a)*d,w,w,"#f4f4f4")});disc(68,68,.8,"#c0283a")}
-  if(k==="sala"){r(195,178,2,2,(F>>2)%2?"#ff3b5c":"#600")}
+  if(k==="sala"){r(195,178,2,2,(F>>2)%2?"#ff3b5c":"#600");if(!S.found.includes("b2")){box(228,154,6,10,"#2a2a30");r(229,156,4,3,(F>>3)%2?"#5eff8a":"#3a8a4a");r(232,149,1,5,"#2a2a30");r(229,160,4,.6,"#5a5a66")}}
   if(k==="organizzatrici")r(256,108,(F>>1)%2?6:.5,.5,"#5ee6ff");
 }
 function tenda(){const W="#ddd4c2",Wd="#bdb4a2",RB="#7a1a22";
@@ -1449,7 +1449,7 @@ const STEPS=[
   open:"«Valentino! Entra pure, la prova è ferma.»",ov:"Permesso, permesito.",
   say:"«Sì, sono passati. La signora in rosso ha guardato la prova in prima fila, senza fiatare. Paolucci invece, mentre lei non guardava, ha scarabocchiato qualcosa sul mio copione. Guarda qua:»",paper:"SOS CANALE 14",th:"Canale catorche... ¡una radiolina! William."},
  {room:"sala",who:"william",goal:"Torna al teatro: chiedi a William una radiolina",tell:"Canale 14 è una frequenza delle radioline dei tecnici: chiedi a William, in sala.",yes:"Prendi la radiolina",
-  open:"«Valentino, ti stavo aspettando: mi hanno chiamato dallo Studio. Canale 14? Quello lo usiamo noi tecnici. Prendi la radiolina, dai.»",ov:"Canale catorche... vediamos.",
+  open:"«Valentino, ti stavo aspettando: mi hanno chiamato dallo Studio. Canale 14? Quello lo usiamo noi tecnici. Passami la radiolina. È lì sulla poltrona.»",ov:"Canale catorche... vediamos.",
   say:"«Eccola. Mettiamola sul 14 e sentiamo.»",th:"Silencio...",radio:1,
   post:"William: «Era Paolucci! E quel colpo... non mi piace per niente. Ma cosa avrà voluto dire? Cosa c'entra la Tacconi? Vai a parlarle, Valentino.»"},
  {room:"amministrazione",who:"tacconi",goal:"Trova la Tacconi",tell:"La Tacconi? Prova in amministrazione.",
