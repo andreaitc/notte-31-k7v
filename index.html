@@ -558,13 +558,13 @@ PEOPLE.forEach(deriveColors);
 const PAOIMG=IMGD.paolucci;
 /* aspetto delle figurine, preso dalle foto */
 const LOOK={
- bagnara:{f:1,hl:"long",hair:"#8a2a1a",body:"#6a6a42"}, biljana:{f:1,hl:"bob",bangs:1,hair:"#5a3a22",body:"#24305a"},
- carlo:{bald:1,hair:"#9a9a9a",gl:1,body:"#1c1c22"}, caterina:{f:1,hl:"long",hair:"#1a1414",body:"#141418",jacket:"#26262c"},
+ bagnara:{f:1,hl:"long",hair:"#8a2a1a",body:"#6a6a42"}, biljana:{f:1,hl:"bob",hair:"#8a4222",body:"#f2c230",dress:"#f2c230",legs:"#e8b896"},
+ carlo:{bald:1,hair:"#9a9a9a",gl:1,body:"#1c1c22"}, caterina:{f:1,hl:"long",long:1,hair:"#3a1c16",body:"#f0f0ee",stripes:"#1a1a1e",skirt:"#141418",legs:"#141418"},
  clio:{f:1,hl:"bob",hair:"#1a1414",body:"#e8e8ee",jacket:"#18181c"}, cristina:{f:1,hl:"short",hair:"#6a3a1a",body:"#4a7ab0",collar:1},
  deca:{f:1,hl:"bob",curly:1,hair:"#d8b060",body:"#2a2a2a",scarf:"#d0306a"}, gio:{beard:0,bald:1,gl:0,hair:"#5a4a3a",handle:"#3a2414",body:"#16161a",jacket:"#7a7a84"},
  giulia:{f:1,hl:"pony",hair:"#4a3020",body:"#1a1a1a"}, giuliappi:{f:1,hl:"short",bangs:1,hair:"#1a1a14",body:"#5a2a2a",jacket:"#b0a08a",dress:"#8a2a3a"},
  gloria:{f:1,hl:"long",curly:1,hair:"#5a3418",body:"#e8c46a"}, ida:{f:1,hl:"long",curly:1,hair:"#1a1414",body:"#1a1a1a"},
- irene:{f:1,hl:"long",hair:"#3a2010",gl:1,body:"#7a1a2a"}, izzo:{hl:"short",hair:"#2a1a14",stub:1,body:"#1a1a1a"},
+ irene:{f:1,hl:"long",hair:"#3a2010",gl:1,body:"#7a1a2a"}, izzo:{hl:"short",hair:"#4a4446",grey:1,stub:1,body:"#1a1a1a",legs:"#2a2a30"},
  jack:{beard:0,hl:"short",hair:"#141414",beard2:"#1a1a1a",body:"#3a3a3e"}, jessichina:{f:1,hl:"long",bangs:1,hair:"#c8b8a8",body:"#e8d4c4",jacket:"#18181c"},
  laura:{f:1,hl:"long",bangs:1,hair:"#141414",body:"#7a7a7a"}, lea:{f:1,updo:1,curly:1,hair:"#8a4a2a",body:"#e83a5a",collar:1},
  mario:{hl:"short",hair:"#8a8a8a",body:"#eeeef4",jacket:"#1c1c26"}, martina:{f:1,hl:"long",hair:"#2a1a14",body:"#6a6a6a"},
@@ -792,13 +792,14 @@ function person(x,y,o,walk){
   for(const p of P)r(p[0]-.5,p[1]-.5,p[2]+1,p[3]+1,OL);
   for(const p of P)r(p[0],p[1],p[2],p[3],p[4]);
   if(o.dress){const dc=o.dress,dd=sh(dc,.72);poly([[x+2.5,ty+12.5],[x+17.5,ty+12.5],[x+19.5,y-2],[x+.5,y-2]],OL);poly([[x+3,ty+13],[x+17,ty+13],[x+19,y-2.5],[x+1,y-2.5]],dc);poly([[x+12,ty+13],[x+17,ty+13],[x+19,y-2.5],[x+13,y-2.5]],dd);for(let i=0;i<3;i++)r(x+5+i*4,ty+16,.5,y-2.5-ty-16,sh(dc,.85))}
+  if(o.skirt){const sc=o.skirt;poly([[x+2.5,ty+12.5],[x+17.5,ty+12.5],[x+19,y-6],[x+1,y-6]],OL);poly([[x+3,ty+13],[x+17,ty+13],[x+18.5,y-6.5],[x+1.5,y-6.5]],sc);r(x+3,ty+13,14,.5,sh(sc,1.6))}
   // corpo
-  r(x+8.5,y-11,1,10-l1,ldk);r(x+4.5,y-11,5,.5,sh(lg,1.25));
+  if(!o.skirt&&!o.dress)r(x+8.5,y-11,1,10-l1,ldk);r(x+4.5,y-11,5,.5,sh(lg,1.25));
   if(!o.up)r(x+.5,ty+1+sw,1,11,bl);
   if(o.coat){r(x+14.5,ty,4.5,21,bd);poly([[x+6,ty],[x+10,ty+8],[x+5,ty+5]],bl);poly([[x+14,ty],[x+10,ty+8],[x+15,ty+5]],bd);r(x+1,ty+10,18,2,sh(bo,.5));box(x+8.5,ty+9.5,3,3,"#ffd23c");r(x+10,ty+14,.5,7,bd);r(x+3,ty-2.5,4,4,bo);r(x+13,ty-2.5,4,4,bd);r(x+1,ty+20.5,18,.5,sh(bo,.5))}
   else{r(x+13.5,ty,3.5,15,bd);r(x+3,ty,14,.5,bl);r(x+3.5,ty+.5,.5,14,bl);
     if(o.bib){const c=sh(bo,1.18);r(x+6,ty+3,8,8,c);r(x+6,ty,1.5,3,c);r(x+12.5,ty,1.5,3,c);r(x+6.5,ty+3.5,1,1,"#ffd23c");r(x+12.5,ty+3.5,1,1,"#ffd23c");r(x+8,ty+6,4,3,sh(bo,1.05));r(x+8,ty+6,4,.5,sh(bo,.8))}
-    else{r(x+3,ty+13.5,14,1.5,sh(lg,.85));r(x+9.5,ty+13.5,1.5,1.5,"#c9a15a")}
+    else if(!o.dress&&!o.skirt){r(x+3,ty+13.5,14,1.5,sh(lg,.85));r(x+9.5,ty+13.5,1.5,1.5,"#c9a15a")}
     if(o.collar){r(x+6.5,ty,3,2,bl);r(x+10.5,ty,3,2,bl);r(x+9.75,ty+3,.5,.5,bl);r(x+9.75,ty+6,.5,.5,bl);r(x+9.75,ty+9,.5,.5,bl)}}
   if(o.jacket&&!o.coat){const j=o.jacket,jd=sh(j,.72);r(x+.5,ty+1+sw,3,11.5,j);r(x+16.5,ty+1-sw,3,11.5,jd);r(x+3,ty,4.6,15,j);r(x+12.4,ty,4.6,15,jd);poly([[x+7.6,ty],[x+9.6,ty+5],[x+7.6,ty+7]],sh(j,1.25));poly([[x+12.4,ty],[x+10.4,ty+5],[x+12.4,ty+7]],sh(j,.9));r(x+3,ty,.5,15,sh(j,1.3))}
   // capelli lunghi davanti alle spalle
@@ -835,6 +836,7 @@ function person(x,y,o,walk){
   if(o.sash){r(x+3,ty+11,14,2.5,o.sash);r(x+14,ty+12,2,5,o.sash)}
   if(o.scarf){r(x+5,ty,10,3,o.scarf);r(x+6,ty+3,3,8,o.scarf);r(x+7,ty+4,1,6,"#ffd23c");r(x+11,ty,1,3,"#2f6fd0")}
   if(o.stub)al(.35,()=>r(hx+.5,hy+7.5,11,4,"#3a2a1a"));
+  if(o.grey&&hr&&!o.hat){for(let i=0;i<6;i++)r(hx+.5+i*2,hy-2+(i%2),.8,.5,"#b8b4b0");r(hx-1,hy+2,.6,1,"#b8b4b0");r(hx+12,hy+2,.6,1,"#b8b4b0")}
   if(o.f&&!o.gag){r(hx+4.5,hy+9.5,3,1,"#c0485a");r(hx+1.5,ey-.5,.5,.8,"#1a1a24");r(hx+10,ey-.5,.5,.8,"#1a1a24")}
   if(o.hat&&!o.brim){const h=o.hat;r(hx-.5,hy-4.5,13,6,h);r(hx-.5,hy+1,16,2,sh(h,.65));r(hx+1,hy-4,4,.5,sh(h,1.4));r(hx+5.5,hy-5,1.5,.5,sh(h,1.3));r(hx-1,hy-5,14,.5,OL);r(hx-.5,hy+3,16,.5,OL);r(hx+15.5,hy+1,.5,2,OL)}
   if(o.brim){const h=o.hat;r(hx-.5,hy-11,13,11,OL);r(hx,hy-10.5,12,10.5,h);r(hx+9,hy-10.5,3,10.5,sh(h,.7));r(hx+1,hy-10,3,.5,sh(h,1.4));r(hx,hy-3,12,2,"#3a0a12");
@@ -1059,10 +1061,11 @@ function personSide(x,y,o,dir,walk){g.save();g.translate(x+10,0);g.scale(dir,1);
   al(.3,()=>r(x+4,y-.5,12,2,"#000"));
   if(o.long)add(x+5,hy+1,6,18,sh(hr,.7));
   add(x+7.5-sw,y-11,3.5,11,sh(lg,.7));add(x+9+sw,y-11,3.5,11,lg);add(x+7-sw,y-2.5,5.5,2.5,"#1d1d26");add(x+8.5+sw,y-2.5,5.5,2.5,"#1d1d26");
-  add(x+6,ty,9,15,bo);add(x+9,ty-1.5,3,2,sh(sk,.8));add(x+6,hy,10,12,sk);add(x+15.5,hy+5,1.2,2,sk);
+  add(x+6,ty,9,15,bo);if(o.dress)add(x+4.5,ty+12,12,y-3-ty-12,o.dress);if(o.skirt)add(x+5,ty+12,11,y-7-ty-12,o.skirt);add(x+9,ty-1.5,3,2,sh(sk,.8));add(x+6,hy,10,12,sk);add(x+15.5,hy+5,1.2,2,sk);
   add(x+8.5+sw*.6,ty+1,3,11.5,bd);add(x+8.5+sw*.6,ty+12.5,3,2.5,sh(sk,.85));
   for(const q of P)r(q[0]-.5,q[1]-.5,q[2]+1,q[3]+1,OL);for(const q of P)r(q[0],q[1],q[2],q[3],q[4]);
-  r(x+5.5,hy-2.5,11,4,hr);r(x+5,hy-1,4,9,hr);if(o.long)r(x+5,hy,3,12,hr);r(x+12,hy+5,2,2,"#f4f4ff");r(x+13,hy+5.5,1,1.5,"#1a1a24");r(x+12,hy+3.5,2.5,.5,hr);r(x+13,hy+9.5,2.5,.5,"#9a4a3a");r(x+6.5,ty+13.5,8.5,1.5,sh(lg,.85));
+  if(o.stripes)for(let k=0;k<4;k++)r(x+6,ty+2+k*3.2,9,1.2,o.stripes);
+  r(x+5.5,hy-2.5,11,4,hr);r(x+5,hy-1,4,9,hr);if(o.long)r(x+5,hy,3,12,hr);if(o.hl==="bob")r(x+4.5,hy-1,5,11,hr);if(o.grey)for(let i=0;i<4;i++)r(x+6+i*2.5,hy-2+(i%2),.8,.5,"#b8b4b0");r(x+12,hy+5,2,2,"#f4f4ff");r(x+13,hy+5.5,1,1.5,"#1a1a24");r(x+12,hy+3.5,2.5,.5,hr);r(x+13,hy+9.5,2.5,.5,"#9a4a3a");r(x+6.5,ty+13.5,8.5,1.5,sh(lg,.85));
   g.restore()}
 function pacer(p){const back=!(S.turned&&S.turned.cristina)&&S.visited.direzione;p.bx=p.bx||p.x;
   const speaking=frozen(p)||(S.mode==="arrive"&&S.seq&&S.seq[S.seqI]&&S.seq[S.seqI].who==="cristina")||(S.mode==="say"&&S.say&&S.say.pid==="cristina");
