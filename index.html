@@ -538,7 +538,7 @@ ROOMS.tin={n:"Dentro il tendone",z:"fuori",hidden:1,ppl:[],th:"Dentro al circo."
 function moveP(id,to,x,extra){for(const k in ROOMS){const R=ROOMS[k],i=R.ppl.findIndex(p=>p.id===id);if(i>=0){const p=R.ppl.splice(i,1)[0];p.x=x;Object.assign(p,extra||{});ROOMS[to].ppl.push(p);return}}}
 moveP("stella","tin",196,{hang:1});moveP("izzo","sg",56);moveP("clio","tin",252,{hang:1});moveP("martina","tin",140);
 ROOMS.lab.objs=[{n:"la porta del tendone",b:[220,146,40,42],txt:"La porta del tendone è aperta. Dentro, le lezioni.",th:"Dentro.",go:"tin"},{n:"la luna",b:[46,20,28,28],txt:"«Di’ su, Ottorino, te cosa pensi che ci sia là sopra? Io mi figuro… ecco io mi figuro che c’è la risposta a tutti i nostri mali»",th:"¡El pueblo unido jamás será vencido!"},{n:"l'insegna",b:[66,144,66,18],txt:"ITC LAB. Una lampadina è fulminata. Valentino se lo segna.",th:"Domani. Mañana. Forse."}];
-ROOMS.sg.objs=[{n:"le tende",b:[120,32,104,100],txt:"Sulle tende c'è una nota, come se l'avesse lasciata chi ha programmato questo gioco: “E ricordatevi di aprire le tende se dovete aprire o chiudere le finestre. Abbiamo già speso troppo!”",th:"Capito, capitissimo."},{n:"le finestre",b:[244,40,132,40],txt:"Fuori è buio. Si vede il cortile del teatro, lontano.",th:"Nada."},{n:"il riflettore",b:[226,26,26,126],txt:"Un riflettore su stativo, puntato sugli attori. Scotta.",th:"¡Caliente!"},{n:"il copione sul tavolo",b:[292,172,28,12],txt:"Il copione di Mattia. Sul margine, scritto a mano da Paolucci: SOS CANALE 14.",th:"Canal 14."},{n:"gli attori",b:[18,138,96,54],txt:"Gli attori ripassano la scena del litigio. Adesso sembrano tranquillissimi.",th:"Me la sono bevuta tutta."}];
+ROOMS.sg.objs=[{n:"le tende",b:[120,32,104,60],txt:"Sulle tende c'è una nota, come se l'avesse lasciata chi ha programmato questo gioco: “E ricordatevi di aprire le tende se dovete aprire o chiudere le finestre. Abbiamo già speso troppo!”",th:"Capito, capitissimo."},{n:"le finestre",b:[244,40,132,40],txt:"Fuori è buio. Si vede il cortile del teatro, lontano.",th:"Nada."},{n:"il riflettore",b:[226,26,26,126],txt:"Un riflettore su stativo, puntato sugli attori. Scotta.",th:"¡Caliente!"},{n:"il copione sul tavolo",b:[292,172,28,12],txt:"Il copione di Mattia. Sul margine, scritto a mano da Paolucci: SOS CANALE 14.",th:"Canal 14."},{n:"gli attori",b:[18,138,96,54],txt:"Gli attori ripassano la scena del litigio. Adesso sembrano tranquillissimi.",th:"Me la sono bevuta tutta."}];
 ROOMS.saule.objs.forEach(o=>{const m=o.n.match(/^l'aula ([A-F])$/);if(m)o.b=[58+"ABCDEF".indexOf(m[1])*46,48,38,102]});
 ROOMS.saule.objs.push({n:"l'aula G",b:[334,48,38,102],txt:()=>S.step>=4?"L'aula G, la più grande. Da dentro arrivano le voci delle prove. Valentino entra.":"L'aula G. Da dentro arrivano le voci delle prove. Meglio non disturbare, per ora.",th:"Silencio, provano.",go:()=>S.step>=4?"sg":null});
 ROOMS.sfront.objs.forEach(o=>{if(o.n==="la bacheca dei corsi"){o.txt="Corsi di teatro per tutte le età. Uno dei fogli appesi è dell'anno scorso: “Discorso di fine anno del presidente: ore 23:55”. Qualcuno ci ha disegnato sopra dei baffi.";o.th="El año passato..."}});
@@ -1120,7 +1120,7 @@ function studioG(){r(0,0,384,150,"#34344c");r(0,0,384,30,"#26263a");r(0,146,384,
   r(0,150,384,66,"#3e3e4a");for(let x=0;x<384;x+=32)r(x,150,.5,66,"#222228");for(let y=158;y<216;y+=10)r(0,y,384,.5,"#222228");
   r(10,10,364,3,"#5a5a66");for(let i=0;i<8;i++){const x=24+i*46;r(x,13,2,6,"#5a5a66");box(x-4,19,10,8,"#2a2a34");disc(x+1,27,2,"#fff3b0")}
   /* parete sinistra: tende */
-  sgCurtains(0,226,32,147);r(0,30,228,3,"#5a5a66");
+  sgCurtains(0,226,32,92);r(0,30,228,3,"#5a5a66");
   /* parete destra: finestre */
   for(let i=0;i<3;i++){const x=244+i*46;box(x,40,40,40,"#3a3a4a");r(x+3,43,34,34,"#1a2a4a");for(let s=0;s<4;s++)r(x+5+hs(i,s)*30,45+hs(s,i)*28,.6,.6,"#fff");r(x+19,43,2,34,"#3a3a4a");r(x+3,59,34,2,"#3a3a4a");al(.25,()=>poly([[x+5,75],[x+14,45],[x+17,45],[x+8,75]],"#ffffff"))}
   /* riflettore su stativo */
@@ -1350,7 +1350,7 @@ function render(){
     <p class="sub">Musiche a 8 bit: un computer molto paziente<br>Nessun presidente è stato maltrattato durante la lavorazione. Quasi.</p>
     <div class="last"><img src="${VALIMG()}" alt="Valentino"><p>«Felice año nuevo, compañeros. Y mañana... ¿chi lo pulisce el autobús?»</p></div>
     <p class="sub">FINE</p></div><button class="go cgo" id="bagain" type="button">GIOCA ANCORA</button><button class="hb cpost" id="bpost" type="button">ASPETTA...</button></div>`}
-  else if(ph==="sgc"){const l=SGC[S.ci];h=!l||S.zT?"":`<div class="pres post" style="left:calc(var(--cx) + var(--cw) * ${({biljana:122,izzo:198,caterina:274}[l[0]]/384).toFixed(3)})"><img src="${IMGD[l[0]]}" alt=""><div><b>${SGN[l[0]]}</b><span>${esc(l[1])}</span></div></div><div class="tap">TOCCA PER CONTINUARE · ${S.ci+1}/${SGC.length}</div>`}
+  else if(ph==="sgc"){const l=SGC[S.ci];h=!l||S.zT?"":`<div class="pres post" style="left:calc(var(--cx) + var(--cw) * ${Math.max(.235,Math.min(.765,{biljana:70,izzo:140,caterina:210}[l[0]]/384)).toFixed(3)})"><img src="${IMGD[l[0]]}" alt=""><div><b>${SGN[l[0]]}</b><span>${esc(l[1])}</span></div></div><div class="tap">TOCCA PER CONTINUARE · ${S.ci+1}/${SGC.length}</div>`}
   else if(ph==="post"){const l=POST[S.pi];h=(S.pf||0)<36||!l||S.pdark||(S.pi===POST.length-1&&!S.pLine)?"":`<div class="pres post ${l[0]==="paolucci"?"r":""}"><img src="${IMGD[l[0]]}" alt=""><div><b>${l[0].toUpperCase()}</b><span>${esc(l[1])}</span></div></div>${S.pi===POST.length-1?"":`<div class="tap">TOCCA PER CONTINUARE · ${S.pi+1}/${POST.length}</div>`}`}
   else if(ph==="vint")h=vintHTML();
   else if(ph==="scossa")h=scossaHTML();
@@ -1548,23 +1548,23 @@ function startSgc(){S.phase="sgc";S.ci=0;S.cf=0;sfx("shout");render()}
 function sgcEnd(){if(S.phase!=="sgc")return;S.phase="play";S.ci=0;S.zT=0;S.sgLook=1;S.vx=stopX();S.seq=[{who:"gio",txt:"«Bene! Bravissimi. Questa volta ci ho creduto anch'io. La rifacciamo.»"},{who:"caterina",txt:"«Dall'inizio?»"},{who:"mattia",txt:"«Valentino! Entra pure, tranquillo: sono le prove del secondo atto.»"}];S.seqI=0;S.seqT=0;S.mode="arrive";render()}
 function sgcScene(){const l=SGC[Math.min(S.ci,SGC.length-1)],fight=l[2],sk=(S.zT?(performance.now()-S.zT<3400):(fight&&l[3]))?Math.sin(F*2.1)*(S.zT?3:2):0;g.save();g.translate(sk,0);
   r(-4,0,392,216,"#1c1c26");r(-4,0,392,22,"#121218");for(let x=10;x<384;x+=64){r(x,16,2,6,"#2a2a34");disc(x+1,24,3,"#fff3d0")}
-  sgCurtains(-4,388,26,138);al(.14,()=>poly([[392,0],[392,40],[150,216],[20,216]],"#fff3c8"));
+  sgCurtains(-4,388,26,84);al(.14,()=>poly([[392,0],[392,40],[150,216],[20,216]],"#fff3c8"));
   r(-4,138,392,78,"#3a3a46");for(let y=142;y<216;y+=9)r(-4,y,392,.6,"#2e2e38");
   const zt=S.zT?(performance.now()-S.zT)/1000:-1;
-  if(zt>=0){const vx=Math.max(318,400-zt*42);g.save();g.translate(vx,214);g.scale(1.3,1.3);cart(24,0);person(0,0,zt>1.9?Object.assign({},VAL,{gaze:-1}):VAL,zt<1.9);g.restore()}
+  if(zt>=0){const vx=Math.max(282,420-zt*70);g.save();g.translate(vx,236);g.scale(2.4,2.4);cart(24,0);person(0,0,zt>1.9?Object.assign({},VAL,{gaze:-1}):VAL,zt<1.9);g.restore()}
   /* i tre attori in primo piano */
-  if(zt>=3.4){const up=Math.min(1,(zt-3.4)/.45);[["biljana",96],["izzo",172],["caterina",248]].forEach(([id,x],i)=>{g.save();g.translate(x+(1-up)*(i-1)*-30,208+(1-up)*40);g.scale(2.6,2.6);person(0,0,Object.assign({},PID[id].c,{gaze:1}),false);g.restore()});
+  if(zt>=3.4){const up=Math.min(1,(zt-3.4)/.45);[["biljana",50],["izzo",120],["caterina",190]].forEach(([id,x],i)=>{g.save();g.translate(x+(1-up)*(i-1)*-24,194+(1-up)*32);g.scale(2,2);person(0,0,Object.assign({},PID[id].c,{gaze:1}),false);g.restore()});
     const s=zt<3.9?1+(3.9-zt)*.8:1;g.save();g.translate(192,70);g.scale(s,s);txt("STOOOP!",2,2,26,"#000");txt("STOOOP!",0,0,26,"#ffd23c");g.restore()}
-  else if(zt>=0){const cx=180,cy=168;for(let k=0;k<14;k++){const a=k/14*6.28+F*.2,rr=34+Math.sin(F*.9+k)*8;disc(cx+Math.cos(a)*rr*1.3,cy+Math.sin(a)*rr*.8,16+hs(k,F>>1)*8,k%2?"#d8d8e0":"#b8b8c4")}
+  else if(zt>=0){const cx=140,cy=160;for(let k=0;k<14;k++){const a=k/14*6.28+F*.2,rr=34+Math.sin(F*.9+k)*8;disc(cx+Math.cos(a)*rr*1.3,cy+Math.sin(a)*rr*.8,16+hs(k,F>>1)*8,k%2?"#d8d8e0":"#b8b8c4")}
     for(let k=0;k<6;k++){const a=hs(k,F>>1)*6.28,len=26,x0=cx+Math.cos(a)*40,y0=cy+Math.sin(a)*24;g.save();g.translate(x0,y0);g.rotate(a);r(0,-3,len,6,k%3===0?"#f0c8a0":k%3===1?"#24305a":"#1a1a1a");r(len-2,-4,7,8,k%2?"#f0c8a0":"#1d1d26");g.restore()}
     disc(cx,cy,30,"#e8e8f0");["@#!","%&*!","BAM!","SBEM!"].forEach((t,k)=>{if(((F>>2)+k)%3===0)txt(t,cx-40+k*26,cy-24+hs(k,F>>2)*40,9,["#ff3b3b","#ffd23c","#2f4fd0","#c0283a"][k])});
   }
-  else [["biljana",96],["izzo",172],["caterina",248]].forEach(([id,x],i)=>{const P=PID[id];g.save();
-    if(fight){const hop=-Math.abs(Math.sin(F/3+i*1.7))*6,j=Math.sin(F*1.3+i*2)*2.5,dir=i===0?1:i===2?-1:((F>>4)%2?1:-1);g.translate(x+j,208+hop);g.scale(2.6,2.6);personSide(0,0,P.c,dir,(F>>2)%3===i)}
-    else{g.translate(x,208);g.scale(2.6,2.6);person(0,0,P.c,false)}g.restore()});
-  if(!S.zT&&SGC[S.ci]){const hx={biljana:122,izzo:198,caterina:274}[SGC[S.ci][0]];let by=73;
+  else [["biljana",50],["izzo",120],["caterina",190]].forEach(([id,x],i)=>{const P=PID[id];g.save();
+    if(fight){const hop=-Math.abs(Math.sin(F/3+i*1.7))*5,j=Math.sin(F*1.3+i*2)*2,dir=i===0?1:i===2?-1:((F>>4)%2?1:-1);g.translate(x+j,194+hop);g.scale(2,2);personSide(0,0,P.c,dir,(F>>2)%3===i)}
+    else{g.translate(x,194);g.scale(2,2);person(0,0,P.c,false)}g.restore()});
+  if(!S.zT&&SGC[S.ci]){const hx={biljana:70,izzo:140,caterina:210}[SGC[S.ci][0]];let by=73;
     const el=document.querySelector(".pres.post"),cr=$("cv").getBoundingClientRect();if(el&&cr.width){const br=el.getBoundingClientRect();by=(br.bottom-cr.top)/cr.height*216}
-    for(let yy=by+2;yy<96;yy+=4)r(hx-.5,yy,1,2,"#f4f4ff")}
+    for(let yy=by+2;yy<108;yy+=4)r(hx-.5,yy,1,2,"#f4f4ff")}
   if(fight&&l[3]&&!S.zT)for(let k=0;k<3;k++){const a=F*.3+k*2.1;r(150+Math.cos(a)*90,40+Math.sin(a*1.3)*10,4,1,"#ffd23c")}
   g.restore()}
 function presReady(){const b=S.seq&&S.seq[S.seqI];return ((FROMR[S.loc]?S.vx<=stopX():S.vx>=stopX())||(b&&b.now))&&!(b&&b.call&&!(S.called[b.call]>=30))}
