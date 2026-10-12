@@ -1802,7 +1802,7 @@ function pacScene(){const A=S.pac;r(0,0,384,216,"#140a10");
   if(!A.end&&A.score===0&&A.ready<=0&&(F>>3)%2)txt("SCORRI IL DITO PER GIRARE",60,210,4,"#9aa3e0","left")}
 /* MINIGIOCO: CERCA LA RADIOLINA TRA LE POLTRONE */
 const SEAT_ROWS=[{y:96,s:.78,n:8},{y:146,s:.9,n:8},{y:204,s:1.04,n:8}];
-const SEAT_JUNK=[["niente","Vuota."],["niente","Niente. Solo polvere."],["niente","Nessuno. Niente."],["niente","Vuota, e pulita: lavoro di Valentino."]];
+const SEAT_JUNK=[["niente", "Vuota."], ["niente", "Niente. Solo polvere."], ["niente", "Nessuno. Niente."], ["niente", "Vuota, e pulita: lavoro di Valentino."], ["niente", "Questa balla."], ["niente", "Questa è rotta."], ["niente", "Questa cigola."], ["niente", "Un chewing gum attaccato. Che schifo!"]];
 const SEAT_MEMO={};const SEAT_KEY=["mazzo","Il mazzo di chiavi del Palazzo Comunale di San Lazzaro, perso da Floridia nel 1999!!!"],SEAT_KEY_AT=8,SEAT_RADIO_AT=12;
 function seatList(){const L=[];[[74,17],[94,19.5],[115,22],[138,24.5],[163,27]].forEach(([y,w],ri)=>{const n=8,tot=n*w+(n-1)*2,x0=192-tot/2;for(let i=0;i<n;i++){const s=w/40;L.push({ri,i,x:x0+i*(w+2),y,w,h:58*s,s})}});
   [[218,36]].forEach(([y,w],fi)=>{const s=w/40;for(let i=0;i<4;i++){L.push({ri:5+fi,i,x:164-(4-i)*(w+2)+2,y,w,h:58*s,s});L.push({ri:5+fi,i:i+4,x:220+i*(w+2),y,w,h:58*s,s})}});return L}
@@ -1810,7 +1810,7 @@ function startSeats(){S.phase="seats";const L=seatList();const fr=L.map((q,k)=>k
   L.forEach((p,k)=>{S.se.junk[k]=SEAT_MEMO[k]||SEAT_JUNK[(k*7+Math.floor(Math.random()*5))%SEAT_JUNK.length]});sfx("blip");render()}
 function seatClick(e){const E=S.se;if(!E||E.found)return;const[x,y]=toLogic(e);
   let k=-1;for(let j=E.L.length-1;j>=0;j--){const p=E.L[j];if(x>=p.x&&x<=p.x+p.w&&y>=p.y-p.h&&y<=p.y){k=j;break}}if(k<0)return;if(E.open[k]){E.msg=E.junk[k][1];sfx("blip");render();return}E.open[k]=performance.now();E.tries++;if(E.tries===SEAT_KEY_AT)E.junk[k]=SEAT_KEY;if(E.tries===SEAT_RADIO_AT)E.target=k;
-  if(k===E.target){E.found=1;E.msg="¡LA RADIOLINA! Eccola qui.";sfx("clue");render();setTimeout(()=>{if(S.phase!=="seats")return;S.phase="play";S.mode="talk";S.seatFound=1;render();ask("si")},1600)}
+  if(k===E.target){E.found=1;E.msg="¡LA RADIOLINA! Olè.";sfx("clue");render();setTimeout(()=>{if(S.phase!=="seats")return;S.phase="play";S.mode="talk";S.seatFound=1;render();ask("si")},1600)}
   else{E.msg=E.junk[k][1];sfx("step");render()}}
 function seatIcon(kind,x,y,s){g.save();g.translate(x,y);g.scale(s,s);
   if(kind==="radio"){box(-3,-9,6,10,"#2a2a30");r(-2,-7,4,3,(F>>2)%2?"#5eff8a":"#3a8a4a");r(1.5,-14,1,5,"#2a2a30");r(-2,-3,4,.6,"#5a5a66")}
