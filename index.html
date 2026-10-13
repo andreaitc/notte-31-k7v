@@ -355,6 +355,7 @@ button:focus-visible{outline:2px solid var(--giallo);outline-offset:2px}
 .plan2 .rm.tent{border-radius:50%;width:auto;aspect-ratio:1/1;transform:translateX(-50%)}
 .plan2 .rm.af.hov{border-color:var(--giallo)}
 .map{padding-bottom:3.5%}.map .maphead span{margin-left:2.4em}
+.bjpad{position:absolute;left:var(--cx);width:var(--cw);top:calc(var(--cy) + var(--ch) - 3.4em);display:flex;gap:.6em;padding:0 .8em;box-sizing:border-box;z-index:30;pointer-events:none}.bjpad button{pointer-events:auto;min-width:3.2em;height:2.8em;font-size:.9em!important;touch-action:none;user-select:none;-webkit-user-select:none;opacity:.85}.bjpad .bjj{margin-left:auto;min-width:5em}
 </style>
 
 <div class="stage">
@@ -447,7 +448,7 @@ const ROOMS = {
       foto:"«Paolucci è passato a provare il discorso davanti allo specchio. Ha detto “Care colleghe” e qualcuno l'ha chiamato da fuori.»",
       strano:"«Dalla rastrelliera manca un impermeabile rosso. Era il mio preferito per gli inchini.»",
       aiuto:"«Che tesoro. Allora guarda dietro gli specchi: qualcuno ci ha infilato qualcosa.»"}),P("ida","Ida","attrice",{body:"#444",hair:"#222"},206,{greet:["Valentino! Annyeong! Ho appena finito una coreografia K-pop in camerino."],again:["Ancora qui? Ti insegno il ritornello."],foto:"«Paolucci? In un manga sarebbe il protagonista che sparisce al capitolo uno. Al capitolo tre torna con i poteri. Al cinque si scopre il cattivo: quella col cappello.»",strano:"«Una donna con l'impermeabile rosso mi ha chiesto gli arrosticini, con un accento stranissimo. Gli ho detto che quelli veri li fa solo mia nonna, in Abruzzo.»",aiuto:"«Ti aiuto io! Dammi il mocio, faccio io. Tu guarda dietro gli specchi.»"}),P("giulia","Giulia","attrice e regista",{body:"#444",hair:"#222"},232,{greet:["Valentino! Serve qualcosa? Aggiusto, monto, smonto, recito."],again:["Dimmi cosa serve, ci penso io."],foto:"«Da scout te lo dico: tracce fresche verso il cortile. Due persone. Una con un impermeabile molto lungo.»",strano:"«Qualcuno ha fatto un nodo da scout alla maniglia del Teatrobus. Fatto male. Non è dei nostri.»",aiuto:"«Lascia, faccio io. Tu guarda dietro gli specchi, io controllo il resto.»"})],
-    objs:[{n:"gli specchi",b:[40,46,276,70],main:1},{n:"la rastrelliera dei costumi",b:[2,56,38,56],txt:"Manca una gruccia. Sull'etichetta: IMPERMEABILE ROSSO, TAGLIA PRESIDENTE.",th:"¿Taglia presidente?"},{n:"la parrucca",b:[282,92,18,24],txt:"Una parrucca su una testa di polistirolo. Ha l'aria di aver visto tutto.",th:"Si potesse parlare..."}]},
+    objs:[{n:"gli specchi",b:[40,46,276,70],main:1},{n:"la rastrelliera dei costumi",b:[2,56,38,56],txt:"Manca una gruccia. Sull'etichetta: IMPERMEABILE ROSSO, TAGLIA PRESIDENTE.",th:"¿Taglia presidente?"},{n:"le lampadine",b:[40,44,278,10]},{n:"la lampadina che lampeggia",b:[245,43,13,12]},{n:"la parrucca",b:[282,92,18,24],txt:"Una parrucca su una testa di polistirolo. Ha l'aria di aver visto tutto.",th:"Si potesse parlare..."}]},
   magazzino:{n:"Magazzino",z:"itc",th:"El magazzino. Puzza de vernisa.",ppl:[P("jack","Jack","attore",{body:"#2a2a2a",hair:"#1a1a20",beard:"#1a1a20"},186,{greet:["Cerco un costume. Mi manca l'impermeabile rosso per la scena."],again:["Ancora niente impermeabile."],foto:"«Paolucci? No. Però chi ha preso l'impermeabile rosso aveva la sua taglia. Anzi, una taglia più grande. Taglia presidente.»",strano:"«Il baule dei costumi è stato richiuso al contrario. Così lo chiude solo chi non lavora qui. O chi ci lavorava una volta.»",aiuto:"«Aiutami a cercare nel baule, va'.»"})],
     objs:[{n:"il baule dei costumi",b:[150,164,40,24],main:1},{n:"gli scaffali",b:[66,64,134,72],txt:"Fari, cavi, prolunghe, scatoloni. Un cartello dice: PORTATA MASSIMA PER RIPIANO 20 KG. Nessuno l'ha mai pesato.",th:"Veinte chili. Más o meno."},{n:"il banco da lavoro",b:[200,130,134,40],txt:"Il banco da lavoro. Morsa, nastro, viti contate una per una. Sotto, una cassetta con scritto: NON TOCCARE.",th:"No toco nada."},{n:"il frigo",b:[296,100,32,72],txt:"Il frigo del magazzino. Dentro, una sola lattina con scritto a pennarello: «NON È TUA».",th:"No es mía."},{n:"le sedie appese",b:[346,34,38,44],txt:"Sedie appese al muro, a testa in giù. Pronte per una scenografia che nessuno ricorda più.",th:"Sillas volantes."},{n:"il cono",b:[14,148,34,30],txt:"Un cono stradale. Nessuno sa da quale strada venga.",th:"Misterio."},{n:"la cassetta del pronto soccorso",b:[362,94,22,18]}]},
   corridoi:{n:"Corridoi e bagni",z:"itc",wall:"#1c1c22",
@@ -955,14 +956,14 @@ function room(k){
     /* parete destra in prospettiva, con finestra e termosifone */
     poly([[330,24],[384,4],[384,190],[330,150]],"#d8d5ce");r(329.5,24,1,126,"#c4c1b9");poly([[330,146],[384,184],[384,190],[330,150]],"#1c1c20");
     poly([[334,40],[384,22],[384,28],[334,45]],"#c0283a");
-    poly([[340,50],[384,36],[384,124],[340,114]],"#1a1a20");poly([[344,54],[384,42],[384,118],[344,110]],"#dde6ea");al(.35,()=>poly([[350,104],[372,56],[378,55],[356,104]],"#ffffff"));
+    poly([[340,50],[384,36],[384,124],[340,114]],"#1a1a20");poly([[344,54],[384,42],[384,118],[344,110]],"#1c2640");al(.18,()=>poly([[350,104],[372,56],[378,55],[356,104]],"#8a9ac0"));disc(368,62,1.6,"#e8e4c8");
     for(let f=0;f<6;f++){const x=346+f*6;r(x,121+f*1.2,4,26+f*.4,"#f4f4f2");r(x+3.4,121+f*1.2,.6,26+f*.4,"#c8c6c0")}
     /* rastrelliera a muro con grucce */
     box(4,58,34,3,"#f4f4f2");for(let i=0;i<5;i++){const x=7+i*6.5;r(x+1.5,61,.6,3,"#2a2a30");const c=["#c0283a","#1a1a20","#e07a3a","#2f6fd0","#1a1a20"][i];if(i!==2){r(x,64,5,30+(i*5)%12,c);r(x+3.5,64,1.5,30+(i*5)%12,sh(c,.7))}else{poly([[x,66],[x+2.5,63],[x+5,66]],"#2a2a30")}}
     /* specchio grande con barra di lampadine */
     r(40,52,276,64,"#0e0e12");r(41,53,274,62,"#bfcbd0");r(178,53,.8,62,"#8a969c");
     r(41,53,274,30,"#cbd5d9");box(118,64,24,51,"#3a7a9a");r(119,65,22,50,"#2f6a88");r(136,88,3,1.2,"#1a1a20");r(114,64,4,51,"#2a5a76");
-    box(258,62,36,26,"#1a1a20");r(261,65,14,20,"#dfe6ea");r(278,65,13,20,"#dfe6ea");r(262,90,10,24,"#e8e8e6");
+    box(258,62,36,26,"#1a1a20");r(261,65,14,20,"#26304a");r(278,65,13,20,"#26304a");r(262,90,10,24,"#e8e8e6");
     box(196,76,22,24,"#e8e4dc");r(200,62,30,1.5,"#f4f4f2");for(let i=0;i<6;i++)r(202+i*4,64,.6,6,["#c0283a","#1a1a20","#e07a3a"][i%3]);
     al(.3,()=>{poly([[60,115],[96,53],[104,53],[68,115]],"#ffffff");poly([[214,115],[250,53],[255,53],[219,115]],"#ffffff")});
     box(38,46,280,6,"#f4f4f2");
@@ -1091,7 +1092,7 @@ function pacer(p){const back=!(S.turned&&S.turned.cristina)&&S.visited.direzione
 function circler(p){if(frozen(p)){person(p.x,NPCY,Object.assign({},p.c,{tel:1}),false);phone(p.x,NPCY,p.c);return}p.bx=p.bx||p.x;const a=F*.07,dy=-5+5*Math.sin(a);p.x=p.bx+18*Math.cos(a);person(p.x,NPCY+dy,Object.assign({},p.c,{tel:1}),true);phone(p.x,NPCY+dy,p.c)}
 function roomAnim(k){
   if(k==="direzione")decaProps();
-  if(k==="camerini")for(let j=0;j<15;j++){const x=48+j*18.5,on=(F+j*5)%37>2;disc(x,49,2,"#7a6a50");disc(x,49,1.3,on?"#fff3c0":"#9a8a6a")}
+  if(k==="camerini"){if(F!==S.flkF){S.flkF=F;if(Math.random()<.35)S.flk=Math.random()<.5}for(let j=0;j<15;j++){const x=48+j*18.5,on=j!==11||S.flk;disc(x,49,2,"#7a6a50");disc(x,49,1.3,on?"#fff3c0":"#6a5a40");if(on)al(.25,()=>disc(x,50,3.5,"#fff3c0"))}}
   if(k==="foyer"){for(let i=0;i<32;i++){const x=i*12,y=6+Math.sin(i/31*Math.PI*3)*5+6;r(x,y,.5,2.5,"#3a2a2a");poly([[x-2,y+2.5],[x+2.5,y+2.5],[x+.25,y+7]],["#ff3b5c","#ffd23c","#5ee6ff","#1f8a4f"][(i+(F>>3))%4])}
     disc(68,68,10,"#2a2a2e");disc(68,68,9,"#141418");for(let i=0;i<12;i++){const a=i*Math.PI/6;r(68+Math.cos(a)*7.5,68+Math.sin(a)*7.5,.8,.8,"#f4f4f4")}
     const m=S.t%60,h=(S.t/60)%12;[[m/60,7,.5],[h/12,4.5,.8]].forEach(([qq,L,w])=>{const a=qq*Math.PI*2-Math.PI/2;for(let d=0;d<L;d+=.5)r(68+Math.cos(a)*d,68+Math.sin(a)*d,w,w,"#f4f4f4")});disc(68,68,.8,"#c0283a")}
@@ -1268,6 +1269,7 @@ function draw(){
   if(ph==="op"){opScene();return}
   if(ph==="ape"){apeScene();return}
   if(ph==="pac"){pacScene();return}
+  if(ph==="bj"){bjScene();return}
   if(ph==="seats"){seatScene();return}
   if(ph==="scossa"){scossaDraw();return}
   if(ph==="vint"){vintDraw();return}
@@ -1372,6 +1374,7 @@ function render(){
   else if(ph==="scossa")h=scossaHTML();
   else if(ph==="op"){const O=S.op;h=O.end?`<div class="ov rev2 tm"><p><b>OPERAZIONE VALENTINO</b></p><p class="big">${O.end===2?"Operazione riuscita!":"Il paziente si è svegliato."}</p><p>${O.end===2?"Valentino si alza, si tocca il naso e torna a pulire. «¡Gracias, doctor!»":"«¡Ay! ¿Qué cosa mi state facendo?» Valentino si toglie il nasone e se ne va."}</p><button class="go gold" id="bop" type="button">TORNA AL GIOCO</button></div>`:`<button class="hb eggx" id="beggx" type="button" aria-label="Chiudi" title="Chiudi">✕</button>`}
   else if(ph==="seats"){h=`<button class="hb eggx" id="bseatx" type="button" aria-label="Chiudi" title="Chiudi">✕</button>`}
+  else if(ph==="bj"){const A=S.bj;h=A.end?`<div class="ov rev2 tm"><p><b>BULB JACK</b></p><p class="big">${A.end===2?"Hai acceso tutte le lampadine!":"Le falene hanno vinto."}</p><p>PUNTI ${A.score} · IN ORDINE ${A.litN}</p><p>${A.end===2?"Lea si guarda allo specchio: «Amore, finalmente una luce decente.»":"Ida dal corridoio: «Valentino, le falene! Chiudi la finestra!»"}</p><span style="display:flex;gap:1em;justify-content:center;flex-wrap:wrap"><button class="go gold" id="bbj2" type="button">RIPROVA</button><button class="go gold" id="bbj" type="button">TORNA AL GIOCO</button></span></div>`:`<button class="hb eggx" id="beggx" type="button" aria-label="Chiudi" title="Chiudi">✕</button><div class="bjpad"><button class="hb" id="bjL" type="button" aria-label="Sinistra">◀</button><button class="hb" id="bjR" type="button" aria-label="Destra">▶</button><button class="hb bjj" id="bjJ" type="button" aria-label="Salta">SALTA</button></div>`}
   else if(ph==="pac"){const A=S.pac;h=A.end?`<div class="ov rev2 tm"><p><b>POLPETTA-MAN</b></p><p class="big">${A.end===2?"Hai mangiato tutte le polpette!":"Le polpette hanno vinto."}</p><p>PUNTI ${A.score}</p><p>${A.end===2?"Martina conta il vassoio vuoto: «Zero. Le ho contate due volte.»":"«Te l'avevo detto, Valentino: stanotte le polpette ti vengono a cercare.»"}</p><span style="display:flex;gap:1em;justify-content:center;flex-wrap:wrap"><button class="go gold" id="bpac2" type="button">RIPROVA</button><button class="go gold" id="bpac" type="button">TORNA AL GIOCO</button></span></div>`:`<button class="hb eggx" id="beggx" type="button" aria-label="Chiudi" title="Chiudi">✕</button>`}
   else if(ph==="ape"){const A=S.ape;h=A.end?`<div class="ov rev2 tm"><p><b>APEATRO RALLY</b></p><p class="big">${A.end===2?"Sei arrivato all'ITC Teatro!":"TEMPO SCADUTO"}</p><p>PUNTI ${A.score}</p><p>${A.end===2?"«Brum brum. Te l'avevo detto che ero una leggenda.»":"«Brum... la salita di San Lazzaro mi frega sempre.»"}</p><span style="display:flex;gap:1em;justify-content:center;flex-wrap:wrap"><button class="go gold" id="bape2" type="button">RIPROVA</button><button class="go gold" id="bape" type="button">TORNA AL GIOCO</button></span></div>`:`<button class="hb eggx" id="beggx" type="button" aria-label="Chiudi" title="Chiudi">✕</button>`}
   else if(ph==="brk"){const B=S.bk;h=B.end?`<div class="ov rev2 tm"><p><b>FALDONI COLORATI · IL VIDEOGIOCO</b></p><p class="big">${B.end===2?"Hai abbattuto tutti i faldoni!":"Hai abbattuto "+B.br.filter(q=>!q.on).length+" faldoni su "+B.br.length+"."}</p><p>${B.end===2?"Vittoria A. ti guarda male: adesso chi li rimette in ordine?":"I faldoni colorati vincono sempre. Sono sempre quelli."}</p><button class="go gold" id="bbrk" type="button">TORNA AL GIOCO</button></div>`:`<button class="hb eggx" id="beggx" type="button" aria-label="Chiudi" title="Chiudi">✕</button>`}
@@ -1390,10 +1393,13 @@ function render(){
   on("bvideo",()=>{theme(false);noise(false);if(unlockAudio.el)unlockAudio.el.pause();S.phase="video";render();const v=$("vid");if(v){v.onended=()=>{if(unlockAudio.el)unlockAudio.el.play().catch(()=>{});S.phase="fuga";S.f=0;sfx("engine");render()};const srcs=v.querySelectorAll("source");srcs[srcs.length-1].onerror=()=>{$("verr").hidden=false};const pr=v.play();if(pr&&pr.catch)pr.catch(()=>{})}});
   on("bplay",()=>{const v=$("vid");if(v){if(v.paused)v.play().catch(()=>{});else v.pause()}});
   on("bfine",()=>{const v=$("vid");if(v)v.pause();if(unlockAudio.el)unlockAudio.el.play().catch(()=>{});S.phase="fuga";S.f=0;sfx("engine");render()});
-  on("beggx",()=>{$("screen").style.touchAction="";S.phase="play";S.mode="explore";S.wm=null;S.bk=null;S.op=null;S.ape=null;S.pac=null;theme(false);render()});
+  on("beggx",()=>{$("screen").style.touchAction="";S.phase="play";S.mode="explore";S.wm=null;S.bk=null;S.op=null;S.ape=null;S.pac=null;S.bj=null;theme(false);render()});
   on("bseatx",()=>{S.phase="play";S.mode="talk";S.se=null;render()});
   on("bpac",()=>{$("screen").style.touchAction="";S.phase="play";S.mode="explore";S.pac=null;render()});
   on("bpac2",()=>startPac());
+  on("bbj",()=>{$("screen").style.touchAction="";S.phase="play";S.mode="explore";S.bj=null;render()});
+  on("bbj2",()=>startBj());
+  [["bjL","L"],["bjR","R"],["bjJ","J"]].forEach(([id,k])=>{const b=$(id);if(!b)return;const set=v=>e=>{e.preventDefault();e.stopPropagation();if(S.bj)S.bj[k]=v};b.addEventListener("pointerdown",set(1));b.addEventListener("pointerup",set(0));b.addEventListener("pointerleave",set(0));b.addEventListener("pointercancel",set(0));b.addEventListener("click",e=>e.stopPropagation())});
   on("bape",()=>{$("screen").style.touchAction="";S.phase="play";S.mode="explore";S.ape=null;render()});
   on("bape2",()=>startApe());
   on("bop",()=>{$("screen").style.touchAction="";S.phase="play";S.mode="explore";S.op=null;render()});
@@ -1761,6 +1767,40 @@ function apeScene(){const A=S.ape;
   if(A.mt>0&&(F>>2)%2)txt(A.msg,192,110,11,"#7aff9a");
   if(!A.end&&A.cd<=0){al(.28+(A.steer<0?.4:0),()=>{poly([[14,170],[34,156],[34,184]],"#f4f4f4")});al(.28+(A.steer>0?.4:0),()=>{poly([[370,170],[350,156],[350,184]],"#f4f4f4")})}
   r(150,212,84,3,"#00000088");r(150,212,84*prog,3,"#ffd23c")}
+/* EASTER EGG: BULB JACK (la lampadina che lampeggia nei camerini) */
+const BJ_PL=[[0,204,384],[44,160,76],[264,160,76],[146,124,92],[24,86,70],[290,86,70],[150,56,84]];
+const BJ_B=[[60,148],[80,148],[100,148],[284,148],[304,148],[324,148],[166,112],[192,112],[218,112],[36,74],[60,74],[302,74],[326,74],[164,44],[192,44],[220,44],[30,190],[60,190],[324,190],[354,190],[20,124],[364,124],[120,30],[264,30]];
+function startBj(){theme(false);sfx("start");$("screen").style.touchAction="none";S.phase="bj";
+  S.bj={p:{x:184,y:204,vx:0,vy:0,ground:1,dir:1,inv:0},b:BJ_B.map(([x,y])=>({x,y,on:1})),lit:Math.floor(Math.random()*BJ_B.length),en:[],spawn:4,score:0,litN:0,lives:3,end:0,ready:1.4,L:0,R:0,J:0,last:performance.now()};
+  render();requestAnimationFrame(bjLoop)}
+function bjNextLit(A,from){let best=-1,bd=1e9;A.b.forEach((q,i)=>{if(!q.on)return;const d=Math.hypot(q.x-from.x,q.y-from.y);if(d<bd){bd=d;best=i}});A.lit=best}
+function bjLoop(now){const A=S.bj;if(S.phase!=="bj"||!A)return;const dt=Math.min(.04,(now-A.last)/1000);A.last=now;
+  if(!A.end){if(A.ready>0)A.ready-=dt;else{const P=A.p,mv=(A.R?1:0)-(A.L?1:0);if(mv)P.dir=mv;P.vx=mv*(P.ground?95:85);
+    if(A.J&&P.ground){P.vy=-255;P.ground=0;A.Jused=1;sfx("blip")}
+    P.vy+=520*dt;if(!P.ground&&A.J&&P.vy>0&&!A.Jused)P.vy=Math.min(P.vy,38);if(!A.J)A.Jused=0;
+    const oy=P.y;P.x=Math.max(14,Math.min(370,P.x+P.vx*dt));P.y+=P.vy*dt;P.ground=0;
+    if(P.vy>=0)for(const[px,py,pw]of BJ_PL){if(P.x>=px-4&&P.x<=px+pw+4&&oy<=py+.5&&P.y>=py){P.y=py;P.vy=0;P.ground=1}}
+    if(P.y<20){P.y=20;P.vy=0}
+    if(P.inv>0)P.inv-=dt;
+    A.b.forEach((q,i)=>{if(q.on&&Math.abs(q.x-P.x)<9&&Math.abs(q.y-(P.y-14))<14){q.on=0;if(i===A.lit){A.score+=200;A.litN++;sfx("clue");bjNextLit(A,q)}else{A.score+=50;sfx("type")}
+      if(A.b.every(z=>!z.on)){A.end=2;A.score+=A.litN*100;sfx("goal");render()}}});
+    A.spawn-=dt;if(A.spawn<=0&&A.en.length<4){A.spawn=5.5;const s=Math.random()<.5;A.en.push({x:s?10:374,y:30+Math.random()*60,t:Math.random()*6})}
+    A.en.forEach(E=>{E.t+=dt;const dx=P.x-E.x,dy=(P.y-16)-E.y,d=Math.hypot(dx,dy)||1,sp=34+A.litN*1.5;E.x+=dx/d*sp*dt+Math.sin(E.t*5)*.4;E.y+=dy/d*sp*dt+Math.cos(E.t*4)*.5;
+      if(P.inv<=0&&d<11){A.lives--;sfx("nada");A.en=[];A.spawn=4;P.inv=1.8;P.x=184;P.y=204;P.vy=0;if(A.lives<=0){A.end=1;sfx("tbc");render()}}})}}
+  draw();requestAnimationFrame(bjLoop)}
+function bjBulb(x,y,on,lit){if(!on)return;const gl=lit?(F>>1)%2:0;if(lit)al(.35,()=>disc(x,y,9,"#fff3a0"));disc(x,y,4,lit?(gl?"#ffffff":"#ffd23c"):"#f4ecc8");r(x-2,y+3,4,3,"#9a9aa6");r(x-2,y+4,4,.6,"#6a6a76");r(x-1,y-2,1.2,1.2,"#ffffff")}
+function bjScene(){const A=S.bj;const sky=g.createLinearGradient(0,0,0,216);sky.addColorStop(0,"#0a0e2a");sky.addColorStop(1,"#2a1a3a");g.fillStyle=sky;g.fillRect(0,0,384,216);
+  for(let i=0;i<40;i++)r(hs(i,1)*384,hs(1,i)*150,.7,.7,i%5?"#8a8aa6":"#ffffff");
+  disc(330,34,12,"#f4ecc8");disc(325,30,12,"#0a0e2a");
+  /* sagoma dell'ITC Teatro */
+  r(20,150,190,54,"#141a34");r(60,128,110,22,"#141a34");r(210,160,150,44,"#121830");for(let i=0;i<5;i++)r(34+i*34,166,10,14,"#3a4060");r(232,170,40,26,"#2a3050");
+  for(const[px,py,pw]of BJ_PL){if(py>=204){r(0,204,384,12,"#2a2030");r(0,204,384,1.5,"#c0283a");continue}box(px,py,pw,5,"#c0283a");r(px,py,pw,1,"#ff6a7a");r(px,py+5,pw,1,"#5a0e1a")}
+  A.b.forEach((q,i)=>bjBulb(q.x,q.y,q.on,i===A.lit));
+  A.en.forEach(E=>{const f=(F>>1)%2;disc(E.x,E.y,3,"#c8b89a");poly([[E.x,E.y],[E.x-7,E.y-(f?6:2)],[E.x-6,E.y+3]],"#e8dcc0");poly([[E.x,E.y],[E.x+7,E.y-(f?6:2)],[E.x+6,E.y+3]],"#e8dcc0");r(E.x-1.5,E.y-1,1,1,"#1a1a1a");r(E.x+.5,E.y-1,1,1,"#1a1a1a")});
+  {const P=A.p;if(!(P.inv>0&&(F>>1)%2)){g.save();g.translate(P.x-6.5,P.y);g.scale(.62,.62);if(!P.ground){poly([[3,-30],[17,-30],[24+(F%2)*2,-10],[-4-(F%2)*2,-10]],"#c0283a")}if(P.dir<0){g.translate(20,0);g.scale(-1,1)}person(0,0,VAL,P.ground&&P.vx!==0);g.restore()}}
+  txt("BULB JACK",192,13,8,"#ffd23c");txt("PUNTI "+A.score,10,13,5,"#f4f4ff","left");txt("VITE "+"♥".repeat(Math.max(0,A.lives)),10,22,5,"#ff3b5c","left");
+  txt("ACCESE IN ORDINE: "+A.litN,192,22,4,"#fff3a0");
+  if(A.ready>0&&!A.end)txt("PRONTI!",192,100,10,"#ffd23c")}
 /* EASTER EGG: POLPETTA-MAN (buffet del tendone) */
 const PAC_MAP=["###################","#o.......#.......o#","#.##.###.#.###.##.#","#.................#","#.##.#.#####.#.##.#","#....#...#...#....#","####.###.#.###.####","#.......GGGG......#","#.##.#.#####.#.##.#","#o.#...........#.o#","#.##.##.###.##.##.#","#........P........#","###################"];
 const PT=14,PX0=59,PY0=27,PDIR=[[1,0],[0,1],[-1,0],[0,-1]],PGC=["#ff3b3b","#ffb8de","#5ee6ff","#ffb852"];
@@ -2228,7 +2268,7 @@ const RC={organizzatrici:10,direzione:11,amministrazione:12,biglietteria:13,foye
 const SC=i=>30+i, PC=pid=>100+PEOPLE.findIndex(p=>p.id===pid);
 const QN={pao:1,wa:2,strano:3,radio:3,brin:4,scar:4,foto:5,si:6,start:6};
 function svcCode(){const ph=S.phase;
-  if(ph==="title")return"1";if(ph==="scossa")return S.sf<48?"69":S.sf<75?"69.d":"70."+((S.si||0)+1);if(ph==="vint")return"3";if(ph==="timmy")return"54";if(ph==="brk")return"55";if(ph==="op")return"56";if(ph==="ape")return"57";if(ph==="pac")return"58";if(ph==="seats")return"35.s";if(ph==="brief")return"2";
+  if(ph==="title")return"1";if(ph==="scossa")return S.sf<48?"69":S.sf<75?"69.d":"70."+((S.si||0)+1);if(ph==="vint")return"3";if(ph==="timmy")return"54";if(ph==="brk")return"55";if(ph==="op")return"56";if(ph==="ape")return"57";if(ph==="pac")return"58";if(ph==="bj")return"59";if(ph==="seats")return"35.s";if(ph==="brief")return"2";
   if(ph==="win")return(S.wf||0)<185?"60":"61";if(ph==="video")return"62";
   if(ph==="fuga")return S.f<190?"63":"64";if(ph==="end")return"65";
   if(ph==="post")return(S.pf||0)<36?"66":"67."+(S.pi+1);if(ph==="sgc")return"34.c"+(S.ci+1);if(ph==="tbc")return"68";
@@ -2399,6 +2439,10 @@ function look(i){
     S.note=[{t1:"JACK",txt:"«Hai bisogno della cassetta del pronto soccorso? Stai bene?»",th:"Sì, sì... estoy bien."},{t1:"JACK",txt:"«Non mi sembra tu abbia una bella cera.»",th:"¿La cera? La cera la passo yo, sul pavimento."},{t1:"JACK",txt:"«Forse faresti bene a sederti.»",th:"Ay... me gira la testa..."}][S.prs-1]}
   else if(k==="direzione"&&o.n==="l'Apeatro"){S.apec=(S.apec||0)+1;if(S.apec>=4){S.apec=0;startApe();return}spend(COST.guarda);sfx("blip");
     S.note=[{t1:"L'APEATRO",txt:"«Brum. Sono l'Apeatro. Ho portato scenografie, quinte e attori in mezza Emilia-Romagna.»",th:"¿Un modellino che parla? Basta caffè por hoy."},{t1:"L'APEATRO",txt:"«Sessanta all'ora. In discesa. Col vento a favore. Ero una leggenda.»",th:"Sessanta... con la mi bicicleta voy più forte, señora Ape."},{t1:"L'APEATRO",txt:"«Toccami ancora una volta e ti faccio vedere come si guida, ragazzo.»",th:"¿Mi sta sfidando una Ape de juguete? Madre de Dios."}][S.apec-1]}
+  else if(k==="camerini"&&o.n==="le lampadine"){spend(COST.guarda);sfx("blip");S.lmp=(S.lmp||0)+1;
+    S.note=[{t1:"LE LAMPADINE",txt:"Quattordici lampadine accese. Su ognuna, un dito di polvere.",th:"Polvere... mañana."},{t1:"LE LAMPADINE",txt:"Ci soffi sopra. Si alza una nuvola di polvere degna di una prima.",th:"¡Cof cof! Teatro vivo."},{t1:"LE LAMPADINE",txt:"Sulla polvere qualcuno ha scritto col dito: LAVAMI.",th:"No soy stato io."},{t1:"LE LAMPADINE",txt:"La polvere qui è così vecchia che ha visto debuttare Estragona.",th:"Polvere storica. Non si tocca."},{t1:"LE LAMPADINE",txt:"Una lampadina tiepida, una calda, una bollente. Polvere ovunque.",th:"Mañana porto lo straccio."}][(S.lmp-1)%5]}
+  else if(k==="camerini"&&o.n==="la lampadina che lampeggia"){S.bjc=(S.bjc||0)+1;if(S.bjc>=4){S.bjc=0;startBj();return}spend(COST.guarda);sfx("blip");
+    S.note=[{t1:"LA LAMPADINA CHE LAMPEGGIA",txt:"Una lampadina fa le bizze: si accende, si spegne, ci ripensa.",th:"Tiene carattere."},{t1:"LA LAMPADINA CHE LAMPEGGIA",txt:"Le dai un colpetto. Lampeggia più forte, come se ti rispondesse.",th:"¿Me sta parlando?"},{t1:"LA LAMPADINA CHE LAMPEGGIA",txt:"Adesso lampeggia in codice. Punto, linea, punto. Sembra una sfida.",th:"Una sfida... ¿a me? Tócala otra vez, Valentino."}][S.bjc-1]}
   else if(k==="tin"&&o.n==="il buffet"){S.pol=(S.pol||0)+1;if(S.pol>=4){S.pol=0;startPac();return}spend(COST.guarda);sfx("blip");
     S.note=[{t1:"MARTINA",txt:"«Valentino, giù le mani! Sono trecento polpette e le ho contate due volte.»",th:"Solo una... piccolinas."},{t1:"MARTINA",txt:"«Ti ho visto. Duecentonovantanove.»",th:"¿Duecento... qué? Yo no ho visto niente."},{t1:"MARTINA",txt:"«Valentino. Se ne prendi un'altra, stanotte le polpette ti vengono a cercare.»",th:"¿Las polpettas? ¿A cercarme? ¡Ma figurati!"}][S.pol-1]}
   else if(k==="amministrazione"&&o.n==="i raccoglitori"){S.fald=(S.fald||0)+1;if(S.fald>=4){S.fald=0;startBrk();return}spend(COST.guarda);sfx("blip");
@@ -2487,7 +2531,7 @@ $("screen").addEventListener("click",e=>{
   if(S.phase==="timmy"){const[x,y]=toLogic(e);timmyHit(x,y);return}
   if(S.phase==="seats"){seatClick(e);return}
   if(S.phase==="brk"){brkMove(e);brkLaunch();return}
-  if(S.phase==="op"||S.phase==="ape"||S.phase==="pac")return;
+  if(S.phase==="op"||S.phase==="ape"||S.phase==="pac"||S.phase==="bj")return;
   if(S.phase==="sgc"){if(S.zT){const el=performance.now()-S.zT;if(el<3400)S.zT-=3400-el;else if(el>4000)sgcEnd();return}sgcNext();return}
   if(S.phase==="post"){if((S.pf||0)<36){S.pf=36;render();return}if(S.pdark)return;if(S.pi===POST.length-1)return;S.pi++;S.pz=0;sfx("blip");if(S.pi===POST.length-1)theme(true,"tension");render();return}
   if(S.phase!=="play")return;
@@ -2499,6 +2543,8 @@ $("screen").addEventListener("click",e=>{
 });
 $("screen").addEventListener("mousemove",e=>{if(S.phase!=="play"||S.mode!=="explore"){$("cv").style.cursor="";return}const[x,y]=toLogic(e);$("cv").style.cursor=hit(x,y)?"pointer":""});
 document.addEventListener("keyup",e=>{if(S&&S.phase==="ape"&&S.ape&&(e.key==="ArrowLeft"||e.key==="ArrowRight"))S.ape.steer=0});
+document.addEventListener("keydown",e=>{if(S&&S.phase==="bj"&&S.bj){const k={ArrowLeft:"L",ArrowRight:"R",ArrowUp:"J"," ":"J"}[e.key];if(k){S.bj[k]=1;e.preventDefault()}}});
+document.addEventListener("keyup",e=>{if(S&&S.phase==="bj"&&S.bj){const k={ArrowLeft:"L",ArrowRight:"R",ArrowUp:"J"," ":"J"}[e.key];if(k)S.bj[k]=0}});
 document.addEventListener("keydown",e=>{if(S&&S.phase==="pac"&&S.pac){const d={ArrowRight:0,ArrowDown:1,ArrowLeft:2,ArrowUp:3}[e.key];if(d!==undefined){S.pac.p.want=d;e.preventDefault()}}if(S&&S.phase==="ape"&&S.ape&&!S.ape.end){if(e.key==="ArrowLeft"){S.ape.steer=-1;e.preventDefault()}if(e.key==="ArrowRight"){S.ape.steer=1;e.preventDefault()}}if(e.key===" "||e.key==="Enter"){if(S.phase==="play"&&S.mode==="arrive"){e.preventDefault();advance()}else if(S.phase==="play"&&S.mode==="look"){e.preventDefault();noteClick()}}
   if(e.key==="m"&&S.phase==="play"&&S.mode==="explore")openMap();if(e.key==="Escape"&&S.phase==="play"&&(S.mode==="map"||S.mode==="talk")){S.mode="explore";render()}});
 
