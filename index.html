@@ -803,7 +803,7 @@ function person(x,y,o,walk){
     if(o.bib){const c=sh(bo,1.18);r(x+6,ty+3,8,8,c);r(x+6,ty,1.5,3,c);r(x+12.5,ty,1.5,3,c);r(x+6.5,ty+3.5,1,1,"#ffd23c");r(x+12.5,ty+3.5,1,1,"#ffd23c");r(x+8,ty+6,4,3,sh(bo,1.05));r(x+8,ty+6,4,.5,sh(bo,.8))}
     else if(!o.dress&&!o.skirt){r(x+3,ty+13.5,14,1.5,sh(lg,.85));r(x+9.5,ty+13.5,1.5,1.5,"#c9a15a")}
     if(o.collar){r(x+6.5,ty,3,2,bl);r(x+10.5,ty,3,2,bl);r(x+9.75,ty+3,.5,.5,bl);r(x+9.75,ty+6,.5,.5,bl);r(x+9.75,ty+9,.5,.5,bl)}}
-  if(o.jacket&&!o.coat){const j=o.jacket,jd=sh(j,.72);r(x+.5,ty+1+sw,3,11.5,j);r(x+16.5,ty+1-sw,3,11.5,jd);r(x+3,ty,4.6,15,j);r(x+12.4,ty,4.6,15,jd);poly([[x+7.6,ty],[x+9.6,ty+5],[x+7.6,ty+7]],sh(j,1.25));poly([[x+12.4,ty],[x+10.4,ty+5],[x+12.4,ty+7]],sh(j,.9));r(x+3,ty,.5,15,sh(j,1.3))}
+  if(o.jacket&&!o.coat){const j=o.jacket,jd=sh(j,.72);r(x+.5,ty+1+sw,3,11.5,j);r(x+16.5,ty+1-sw,3,11.5,jd);r(x+3,ty,4.6,15,j);r(x+12.4,ty,4.6,15,jd);if(!o.openNeck){poly([[x+7.6,ty],[x+9.6,ty+5],[x+7.6,ty+7]],sh(j,1.25));poly([[x+12.4,ty],[x+10.4,ty+5],[x+12.4,ty+7]],sh(j,.9));}r(x+3,ty,.5,15,sh(j,1.3))}
   // capelli lunghi davanti alle spalle
   if(hr&&o.long){r(x+1.5,ty-1,3,10,hr);r(x+15.5,ty-1,3,10,hd);r(x+2,ty,.5,8,hl);r(x+3.5,ty+1,.5,7,sh(hr,1.15));r(x+1,ty-1,.5,10,OL);r(x+18.5,ty-1,.5,10,OL);r(x+1.5,ty+9,3,.5,OL);r(x+15.5,ty+9,3,.5,OL)}
   // viso
