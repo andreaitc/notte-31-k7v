@@ -1179,9 +1179,9 @@ function tendaLontana(){const W="#c8c0b0",Wd="#a8a090",RB="#6a1820";
   poly([[286,120],[378,120],[360,100],[304,100]],W);poly([[332,100],[360,100],[378,120],[332,120]],Wd);
   r(284,120,96,3,RB);r(286,123,92,25,W);r(332,123,46,25,Wd);poly([[320,128],[344,128],[332,121]],RB);r(322,128,20,20,"#e0d8c8");al(.5,()=>r(331,132,2,16,"#ffd98a"));
   al(.35,()=>r(282,92,100,58,"#0b1030"))}
-function busFront(x,y){/* Teatrobus visto da davanti */const CR="#e8d8a8",GR="#4a6a44";
+function busFront(x,y,fs){fs=fs||3.5;/* Teatrobus visto da davanti */const CR="#e8d8a8",GR="#4a6a44";
   r(x-1,y-55,44,56,OL);r(x,y-54,42,24,CR);r(x,y-30,42,30,GR);r(x,y-54,42,1,"#f8ecc8");
-  r(x+2,y-52,38,8,"#16161c");txt("ITC TEATRO",x+21,y-46.2,3.5,(F>>4)%6?"#ffb040":"#ffe070");
+  r(x+2,y-52,38,8,"#16161c");txt("ITC TEATRO",x+21,y-46.2,fs,(F>>4)%6?"#ffb040":"#ffe070");
   r(x+2,y-42,38,16,"#1c2a3a");r(x+3,y-41,17,14,"#2a3d55");r(x+22,y-41,17,14,"#2a3d55");r(x+20.5,y-42,1,16,OL);al(.35,()=>poly([[x+5,y-41],[x+11,y-41],[x+6,y-28],[x+3,y-28]],"#8ab0d0"));
   r(x,y-24,42,1,"#34502e");disc(x+6,y-17,3,"#fff3b0");disc(x+36,y-17,3,"#fff3b0");disc(x+6,y-17,1.5,"#ffffff");disc(x+36,y-17,1.5,"#ffffff");
   r(x+14,y-20,14,6,"#34502e");for(let i=0;i<4;i++)r(x+15,y-19+i*1.4,12,.6,"#5e8058");r(x+15,y-11,12,3,"#f4f4f0");txt("BO 31",x+21,y-8.6,2.5,"#1a1a1a");
@@ -1223,7 +1223,7 @@ function titleFacadeLayer(){/* modifiche alla facciata, solo nella schermata ini
   r(168,86,44,102,"#b89a12");r(168,86,44,1.2,"#d8b82a");r(210,86,2,102,"#7a6408");
   box(171,127,30,23,"#7a6408");r(172.5,128.5,27,20,"#c9a15a");r(174,130,24,17,"#2c3d73");r(185.75,130,.5,17,"#c9a15a");r(174,138.5,24,.5,"#c9a15a")}
 function titleFacade(){layer("titlefac",titleFacadeLayer)}
-function titleYard(){sky();teatro();teatroExt();titleFacade();g.save();g.translate(-48,0);tendaLontana();g.restore();busFront(334,187);fenceWall(169);eleBox(123);sidewalk();layer("lamp",()=>streetLamp(218))}
+function titleYard(){sky();teatro();teatroExt();titleFacade();g.save();g.translate(-48,0);tendaLontana();g.restore();g.save();g.translate(338,173);g.scale(.8,.8);busFront(0,0,4.3);g.restore();fenceWall(169);eleBox(123);sidewalk();layer("lamp",()=>streetLamp(218))}
 function cortileLayer(){const W="#c8a25a",WD="#a8843e";
   /* parapetto, faro e scala sul tetto */
   for(const y of[66,74])r(150,y,234,.8,"#b0b0bc");for(let x=150;x<=384;x+=19.5)r(x,66,.9,20,"#a0a0ac");
