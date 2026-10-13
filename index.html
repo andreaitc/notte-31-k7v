@@ -470,7 +470,7 @@ const ROOMS = {
       strano:"«Dal bus ogni tanto parte una risata. E il bus non ride mai.»",
       aiuto:"«Una mano? Accendimi questa, che col vento non ci riesco.»",
       clue:{timbro:"«Un biglietto obliterato oggi? Quel bus non si muove da anni. Chiedi a Carlo nel tendone: lui conta tutto.»"}})],
-    objs:[{n:"la base del lampione",b:[206,150,22,40],main:1},{n:"il Teatrobus",b:[250,136,108,54],txt:"Il Teatrobus. Le tendine sono tirate. Stamattina erano aperte. Valentino si avvicina.",th:"Aquí succede qualcosa, eh.",go:"bus"},{n:"il tendone",b:[284,84,96,52],txt:"Il tendone dell'ITC Lab, in fondo al cortile. Dentro c'è luce. Valentino ci va.",th:"Vamos.",go:"lab"},{n:"l'insegna",b:[108,92,34,32],txt:"L'insegna dell'ITC Teatro di San Lazzaro. È accesa, anche se dentro nessuno se ne accorge.",th:"Bonita."},{n:"la panchina",b:[140,168,22,20],txt:"La panchina dei fumatori. Sotto, una montagna di mozziconi.",th:"Mañana la pulisco. Mañana."},{n:"la porta del teatro",b:[104,132,50,56],txt:"Da dentro arriva il brusio della festa. Tutti aspettano il discorso.",th:"Y el discorso no arriva."},{n:"la luna",b:[48,20,28,28],txt:"«E Ciàula si mise a piangere, senza saperlo, senza volerlo, dal gran conforto, dalla grande dolcezza che sentiva»",th:"Me sa que en esto teatro son poquitos quei chi san chi es Ciàula. ¡Cavrones!"}]},
+    objs:[{n:"la base del lampione",b:[302,150,22,36],main:1},{n:"il Teatrobus",b:[326,171,56,10],txt:"Il Teatrobus. Le tendine sono tirate. Stamattina erano aperte. Valentino si avvicina.",th:"Aquí succede qualcosa, eh.",go:"bus"},{n:"il tendone",b:[326,183,56,10],txt:"Il tendone dell'ITC Lab, in fondo al cortile. Dentro c'è luce. Valentino ci va.",th:"Vamos.",go:"lab"},{n:"l'insegna",b:[222,92,34,32],txt:"L'insegna dell'ITC Teatro di San Lazzaro. È accesa, anche se dentro nessuno se ne accorge.",th:"Bonita."},{n:"la panchina",b:[262,168,22,20],txt:"La panchina dei fumatori. Sotto, una montagna di mozziconi.",th:"Mañana la pulisco. Mañana."},{n:"la porta del teatro",b:[214,132,50,56],txt:"Da dentro arriva il brusio della festa. Tutti aspettano il discorso.",th:"Y el discorso no arriva."},{n:"la luna",b:[48,20,28,28],txt:"«E Ciàula si mise a piangere, senza saperlo, senza volerlo, dal gran conforto, dalla grande dolcezza che sentiva»",th:"Me sa que en esto teatro son poquitos quei chi san chi es Ciàula. ¡Cavrones!"}]},
   lab:{n:"ITC Lab, il tendone",m:"Tendone",z:"fuori",
     ppl:[P("carlo","Carlo","tecnico",{body:"#3a3a3a",hair:"#8a8a8a"},140,{
       greet:["Valentino. Lo sai quanti giorni mi mancano?",`${GIORNI_PENSIONE}. Stasera ne cancello uno. Se Paolucci si sbriga.`],again:[`${GIORNI_PENSIONE} giorni. Finché non arriva mezzanotte.`],
@@ -667,7 +667,7 @@ function spec(k){
     biglietteria:{amb:[.72,.7,.7],L:[[190,90,160,[.5,.45,.32]],lamp]},
     foyer:{amb:[.74,.7,.68],L:[[60,20,140,[.5,.46,.36]],[220,60,120,[.4,.38,.3]],[226,118,30,[.1,.2,.4]]]},
     corridoi:{amb:[.68,.74,.78],L:[[192,18,200,[.35,.42,.45]]]},
-    yard:{amb:NIGHT,L:[[125,108,60,[.6,.58,.5]],[160,150,90,[.55,.5,.36]],[214,104,95,[.65,.52,.3]],[60,34,55,[.25,.25,.3]]]},
+    yard:{amb:NIGHT,L:[[86,170,95,[.75,.58,.3]],[214,104,95,[.65,.52,.3]],[60,34,55,[.25,.25,.3]]]},
     lab:{amb:NIGHT,L:[[240,170,80,[.75,.58,.3]],[60,34,55,[.25,.25,.3]],[240,90,140,[.25,.18,.1]]]},
     bus:{amb:NIGHT,L:[[60,34,55,[.25,.25,.3]],[200,130,170,S.found&&S.found.length===3?[.6,.48,.25]:[.1,.1,.12]]]},
     win:{amb:[.6,.45,.5],L:[[70,140,120,[.7,.6,.4]],[192,60,160,[.2,.15,.25]]]}
@@ -1146,7 +1146,7 @@ function studioG(){r(0,0,384,150,"#34344c");r(0,0,384,30,"#26263a");r(0,146,384,
   g.save();g.translate(238,38);g.rotate(.62);box(-10,-6,18,12,"#2a2a30");r(-12,-5,2,10,"#fff8d8");r(-4,6,2,4,"#5a5a66");g.restore()}
 
 const STUDIO={sfront:studioFront,saule:studioAule,sg:studioG};
-const SPEC2={sfront:{amb:[.64,.64,.68],L:[[192,18,200,[.55,.5,.38]],[337,110,50,[.1,.35,.2]]]},saule:{amb:[.6,.58,.66],L:[[192,18,210,[.55,.5,.38]]]},sg:{amb:[.62,.62,.7],L:[[70,170,110,[.85,.8,.55]],[300,150,70,[.35,.32,.25]]]}};
+const SPEC2={cortileL:{amb:NIGHT,L:[[239,108,60,[.6,.58,.5]],[300,150,100,[.5,.46,.34]],[312,104,90,[.6,.5,.3]],[60,34,55,[.25,.25,.3]]]},sfront:{amb:[.64,.64,.68],L:[[192,18,200,[.55,.5,.38]],[337,110,50,[.1,.35,.2]]]},saule:{amb:[.6,.58,.66],L:[[192,18,210,[.55,.5,.38]]]},sg:{amb:[.62,.62,.7],L:[[70,170,110,[.85,.8,.55]],[300,150,70,[.35,.32,.25]]]}};
 function studioTin(){r(0,0,384,216,"#0a090b");
   al(.5,()=>{g.save();g.translate(192,40);g.scale(1,.55);disc(0,0,170,"#1a1820");g.restore()});
   {const top=y=>y;for(let i=0;i<9;i++){const x0=78+i*25.5;r(x0,90+Math.abs(i-4)*1.2,25,36-Math.abs(i-4)*1.2,i%2?"#2c2c2e":"#303032");r(x0,90+Math.abs(i-4)*1.2,.5,36,"#1e1e20")}}
@@ -1224,33 +1224,34 @@ function titleFacadeLayer(){/* modifiche alla facciata, solo nella schermata ini
 function titleFacade(){layer("titlefac",titleFacadeLayer)}
 function titleYard(){sky();teatro();teatroExt();titleFacade();g.save();g.translate(-48,0);tendaLontana();g.restore();busFront(334,187);fenceWall(169);eleBox(123);sidewalk();layer("lamp",()=>streetLamp(218))}
 function cortileLayer(){const W="#c8a25a",WD="#a8843e";
-  /* parapetto e scala sul tetto */
-  for(const y of[66,74])r(92,y,108,.8,"#b0b0bc");for(let x=92;x<=200;x+=18)r(x,66,.9,20,"#a0a0ac");
-  r(198,56,1,132,"#9a9aa6");r(204,56,1,132,"#9a9aa6");for(let y=60;y<188;y+=6)r(198,y,7,.8,"#9a9aa6");
-  r(158,66,1.2,10,"#7a7a86");box(152,58,16,9,"#2a2a30");r(154,60,12,5,"#fff3c8");
-  /* muro basso a sinistra e corpo alto a destra */
-  r(0,98,84,90,W);r(0,98,84,2,"#3a3020");r(84,86,112,102,W);r(84,86,112,3,"#3a3020");r(84,89,3,99,WD);r(84,89,112,24,"#d0aa62");r(84,113,112,1,WD);r(192,89,4,99,WD);
-  for(let i=0;i<70;i++){const x=hs(i,2)*196,y=100+hs(2,i)*86;r(x,y,1.5,1,i%3?"#b89450":"#d8b46a")}
-  r(0,182,196,6,"#b08a48");
+  /* parapetto, faro e scala sul tetto */
+  for(const y of[66,74])r(150,y,234,.8,"#b0b0bc");for(let x=150;x<=384;x+=19.5)r(x,66,.9,20,"#a0a0ac");
+  r(368,52,1,136,"#9a9aa6");r(375,52,1,136,"#9a9aa6");for(let y=56;y<188;y+=6)r(368,y,8,.8,"#9a9aa6");
+  r(300,66,1.2,10,"#7a7a86");box(294,58,16,9,"#2a2a30");r(296,60,12,5,"#fff3c8");
+  /* muro basso a sinistra e corpo alto fino allo spigolo */
+  r(0,98,150,90,W);r(0,98,150,2,"#3a3020");r(150,86,234,102,W);r(150,86,234,3,"#3a3020");r(150,89,3,99,WD);r(150,89,234,24,"#d0aa62");r(150,113,234,1,WD);r(378,86,6,102,"#9a7a38");r(377.5,86,.6,102,"#7a6028");
+  for(let i=0;i<120;i++){const x=hs(i,2)*378,y=100+hs(2,i)*86;r(x,y,1.5,1,i%3?"#b89450":"#d8b46a")}
+  r(0,182,384,6,"#b08a48");
   /* insegna quadrata */
-  box(108,92,34,32,"#1a1a1a");r(110,94,30,28,"#f4f2ea");disc(129,101,5.5,"#1a1a1a");r(127,96,4,2,"#f4f2ea");poly([[112,116],[113,106],[118,103],[126,106],[127,116]],"#c0503a");txt("itc",119,109,3.6,"#f4f4f4");txt("teatro",120,114,3.2,"#f4f4f4");r(112,117,26,3.5,"#1a1a1a");txt("di San Lazzaro",125,119.8,2.2,"#f4f4f4");r(124,124,1,4,"#4a4a4a");
+  const sx=222;box(sx,92,34,32,"#1a1a1a");r(sx+2,94,30,28,"#f4f2ea");disc(sx+21,101,5.5,"#1a1a1a");r(sx+19,96,4,2,"#f4f2ea");poly([[sx+4,116],[sx+5,106],[sx+10,103],[sx+18,106],[sx+19,116]],"#c0503a");txt("itc",sx+11,109,3.6,"#f4f4f4");txt("teatro",sx+12,114,3.2,"#f4f4f4");r(sx+4,117,26,3.5,"#1a1a1a");txt("di San Lazzaro",sx+17,119.8,2.2,"#f4f4f4");r(sx+16,124,1,4,"#4a4a4a");
   /* finestra con le veneziane */
-  r(14,138,52,22,"#1a1a1a");for(const x of[16,33,50])r(x,140,15,18,"#c8c8c0");for(let y=141;y<158;y+=1.6)r(16,y,49,.5,"#9a9a92");r(31,140,2,18,"#1a1a1a");r(48,140,2,18,"#1a1a1a");r(12,160,56,1.5,"#1a1a1a");
+  r(40,138,52,22,"#1a1a1a");for(const x of[42,59,76])r(x,140,15,18,"#c8c8c0");for(let y=141;y<158;y+=1.6)r(42,y,49,.5,"#9a9a92");r(57,140,2,18,"#1a1a1a");r(74,140,2,18,"#1a1a1a");r(38,160,56,1.5,"#1a1a1a");
   /* portone nero */
-  r(104,132,50,56,"#141414");r(106,134,46,12,"#1e1e20");for(let y=135;y<145;y+=1.6)r(107,y,44,.6,"#2e2e30");r(106,146,46,1,"#2a2a2a");r(106,148,22,40,"#1c1c1e");r(130,148,22,40,"#1c1c1e");r(128.5,148,1.5,40,"#0a0a0a");r(125,166,2,1,"#9a9a9a");
-  box(110,160,5,7,"#f4f4f4");disc(112.5,162.5,1.6,"#c0283a");r(136,154,4,6,"#3a3a2a");
+  const dx=214;r(dx,132,50,56,"#141414");r(dx+2,134,46,12,"#1e1e20");for(let y=135;y<145;y+=1.6)r(dx+3,y,44,.6,"#2e2e30");r(dx+2,146,46,1,"#2a2a2a");r(dx+2,148,22,40,"#1c1c1e");r(dx+26,148,22,40,"#1c1c1e");r(dx+24.5,148,1.5,40,"#0a0a0a");r(dx+21,166,2,1,"#9a9a9a");
+  box(dx+6,160,5,7,"#f4f4f4");disc(dx+8.5,162.5,1.6,"#c0283a");r(dx+32,154,4,6,"#3a3a2a");
   /* panchina, vaso, zerbino */
-  r(140,170,22,2.5,"#f4f4f4");r(140,176,22,2,"#f4f4f4");r(141,172.5,1,15,"#d8d8d8");r(160,172.5,1,15,"#d8d8d8");
-  poly([[163,180],[173,180],[171.5,188],[164.5,188]],"#b05a3a");r(162.5,179,11,1.5,"#c86a48");
-  r(108,186,20,2.5,"#3a7a3a");
-  /* marciapiede */
-  r(0,188,200,4,"#a8a8a0");for(let x=0;x<200;x+=12)r(x,188,.5,4,"#8a8a84");
+  const bx=262;r(bx,170,22,2.5,"#f4f4f4");r(bx,176,22,2,"#f4f4f4");r(bx+1,172.5,1,15,"#d8d8d8");r(bx+20,172.5,1,15,"#d8d8d8");
+  poly([[288,180],[298,180],[296.5,188],[289.5,188]],"#b05a3a");r(287.5,179,11,1.5,"#c86a48");
+  r(dx+4,186,20,2.5,"#3a7a3a");
   /* albero */
-  const L=[[14,72,20],[40,70,18],[70,74,16],[8,94,18],[36,94,20],[64,98,16],[88,86,12],[22,114,12],[54,116,11],[86,106,9]];
+  const L=[[14,72,20],[40,70,18],[70,74,16],[8,94,18],[36,94,20],[64,98,16],[88,86,12],[110,90,10],[22,114,12],[54,116,11],[86,106,9],[118,108,8]];
   L.forEach(([x,y,rr],i)=>{disc(x,y,rr,i%2?"#1c3a22":"#24482a");for(let k=0;k<6;k++)r(x-rr+hs(i,k)*rr*2,y-rr*.6+hs(k,i)*rr*1.2,3,1,"#3a6a3a")});
-  for(let i=0;i<30;i++){const x=hs(i,9)*100,y=104+hs(9,i)*30;poly([[x,y],[x+5,y+2],[x+1,y+3]],"#2a5230")}}
-function cortileBuilding(){layer("cortileB",cortileLayer);al(.3+.05*Math.sin(F/7),()=>r(110,94,30,28,"#ffffff"));al(.12,()=>poly([[156,66],[164,66],[200,188],[110,188]],"#fff3c8"))}
-function yard(withBus,lit){sky();cortileBuilding();layer("tendaLontana",tendaLontana);ground();layer("lamp",()=>streetLamp(214));if(withBus)bus(250,GY+2,1,lit)}
+  for(let i=0;i<30;i++){const x=hs(i,9)*120,y=104+hs(9,i)*30;poly([[x,y],[x+5,y+2],[x+1,y+3]],"#2a5230")}}
+function cortileBuilding(){layer("cortileB2",cortileLayer);al(.3+.05*Math.sin(F/7),()=>r(224,94,30,28,"#ffffff"));al(.12,()=>poly([[298,66],[306,66],[350,188],[250,188]],"#fff3c8"))}
+function cortileScene(){sky();cortileBuilding();ground();layer("lampC",()=>streetLamp(312));
+}
+function cortileExits(){const a=(F>>3)%2;[[176,"TEATROBUS"],[188,"TENDONE"]].forEach(([y,t])=>{r(326,y-5,56,10,"#000000cc");r(326,y-5,56,.6,"#ffd23c");txt(t+" "+(a?"»":"›"),354,y+2,4.2,"#ffd23c")})}
+function yard(withBus,lit){sky();teatro();layer("tendaLontana",tendaLontana);ground();layer("lamp",()=>streetLamp(214));if(withBus)bus(250,GY+2,1,lit)}
 function screenFace(p){const glitch=(F%47)<4,bg=S.step>6?"#0b0b10":glitch?"#3a3a5a":"#0d1a3a";r(292,116,36,17,bg);if(glitch&&S.step<=6)for(let i=0;i<5;i++)r(292,116+i*3.3,36,1,["#ff3b5c","#5ee6ff","#ffd23c"][i%3]);if(S.step>6)for(let i=0;i<20;i++)r(292+hs(i,F%7)*35,116+hs(F%5,i)*16,1,.5,"#5a5a66");g.save();g.translate(46,11.5);screenFace0(p);g.restore()}
 function screenFace0(p){if(S.step>6){r(253,105,22,16,"#0b0b10");for(let i=0;i<14;i++)r(253+hs(i,F%7)*21,105+hs(F%5,i)*15,1,.5,"#5a5a66");txt("NO",264,112,3,"#ff3b5c");txt("SIGNAL",264,117.5,3,"#ff3b5c");return}const glitch=(F%47)<4;r(253,105,22,16,glitch?"#3a3a5a":"#0d1a3a");if(glitch){for(let i=0;i<5;i++)r(253,105+i*3.2,22,1,["#ff3b5c","#5ee6ff","#ffd23c"][i%3]);return}
   const c=p.c;r(259,108,10,12,c.hair);r(260,109,8,8,SKIN);r(261.5,111.5,1.5,1,"#111");r(265,111.5,1.5,1,"#111");r(262.5,114.5,3,.5,"#9a4a3a");r(258,117,12,4,c.body);r(258.5,108,1.5,8,c.hair);r(268,108,1.5,8,c.hair);if((F>>3)%2)r(272,106,2,1,"#ff3b5c")}
@@ -1274,7 +1275,7 @@ function draw(){
     if(ph==="title"){const x=((F*3.2)%560)-110;van(x,GY+12)}fog();light("yard",spec("yard"));return}
   if(ph==="play"&&S.mode==="travel"){travelScene();return}
   if(ph==="play"){const k=S.loc,R=ROOMS[k];
-    if(k==="cortile")yard(true,false);
+    if(k==="cortile")cortileScene();
     else if(k==="lab"){sky();ground();layer("tenda",tenda);tendaAnim()}
     else if(k==="bus"){sky();ground();const tt=(F%130)/130;SHX=tt<.5?-6+tt*2*96:-6+(1-tt)*2*96;bus(52,GY+16,2.7,S.found.length===3);SHX=null}
     else{layer("room_"+k,()=>STUDIO[k]?STUDIO[k]():room(k));if(!STUDIO[k])roomAnim(k)}
@@ -1287,7 +1288,7 @@ function draw(){
       g.save();g.translate(S.vx,NPCY+16);g.scale(1.22,1.22);cart(24,0);person(0,0,VAL,S.vx!==s);g.restore()}
     else{const vy=k==="bus"?NPCY+8:NPCY+4;cart(S.vx+24,vy);person(S.vx,vy,VAL,S.vx!==s);}
     if(R.z==="fuori"&&k!=="tin")fog();
-    const lk=k==="cortile"?"yard":k==="bus"?"bus"+(S.found.length===3?1:0):k;light(lk,spec(k==="cortile"?"yard":k)||SPEC2[k]);
+    const lk=k==="cortile"?"cortileL":k==="bus"?"bus"+(S.found.length===3?1:0):k;light(lk,k==="cortile"?SPEC2.cortileL:(spec(k)||SPEC2[k]));if(k==="cortile")cortileExits();
     if(S.mode==="explore"||S.mode==="say"){const si=stepObjIndex(k);R.objs.forEach((o,i)=>{const on=i===si||(k==="cortile"&&o.go==="bus"&&cur().final)||(k==="lab"&&o.go==="tin"&&cur().room==="tin");if(on){sparkle(o.b[0]+o.b[2]/2,o.b[1]+Math.min(o.b[3]/2,14),0);sparkle(o.b[0]+o.b[2]*.25,o.b[1]+Math.min(o.b[3]/2,14)+6,7);al(.25+.15*Math.sin(F/3),()=>{r(o.b[0],o.b[1],o.b[2],1,"#ffd23c");r(o.b[0],o.b[1]+o.b[3]-1,o.b[2],1,"#ffd23c");r(o.b[0],o.b[1],1,o.b[3],"#ffd23c");r(o.b[0]+o.b[2]-1,o.b[1],1,o.b[3],"#ffd23c")})}});
       R.ppl.filter(p=>!gone(p.id)).forEach((p,i)=>{const x=p.screen?314:p.x+10,y=(p.screen?108:NPCY-56-(p.hang?46:0)-plift(p))+((F>>2)%2);if(S.met[p.id])return;box(x-7,y-5,14,9,"#f4f4ff");r(x-4,y-1,2,2,"#111");r(x-1,y-1,2,2,"#111");r(x+2,y-1,2,2,"#111");poly([[x-2,y+4],[x+2,y+4],[x-3,y+8]],"#f4f4ff")})}
     return}
