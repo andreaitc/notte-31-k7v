@@ -841,7 +841,7 @@ function person(x,y,o,walk){
   if(o.grey&&hr&&!o.hat){for(let i=0;i<6;i++)r(hx+.5+i*2,hy-2+(i%2),.8,.5,"#b8b4b0");r(hx-1,hy+2,.6,1,"#b8b4b0");r(hx+12,hy+2,.6,1,"#b8b4b0")}
   if(o.f&&!o.gag){r(hx+4.5,hy+9.5,3,1,"#c0485a");r(hx+1.5,ey-.5,.5,.8,"#1a1a24");r(hx+10,ey-.5,.5,.8,"#1a1a24")}
   if(o.tee&&!o.up){r(x+.5,ty+5+sw,3,7.5,sk);if(!o.tel)r(x+16.5,ty+5-sw,3,7.5,sd);r(x+.5,ty+4.5+sw,3,.5,sh(bo,.6));if(o.band)r(x+.5,ty+10.5+sw,3,1.2,"#0e0e10")}
-  if(o.openNeck&&!o.coat){poly([[x+8,ty],[x+12,ty],[x+10,ty+3.2]],sk);r(x+7,ty,1.5,1.6,sh(bo,1.15));r(x+11.5,ty,1.5,1.6,sh(bo,1.15))}
+  if(o.openNeck&&!o.coat){poly([[x+8,ty],[x+12,ty],[x+10,ty+3.2]],sk)}
   if(o.neck&&!o.coat){r(x+6.5,ty,.4,3,"#0a0a0a");r(x+13.1,ty,.4,3,"#0a0a0a");r(x+7,ty+3,6,.4,"#0a0a0a");r(x+9.6,ty+3.4,.8,2,"#d8d8e0")}
   if(o.ear&&!o.hat){r(hx-1.3,hy+7.6,.6,1.4,"#d0d0d8");r(hx+12.7,hy+7.6,.6,1.4,"#d0d0d8")}
   if(o.hat&&!o.brim){const h=o.hat;r(hx-.5,hy-4.5,13,6,h);r(hx-.5,hy+1,16,2,sh(h,.65));r(hx+1,hy-4,4,.5,sh(h,1.4));r(hx+5.5,hy-5,1.5,.5,sh(h,1.3));r(hx-1,hy-5,14,.5,OL);r(hx-.5,hy+3,16,.5,OL);r(hx+15.5,hy+1,.5,2,OL)}
