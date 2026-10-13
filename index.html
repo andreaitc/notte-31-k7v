@@ -1222,7 +1222,8 @@ function titleFacadeLayer(){/* modifiche alla facciata, solo nella schermata ini
   r(168,86,44,102,"#b89a12");r(168,86,44,1.2,"#d8b82a");r(210,86,2,102,"#7a6408");
   box(171,127,30,23,"#7a6408");r(172.5,128.5,27,20,"#c9a15a");r(174,130,24,17,"#2c3d73");r(185.75,130,.5,17,"#c9a15a");r(174,138.5,24,.5,"#c9a15a")}
 function titleFacade(){layer("titlefac",titleFacadeLayer);
-  if((F>>4)%3!==0)al(.55,()=>{r(3,127,12,9.5,"#ffe58a")});if((F>>4)%3!==1)al(.55,()=>{r(132,139,10.5,8,"#ffd070")});if((F>>4)%3!==2)al(.55,()=>{r(186,139,12,8,"#ffe58a")})}
+  al(.6,()=>{r(3,127,12,20,"#ffe08a");r(132,130,22,17,"#ffd88a");r(174,130,24,17,"#ffe08a")});
+  r(8.75,127,.5,20,"#c9a15a");r(3,136.5,12,.5,"#c9a15a");r(142.75,130,.5,17,"#c9a15a");r(132,138.5,22,.5,"#c9a15a");r(185.75,130,.5,17,"#c9a15a");r(174,138.5,24,.5,"#c9a15a")}
 function titleYard(){sky();teatro();teatroExt();titleFacade();g.save();g.translate(-48,0);tendaLontana();g.restore();busFront(334,187);fenceWall(169);eleBox(123);sidewalk();layer("lamp",()=>streetLamp(218))}
 function yard(withBus,lit){sky();teatro();layer("tendaLontana",tendaLontana);ground();layer("lamp",()=>streetLamp(214));if(withBus)bus(250,GY+2,1,lit)}
 function screenFace(p){const glitch=(F%47)<4,bg=S.step>6?"#0b0b10":glitch?"#3a3a5a":"#0d1a3a";r(292,116,36,17,bg);if(glitch&&S.step<=6)for(let i=0;i<5;i++)r(292,116+i*3.3,36,1,["#ff3b5c","#5ee6ff","#ffd23c"][i%3]);if(S.step>6)for(let i=0;i<20;i++)r(292+hs(i,F%7)*35,116+hs(F%5,i)*16,1,.5,"#5a5a66");g.save();g.translate(46,11.5);screenFace0(p);g.restore()}
