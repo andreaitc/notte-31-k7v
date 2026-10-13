@@ -1784,7 +1784,7 @@ function bjLoop(now){const A=S.bj;if(S.phase!=="bj"||!A)return;const dt=Math.min
     if(P.inv>0)P.inv-=dt;
     A.b.forEach((q,i)=>{if(q.on&&Math.abs(q.x-P.x)<9&&Math.abs(q.y-(P.y-14))<14){q.on=0;if(i===A.lit){A.score+=200;A.litN++;sfx("clue");bjNextLit(A,q)}else{A.score+=50;sfx("type")}
       if(A.b.every(z=>!z.on)){A.end=2;A.score+=A.litN*100;sfx("goal");render()}}});
-    A.spawn-=dt;if(A.spawn<=0&&A.en.length<4){A.spawn=5.5;const s=Math.random()<.5;A.en.push({x:s?10:374,y:30+Math.random()*60,t:Math.random()*6})}
+    A.spawn-=dt;if(A.spawn<=0&&A.en.length<2){A.spawn=5.5;const s=Math.random()<.5;A.en.push({x:s?10:374,y:30+Math.random()*60,t:Math.random()*6})}
     A.en.forEach(E=>{E.t+=dt;const dx=P.x-E.x,dy=(P.y-16)-E.y,d=Math.hypot(dx,dy)||1,sp=34+A.litN*1.5;E.x+=dx/d*sp*dt+Math.sin(E.t*5)*.4;E.y+=dy/d*sp*dt+Math.cos(E.t*4)*.5;
       if(P.inv<=0&&d<11){A.lives--;sfx("nada");A.en=[];A.spawn=4;P.inv=1.8;P.x=184;P.y=204;P.vy=0;if(A.lives<=0){A.end=1;sfx("tbc");render()}}})}}
   draw();requestAnimationFrame(bjLoop)}
@@ -1801,7 +1801,7 @@ function bjScene(){const A=S.bj;const sky=g.createLinearGradient(0,0,0,216);sky.
   txt("BULB JACK",192,13,8,"#ffd23c");txt("PUNTI "+A.score,34,13,5,"#f4f4ff","left");txt("VITE "+"♥".repeat(Math.max(0,A.lives)),34,22,5,"#ff3b5c","left");
   txt("ACCESE IN ORDINE: "+A.litN,192,22,4,"#fff3a0");
   if(A.ready>0&&!A.end)txt("PRONTI!",192,100,10,"#ffd23c");
-  if(BJ_PC&&!A.end&&(A.score===0||A.ready>0)){r(72,206,240,10,"#000000aa");txt("← →  MUOVITI     SPAZIO  SALTA (tienilo premuto per planare)",192,213,4,"#f4f4ff")}}
+  if(BJ_PC&&!A.end&&(A.score===0||A.ready>0)){r(62,206,260,10,"#000000aa");txt("Z SINISTRA   X DESTRA   SPAZIO SALTA (tienilo premuto per planare)",192,213,4,"#f4f4ff")}}
 const BJ_PC=matchMedia("(hover:hover) and (pointer:fine)").matches;
 /* EASTER EGG: POLPETTA-MAN (buffet del tendone) */
 const PAC_MAP=["###################","#o.......#.......o#","#.##.###.#.###.##.#","#.................#","#.##.#.#####.#.##.#","#....#...#...#....#","####.###.#.###.####","#.......GGGG......#","#.##.#.#####.#.##.#","#o.#...........#.o#","#.##.##.###.##.##.#","#........P........#","###################"];
@@ -2545,7 +2545,7 @@ $("screen").addEventListener("click",e=>{
 });
 $("screen").addEventListener("mousemove",e=>{if(S.phase!=="play"||S.mode!=="explore"){$("cv").style.cursor="";return}const[x,y]=toLogic(e);$("cv").style.cursor=hit(x,y)?"pointer":""});
 document.addEventListener("keyup",e=>{if(S&&S.phase==="ape"&&S.ape&&(e.key==="ArrowLeft"||e.key==="ArrowRight"))S.ape.steer=0});
-const BJK={ArrowLeft:"L",ArrowRight:"R",ArrowUp:"J"," ":"J",a:"L",d:"R",w:"J",A:"L",D:"R",W:"J"};
+const BJK={z:"L",Z:"L",x:"R",X:"R"," ":"J",ArrowLeft:"L",ArrowRight:"R",ArrowUp:"J"};
 document.addEventListener("keydown",e=>{if(S&&S.phase==="bj"&&S.bj){const k=BJK[e.key];if(k){S.bj[k]=1;e.preventDefault();if(document.activeElement&&document.activeElement.blur)document.activeElement.blur()}}});
 document.addEventListener("keyup",e=>{if(S&&S.phase==="bj"&&S.bj){const k=BJK[e.key];if(k){S.bj[k]=0;e.preventDefault()}}});
 document.addEventListener("keydown",e=>{if(S&&S.phase==="pac"&&S.pac){const d={ArrowRight:0,ArrowDown:1,ArrowLeft:2,ArrowUp:3}[e.key];if(d!==undefined){S.pac.p.want=d;e.preventDefault()}}if(S&&S.phase==="ape"&&S.ape&&!S.ape.end){if(e.key==="ArrowLeft"){S.ape.steer=-1;e.preventDefault()}if(e.key==="ArrowRight"){S.ape.steer=1;e.preventDefault()}}if(e.key===" "||e.key==="Enter"){if(S.phase==="play"&&S.mode==="arrive"){e.preventDefault();advance()}else if(S.phase==="play"&&S.mode==="look"){e.preventDefault();noteClick()}}
