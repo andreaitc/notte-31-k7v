@@ -464,13 +464,13 @@ const ROOMS = {
       greet:["Brrr. Valentino, fumi anche tu? No? Bravo, fai bene.", "Siamo qui fuori da un'ora. Ultima sigaretta, giuro."],again:["Ultima sigaretta. Giuro."],
       foto:"«Paolucci? Era qui fuori verso le otto con una donna col cappello a tesa larga. Sono andati verso il fondo del cortile.»",
       strano:"«Il Teatrobus ha le tendine tirate. Non le tirano mai.»",
-      aiuto:"«Gentile. Guarda vicino al lampione: prima qualcuno ci ha perso qualcosa.»"}),P("cavrini","Cavrini","tecnico, fuma",{body:"#4a6a8a",hair:"#999999",hat:"#7a2a2a"},186,{
+      aiuto:"«Gentile. Ma qui fuori non c'è niente da fare: solo freddo e mozziconi.»"}),P("cavrini","Cavrini","tecnico, fuma",{body:"#4a6a8a",hair:"#999999",hat:"#7a2a2a"},186,{
       greet:["No che non fuma. È l'unico sano qui."],again:["L'ha detto anche un'ora fa."],
       foto:"«Io l'ho visto meglio di lui. Quella col cappello rideva. Paolucci no.»",
       strano:"«Dal bus ogni tanto parte una risata. E il bus non ride mai.»",
       aiuto:"«Una mano? Accendimi questa, che col vento non ci riesco.»",
       clue:{timbro:"«Un biglietto obliterato oggi? Quel bus non si muove da anni. Chiedi a Carlo nel tendone: lui conta tutto.»"}})],
-    objs:[{n:"la base del lampione",b:[302,150,22,36],main:1},{n:"l'insegna",b:[222,92,34,32],txt:"L'insegna dell'ITC Teatro di San Lazzaro. È accesa, anche se dentro nessuno se ne accorge.",th:"Bonita."},{n:"la panchina",b:[262,168,22,20],txt:"La panchina dei fumatori. Sotto, una montagna di mozziconi.",th:"Mañana la pulisco. Mañana."},{n:"la porta del teatro",b:[214,132,50,56],txt:"Da dentro arriva il brusio della festa. Tutti aspettano il discorso.",th:"Y el discorso no arriva."},{n:"la luna",b:[48,20,28,28],txt:"«E Ciàula si mise a piangere, senza saperlo, senza volerlo, dal gran conforto, dalla grande dolcezza che sentiva»",th:"Me sa que en esto teatro son poquitos quei chi san chi es Ciàula. ¡Cavrones!"}]},
+    objs:[{n:"l'insegna",b:[222,92,34,32],txt:"L'insegna dell'ITC Teatro di San Lazzaro. È accesa, anche se dentro nessuno se ne accorge.",th:"Bonita."},{n:"la panchina",b:[262,168,22,20],txt:"La panchina dei fumatori. Sotto, una montagna di mozziconi.",th:"Mañana la pulisco. Mañana."},{n:"la porta del teatro",b:[214,132,50,56],txt:"Da dentro arriva il brusio della festa. Tutti aspettano il discorso.",th:"Y el discorso no arriva."},{n:"la luna",b:[48,20,28,28],txt:"«E Ciàula si mise a piangere, senza saperlo, senza volerlo, dal gran conforto, dalla grande dolcezza che sentiva»",th:"Me sa que en esto teatro son poquitos quei chi san chi es Ciàula. ¡Cavrones!"}]},
   lab:{n:"ITC Lab, il tendone",m:"Tendone",z:"fuori",
     ppl:[P("carlo","Carlo","tecnico",{body:"#3a3a3a",hair:"#8a8a8a"},140,{
       greet:["Valentino. Lo sai quanti giorni mi mancano?",`${GIORNI_PENSIONE}. Stasera ne cancello uno. Se Paolucci si sbriga.`],again:[`${GIORNI_PENSIONE} giorni. Finché non arriva mezzanotte.`],
@@ -1146,7 +1146,7 @@ function studioG(){r(0,0,384,150,"#34344c");r(0,0,384,30,"#26263a");r(0,146,384,
   g.save();g.translate(238,38);g.rotate(.62);box(-10,-6,18,12,"#2a2a30");r(-12,-5,2,10,"#fff8d8");r(-4,6,2,4,"#5a5a66");g.restore()}
 
 const STUDIO={sfront:studioFront,saule:studioAule,sg:studioG};
-const SPEC2={cortileL:{amb:NIGHT,L:[[239,108,60,[.6,.58,.5]],[300,150,100,[.5,.46,.34]],[312,104,90,[.6,.5,.3]],[60,34,55,[.25,.25,.3]]]},sfront:{amb:[.64,.64,.68],L:[[192,18,200,[.55,.5,.38]],[337,110,50,[.1,.35,.2]]]},saule:{amb:[.6,.58,.66],L:[[192,18,210,[.55,.5,.38]]]},sg:{amb:[.62,.62,.7],L:[[70,170,110,[.85,.8,.55]],[300,150,70,[.35,.32,.25]]]}};
+const SPEC2={cortileL:{amb:NIGHT,L:[[239,108,60,[.6,.58,.5]],[300,150,100,[.5,.46,.34]],[60,34,55,[.25,.25,.3]]]},sfront:{amb:[.64,.64,.68],L:[[192,18,200,[.55,.5,.38]],[337,110,50,[.1,.35,.2]]]},saule:{amb:[.6,.58,.66],L:[[192,18,210,[.55,.5,.38]]]},sg:{amb:[.62,.62,.7],L:[[70,170,110,[.85,.8,.55]],[300,150,70,[.35,.32,.25]]]}};
 function studioTin(){r(0,0,384,216,"#0a090b");
   al(.5,()=>{g.save();g.translate(192,40);g.scale(1,.55);disc(0,0,170,"#1a1820");g.restore()});
   {const top=y=>y;for(let i=0;i<9;i++){const x0=78+i*25.5;r(x0,90+Math.abs(i-4)*1.2,25,36-Math.abs(i-4)*1.2,i%2?"#2c2c2e":"#303032");r(x0,90+Math.abs(i-4)*1.2,.5,36,"#1e1e20")}}
@@ -1248,7 +1248,7 @@ function cortileLayer(){const W="#c8a25a",WD="#a8843e";
   L.forEach(([x,y,rr],i)=>{disc(x,y,rr,i%2?"#1c3a22":"#24482a");for(let k=0;k<6;k++)r(x-rr+hs(i,k)*rr*2,y-rr*.6+hs(k,i)*rr*1.2,3,1,"#3a6a3a")});
   for(let i=0;i<30;i++){const x=hs(i,9)*120,y=104+hs(9,i)*30;poly([[x,y],[x+5,y+2],[x+1,y+3]],"#2a5230")}}
 function cortileBuilding(){layer("cortileB2",cortileLayer);al(.3+.05*Math.sin(F/7),()=>r(224,94,30,28,"#ffffff"));al(.12,()=>poly([[298,66],[306,66],[350,188],[250,188]],"#fff3c8"))}
-function cortileScene(){sky();cortileBuilding();ground();layer("lampC",()=>streetLamp(312));
+function cortileScene(){sky();cortileBuilding();ground();
 }
 function cortileExits(){const a=(F>>3)%2;[[176,"TEATROBUS"],[188,"TENDONE"]].forEach(([y,t])=>{r(326,y-5,56,10,"#000000cc");r(326,y-5,56,.6,"#ffd23c");txt(t+" "+(a?"»":"›"),354,y+2,4.2,"#ffd23c")})}
 function yard(withBus,lit){sky();teatro();layer("tendaLontana",tendaLontana);ground();layer("lamp",()=>streetLamp(214));if(withBus)bus(250,GY+2,1,lit)}
