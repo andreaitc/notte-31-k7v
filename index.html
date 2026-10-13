@@ -355,7 +355,7 @@ button:focus-visible{outline:2px solid var(--giallo);outline-offset:2px}
 .plan2 .rm.tent{border-radius:50%;width:auto;aspect-ratio:1/1;transform:translateX(-50%)}
 .plan2 .rm.af.hov{border-color:var(--giallo)}
 .map{padding-bottom:3.5%}.map .maphead span{margin-left:2.4em}
-.bjpad{position:absolute;left:var(--cx);width:var(--cw);top:calc(var(--cy) + var(--ch) - 3.4em);display:flex;gap:.6em;padding:0 .8em;box-sizing:border-box;z-index:30;pointer-events:none}.bjpad button{pointer-events:auto;min-width:3.2em;height:2.8em;font-size:.9em!important;touch-action:none;user-select:none;-webkit-user-select:none;opacity:.85}.bjpad .bjj{margin-left:auto;min-width:5em}
+@media (hover:hover) and (pointer:fine){.bjpad{display:none!important}}.bjpad{position:absolute;left:var(--cx);width:var(--cw);top:calc(var(--cy) + var(--ch) - 3.4em);display:flex;gap:.6em;padding:0 .8em;box-sizing:border-box;z-index:30;pointer-events:none}.bjpad button{pointer-events:auto;min-width:3.2em;height:2.8em;font-size:.9em!important;touch-action:none;user-select:none;-webkit-user-select:none;opacity:.85}.bjpad .bjj{margin-left:auto;min-width:5em}
 </style>
 
 <div class="stage">
@@ -1777,7 +1777,7 @@ function bjNextLit(A,from){let best=-1,bd=1e9;A.b.forEach((q,i)=>{if(!q.on)retur
 function bjLoop(now){const A=S.bj;if(S.phase!=="bj"||!A)return;const dt=Math.min(.04,(now-A.last)/1000);A.last=now;
   if(!A.end){if(A.ready>0)A.ready-=dt;else{const P=A.p,mv=(A.R?1:0)-(A.L?1:0);if(mv)P.dir=mv;P.vx=mv*(P.ground?95:85);
     if(A.J&&P.ground){P.vy=-255;P.ground=0;A.Jused=1;sfx("blip")}
-    P.vy+=520*dt;if(!P.ground&&A.J&&P.vy>0&&!A.Jused)P.vy=Math.min(P.vy,38);if(!A.J)A.Jused=0;
+    P.vy+=520*dt;if(!P.ground&&A.J&&P.vy>0)P.vy=Math.min(P.vy,38);if(!A.J)A.Jused=0;
     const oy=P.y;P.x=Math.max(14,Math.min(370,P.x+P.vx*dt));P.y+=P.vy*dt;P.ground=0;
     if(P.vy>=0)for(const[px,py,pw]of BJ_PL){if(P.x>=px-4&&P.x<=px+pw+4&&oy<=py+.5&&P.y>=py){P.y=py;P.vy=0;P.ground=1}}
     if(P.y<20){P.y=20;P.vy=0}
@@ -1798,9 +1798,11 @@ function bjScene(){const A=S.bj;const sky=g.createLinearGradient(0,0,0,216);sky.
   A.b.forEach((q,i)=>bjBulb(q.x,q.y,q.on,i===A.lit));
   A.en.forEach(E=>{const f=(F>>1)%2;disc(E.x,E.y,3,"#c8b89a");poly([[E.x,E.y],[E.x-7,E.y-(f?6:2)],[E.x-6,E.y+3]],"#e8dcc0");poly([[E.x,E.y],[E.x+7,E.y-(f?6:2)],[E.x+6,E.y+3]],"#e8dcc0");r(E.x-1.5,E.y-1,1,1,"#1a1a1a");r(E.x+.5,E.y-1,1,1,"#1a1a1a")});
   {const P=A.p;if(!(P.inv>0&&(F>>1)%2)){g.save();g.translate(P.x-6.5,P.y);g.scale(.62,.62);if(!P.ground){poly([[3,-30],[17,-30],[24+(F%2)*2,-10],[-4-(F%2)*2,-10]],"#c0283a")}if(P.dir<0){g.translate(20,0);g.scale(-1,1)}person(0,0,VAL,P.ground&&P.vx!==0);g.restore()}}
-  txt("BULB JACK",192,13,8,"#ffd23c");txt("PUNTI "+A.score,10,13,5,"#f4f4ff","left");txt("VITE "+"♥".repeat(Math.max(0,A.lives)),10,22,5,"#ff3b5c","left");
+  txt("BULB JACK",192,13,8,"#ffd23c");txt("PUNTI "+A.score,34,13,5,"#f4f4ff","left");txt("VITE "+"♥".repeat(Math.max(0,A.lives)),34,22,5,"#ff3b5c","left");
   txt("ACCESE IN ORDINE: "+A.litN,192,22,4,"#fff3a0");
-  if(A.ready>0&&!A.end)txt("PRONTI!",192,100,10,"#ffd23c")}
+  if(A.ready>0&&!A.end)txt("PRONTI!",192,100,10,"#ffd23c");
+  if(BJ_PC&&!A.end&&(A.score===0||A.ready>0)){r(72,206,240,10,"#000000aa");txt("← →  MUOVITI     SPAZIO  SALTA (tienilo premuto per planare)",192,213,4,"#f4f4ff")}}
+const BJ_PC=matchMedia("(hover:hover) and (pointer:fine)").matches;
 /* EASTER EGG: POLPETTA-MAN (buffet del tendone) */
 const PAC_MAP=["###################","#o.......#.......o#","#.##.###.#.###.##.#","#.................#","#.##.#.#####.#.##.#","#....#...#...#....#","####.###.#.###.####","#.......GGGG......#","#.##.#.#####.#.##.#","#o.#...........#.o#","#.##.##.###.##.##.#","#........P........#","###################"];
 const PT=14,PX0=59,PY0=27,PDIR=[[1,0],[0,1],[-1,0],[0,-1]],PGC=["#ff3b3b","#ffb8de","#5ee6ff","#ffb852"];
@@ -2543,8 +2545,9 @@ $("screen").addEventListener("click",e=>{
 });
 $("screen").addEventListener("mousemove",e=>{if(S.phase!=="play"||S.mode!=="explore"){$("cv").style.cursor="";return}const[x,y]=toLogic(e);$("cv").style.cursor=hit(x,y)?"pointer":""});
 document.addEventListener("keyup",e=>{if(S&&S.phase==="ape"&&S.ape&&(e.key==="ArrowLeft"||e.key==="ArrowRight"))S.ape.steer=0});
-document.addEventListener("keydown",e=>{if(S&&S.phase==="bj"&&S.bj){const k={ArrowLeft:"L",ArrowRight:"R",ArrowUp:"J"," ":"J"}[e.key];if(k){S.bj[k]=1;e.preventDefault()}}});
-document.addEventListener("keyup",e=>{if(S&&S.phase==="bj"&&S.bj){const k={ArrowLeft:"L",ArrowRight:"R",ArrowUp:"J"," ":"J"}[e.key];if(k)S.bj[k]=0}});
+const BJK={ArrowLeft:"L",ArrowRight:"R",ArrowUp:"J"," ":"J",a:"L",d:"R",w:"J",A:"L",D:"R",W:"J"};
+document.addEventListener("keydown",e=>{if(S&&S.phase==="bj"&&S.bj){const k=BJK[e.key];if(k){S.bj[k]=1;e.preventDefault();if(document.activeElement&&document.activeElement.blur)document.activeElement.blur()}}});
+document.addEventListener("keyup",e=>{if(S&&S.phase==="bj"&&S.bj){const k=BJK[e.key];if(k){S.bj[k]=0;e.preventDefault()}}});
 document.addEventListener("keydown",e=>{if(S&&S.phase==="pac"&&S.pac){const d={ArrowRight:0,ArrowDown:1,ArrowLeft:2,ArrowUp:3}[e.key];if(d!==undefined){S.pac.p.want=d;e.preventDefault()}}if(S&&S.phase==="ape"&&S.ape&&!S.ape.end){if(e.key==="ArrowLeft"){S.ape.steer=-1;e.preventDefault()}if(e.key==="ArrowRight"){S.ape.steer=1;e.preventDefault()}}if(e.key===" "||e.key==="Enter"){if(S.phase==="play"&&S.mode==="arrive"){e.preventDefault();advance()}else if(S.phase==="play"&&S.mode==="look"){e.preventDefault();noteClick()}}
   if(e.key==="m"&&S.phase==="play"&&S.mode==="explore")openMap();if(e.key==="Escape"&&S.phase==="play"&&(S.mode==="map"||S.mode==="talk")){S.mode="explore";render()}});
 
