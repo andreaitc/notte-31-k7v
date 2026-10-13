@@ -432,7 +432,7 @@ const ROOMS = {
       strano:"«In call con Bruxelles, alle mie spalle, qualcuno rideva con un accento terribile. Mi sono girata: nessuno.»",
       aiuto:"«Grazie, Valentino. Al massimo tienimi il telefono mentre parlo con Lisbona.»",
       clue:{biglietto:"«Dammi qua, lo traduco io. “Very sicure place”: un posto sicurissimo. “Happy new ear”: felice orecchio nuovo. “Signed: The President”: firmato, il Presidente. In nessuna lingua del mondo questo è Paolucci.»"},
-      clueTh:{biglietto:"¡Finalmente qualcuno que mi capisce!"}}),P("cristina","Cristina","vicepresidente",{body:"#2f6fd0",hair:"#34200f"},330,{greet:["Oddiodio... tocca a me.",{t:"Haaaah...",turn:1},"Valentino. Se Paolucci non si trova entro mezzanotte, il discorso tocca a me. A me! Davanti a tutti!",{who:"val",t:"Tranquila, señorita Cristina... (¡madre mía, che paura che mi fa!)"},"Io non ho niente di pronto. Ho solo l'ansia. Quella sì, prontissima, con le slide."],again:["Ho scritto tre righe di discorso. Le ho cancellate. Ne ho scritte due. Cancellate anche quelle."],wa:"«“Mezzano...”. Mezzanotte. Mancano poche ore. E se non torna... no, non ci voglio pensare.»",foto:"«Paolucci mi ha sempre detto: “se non ci sono io, tocca a te”. Pensavo fosse un modo di dire. Non lo era!»",strano:"«Strano? Strano è che tutti mi guardino come se il discorso toccasse già a me. Smettetela. Vi prego.»",aiuto:"«Aiutami tu! Trovalo, così il discorso non lo faccio io. Ti prego.»"})],
+      clueTh:{biglietto:"¡Finalmente qualcuno que mi capisce!"}}),P("cristina","Cristina","vicepresidente",{body:"#2f6fd0",hair:"#34200f"},330,{greet:["Oddiodio... tocca a me.",{t:"Haaaah...",turn:1},"Valentino. Se Paolucci non si trova entro mezzanotte, il discorso tocca a me. A me! Davanti a tutti!",{who:"val",t:"Tranquila, señorita Cristina... (¡Oh mamma! ¡La señora Cristina!)"},"Io non ho niente di pronto. Ho solo l'ansia. Quella sì, prontissima, con le slide."],again:["Ho scritto tre righe di discorso. Le ho cancellate. Ne ho scritte due. Cancellate anche quelle."],wa:"«“Mezzano...”. Mezzanotte. Mancano poche ore. E se non torna... no, non ci voglio pensare.»",foto:"«Paolucci mi ha sempre detto: “se non ci sono io, tocca a te”. Pensavo fosse un modo di dire. Non lo era!»",strano:"«Strano? Strano è che tutti mi guardino come se il discorso toccasse già a me. Smettetela. Vi prego.»",aiuto:"«Aiutami tu! Trovalo, così il discorso non lo faccio io. Ti prego.»"})],
     objs:[{n:"la scrivania di Paolucci",b:[168,126,98,46],main:1},{n:"il discorso",b:[196,120,26,8],txt:"Il discorso di fine anno. Si interrompe a metà frase: “E quest'anno, care colleghe e cari colleghi, vorrei”",th:"¿Vorrei qué cosa?"},{n:"la finestra",b:[214,56,112,36],txt:"Fuori è buio. I fuochi d'artificio non sono ancora cominciati. Riflesso nel vetro, per un attimo, un cappello a tesa larga.",th:"¿L'ho vistado de verdad?"},{n:"il quadro",b:[182,66,26,22],txt:"Il manifesto di Habil delle città, incorniciato. Sul vetro, l'impronta di una mano con il guanto.",th:"Hmm."},{n:"il divano",b:[82,118,84,36],txt:"Il divano grigio della direzione. Sotto i cuscini: due penne, una caramella e nessun Paolucci.",th:"Aquí no está."},{n:"l'Apeatro",b:[283,89,17,13]},{n:"la luna",b:[298,62,16,16],txt:"«Dov’era la luna? chè il cielo notava in un’alba di perla» (Giovanni Pascoli, L’assiuolo)",th:"¡Mica pippas!"}]},
   sala:{n:"Sala grande",z:"itc",wall:"#1a1a2a",
     ppl:[P("william","William Sheldon","capo dei tecnici",{body:"#1c1c22",hair:"#2a1a10",beard:"#2a1a10",gl:1},98,{
@@ -659,7 +659,7 @@ function spec(k){
   const lamp=[192,18,210,[.6,.54,.38]];
   const S_={
     organizzatrici:{amb:[.6,.6,.62],L:[lamp,[262,114,40,[.05,.25,.35]]]},
-    amministrazione:{amb:[.6,.6,.66],L:[lamp,[312,126,40,[.05,.25,.35]]]},
+    amministrazione:{amb:[.6,.6,.66],L:[lamp,[74,126,40,[.05,.25,.35]]]},
     direzione:{amb:[.74,.72,.76],L:[[100,10,150,[.5,.48,.4]],[320,10,150,[.5,.48,.4]],[306,70,40,[.15,.18,.3]]]},
     sala:{amb:[.66,.64,.7],L:[[192,90,150,[.9,.82,.6]],[192,200,170,[.45,.4,.32]],[110,100,70,[.5,.42,.28]]]},
     camerini:{amb:[.86,.85,.84],L:[[180,48,150,[.35,.3,.2]],[192,4,140,[.25,.25,.25]]]},
@@ -908,12 +908,12 @@ function room(k){
     {const P=["#c0283a","#2f6fd0","#1f8a4f","#ffd23c","#8a4ac0","#e0702a"];for(let q=0;q<3;q++)for(let s=0;s<6;s++){const c=P[(q*2+s)%6];box(170+s*6.3,121+q*15,5.6,12,c);r(171+s*6.3,123+q*15,3.6,3,"#f4f4ff")}}
     box(170,109,10,9,"#f4f4f4");for(let q=0;q<7;q++){const a=-2.4+q*.4;poly([[175,109],[175+Math.cos(a)*12,105+Math.sin(a)*12],[176+Math.cos(a)*10,106+Math.sin(a)*9]],q%2?"#2a8a4f":"#1f6a3f")}box(196,112,14,6,"#ffd23c");
     poly([[160,139],[94,134],[18,143],[18,170],[50,163],[94,157],[138,153],[160,147]],"#f6f6f4");poly([[160,139],[94,134],[18,143],[18,144],[94,135],[160,140]],"#ffffff");r(157,147,2,9,"#1a1a1e");r(93,157,2,28,"#1a1a1e");r(49,163,2,27,"#1a1a1e");r(18,170,2,26,"#1a1a1e");
-    box(26,146,20,3,"#f4f4ff");poly([[58,147],[82,144],[86,147],[62,150]],"#b8bcc4");poly([[60,147],[82,144.5],[80,132],[58,134.5]],"#2a2a30");poly([[61,146],[80.5,143.6],[78.8,133],[59.4,135.2]],"#3a6ab0");r(63,137,12,.8,"#9ad0ff");r(63,139.5,9,.6,"#5a8ac0");box(108,132,4,8,"#1f6a3f");box(116,134,14,5,"#c0283a");
+    box(26,146,20,3,"#f4f4ff");poly([[326,147],[302,144],[298,147],[322,150]],"#b8bcc4");poly([[324,147],[302,144.5],[304,132],[326,134.5]],"#2a2a30");poly([[323,146],[303.5,143.6],[305.2,133],[324.6,135.2]],"#3a6ab0");r(309,137,12,.8,"#9ad0ff");r(312,139.5,9,.6,"#5a8ac0");box(108,132,4,8,"#1f6a3f");box(116,134,14,5,"#c0283a");
     
     poly([[224,139],[290,134],[366,143],[366,170],[334,163],[290,157],[246,153],[224,147]],"#f6f6f4");poly([[224,139],[290,134],[366,143],[366,144],[290,135],[224,140]],"#ffffff");r(225,147,2,9,"#1a1a1e");r(289,157,2,28,"#1a1a1e");r(333,163,2,27,"#1a1a1e");r(364,170,2,26,"#1a1a1e");
-    box(290,114,40,22,"#16161a");r(292,116,36,17,"#0d1a3a");r(308,136,4,4,"#2a2a2e");r(302,139,16,1.5,"#2a2a2e");
-    box(212,120,20,16,"#d8d8e0");for(let q=0;q<5;q++)r(213,122+q*3,18,1.5,"#f4f4ff");box(258,141,28,3,"#1a1a1e");box(246,130,4,9,"#8aa0b0");box(346,138,5,9,"#2a4a8a");
-    box(306,148,26,20,"#1a1a1e");box(302,166,32,8,"#1a1a1e");r(317,174,2,16,"#555");r(306,190,24,2,"#555");
+    box(54,114,40,22,"#16161a");r(56,116,36,17,"#0d1a3a");r(72,136,4,4,"#2a2a2e");r(66,139,16,1.5,"#2a2a2e");
+    box(212,120,20,16,"#d8d8e0");for(let q=0;q<5;q++)r(213,122+q*3,18,1.5,"#f4f4ff");box(98,141,28,3,"#1a1a1e");box(246,130,4,9,"#8aa0b0");box(346,138,5,9,"#2a4a8a");
+    box(52,148,26,20,"#1a1a1e");box(48,166,32,8,"#1a1a1e");r(63,174,2,16,"#555");r(52,190,24,2,"#555");
     box(4,99,30,40,"#7a5232");r(6,101,26,36,"#a87a4a");for(let j_=0;j_<3;j_++)for(let i_=0;i_<4;i_++){const hx_=9+i_*6.5,hy_=103+j_*11;r(hx_,hy_,1,1.5,"#555");r(hx_-.5,hy_+1.5,2,4,["#c9a15a","#b0b0b8","#c9a15a","#8a8a96"][(i_+j_)%4]);disc(hx_+.5,hy_+6.5,1.2,["#c0283a","#2f6fd0","#1f8a4f","#ffd23c","#f4f4ff"][(i_*3+j_)%5])}r(4,99,30,1,"#9a6a3a")}
   if(k==="direzione"){r(0,0,384,150,"#efe6cf");r(0,0,384,10,"#f4ecd8");r(0,10,384,.5,"#d8ccb0");r(80,3,40,2.5,"#ffffff");r(300,3,40,2.5,"#ffffff");tiles("#cfcdc7",150);r(0,149,384,1.5,"#b8b6b0");
     winFrame(62,54,114,36,3,"#8a8c96",[]);winFrame(214,56,112,36,3,"#8a8c96",[2]);disc(306,70,6,"#f4f0d0");disc(304,68,1.4,"#d8d2b0");for(let yy=57;yy<91;yy+=3)r(287,yy,38,1,"#7a7c86");
@@ -1253,7 +1253,7 @@ function cortileScene(){sky();cortileBuilding();ground();
 }
 function cortileExits(){const a=(F>>3)%2;[[176,"TEATROBUS"],[188,"TENDONE"]].forEach(([y,t])=>{r(326,y-5,56,10,"#000000cc");r(326,y-5,56,.6,"#ffd23c");txt(t+" "+(a?"»":"›"),354,y+2,4.2,"#ffd23c")})}
 function yard(withBus,lit){sky();teatro();layer("tendaLontana",tendaLontana);ground();layer("lamp",()=>streetLamp(214));if(withBus)bus(250,GY+2,1,lit)}
-function screenFace(p){const glitch=(F%47)<4,bg=S.step>6?"#0b0b10":glitch?"#3a3a5a":"#0d1a3a";r(292,116,36,17,bg);if(glitch&&S.step<=6)for(let i=0;i<5;i++)r(292,116+i*3.3,36,1,["#ff3b5c","#5ee6ff","#ffd23c"][i%3]);if(S.step>6)for(let i=0;i<20;i++)r(292+hs(i,F%7)*35,116+hs(F%5,i)*16,1,.5,"#5a5a66");g.save();g.translate(46,11.5);screenFace0(p);g.restore()}
+const TACX=56;function screenFace(p){const glitch=(F%47)<4,bg=S.step>6?"#0b0b10":glitch?"#3a3a5a":"#0d1a3a";r(TACX,116,36,17,bg);if(glitch&&S.step<=6)for(let i=0;i<5;i++)r(TACX,116+i*3.3,36,1,["#ff3b5c","#5ee6ff","#ffd23c"][i%3]);if(S.step>6)for(let i=0;i<20;i++)r(TACX+hs(i,F%7)*35,116+hs(F%5,i)*16,1,.5,"#5a5a66");g.save();g.translate(TACX-246,11.5);screenFace0(p);g.restore()}
 function screenFace0(p){if(S.step>6){r(253,105,22,16,"#0b0b10");for(let i=0;i<14;i++)r(253+hs(i,F%7)*21,105+hs(F%5,i)*15,1,.5,"#5a5a66");txt("NO",264,112,3,"#ff3b5c");txt("SIGNAL",264,117.5,3,"#ff3b5c");return}const glitch=(F%47)<4;r(253,105,22,16,glitch?"#3a3a5a":"#0d1a3a");if(glitch){for(let i=0;i<5;i++)r(253,105+i*3.2,22,1,["#ff3b5c","#5ee6ff","#ffd23c"][i%3]);return}
   const c=p.c;r(259,108,10,12,c.hair);r(260,109,8,8,SKIN);r(261.5,111.5,1.5,1,"#111");r(265,111.5,1.5,1,"#111");r(262.5,114.5,3,.5,"#9a4a3a");r(258,117,12,4,c.body);r(258.5,108,1.5,8,c.hair);r(268,108,1.5,8,c.hair);if((F>>3)%2)r(272,106,2,1,"#ff3b5c")}
 function cat(x,y,c,fl,pose){g.save();g.translate(q(x),q(y));g.scale(fl?-1.6:1.6,1.6);const d=sh(c,.7);
@@ -1291,7 +1291,7 @@ function draw(){
     if(R.z==="fuori"&&k!=="tin")fog();
     const lk=k==="cortile"?"cortileL":k==="bus"?"bus"+(S.found.length===3?1:0):k;light(lk,k==="cortile"?SPEC2.cortileL:(spec(k)||SPEC2[k]));
     if(S.mode==="explore"||S.mode==="say"){const si=stepObjIndex(k);R.objs.forEach((o,i)=>{const on=i===si||(k==="cortile"&&o.go==="bus"&&cur().final)||(k==="lab"&&o.go==="tin"&&cur().room==="tin");if(on){sparkle(o.b[0]+o.b[2]/2,o.b[1]+Math.min(o.b[3]/2,14),0);sparkle(o.b[0]+o.b[2]*.25,o.b[1]+Math.min(o.b[3]/2,14)+6,7);al(.25+.15*Math.sin(F/3),()=>{r(o.b[0],o.b[1],o.b[2],1,"#ffd23c");r(o.b[0],o.b[1]+o.b[3]-1,o.b[2],1,"#ffd23c");r(o.b[0],o.b[1],1,o.b[3],"#ffd23c");r(o.b[0]+o.b[2]-1,o.b[1],1,o.b[3],"#ffd23c")})}});
-      R.ppl.filter(p=>!gone(p.id)).forEach((p,i)=>{const x=p.screen?314:p.x+10,y=(p.screen?108:NPCY-56-(p.hang?46:0)-plift(p))+((F>>2)%2);if(S.met[p.id])return;box(x-7,y-5,14,9,"#f4f4ff");r(x-4,y-1,2,2,"#111");r(x-1,y-1,2,2,"#111");r(x+2,y-1,2,2,"#111");poly([[x-2,y+4],[x+2,y+4],[x-3,y+8]],"#f4f4ff")})}
+      R.ppl.filter(p=>!gone(p.id)).forEach((p,i)=>{const x=p.screen?TACX+22:p.x+10,y=(p.screen?108:NPCY-56-(p.hang?46:0)-plift(p))+((F>>2)%2);if(S.met[p.id])return;box(x-7,y-5,14,9,"#f4f4ff");r(x-4,y-1,2,2,"#111");r(x-1,y-1,2,2,"#111");r(x+2,y-1,2,2,"#111");poly([[x-2,y+4],[x+2,y+4],[x-3,y+8]],"#f4f4ff")})}
     return}
   if(ph==="win"||ph==="video"){layer("win",()=>{r(0,0,384,216,"#2a0f18");r(0,0,384,14,K);r(0,22,384,2,"#c9a15a");for(let i=0;i<8;i++){r(30+i*46,24,2,10,"#8a8a96");r(27+i*46,34,8,3,"#8a8a96")}
       for(let i=0;i<5;i++){const x=20+i*72;r(x-2,36,56,60,K);r(x,38,52,56,"#070a1f");for(let j=0;j<6;j++)r(x+4+(j*17)%46,42+(j*11)%44,.5,.5,"#fff");for(let k=0;k<2;k++){const cx=k?x+46:x-4;r(cx,34,10,64,"#c0283a");for(let s=0;s<4;s++)r(cx+1+s*2.5,34,.5,64,"#8a1a2a")}}
@@ -1662,7 +1662,7 @@ function advance(){
     /* finita la presentazione, sta al giocatore toccare un personaggio */
   }else render();
 }
-function headPos(pid){if(pid==="val")return S.loc==="sg"?[S.vx+12,NPCY+16-66]:[S.vx+10,(S.loc==="bus"?NPCY+8:NPCY+4)-54];const p=PID[pid];return p.screen?[314,112]:[p.x+10,NPCY-54-(p.hang?46:0)-plift(p)]}
+function headPos(pid){if(pid==="val")return S.loc==="sg"?[S.vx+12,NPCY+16-66]:[S.vx+10,(S.loc==="bus"?NPCY+8:NPCY+4)-54];const p=PID[pid];return p.screen?[TACX+22,112]:[p.x+10,NPCY-54-(p.hang?46:0)-plift(p)]}
 function plift(p){return p.room==="sala"&&S.loc==="sala"?66:0}
 function balloon(pid,txt,extra,cls){
   const isV=pid==="val",p=!isV&&PID[pid],[x]=headPos(pid),left=Math.max(24,Math.min(76,x/384*100));
@@ -2445,7 +2445,7 @@ function ask(kind){
     else if(kind==="pao")a=C.foto||FOTO[(p.id.length*11+p.id.charCodeAt(0))%FOTO.length];
     else a=(again&&C.foto)?C.foto:(C.strano||pick(STRANO));
     const h=hintFor(p.id);if(h)a+=" «"+h+"»";
-    th=th||(p.id==="cristina"?pick(["Sì, señorita Cristina... (¡qué paura!)","Perdone, señorita Cristina.","La señorita Cristina mi fa un pochito de paura."]):kind==="wa"?"Hmm.":kind==="brin"?"¡Salud!":"Interesantissimo.");sfx("talk")}
+    th=th||(p.id==="cristina"?pick(["Sì, señorita Cristina... (¡Oh mamma! ¡La señora Cristina!)","Perdone, señorita Cristina.","¡Oh mamma! ¡La señora Cristina!"]):kind==="wa"?"Hmm.":kind==="brin"?"¡Salud!":"Interesantissimo.");sfx("talk")}
   const qq=kind==="si"&&s.yes&&/^(Mostra|Prendi|Chiedi|Dove|Guarda|Cerca)/.test(s.yes)?"Valentino: "+lc(s.yes)+".":Q[kind];
   S.talk={pid:p.id,q:qq,a,a2,v:th?`«${th}»`:null,done0,media,cut,auto,paper,code};typeOn();render();
 }
@@ -2579,7 +2579,7 @@ function go(k){if(k===S.loc){S.mode="explore";render();return}
 /* tocchi sulla scena */
 function toLogic(e){const c=$("cv").getBoundingClientRect();return[(e.clientX-c.left)/c.width*384,(e.clientY-c.top)/c.height*216]}
 function hit(x,y){const R=ROOMS[S.loc];
-  for(const p of R.ppl.filter(p=>!gone(p.id))){if(p.screen){if(x>=290&&x<=330&&y>=112&&y<=138)return{pid:p.id}}else{const oy=(p.hang?46:0)+plift(p);if(x>=p.x-2&&x<=p.x+22&&y>=NPCY-60-oy&&y<=NPCY+2-oy)return{pid:p.id}}}
+  for(const p of R.ppl.filter(p=>!gone(p.id))){if(p.screen){if(x>=TACX-2&&x<=TACX+38&&y>=112&&y<=138)return{pid:p.id}}else{const oy=(p.hang?46:0)+plift(p);if(x>=p.x-2&&x<=p.x+22&&y>=NPCY-60-oy&&y<=NPCY+2-oy)return{pid:p.id}}}
   for(let i=R.objs.length-1;i>=0;i--){const[bx,by,bw,bh]=R.objs[i].b;if(x>=bx&&x<=bx+bw&&y>=by&&y<=by+bh)return{obj:i}}
   return null}
 $("screen").addEventListener("click",e=>{
