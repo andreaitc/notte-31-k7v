@@ -356,6 +356,7 @@ button:focus-visible{outline:2px solid var(--giallo);outline-offset:2px}
 .plan2 .rm.af.hov{border-color:var(--giallo)}
 .map{padding-bottom:3.5%}.map .maphead span{margin-left:2.4em}
 @media (hover:hover) and (pointer:fine){.bjpad{display:none!important}}.bjpad{position:absolute;left:var(--cx);width:var(--cw);top:calc(var(--cy) + var(--ch) - 3.4em);display:flex;gap:.6em;padding:0 .8em;box-sizing:border-box;z-index:30;pointer-events:none}.bjpad button{pointer-events:auto;min-width:3.2em;height:2.8em;font-size:.9em!important;touch-action:none;user-select:none;-webkit-user-select:none;opacity:.85}.bjpad .bjj{margin-left:auto;min-width:5em}
+.ioshint{position:absolute;left:calc(var(--cx) + var(--cw) * .5);transform:translateX(-50%);bottom:calc(100% - var(--cy) - var(--ch) + .6em);width:min(88%,32em);box-sizing:border-box;z-index:40;background:#0b0f2aee;border:2px solid #ffd23c;color:#f4f4ff;padding:.6em .8em;display:grid;gap:.4em;font-family:var(--pix);font-size:.55em;line-height:1.6;text-align:center}.ioshint b{color:#ffd23c}.ioshint u{color:#5ee6ff;text-decoration:none}.ioshint button{justify-self:center;font-size:1em!important;padding:.4em 1em}
 </style>
 
 <div class="stage">
@@ -1342,10 +1343,12 @@ function bindHud(){
 }
 function fullscreen(fromStart){const e=document.documentElement;if(document.fullscreenElement){document.exitFullscreen();return}
   const q=e.requestFullscreen||e.webkitRequestFullscreen;if(!q){if(!fromStart&&TOUCH){TOPGAP=TOPGAP?0:1;fitScreen()}return}try{const p=q.call(e);if(p&&p.then)p.then(()=>{try{screen.orientation.lock("landscape").catch(()=>{})}catch(x){}}).catch(()=>{})}catch(x){}}
+const IOSHINT=(()=>{try{return /iPhone|iPod/.test(navigator.userAgent)&&!navigator.standalone&&!matchMedia("(display-mode: standalone)").matches&&window.top===window}catch(e){return false}})();
+function iosHidden(){if(S.iosHide)return true;try{return localStorage.getItem("iosHint")==="1"}catch(e){return false}}
 function render(){
   const ph=S.phase;let h="";
   if(ph==="title")h=`<div class="ov title"><h1>WHERE IN THE WORLD<br>IS THE PRESIDENT?</h1><button class="blink" id="bstart" type="button">PRESS START</button>
-    <div class="sc">HI-SCORE<br>1. <b>BONAZZI</b> 087450<br>2. VALENTINO 063120<br>3. PAOLUCCI 004380</div></div>`;
+    <div class="sc">HI-SCORE<br>1. <b>BONAZZI</b> 087450<br>2. VALENTINO 063120<br>3. PAOLUCCI 004380</div></div>${IOSHINT&&!iosHidden()?`<div class="ioshint" id="ioshint"><b>SU IPHONE GIOCA A TUTTO SCHERMO</b><span>Tocca <u>Condividi</u> (il quadrato con la freccia in su), poi <u>Aggiungi alla schermata Home</u>. Da lì apri il gioco dall'icona: niente barre del browser.</span><button class="go gold" id="bioshint" type="button">HO CAPITO</button></div>`:""}`;
   else if(ph==="brief")h=`<div class="ov crawl"><div class="cw"><div class="ct">
     <h4>EPISODIO XXXII</h4><h3>WHERE IN THE WORLD IS THE PRESIDENT?</h3>
     <p>È la sera del 31 dicembre. Al Teatro dell'Argine tutta la squadra aspetta il tradizionale discorso di fine anno del presidente.</p>
@@ -1386,6 +1389,8 @@ function render(){
   L().innerHTML=h;bindHud();bindGear();
   if(S.goalNew&&ph==="play"&&S.mode==="explore"){S.goalNew=false;sfx("goal");setTimeout(()=>{const gq=document.querySelector(".goal.flash");if(gq){gq.classList.remove("flash");const b=gq.querySelector("b");if(b)b.textContent="OBIETTIVO"}},2600)}
   const on=(id,fn)=>{const e=$(id);if(e)e.onclick=ev=>{ev.stopPropagation();fn()}};
+  {const ih=$("ioshint");if(ih)ih.addEventListener("click",e=>e.stopPropagation())}
+  on("bioshint",()=>{S.iosHide=1;try{localStorage.setItem("iosHint","1")}catch(e){}render()});
   on("bstart",()=>{stopTitleAudio();fullscreen(true);S.phase="brief";theme(true);render();setTimeout(fitScreen,400)});
   on("bgo",()=>{theme(false);startVint()});
   const ct=document.querySelector(".crawl .ct");if(ct){const fin=()=>{if(S.phase==="brief"){theme(false);startVint()}};ct.addEventListener("animationend",fin,{once:true});const cw=ct.parentElement,lp=ct.lastElementChild;const chk=()=>{if(S.phase!=="brief"||!lp.isConnected)return;const a=lp.getBoundingClientRect(),c=cw.getBoundingClientRect();if(a.bottom<c.top+1){setTimeout(fin,500);return}requestAnimationFrame(chk)};requestAnimationFrame(chk)}
