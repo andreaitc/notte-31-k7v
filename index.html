@@ -470,7 +470,7 @@ const ROOMS = {
       strano:"«Dal bus ogni tanto parte una risata. E il bus non ride mai.»",
       aiuto:"«Una mano? Accendimi questa, che col vento non ci riesco.»",
       clue:{timbro:"«Un biglietto obliterato oggi? Quel bus non si muove da anni. Chiedi a Carlo nel tendone: lui conta tutto.»"}})],
-    objs:[{n:"la base del lampione",b:[204,150,22,40],main:1},{n:"il Teatrobus",b:[250,136,108,54],txt:"Il Teatrobus. Le tendine sono tirate. Stamattina erano aperte. Valentino si avvicina.",th:"Aquí succede qualcosa, eh.",go:"bus"},{n:"il tendone",b:[284,84,96,52],txt:"Il tendone dell'ITC Lab, in fondo al cortile. Dentro c'è luce. Valentino ci va.",th:"Vamos.",go:"lab"},{n:"la porta del teatro",b:[60,136,52,52],txt:"Da dentro arriva il brusio della festa. Tutti aspettano il discorso.",th:"Y el discorso no arriva."},{n:"la luna",b:[48,20,28,28],txt:"«E Ciàula si mise a piangere, senza saperlo, senza volerlo, dal gran conforto, dalla grande dolcezza che sentiva»",th:"Me sa que en esto teatro son poquitos quei chi san chi es Ciàula. ¡Cavrones!"}]},
+    objs:[{n:"la base del lampione",b:[206,150,22,40],main:1},{n:"il Teatrobus",b:[250,136,108,54],txt:"Il Teatrobus. Le tendine sono tirate. Stamattina erano aperte. Valentino si avvicina.",th:"Aquí succede qualcosa, eh.",go:"bus"},{n:"il tendone",b:[284,84,96,52],txt:"Il tendone dell'ITC Lab, in fondo al cortile. Dentro c'è luce. Valentino ci va.",th:"Vamos.",go:"lab"},{n:"l'insegna",b:[108,92,34,32],txt:"L'insegna dell'ITC Teatro di San Lazzaro. È accesa, anche se dentro nessuno se ne accorge.",th:"Bonita."},{n:"la panchina",b:[140,168,22,20],txt:"La panchina dei fumatori. Sotto, una montagna di mozziconi.",th:"Mañana la pulisco. Mañana."},{n:"la porta del teatro",b:[104,132,50,56],txt:"Da dentro arriva il brusio della festa. Tutti aspettano il discorso.",th:"Y el discorso no arriva."},{n:"la luna",b:[48,20,28,28],txt:"«E Ciàula si mise a piangere, senza saperlo, senza volerlo, dal gran conforto, dalla grande dolcezza che sentiva»",th:"Me sa que en esto teatro son poquitos quei chi san chi es Ciàula. ¡Cavrones!"}]},
   lab:{n:"ITC Lab, il tendone",m:"Tendone",z:"fuori",
     ppl:[P("carlo","Carlo","tecnico",{body:"#3a3a3a",hair:"#8a8a8a"},140,{
       greet:["Valentino. Lo sai quanti giorni mi mancano?",`${GIORNI_PENSIONE}. Stasera ne cancello uno. Se Paolucci si sbriga.`],again:[`${GIORNI_PENSIONE} giorni. Finché non arriva mezzanotte.`],
@@ -667,7 +667,7 @@ function spec(k){
     biglietteria:{amb:[.72,.7,.7],L:[[190,90,160,[.5,.45,.32]],lamp]},
     foyer:{amb:[.74,.7,.68],L:[[60,20,140,[.5,.46,.36]],[220,60,120,[.4,.38,.3]],[226,118,30,[.1,.2,.4]]]},
     corridoi:{amb:[.68,.74,.78],L:[[192,18,200,[.35,.42,.45]]]},
-    yard:{amb:NIGHT,L:[[86,170,95,[.75,.58,.3]],[214,104,95,[.65,.52,.3]],[60,34,55,[.25,.25,.3]]]},
+    yard:{amb:NIGHT,L:[[125,108,60,[.6,.58,.5]],[160,150,90,[.55,.5,.36]],[214,104,95,[.65,.52,.3]],[60,34,55,[.25,.25,.3]]]},
     lab:{amb:NIGHT,L:[[240,170,80,[.75,.58,.3]],[60,34,55,[.25,.25,.3]],[240,90,140,[.25,.18,.1]]]},
     bus:{amb:NIGHT,L:[[60,34,55,[.25,.25,.3]],[200,130,170,S.found&&S.found.length===3?[.6,.48,.25]:[.1,.1,.12]]]},
     win:{amb:[.6,.45,.5],L:[[70,140,120,[.7,.6,.4]],[192,60,160,[.2,.15,.25]]]}
@@ -1221,11 +1221,36 @@ function titleFacadeLayer(){/* modifiche alla facciata, solo nella schermata ini
   /* parete gialla in fondo */
   r(168,86,44,102,"#b89a12");r(168,86,44,1.2,"#d8b82a");r(210,86,2,102,"#7a6408");
   box(171,127,30,23,"#7a6408");r(172.5,128.5,27,20,"#c9a15a");r(174,130,24,17,"#2c3d73");r(185.75,130,.5,17,"#c9a15a");r(174,138.5,24,.5,"#c9a15a")}
-function titleFacade(){layer("titlefac",titleFacadeLayer);
-  al(.6,()=>{r(3,127,12,20,"#ffe08a");r(132,130,22,17,"#ffd88a");r(174,130,24,17,"#ffe08a")});
-  r(8.75,127,.5,20,"#c9a15a");r(3,136.5,12,.5,"#c9a15a");r(142.75,130,.5,17,"#c9a15a");r(132,138.5,22,.5,"#c9a15a");r(185.75,130,.5,17,"#c9a15a");r(174,138.5,24,.5,"#c9a15a")}
+function titleFacade(){layer("titlefac",titleFacadeLayer)}
 function titleYard(){sky();teatro();teatroExt();titleFacade();g.save();g.translate(-48,0);tendaLontana();g.restore();busFront(334,187);fenceWall(169);eleBox(123);sidewalk();layer("lamp",()=>streetLamp(218))}
-function yard(withBus,lit){sky();teatro();layer("tendaLontana",tendaLontana);ground();layer("lamp",()=>streetLamp(214));if(withBus)bus(250,GY+2,1,lit)}
+function cortileLayer(){const W="#c8a25a",WD="#a8843e";
+  /* parapetto e scala sul tetto */
+  for(const y of[66,74])r(92,y,108,.8,"#b0b0bc");for(let x=92;x<=200;x+=18)r(x,66,.9,20,"#a0a0ac");
+  r(198,56,1,132,"#9a9aa6");r(204,56,1,132,"#9a9aa6");for(let y=60;y<188;y+=6)r(198,y,7,.8,"#9a9aa6");
+  r(158,66,1.2,10,"#7a7a86");box(152,58,16,9,"#2a2a30");r(154,60,12,5,"#fff3c8");
+  /* muro basso a sinistra e corpo alto a destra */
+  r(0,98,84,90,W);r(0,98,84,2,"#3a3020");r(84,86,112,102,W);r(84,86,112,3,"#3a3020");r(84,89,3,99,WD);r(84,89,112,24,"#d0aa62");r(84,113,112,1,WD);r(192,89,4,99,WD);
+  for(let i=0;i<70;i++){const x=hs(i,2)*196,y=100+hs(2,i)*86;r(x,y,1.5,1,i%3?"#b89450":"#d8b46a")}
+  r(0,182,196,6,"#b08a48");
+  /* insegna quadrata */
+  box(108,92,34,32,"#1a1a1a");r(110,94,30,28,"#f4f2ea");disc(129,101,5.5,"#1a1a1a");r(127,96,4,2,"#f4f2ea");poly([[112,116],[113,106],[118,103],[126,106],[127,116]],"#c0503a");txt("itc",119,109,3.6,"#f4f4f4");txt("teatro",120,114,3.2,"#f4f4f4");r(112,117,26,3.5,"#1a1a1a");txt("di San Lazzaro",125,119.8,2.2,"#f4f4f4");r(124,124,1,4,"#4a4a4a");
+  /* finestra con le veneziane */
+  r(14,138,52,22,"#1a1a1a");for(const x of[16,33,50])r(x,140,15,18,"#c8c8c0");for(let y=141;y<158;y+=1.6)r(16,y,49,.5,"#9a9a92");r(31,140,2,18,"#1a1a1a");r(48,140,2,18,"#1a1a1a");r(12,160,56,1.5,"#1a1a1a");
+  /* portone nero */
+  r(104,132,50,56,"#141414");r(106,134,46,12,"#1e1e20");for(let y=135;y<145;y+=1.6)r(107,y,44,.6,"#2e2e30");r(106,146,46,1,"#2a2a2a");r(106,148,22,40,"#1c1c1e");r(130,148,22,40,"#1c1c1e");r(128.5,148,1.5,40,"#0a0a0a");r(125,166,2,1,"#9a9a9a");
+  box(110,160,5,7,"#f4f4f4");disc(112.5,162.5,1.6,"#c0283a");r(136,154,4,6,"#3a3a2a");
+  /* panchina, vaso, zerbino */
+  r(140,170,22,2.5,"#f4f4f4");r(140,176,22,2,"#f4f4f4");r(141,172.5,1,15,"#d8d8d8");r(160,172.5,1,15,"#d8d8d8");
+  poly([[163,180],[173,180],[171.5,188],[164.5,188]],"#b05a3a");r(162.5,179,11,1.5,"#c86a48");
+  r(108,186,20,2.5,"#3a7a3a");
+  /* marciapiede */
+  r(0,188,200,4,"#a8a8a0");for(let x=0;x<200;x+=12)r(x,188,.5,4,"#8a8a84");
+  /* albero */
+  const L=[[14,72,20],[40,70,18],[70,74,16],[8,94,18],[36,94,20],[64,98,16],[88,86,12],[22,114,12],[54,116,11],[86,106,9]];
+  L.forEach(([x,y,rr],i)=>{disc(x,y,rr,i%2?"#1c3a22":"#24482a");for(let k=0;k<6;k++)r(x-rr+hs(i,k)*rr*2,y-rr*.6+hs(k,i)*rr*1.2,3,1,"#3a6a3a")});
+  for(let i=0;i<30;i++){const x=hs(i,9)*100,y=104+hs(9,i)*30;poly([[x,y],[x+5,y+2],[x+1,y+3]],"#2a5230")}}
+function cortileBuilding(){layer("cortileB",cortileLayer);al(.3+.05*Math.sin(F/7),()=>r(110,94,30,28,"#ffffff"));al(.12,()=>poly([[156,66],[164,66],[200,188],[110,188]],"#fff3c8"))}
+function yard(withBus,lit){sky();cortileBuilding();layer("tendaLontana",tendaLontana);ground();layer("lamp",()=>streetLamp(214));if(withBus)bus(250,GY+2,1,lit)}
 function screenFace(p){const glitch=(F%47)<4,bg=S.step>6?"#0b0b10":glitch?"#3a3a5a":"#0d1a3a";r(292,116,36,17,bg);if(glitch&&S.step<=6)for(let i=0;i<5;i++)r(292,116+i*3.3,36,1,["#ff3b5c","#5ee6ff","#ffd23c"][i%3]);if(S.step>6)for(let i=0;i<20;i++)r(292+hs(i,F%7)*35,116+hs(F%5,i)*16,1,.5,"#5a5a66");g.save();g.translate(46,11.5);screenFace0(p);g.restore()}
 function screenFace0(p){if(S.step>6){r(253,105,22,16,"#0b0b10");for(let i=0;i<14;i++)r(253+hs(i,F%7)*21,105+hs(F%5,i)*15,1,.5,"#5a5a66");txt("NO",264,112,3,"#ff3b5c");txt("SIGNAL",264,117.5,3,"#ff3b5c");return}const glitch=(F%47)<4;r(253,105,22,16,glitch?"#3a3a5a":"#0d1a3a");if(glitch){for(let i=0;i<5;i++)r(253,105+i*3.2,22,1,["#ff3b5c","#5ee6ff","#ffd23c"][i%3]);return}
   const c=p.c;r(259,108,10,12,c.hair);r(260,109,8,8,SKIN);r(261.5,111.5,1.5,1,"#111");r(265,111.5,1.5,1,"#111");r(262.5,114.5,3,.5,"#9a4a3a");r(258,117,12,4,c.body);r(258.5,108,1.5,8,c.hair);r(268,108,1.5,8,c.hair);if((F>>3)%2)r(272,106,2,1,"#ff3b5c")}
