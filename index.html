@@ -447,7 +447,7 @@ const ROOMS = {
       foto:"«Paolucci è passato a provare il discorso davanti allo specchio. Ha detto “Care colleghe” e qualcuno l'ha chiamato da fuori.»",
       strano:"«Dalla rastrelliera manca un impermeabile rosso. Era il mio preferito per gli inchini.»",
       aiuto:"«Che tesoro. Allora guarda dietro gli specchi: qualcuno ci ha infilato qualcosa.»"}),P("ida","Ida","attrice",{body:"#444",hair:"#222"},206,{greet:["Valentino! Annyeong! Ho appena finito una coreografia K-pop in camerino."],again:["Ancora qui? Ti insegno il ritornello."],foto:"«Paolucci? In un manga sarebbe il protagonista che sparisce al capitolo uno. Al capitolo tre torna con i poteri. Al cinque si scopre il cattivo: quella col cappello.»",strano:"«Una donna con l'impermeabile rosso mi ha chiesto gli arrosticini, con un accento stranissimo. Gli ho detto che quelli veri li fa solo mia nonna, in Abruzzo.»",aiuto:"«Ti aiuto io! Dammi il mocio, faccio io. Tu guarda dietro gli specchi.»"}),P("giulia","Giulia","attrice e regista",{body:"#444",hair:"#222"},232,{greet:["Valentino! Serve qualcosa? Aggiusto, monto, smonto, recito."],again:["Dimmi cosa serve, ci penso io."],foto:"«Da scout te lo dico: tracce fresche verso il cortile. Due persone. Una con un impermeabile molto lungo.»",strano:"«Qualcuno ha fatto un nodo da scout alla maniglia del Teatrobus. Fatto male. Non è dei nostri.»",aiuto:"«Lascia, faccio io. Tu guarda dietro gli specchi, io controllo il resto.»"})],
-    objs:[{n:"gli specchi",b:[128,34,222,70],main:1},{n:"la rastrelliera dei costumi",b:[20,56,78,92],txt:"Manca una gruccia. Sull'etichetta: IMPERMEABILE ROSSO, TAGLIA PRESIDENTE.",th:"¿Taglia presidente?"},{n:"la parrucca",b:[244,88,22,32],txt:"Una parrucca su una testa di polistirolo. Ha l'aria di aver visto tutto.",th:"Si potesse parlare..."}]},
+    objs:[{n:"gli specchi",b:[40,46,276,70],main:1},{n:"la rastrelliera dei costumi",b:[2,56,38,56],txt:"Manca una gruccia. Sull'etichetta: IMPERMEABILE ROSSO, TAGLIA PRESIDENTE.",th:"¿Taglia presidente?"},{n:"la parrucca",b:[282,92,18,24],txt:"Una parrucca su una testa di polistirolo. Ha l'aria di aver visto tutto.",th:"Si potesse parlare..."}]},
   magazzino:{n:"Magazzino",z:"itc",th:"El magazzino. Puzza de vernisa.",ppl:[P("jack","Jack","attore",{body:"#2a2a2a",hair:"#1a1a20",beard:"#1a1a20"},186,{greet:["Cerco un costume. Mi manca l'impermeabile rosso per la scena."],again:["Ancora niente impermeabile."],foto:"«Paolucci? No. Però chi ha preso l'impermeabile rosso aveva la sua taglia. Anzi, una taglia più grande. Taglia presidente.»",strano:"«Il baule dei costumi è stato richiuso al contrario. Così lo chiude solo chi non lavora qui. O chi ci lavorava una volta.»",aiuto:"«Aiutami a cercare nel baule, va'.»"})],
     objs:[{n:"il baule dei costumi",b:[150,164,40,24],main:1},{n:"gli scaffali",b:[66,64,134,72],txt:"Fari, cavi, prolunghe, scatoloni. Un cartello dice: PORTATA MASSIMA PER RIPIANO 20 KG. Nessuno l'ha mai pesato.",th:"Veinte chili. Más o meno."},{n:"il banco da lavoro",b:[200,130,134,40],txt:"Il banco da lavoro. Morsa, nastro, viti contate una per una. Sotto, una cassetta con scritto: NON TOCCARE.",th:"No toco nada."},{n:"il frigo",b:[296,100,32,72],txt:"Il frigo del magazzino. Dentro, una sola lattina con scritto a pennarello: «NON È TUA».",th:"No es mía."},{n:"le sedie appese",b:[346,34,38,44],txt:"Sedie appese al muro, a testa in giù. Pronte per una scenografia che nessuno ricorda più.",th:"Sillas volantes."},{n:"il cono",b:[14,148,34,30],txt:"Un cono stradale. Nessuno sa da quale strada venga.",th:"Misterio."},{n:"la cassetta del pronto soccorso",b:[362,94,22,18]}]},
   corridoi:{n:"Corridoi e bagni",z:"itc",wall:"#1c1c22",
@@ -660,7 +660,7 @@ function spec(k){
     amministrazione:{amb:[.6,.6,.66],L:[lamp,[312,126,40,[.05,.25,.35]]]},
     direzione:{amb:[.74,.72,.76],L:[[100,10,150,[.5,.48,.4]],[320,10,150,[.5,.48,.4]],[306,70,40,[.15,.18,.3]]]},
     sala:{amb:[.66,.64,.7],L:[[192,90,150,[.9,.82,.6]],[192,200,170,[.45,.4,.32]],[110,100,70,[.5,.42,.28]]]},
-    camerini:{amb:[.68,.64,.66],L:[[158,60,70,[.5,.42,.22]],[240,60,70,[.5,.42,.22]],[322,60,70,[.5,.42,.22]],lamp]},
+    camerini:{amb:[.86,.85,.84],L:[[180,48,150,[.35,.3,.2]],[192,4,140,[.25,.25,.25]]]},
     magazzino:{amb:[.62,.6,.6],L:[[192,10,190,[.5,.48,.42]],[196,40,96,[.5,.56,.62]]]},
     biglietteria:{amb:[.72,.7,.7],L:[[190,90,160,[.5,.45,.32]],lamp]},
     foyer:{amb:[.74,.7,.68],L:[[60,20,140,[.5,.46,.36]],[220,60,120,[.4,.38,.3]],[226,118,30,[.1,.2,.4]]]},
@@ -947,15 +947,30 @@ function room(k){
     box(181,170,22,16,"#222");r(184,167,16,4,"#2a2a30");box(184,173,16,10,"#111");r(185,174,14,8,"#0d1a3a");r(191.5,176,1,5,"#c9a15a");r(189,175,6,1.6,"#c9a15a");r(196,175,.4,1.5,"#8a8a96");
     r(203,176,3,6,"#333");r(186,183.5,3,1,"#5ee6ff");
     al(.12,()=>poly([[180,22],[204,22],[240,114],[144,114]],"#fff3d0"))}
-  if(k==="camerini"){wall(R.wall);floor("#5a4a40");
-    r(20,56,78,2,"#9a9aa6");r(22,56,2,92,"#8a8a96");r(94,56,2,92,"#8a8a96");
-    ["#c0283a","#ffd23c","#2f6fd0","#f4f4ff","#8a4ac0","#1f8a4f"].forEach((c,i)=>{r(28.5+i*11,57,.5,5,"#9a9aa6");const h=34+(i*7)%22;r(25+i*11,62,9,h,c);r(31+i*11,62,3,h,sh(c,.7));r(25+i*11,62,9,1,sh(c,1.3));for(let k=0;k<3;k++)r(26+i*11,66+k*8,7,.5,sh(c,.8))});
-    r(18,146,8,2,"#666");r(90,146,8,2,"#666");
-    for(let i=0;i<3;i++){const x=128+i*82;box(x,34,58,70,"#3a2a1a");r(x+5,39,48,60,"#a8d3f0");poly([[x+8,96],[x+26,42],[x+32,42],[x+14,96]],"#d8eefc");poly([[x+30,96],[x+40,62],[x+43,62],[x+33,96]],"#d8eefc")}
-    box(122,116,252,6,"#8a5a2e");r(122,122,252,2,"#5a3418");
-    [[146,"#c0283a"],[166,"#f4f4ff"],[236,"#ffd23c"],[316,"#8a4ac0"],[330,"#5ee6ff"]].forEach(([x,c])=>{box(x,110,5,6,c);r(x+1.5,108,2,2,sh(c,.7))});
-    r(250,96,10,14,"#f2c79a");disc(255,98,6,"#6a3a1a");r(253,110,4,6,"#888");
-    for(let i=0;i<3;i++){const x=128+i*82;box(x+18,148,22,4,"#c0283a");r(x+28,152,2,34,"#666");r(x+22,186,14,2,"#555")}}
+  if(k==="camerini"){const W="#e4e1da",WD="#cfccc4";
+    r(0,0,384,150,W);r(0,0,384,24,"#ecebe6");r(0,24,384,1,WD);box(150,0,84,4,"#fbfbf6");
+    /* pavimento a piastrelle chiare */
+    {const rows=[150,157,165,174,184,195,207,216];for(let i=0;i<rows.length-1;i++){const y=rows[i],hh=rows[i+1]-y,n=10+i*0;const L=34+i*7;for(let x=-(i*L/2)%L;x<384;x+=L){const c=mix("#d6d2c8","#e2ded4",hs(x,i));r(x,y,L,hh,c);r(x,y,L,.6,"#bdb8ad");r(x,y,.6,hh,"#bdb8ad")}}}
+    r(0,146,384,4,"#1c1c20");
+    /* parete destra in prospettiva, con finestra e termosifone */
+    poly([[330,24],[384,4],[384,190],[330,150]],"#d8d5ce");r(329.5,24,1,126,"#c4c1b9");poly([[330,146],[384,184],[384,190],[330,150]],"#1c1c20");
+    poly([[334,40],[384,22],[384,28],[334,45]],"#c0283a");
+    poly([[340,50],[384,36],[384,124],[340,114]],"#1a1a20");poly([[344,54],[384,42],[384,118],[344,110]],"#dde6ea");al(.35,()=>poly([[350,104],[372,56],[378,55],[356,104]],"#ffffff"));
+    for(let f=0;f<6;f++){const x=346+f*6;r(x,121+f*1.2,4,26+f*.4,"#f4f4f2");r(x+3.4,121+f*1.2,.6,26+f*.4,"#c8c6c0")}
+    /* rastrelliera a muro con grucce */
+    box(4,58,34,3,"#f4f4f2");for(let i=0;i<5;i++){const x=7+i*6.5;r(x+1.5,61,.6,3,"#2a2a30");const c=["#c0283a","#1a1a20","#e07a3a","#2f6fd0","#1a1a20"][i];if(i!==2){r(x,64,5,30+(i*5)%12,c);r(x+3.5,64,1.5,30+(i*5)%12,sh(c,.7))}else{poly([[x,66],[x+2.5,63],[x+5,66]],"#2a2a30")}}
+    /* specchio grande con barra di lampadine */
+    r(40,52,276,64,"#0e0e12");r(41,53,274,62,"#bfcbd0");r(178,53,.8,62,"#8a969c");
+    r(41,53,274,30,"#cbd5d9");box(118,64,24,51,"#3a7a9a");r(119,65,22,50,"#2f6a88");r(136,88,3,1.2,"#1a1a20");r(114,64,4,51,"#2a5a76");
+    box(258,62,36,26,"#1a1a20");r(261,65,14,20,"#dfe6ea");r(278,65,13,20,"#dfe6ea");r(262,90,10,24,"#e8e8e6");
+    box(196,76,22,24,"#e8e4dc");r(200,62,30,1.5,"#f4f4f2");for(let i=0;i<6;i++)r(202+i*4,64,.6,6,["#c0283a","#1a1a20","#e07a3a"][i%3]);
+    al(.3,()=>{poly([[60,115],[96,53],[104,53],[68,115]],"#ffffff");poly([[214,115],[250,53],[255,53],[219,115]],"#ffffff")});
+    box(38,46,280,6,"#f4f4f2");
+    /* banco del trucco */
+    box(24,116,306,5,"#f2f0ea");r(24,121,306,1.5,"#b8b4ac");al(.25,()=>r(26,123,302,3,"#000"));
+    [[30,"#2f8a4f",14],[38,"#6a3a1a",13],[46,"#d8e8ec",9],[58,"#e8c8c8",8],[66,"#6a3a1a",14]].forEach(([x,c,hh])=>{box(x,116-hh,6,hh,c);r(x+2,116-hh-3,2,3,sh(c,.7))});
+    r(286,98,10,14,"#e8e4dc");disc(291,100,6,"#6a3a1a");r(284,98,3,10,"#6a3a1a");r(296,98,2,8,"#6a3a1a");r(288,112,6,4,"#c8c4bc");
+    r(318,110,10,6,"#f4f4f2");r(320,111,2,2,"#9a9a9a")}
   if(k==="magazzino"){r(0,0,384,150,"#e6e0d2");r(0,0,384,22,"#ece8de");r(0,22,384,.5,"#cfc8b8");poly([[0,0],[52,22],[52,150],[0,160]],"#ddd6c6");r(250,8,134,3,"#d4cec2");r(300,0,3,40,"#d4cec2");tiles("#ddd6c6",150);r(0,149,384,1.5,"#b8b0a0");
     box(0,66,20,44,"#c9955a");for(let q=0;q<8;q++){r(3+(q%4)*4.5,70+(q>>2)*20,1,10,"#3a3a3a");r(2+(q%4)*4.5,70+(q>>2)*20,3,1.5,"#c0283a")}
     for(let q=0;q<14;q++){const x=22+q*3.2;r(x,72+hs(q,2)*12,1.4,98-hs(q,2)*12,q%3?"#9a9aa2":"#2a2a2e")}poly([[18,176],[44,176],[34,150],[28,150]],"#e8562a");r(26,160,10,3,"#f4f4f4");r(14,175,34,3,"#c04a2a");
@@ -1076,7 +1091,7 @@ function pacer(p){const back=!(S.turned&&S.turned.cristina)&&S.visited.direzione
 function circler(p){if(frozen(p)){person(p.x,NPCY,Object.assign({},p.c,{tel:1}),false);phone(p.x,NPCY,p.c);return}p.bx=p.bx||p.x;const a=F*.07,dy=-5+5*Math.sin(a);p.x=p.bx+18*Math.cos(a);person(p.x,NPCY+dy,Object.assign({},p.c,{tel:1}),true);phone(p.x,NPCY+dy,p.c)}
 function roomAnim(k){
   if(k==="direzione")decaProps();
-  if(k==="camerini")for(let i=0;i<3;i++){const x=128+i*82;for(let j=0;j<7;j++){const on=(F+j+i*3)%9;r(x+2+j*8.6,35,2,2,on?"#ffd23c":"#ffffff")}for(let j=0;j<6;j++){r(x+1,44+j*10,2,2,(F+j)%7?"#ffd23c":"#fff");r(x+55,44+j*10,2,2,(F+j+3)%7?"#ffd23c":"#fff")}}
+  if(k==="camerini")for(let j=0;j<15;j++){const x=48+j*18.5,on=(F+j*5)%37>2;disc(x,49,2,"#7a6a50");disc(x,49,1.3,on?"#fff3c0":"#9a8a6a")}
   if(k==="foyer"){for(let i=0;i<32;i++){const x=i*12,y=6+Math.sin(i/31*Math.PI*3)*5+6;r(x,y,.5,2.5,"#3a2a2a");poly([[x-2,y+2.5],[x+2.5,y+2.5],[x+.25,y+7]],["#ff3b5c","#ffd23c","#5ee6ff","#1f8a4f"][(i+(F>>3))%4])}
     disc(68,68,10,"#2a2a2e");disc(68,68,9,"#141418");for(let i=0;i<12;i++){const a=i*Math.PI/6;r(68+Math.cos(a)*7.5,68+Math.sin(a)*7.5,.8,.8,"#f4f4f4")}
     const m=S.t%60,h=(S.t/60)%12;[[m/60,7,.5],[h/12,4.5,.8]].forEach(([qq,L,w])=>{const a=qq*Math.PI*2-Math.PI/2;for(let d=0;d<L;d+=.5)r(68+Math.cos(a)*d,68+Math.sin(a)*d,w,w,"#f4f4f4")});disc(68,68,.8,"#c0283a")}
