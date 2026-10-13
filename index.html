@@ -1733,21 +1733,36 @@ setInterval(()=>{if(S&&S.phase==="op"&&S.op){if(S.op.buzz>0){S.op.buzz--;draw()}
 
 /* EASTER EGG: BREAKOUT DEI FALDONI */
 const BKC=["#c0283a","#2f6fd0","#1f8a4f","#ffd23c","#8a4ac0","#e07a2a"];
+const BKP={L:["#1f8a4f","+"],S:["#c0283a","-"],T:["#2f6fd0","3"],V:["#ff3b5c","♥"]};
 function startBrk(){theme(false);sfx("start");const br=[];for(let rr=0;rr<5;rr++)for(let c=0;c<12;c++)br.push({x:24+c*28,y:30+rr*13,on:1,c:BKC[(rr*2+c)%6]});
-  S.phase="brk";S.bk={px:192,bx:192,by:186,vx:0,vy:0,stuck:1,lives:3,score:0,br,end:0,last:performance.now()};render();requestAnimationFrame(brkLoop)}
+  S.phase="brk";S.bk={px:192,pw:24,pwT:0,balls:[{x:192,y:186,vx:0,vy:0}],pills:[],stuck:1,lives:3,score:0,br,end:0,msg:"",msgT:0,last:performance.now()};render();requestAnimationFrame(brkLoop)}
 function brkLoop(now){const B=S.bk;if(S.phase!=="brk"||!B)return;const dt=Math.min(.04,(now-B.last)/1000);B.last=now;
-  if(!B.end){if(B.stuck){B.bx=B.px;B.by=186}else{const n=4;for(let s=0;s<n;s++){B.bx+=B.vx*dt/n;B.by+=B.vy*dt/n;
-      if(B.bx<4){B.bx=4;B.vx=Math.abs(B.vx);sfx("blip")}if(B.bx>380){B.bx=380;B.vx=-Math.abs(B.vx);sfx("blip")}if(B.by<18){B.by=18;B.vy=Math.abs(B.vy);sfx("blip")}
-      if(B.vy>0&&B.by>=188&&B.by<=194&&Math.abs(B.bx-B.px)<=24){const k=(B.bx-B.px)/24,sp=Math.min(260,Math.hypot(B.vx,B.vy)*1.02);B.vx=sp*k*.8;B.vy=-Math.sqrt(Math.max(40*40,sp*sp-B.vx*B.vx));B.by=187;sfx("step")}
-      for(const q of B.br){if(q.on&&B.bx>q.x-2&&B.bx<q.x+26&&B.by>q.y-2&&B.by<q.y+11){q.on=0;B.score+=10;const fromSide=B.bx<q.x+1||B.bx>q.x+23;if(fromSide)B.vx=-B.vx;else B.vy=-B.vy;sfx("bonk");break}}
-      if(B.by>214){B.lives--;sfx("nada");B.stuck=1;if(B.lives<=0){B.end=1;render()}break}}
-    if(!B.br.some(q=>q.on)){B.end=2;sfx("tbc");render()}}}
+  if(!B.end){if(B.pwT>0){B.pwT-=dt;if(B.pwT<=0)B.pw=24}if(B.msgT>0)B.msgT-=dt;
+    if(B.stuck){const b=B.balls[0];b.x=B.px;b.y=186}else{
+      for(const b of B.balls){const n=4;for(let s=0;s<n;s++){b.x+=b.vx*dt/n;b.y+=b.vy*dt/n;
+        if(b.x<4){b.x=4;b.vx=Math.abs(b.vx);sfx("blip")}if(b.x>380){b.x=380;b.vx=-Math.abs(b.vx);sfx("blip")}if(b.y<18){b.y=18;b.vy=Math.abs(b.vy);sfx("blip")}
+        if(b.vy>0&&b.y>=188&&b.y<=194&&Math.abs(b.x-B.px)<=B.pw){const k=(b.x-B.px)/B.pw,sp=Math.min(260,Math.hypot(b.vx,b.vy)*1.02);b.vx=sp*k*.8;b.vy=-Math.sqrt(Math.max(40*40,sp*sp-b.vx*b.vx));b.y=187;sfx("step")}
+        for(const q of B.br){if(q.on&&b.x>q.x-2&&b.x<q.x+26&&b.y>q.y-2&&b.y<q.y+11){q.on=0;B.score+=10;const fromSide=b.x<q.x+1||b.x>q.x+23;if(fromSide)b.vx=-b.vx;else b.vy=-b.vy;sfx("bonk");
+          if(Math.random()<.2){const ks=Object.keys(BKP);B.pills.push({x:q.x+13,y:q.y+5,k:ks[Math.floor(Math.random()*ks.length)]})}break}}
+        if(b.y>214){b.dead=1;break}}}
+      B.balls=B.balls.filter(b=>!b.dead);
+      if(!B.balls.length){B.lives--;sfx("nada");B.stuck=1;B.pw=24;B.pwT=0;B.pills=[];B.balls=[{x:B.px,y:186,vx:0,vy:0}];if(B.lives<=0){B.end=1;render()}}}
+    for(const pl of B.pills){pl.y+=55*dt;if(pl.y>=186&&pl.y<=196&&Math.abs(pl.x-B.px)<=B.pw+4){pl.got=1;sfx("clue");
+        if(pl.k==="L"){B.pw=38;B.pwT=12;B.msg="PALETTA LARGA!"}
+        else if(pl.k==="S"){B.pw=14;B.pwT=10;B.msg="PALETTA STRETTA!"}
+        else if(pl.k==="V"){B.lives=Math.min(6,B.lives+1);B.msg="VITA IN PIÙ!"}
+        else{const src=B.balls[0];if(B.stuck){B.stuck=0;src.vx=70;src.vy=-150}const sp=Math.max(150,Math.hypot(src.vx,src.vy));[-.6,.6].forEach(a=>B.balls.push({x:src.x,y:src.y,vx:sp*Math.sin(a),vy:-sp*Math.cos(a)}));B.msg="TRE PALLINE!"}
+        B.msgT=1.6}}
+    B.pills=B.pills.filter(pl=>!pl.got&&pl.y<220);
+    if(!B.br.some(q=>q.on)){B.end=2;sfx("tbc");render()}}
   draw();requestAnimationFrame(brkLoop)}
-function brkLaunch(){const B=S.bk;if(B&&B.stuck&&!B.end){B.stuck=0;B.vx=(Math.random()<.5?-1:1)*70;B.vy=-150;sfx("blip")}}
+function brkLaunch(){const B=S.bk;if(B&&B.stuck&&!B.end){B.stuck=0;const b=B.balls[0];b.vx=(Math.random()<.5?-1:1)*70;b.vy=-150;sfx("blip")}}
 function brkMove(e){if(S.phase!=="brk"||!S.bk)return;const t=e.touches?e.touches[0]:e;const[x]=toLogic(t);S.bk.px=Math.max(24,Math.min(360,x))}
 function brkScene(){const B=S.bk;r(0,0,384,216,"#4a4a5a");for(let y=0;y<216;y+=12)r(0,y,384,.5,"#55556a");r(0,14,384,1,"#7a7a8a");
   for(const q of B.br)if(q.on){box(q.x,q.y,26,10,q.c);r(q.x+3,q.y+2,7,6,"#f4f4ff");r(q.x+4,q.y+3,5,.5,"#888");r(q.x+12,q.y+4,10,.5,sh(q.c,1.3))}
-  box(B.px-24,190,48,5,"#5a3418");r(B.px-24,190,48,1,"#8a5a2e");disc(B.bx,B.by,3,"#f4f4ff");disc(B.bx-1,B.by-1,1,"#fff");
+  for(const pl of B.pills){const[c,s]=BKP[pl.k];box(pl.x-7,pl.y-3.5,14,7,c);r(pl.x-6,pl.y-3,12,1.2,sh(c,1.4));txt(s,pl.x,pl.y+2,5,"#f4f4ff")}
+  box(B.px-B.pw,190,B.pw*2,5,"#5a3418");r(B.px-B.pw,190,B.pw*2,1,"#8a5a2e");for(const b of B.balls){disc(b.x,b.y,3,"#f4f4ff");disc(b.x-1,b.y-1,1,"#fff")}
+  if(B.msgT>0)txt(B.msg,192,130,8,"#ffd23c");
   txt("FALDONI: "+B.br.filter(q=>q.on).length,8,10,6,"#f4f4ff","left");txt("PUNTI "+B.score,192,10,6,"#ffd23c");txt("VITE "+"♥".repeat(Math.max(0,B.lives)),346,10,6,"#ff3b5c","right");
   if(B.stuck&&!B.end&&(F>>2)%2)txt("TOCCA PER LANCIARE",192,150,7,"#f4f4ff")}
 /* EASTER EGG: APEATRO RALLY (modellino in direzione) */
