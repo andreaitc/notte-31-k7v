@@ -787,7 +787,7 @@ function person(x,y,o,walk){
   if(hr&&o.long)add(x+2,hy+1,16,20,hd);
   add(x+4.5,y-11,5,11-l1,lg);add(x+10.5,y-11,5,11-l2,ldk);
   add(x+3.5,y-2.5-l1,6.5,2.5,"#1d1d26");add(x+10.5,y-2.5-l2,6.5,2.5,"#1d1d26");
-  if(o.armOut){add(x-11,ty+1.5,12,3,bo);add(x-13.5,ty+1.5,2.5,3,sk);add(x+16.5,ty+1-sw,3,11.5,bd);add(x+16.5,ty+12.5-sw,3,2.5,sd)}else if(o.up){add(x+.5,ty-11,3,12,bo);add(x+16.5,ty-11,3,12,bd);add(x+.5,ty-13.5,3,2.5,sk);add(x+16.5,ty-13.5,3,2.5,sd)}else{add(x+.5,ty+1+sw,3,11.5,bo);if(!o.tel)add(x+16.5,ty+1-sw,3,11.5,bd)}
+  if(o.armOut){const AL=o.armOut===true?12:o.armOut;add(x+1-AL,ty+1.5,AL,3,bo);add(x-1.5-AL,ty+1.5,2.5,3,sk);add(x+16.5,ty+1-sw,3,11.5,bd);add(x+16.5,ty+12.5-sw,3,2.5,sd)}else if(o.up){add(x+.5,ty-11,3,12,bo);add(x+16.5,ty-11,3,12,bd);add(x+.5,ty-13.5,3,2.5,sk);add(x+16.5,ty-13.5,3,2.5,sd)}else{add(x+.5,ty+1+sw,3,11.5,bo);if(!o.tel)add(x+16.5,ty+1-sw,3,11.5,bd)}
   if(o.coat)add(x+1,ty,18,21,bo);else add(x+3,ty,14,15,bo);
   if(!o.rope&&!o.up&&!o.armOut){add(x+.5,ty+12.5+sw,3,2.5,sk);if(!o.tel)add(x+16.5,ty+12.5-sw,3,2.5,sd)}
   add(x+8,ty-1.5,4,2,sd);add(hx,hy,12,12,sk);add(hx-1,hy+5,1.5,3,sk);add(hx+11.5,hy+5,1.5,3,sd);
@@ -1679,7 +1679,7 @@ function jessCut(p){const J=S.jc,t0=(performance.now()-J.t0)/1000,T0=3,STEP=24;
   else if(t<.6){arm=true;web=hx-(hx-PX0)*((t-.45)/.15)}
   else if(t<1.0){arm=true;const k=(t-.6)/.4,e=k*k*(3-2*k);px=PX0+(PX1-PX0)*e;web=px+10}
   else if(t<1.25){arm=true;px=PX1}
-  else if(t<2.45){/* la scuote, veloce e vorticosa */const a=(t-1.25)*38;px=PX1+Math.cos(a)*3.2;J.py=Math.sin(a)*2;arm=false}
+  else if(t<2.45){/* la scuote, veloce e vorticosa */const a=(t-1.25)*38,c=Math.cos(a)*3.2;px=PX1+c;J.py=Math.sin(a)*2;arm=Math.max(1,4.5-c)}
   else if(t<5.8){px=PX1;J.py=0;gz=-1}
   else{const k=(t-5.8);wx=-k*70;px=PX1+wx;walk=true;if(x+wx<-30){J.done=1;S.jc.done=1;render()}}
   if(px!=null)pram(px,NPCY+(J.py||0));
