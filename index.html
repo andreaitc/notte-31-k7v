@@ -1668,7 +1668,12 @@ function pram(x,y){/* carrozzina blu: x = centro, y = terra */
   for(const wx of[x-7,x+6]){disc(wx,y-3,3,"#1a1a1e");disc(wx,y-3,1.2,"#8a8a96")}r(x-8,y-7,16,1.2,"#6a6a76");
   poly([[x-10,y-8],[x+10,y-8],[x+11,y-17],[x-10,y-17]],"#2a4a8a");r(x-10,y-17,21,1.6,"#3a64b0");
   poly([[x-10,y-17],[x-10,y-27],[x-1,y-17]],"#1e3a6e");r(x+10,y-24,1.2,8,"#6a6a76");r(x+10,y-25,5,1.4,"#6a6a76");r(x-8,y-15,15,.6,"#4a74c0")}
-function jessCut(p){const J=S.jc,t=(performance.now()-J.t0)/1000,x=p.x,hx=x-13,hy=NPCY-25+3;
+function jessCut(p){const J=S.jc,t0=(performance.now()-J.t0)/1000,T0=3,STEP=24;
+  if(t0<T0){/* il pianto da sinistra, qualche passo, pausa */
+    const dx=t0<1.8?0:t0<2.6?-STEP*(t0-1.8)/.8:-STEP;person(p.x+dx,NPCY,Object.assign({},p.c,{gaze:t0>.5?-1:0}),t0>=1.8&&t0<2.6);
+    if(t0>=.3&&t0<2.2){const bx=46,by=NPCY-58;box(bx-30,by-8,60,14,"#f4f4ff");poly([[bx-30,by+2],[bx-38,by+4],[bx-30,by-3]],"#f4f4ff");txt(t0<1?"Ue...":"Ue... Ue!",bx,by+2.5,6,"#1a1a24")}
+    return}
+  const t=t0-T0,x=p.x-STEP,hx=x-13,hy=NPCY-25+3;
   const PX0=-40,PX1=x-16;let px=null,web=null,arm=false,gz=-1,wx=0,walk=false;
   if(t<.45){arm=t>.2}
   else if(t<.6){arm=true;web=hx-(hx-PX0)*((t-.45)/.15)}
