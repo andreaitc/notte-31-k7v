@@ -591,6 +591,12 @@ function nuova(){
 function tone(f,t,d,type,v,f2){const o=AC.createOscillator(),gg=AC.createGain();o.type=type;o.frequency.setValueAtTime(f,t);if(f2)o.frequency.linearRampToValueAtTime(f2,t+d);gg.gain.setValueAtTime(v,t);gg.gain.linearRampToValueAtTime(0,t+d);o.connect(gg);gg.connect(AC.destination);o.start(t);o.stop(t+d+.02)}
 function sfx(n){ if(!SND) return; try{
   AC=AC||new (window.AudioContext||window.webkitAudioContext)(); const t=AC.currentTime;
+  if(n==="cry"){[[0,.42],[.7,.5]].forEach(([d,L])=>{const o=AC.createOscillator(),f=AC.createBiquadFilter(),gg=AC.createGain(),v=AC.createOscillator(),vg=AC.createGain();
+    o.type="sawtooth";f.type="bandpass";f.frequency.value=1100;f.Q.value=1.4;const a=t+d;
+    o.frequency.setValueAtTime(420,a);o.frequency.linearRampToValueAtTime(640,a+L*.35);o.frequency.linearRampToValueAtTime(470,a+L);
+    v.frequency.value=9;vg.gain.value=18;v.connect(vg);vg.connect(o.frequency);
+    gg.gain.setValueAtTime(0,a);gg.gain.linearRampToValueAtTime(.16,a+.05);gg.gain.setValueAtTime(.16,a+L*.7);gg.gain.linearRampToValueAtTime(0,a+L);
+    o.connect(f);f.connect(gg);gg.connect(AC.destination);o.start(a);v.start(a);o.stop(a+L+.05);v.stop(a+L+.05)})}
   if(n==="step"){tone(220,t,.05,"square",.04);tone(170,t+.09,.05,"square",.04)}
   if(n==="talk"){tone(440,t,.06,"square",.04);tone(520,t+.08,.06,"square",.04);tone(470,t+.16,.06,"square",.04)}
   if(n==="blip")tone(660,t,.03,"square",.025);
@@ -1444,7 +1450,7 @@ function hud(){
     <div class="slots">${["b1","b2","b3","chiavi"].map(id=>S.found.includes(id)?`<div class="slot on"><canvas width="24" height="24" data-ic="${id}"></canvas></div>`:`<div class="slot">?</div>`).join("")}</div>
     <div class="btns">${S.mode==="explore"||S.mode==="say"?`<button class="hb big" id="bmap" type="button">MAPPA</button>`:""}<button class="hb" id="bsnd" type="button">${SND?"SUONO":"MUTO"}</button><button class="hb" id="bfs" type="button">&#9974;</button></div></div>
     <div class="place">${ROOMS[S.loc].n.toUpperCase()}</div>
-    ${S.mode==="explore"?`<div class="goal ${S.goalNew?"flash":""}"><b>${S.goalNew?"NUOVO OBIETTIVO":"OBIETTIVO"}</b> ${esc(goalText())}${mapRoom(curRoom())!==S.loc&&!(cur().room==="tin"&&S.loc==="lab")?` <button type="button" class="gm" id="bgoalmap">APRI LA MAPPA</button>`:stepObjIndex(S.loc)>=0?" · <i>TOCCA CIÒ CHE BRILLA</i>":cur().room==="tin"&&S.loc==="lab"?" · <i>ENTRA DALLA PORTA DEL TENDONE</i>":""}</div>`:""}`;
+    ${S.mode==="explore"&&!(S.jc&&!S.jc.done)?`<div class="goal ${S.goalNew?"flash":""}"><b>${S.goalNew?"NUOVO OBIETTIVO":"OBIETTIVO"}</b> ${esc(goalText())}${mapRoom(curRoom())!==S.loc&&!(cur().room==="tin"&&S.loc==="lab")?` <button type="button" class="gm" id="bgoalmap">APRI LA MAPPA</button>`:stepObjIndex(S.loc)>=0?" · <i>TOCCA CIÒ CHE BRILLA</i>":cur().room==="tin"&&S.loc==="lab"?" · <i>ENTRA DALLA PORTA DEL TENDONE</i>":""}</div>`:""}`;
 }
 function bindHud(){
   const m=$("bmap");if(m)m.onclick=e=>{e.stopPropagation();openMap()};
@@ -1498,7 +1504,7 @@ function render(){
   if(SERVICE){const c=svcCode();if(c)h+=`<div class="svc">#${c}</div>`}
   h+=gearHTML();
   L().innerHTML=h;bindHud();bindGear();
-  if(S.goalNew&&ph==="play"&&S.mode==="explore"){S.goalNew=false;sfx("goal");setTimeout(()=>{const gq=document.querySelector(".goal.flash");if(gq){gq.classList.remove("flash");const b=gq.querySelector("b");if(b)b.textContent="OBIETTIVO"}},2600)}
+  if(S.goalNew&&ph==="play"&&S.mode==="explore"&&!(S.jc&&!S.jc.done)){S.goalNew=false;sfx("goal");setTimeout(()=>{const gq=document.querySelector(".goal.flash");if(gq){gq.classList.remove("flash");const b=gq.querySelector("b");if(b)b.textContent="OBIETTIVO"}},2600)}
   const on=(id,fn)=>{const e=$(id);if(e)e.onclick=ev=>{ev.stopPropagation();fn()}};
   {const ih=$("ioshint");if(ih)ih.addEventListener("click",e=>e.stopPropagation())}
   on("bioshint",()=>{S.iosHide=1;try{localStorage.setItem("iosHint","1")}catch(e){}render()});
@@ -1673,6 +1679,7 @@ function jessCut(p,layer){const J=S.jc,t0=(performance.now()-J.t0)/1000,T0=3,STE
   if((t0>=EX)!==(layer===1))return;
   if(t0<T0){/* il pianto da sinistra, qualche passo, pausa */
     const dx=t0<1.8?0:t0<2.6?-STEP*(t0-1.8)/.8:-STEP;person(p.x+dx,NPCY,Object.assign({},p.c,{gaze:t0>.5?-1:0}),t0>=1.8&&t0<2.6);
+    if(t0>=.3&&!J.cried){J.cried=1;sfx("cry")}
     if(t0>=.3&&t0<2.2){const bx=70,by=NPCY-62;box(bx-56,by-13,112,24,"#f4f4ff");poly([[bx-56,by+4],[bx-68,by+8],[bx-56,by-4]],"#f4f4ff");txt(t0<1?"Ue...":"Ue... Ue!",bx,by+4.5,11,"#1a1a24")}
     return}
   const t=t0-T0,x=p.x-STEP,hx=x-13,hy=NPCY-25+3;
@@ -2720,7 +2727,7 @@ document.addEventListener("keyup",e=>{if(S&&S.phase==="bj"&&S.bj){const k=BJK[e.
 document.addEventListener("keydown",e=>{if(S&&S.phase==="pac"&&S.pac){const d={ArrowRight:0,ArrowDown:1,ArrowLeft:2,ArrowUp:3}[e.key];if(d!==undefined){S.pac.p.want=d;e.preventDefault()}}if(S&&S.phase==="ape"&&S.ape&&!S.ape.end){if(e.key==="ArrowLeft"){S.ape.steer=-1;e.preventDefault()}if(e.key==="ArrowRight"){S.ape.steer=1;e.preventDefault()}}if(e.key===" "||e.key==="Enter"){if(S.phase==="play"&&S.mode==="arrive"){e.preventDefault();advance()}else if(S.phase==="play"&&S.mode==="look"){e.preventDefault();noteClick()}}
   if(e.key==="m"&&S.phase==="play"&&S.mode==="explore")openMap();if(e.key==="Escape"&&S.phase==="play"&&(S.mode==="map"||S.mode==="talk")){S.mode="explore";render()}});
 
-function tick(){F++;if(S.phase==="play"&&S.loc==="organizzatrici"&&S.step>0&&!S.jc&&S.mode==="explore"&&!S.talk&&!S.note){S.jc={t0:performance.now()};const L=()=>{if(!S.jc||S.jc.done)return;draw();requestAnimationFrame(L)};requestAnimationFrame(L)}if(S.phase==="title"&&SND){if(!TA)titleAudio();vanSound()}else if(TA)stopTitleAudio();if(S.phase==="scossa")scossaTick();if(S.phase==="vint"&&S.vi)vintTick();if(S.phase==="timmy"&&S.wm)timmyTick();if(S.phase==="play"&&S.loc==="foyer"&&!S.catOk&&(S.mode==="explore")){S.catF=(S.catF||0)+1;if(S.catF>=170){S.catOk=1;S.mode="say";S.say={pid:"mario",txt:"Marra! Cash! Smettetela!",code:"52"};sfx("blip");render()}}if(S.called)for(const k in S.called)if(S.called[k]<30){S.called[k]++;if(S.called[k]===30)render()}if(S.phase==="win"){S.wf=(S.wf||0)+1;if(S.wf===44)render();if(S.wf>44&&S.wf<80&&S.wf%6===0)sfx("step");if(S.wf===118)sfx("whoosh");if(S.wf===150)sfx("laugh");if(S.wf===185)render()}
+function tick(){F++;if(S.phase==="play"&&S.loc==="organizzatrici"&&S.step>0&&!S.jc&&S.mode==="explore"&&!S.talk&&!S.note){S.jc={t0:performance.now()};render();const L=()=>{if(!S.jc||S.jc.done)return;draw();requestAnimationFrame(L)};requestAnimationFrame(L)}if(S.phase==="title"&&SND){if(!TA)titleAudio();vanSound()}else if(TA)stopTitleAudio();if(S.phase==="scossa")scossaTick();if(S.phase==="vint"&&S.vi)vintTick();if(S.phase==="timmy"&&S.wm)timmyTick();if(S.phase==="play"&&S.loc==="foyer"&&!S.catOk&&(S.mode==="explore")){S.catF=(S.catF||0)+1;if(S.catF>=170){S.catOk=1;S.mode="say";S.say={pid:"mario",txt:"Marra! Cash! Smettetela!",code:"52"};sfx("blip");render()}}if(S.called)for(const k in S.called)if(S.called[k]<30){S.called[k]++;if(S.called[k]===30)render()}if(S.phase==="win"){S.wf=(S.wf||0)+1;if(S.wf===44)render();if(S.wf>44&&S.wf<80&&S.wf%6===0)sfx("step");if(S.wf===118)sfx("whoosh");if(S.wf===150)sfx("laugh");if(S.wf===185)render()}
   if(S.phase==="sgc"&&!S.zT&&performance.now()-S.cT>=2000)sgcNext();
   if(S.phase==="sgc"&&S.zT){const el=performance.now()-S.zT;if(F%4===0&&el<3400)sfx("step");if(el>=3400&&!S.zS){S.zS=1;theme(false);sfx("shout")}if(el>=6000)sgcEnd()}
   if(S.phase==="post"){S.pf=(S.pf||0)+1;if(S.pf===36)render();if(S.pi===POST.length-1&&!S.pdark&&(S.pz||0)<PZ){S.pz=(S.pz||0)+1;if(S.pz===PZ){theme(false);S.pT=performance.now();S.gz=0;S.pLine=0}}if(S.pi===POST.length-1&&S.pT){const el=performance.now()-S.pT;S.gz=Math.max(0,Math.min(1,(el-1000)/600));if(el>=2600&&!S.pLine){S.pLine=1;render()}if(el>=5600){S.pT=0;S.phase="tbc";S.tbcShake=8;boomSfx();render()}}}
