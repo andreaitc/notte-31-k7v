@@ -1671,7 +1671,7 @@ function pram(x,y){/* carrozzina blu: x = centro, y = terra */
 function jessCut(p){const J=S.jc,t0=(performance.now()-J.t0)/1000,T0=3,STEP=24;
   if(t0<T0){/* il pianto da sinistra, qualche passo, pausa */
     const dx=t0<1.8?0:t0<2.6?-STEP*(t0-1.8)/.8:-STEP;person(p.x+dx,NPCY,Object.assign({},p.c,{gaze:t0>.5?-1:0}),t0>=1.8&&t0<2.6);
-    if(t0>=.3&&t0<2.2){const bx=46,by=NPCY-58;box(bx-30,by-8,60,14,"#f4f4ff");poly([[bx-30,by+2],[bx-38,by+4],[bx-30,by-3]],"#f4f4ff");txt(t0<1?"Ue...":"Ue... Ue!",bx,by+2.5,6,"#1a1a24")}
+    if(t0>=.3&&t0<2.2){const bx=70,by=NPCY-62;box(bx-56,by-13,112,24,"#f4f4ff");poly([[bx-56,by+4],[bx-68,by+8],[bx-56,by-4]],"#f4f4ff");txt(t0<1?"Ue...":"Ue... Ue!",bx,by+4.5,11,"#1a1a24")}
     return}
   const t=t0-T0,x=p.x-STEP,hx=x-13,hy=NPCY-25+3;
   const PX0=-40,PX1=x-16;let px=null,web=null,arm=false,gz=-1,wx=0,walk=false;
@@ -1679,14 +1679,15 @@ function jessCut(p){const J=S.jc,t0=(performance.now()-J.t0)/1000,T0=3,STEP=24;
   else if(t<.6){arm=true;web=hx-(hx-PX0)*((t-.45)/.15)}
   else if(t<1.0){arm=true;const k=(t-.6)/.4,e=k*k*(3-2*k);px=PX0+(PX1-PX0)*e;web=px+10}
   else if(t<1.25){arm=true;px=PX1}
-  else if(t<4.6){px=PX1;gz=-1}
-  else{const k=(t-4.6);wx=-k*70;px=PX1+wx;walk=true;if(x+wx<-30){J.done=1;S.jc.done=1;render()}}
-  if(px!=null)pram(px,NPCY);
+  else if(t<2.45){/* la scuote, veloce e vorticosa */const a=(t-1.25)*38;px=PX1+Math.cos(a)*3.2;J.py=Math.sin(a)*2;arm=false}
+  else if(t<5.8){px=PX1;J.py=0;gz=-1}
+  else{const k=(t-5.8);wx=-k*70;px=PX1+wx;walk=true;if(x+wx<-30){J.done=1;S.jc.done=1;render()}}
+  if(px!=null)pram(px,NPCY+(J.py||0));
   if(web!=null){r(Math.min(web,hx),hy-.4,Math.abs(hx-web),1.2,"#ffffff");for(let k=0;k<4;k++){const wx2=web+(hx-web)*(k+.5)/4;r(wx2,hy-1.5,.5,3.5,"#d8d8e8")}
     if(px!=null){r(px+8,NPCY-24,2,.6,"#f4f4ff");r(px+9,NPCY-26,.6,3,"#f4f4ff")}}
   person(x+wx,NPCY,Object.assign({},p.c,{armOut:arm,gaze:gz}),walk);
-  if(t>=1.5&&t<4.4){const tx=x+10,ty=NPCY-64,lines=["Brava bimba,","continua a dormire."];
-    box(tx-44,ty-10,88,19,"#f4f4ff");poly([[tx-6,ty+9],[tx+2,ty+9],[tx-4,ty+14]],"#f4f4ff");
+  if(t>=3.0&&t<5.7){const tx=x+10,ty=NPCY-64,lines=["Brava bimba,","continua a dormire."];
+    box(tx-56,ty-10,112,19,"#f4f4ff");poly([[tx-6,ty+9],[tx+2,ty+9],[tx-4,ty+14]],"#f4f4ff");
     txt(lines[0],tx,ty-1.5,5,"#1a1a24");txt(lines[1],tx,ty+5.5,5,"#1a1a24")}}
 const gone=pid=>(pid==="jessica"&&S.step>0&&!(S.jc&&!S.jc.done))||(!!(PID[pid]&&PID[pid].hang)&&!(S.called&&S.called[pid]!=null));
 const mapRoom=k=>k==="tin"?"lab":k;
