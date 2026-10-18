@@ -402,7 +402,7 @@ const ROOMS = {
       strano:"«Qualcuno ha spostato una freccia sul mio calendario. Nessuno tocca il mio calendario.»",
       aiuto:"«Gentile, ma qui è tutto in ordine. Al massimo svuota il cestino: c'è dentro una cosa che non ho buttato io.»",
       clue:{cappello:"«Questo non è in nessun inventario. E gli inventari io li so a memoria.»",biglietto:"«“Happy new ear”. Conosco una sola persona che scrive così. E non è Paolucci.»",timbro:"«Un biglietto del bus obliterato oggi? L'unico bus qui è nel cortile. E non parte da anni.»"}},{img:IMGD.jessica_32})],
-    objs:[{n:"il cestino della carta",b:[204,160,24,28],main:1},{n:"il calendario",b:[36,32,98,72],txt:"Tutte le frecce puntano al 31. Una, a matita, esce dal foglio e punta verso il cortile.",th:"¿Verso el cortile?"},{n:"i telefoni",b:[282,114,68,16],txt:"Quattro telefoni. Uno è ancora caldo.",th:"Qualchedunos ha chiamado da poco."}]},
+    objs:[{n:"il cestino della carta",b:[4,154,28,34],main:1},{n:"il calendario",b:[96,114,18,15],txt:"Tutte le frecce puntano al 31. Una, a matita, esce dal foglio e punta verso il cortile.",th:"¿Verso el cortile?"},{n:"la fotocopiatrice",b:[148,100,48,46],txt:"La fotocopiatrice. È ancora calda: qualcuno ha fotocopiato qualcosa da poco.",th:"Qualchedunos ha fotocopiado da poco."}]},
   amministrazione:{n:"Amministrazione",m:"Amministr.",z:"itc",wall:"#4a4a5a",
     ppl:[P("vittoriaA","Vittoria A.","capa dei soldi",{body:"#7a2a4a",hair:"#4a2a1a",long:1},148,{
       greet:["Valentino. Se sei qui per un rimborso, il modulo è quello giallo."],again:["Il modulo giallo, Valentino. Sempre quello."],
@@ -658,7 +658,7 @@ const WARM=[.7,.6,.4], NIGHT=[.5,.55,.82];
 function spec(k){
   const lamp=[192,18,210,[.6,.54,.38]];
   const S_={
-    organizzatrici:{amb:[.6,.6,.62],L:[lamp,[262,114,40,[.05,.25,.35]]]},
+    organizzatrici:{amb:[.62,.62,.64],L:[lamp,[46,112,34,[.3,.28,.2]]]},
     amministrazione:{amb:[.6,.6,.66],L:[lamp,[74,126,40,[.05,.25,.35]]]},
     direzione:{amb:[.74,.72,.76],L:[[100,10,150,[.5,.48,.4]],[320,10,150,[.5,.48,.4]],[306,70,40,[.15,.18,.3]]]},
     sala:{amb:[.66,.64,.7],L:[[192,90,150,[.9,.82,.6]],[192,200,170,[.45,.4,.32]],[110,100,70,[.5,.42,.28]]]},
@@ -894,15 +894,55 @@ function plant(x){box(x,170,14,18,"#a8541e");r(x-1,170,16,3,"#c86a2a");[[0,-26,"
 
 function room(k){
   const R=ROOMS[k];
-  if(k==="organizzatrici"){wall(R.wall);floor();ceilingLamp();
-    box(36,32,98,70,"#2a1c12");r(40,36,90,62,"#f4f4ff");r(40,36,90,9,"#c0283a");txt("DIC 2026",85,43.5,6,"#ffffff");
-    for(let i=1;i<6;i++)r(40+i*15,45,.5,53,"#c8c8d8");for(let i=1;i<4;i++)r(40,45+i*13,90,.5,"#c8c8d8");
-    for(let i=0;i<24;i++)txt(String(i+1),45+(i%6)*15,52+((i/6)|0)*13,4,"#9a9aa6","left");
-    [[46,50,22],[68,63,34],[88,76,22],[54,89,40],[104,52,18]].forEach(([x,y,w],i)=>{const c=i%2?"#2f6fd0":"#c0283a";r(x,y,w,1.5,c);poly([[x+w,y-2],[x+w+4,y+.75],[x+w,y+3.5]],c)});
-    box(118,30,14,12,"#ffd23c");r(120,33,10,.5,"#8a7a3a");r(120,35,8,.5,"#8a7a3a");box(36,92,12,11,"#ff8ab0");disc(85,32,1.5,"#c0283a");
-    deskF(236,120);monitor(250);[["#c0283a",286],["#16161d",303],["#e8dcc0",320],["#1f8a4f",337]].forEach(([c,x])=>phone(x,c));
-    box(282,118,0,0,"#000");r(244,124,4,4,"#f4f4ff");chair(318,152);plant(150);
-    box(208,168,16,20,"#5a6a7a");r(208,168,16,1.5,"#8a9aaa");for(let i=0;i<3;i++)r(211+i*4,166,3,3,"#f4f4ff")}
+  if(k==="organizzatrici"){const W="#e2ded2",WS=sh(W,.88);
+    r(0,0,384,148,W);tiles("#cbb79c",148);r(60,146,292,2,"#b8a888");
+    /* parete sinistra con il collage */
+    poly([[0,0],[60,12],[60,146],[0,176]],WS);poly([[0,176],[60,146],[60,148],[0,179]],"#a89878");
+    [[6,40,14,12,"#f2a0b0"],[22,34,12,16,"#f4f4f4"],[4,58,10,14,"#c0285a"],[36,36,10,10,"#f4f4f4"],[18,70,10,12,"#2a2a30"],[30,64,8,14,"#3a3a40"],[40,52,8,10,"#f4f4f4"],[46,40,10,8,"#f4f4f4"],[8,86,12,10,"#f4f4f4"],[24,88,10,10,"#1a1a1a"],[38,80,8,14,"#2a5a6a"],[48,64,8,10,"#f4f0a0"],[10,104,14,16,"#f4f4f4"],[30,100,8,10,"#e8dcc8"],[44,96,8,12,"#f4f4f4"]].forEach(([x,y,w,h,c])=>{r(x,y+x*.12,w,h,c);r(x,y+x*.12+h,w,.4,sh(c,.7))});
+    {const hx=17,hy=64;[["#e03030",0],["#f08a20",1.2],["#f0d020",2.4],["#30a040",3.6],["#3060c0",4.8],["#8030a0",6]].forEach(([c,o])=>r(hx-5+o*.3,hy+o,10-o*.6,1.3,c));disc(hx-2.5,hy+.5,2.6,"#e03030");disc(hx+2.5,hy+.5,2.6,"#e03030");for(const [c,o] of [["#f08a20",1.6],["#f0d020",3],["#30a040",4.4]])r(hx-5+o*.5,hy+o,10-o,1.4,c)}
+    {const fx=46,fy=82;r(fx,fy,10,2,"#1a1a1a");r(fx,fy+2,10,2,"#f4f4f4");r(fx,fy+4,10,2,"#2a8a3a");poly([[fx,fy],[fx+4,fy+3],[fx,fy+6]],"#c0283a")}
+    {const hx=50,hy=112;r(hx-4,hy,8,1.2,"#e03030");r(hx-3.6,hy+1.2,7.2,1.2,"#f0d020");r(hx-3,hy+2.4,6,1.2,"#30a040");r(hx-2,hy+3.6,4,1.2,"#3060c0");r(hx-1,hy+4.8,2,1,"#8030a0")}
+    /* libreria alta */
+    box(66,16,56,130,"#eeeadc");r(69,19,50,124,"#dcd8ca");for(const y of[32,50,66,82,98,114,130])r(69,y,50,2,"#eeeadc");
+    box(71,21,26,11,"#c8a070");r(76,24,10,5,"#f4f4f4");r(101,22,1,10,"#d8e0e8");r(108,22,1.4,10,"#d8e0e8");
+    box(71,39,23,11,"#1e1e22");box(95,39,23,11,"#1e1e22");r(80,43,4,1.4,"#9a9aa0");r(104,43,4,1.4,"#9a9aa0");
+    for(let i=0;i<5;i++)r(71+i*.6,52+i*2.4,44-i*2,1.8,i%2?"#c8c8cc":"#f4f4f4");
+    r(71,74,20,8,"#f0f0f0");r(98,72,6,10,"#2f5fb0");r(105,74,14,8,"#9a9aa0");r(71,70,30,1.5,"#4a6a8a");
+    for(let i=0;i<2;i++)r(72+i*5,84,4.5,14,"#2f5fb0");for(let i=0;i<3;i++){r(83+i*6,84,5.5,14,"#e8902a");r(84+i*6,86,3.5,2,"#f4f4f4")}r(102,84,3,14,"#d8b048");
+    r(71,104,40,10,"#f4f4f4");r(71,110,44,4,"#d8d8dc");box(71,118,30,12,"#1e1e22");r(104,118,14,12,"#3a3a40");r(71,134,44,8,"#c8c8cc");
+    /* finestra con le tendine, fuori è notte */
+    box(140,28,62,60,"#b8bcc4");r(144,32,25,52,"#0b1030");r(173,32,25,52,"#0b1030");r(169,32,4,52,"#9ea2aa");
+    r(145,33,23,33,"#f2eee2");r(174,33,23,33,"#f2eee2");r(145,66,23,1.2,"#c8b890");r(174,66,23,1.2,"#c8b890");for(let i=0;i<4;i++)r(150+i*13,75+hs(i,3)*6,.6,.6,"#fff");
+    r(171,50,1.4,6,"#e8e8ec");r(199,40,.5,60,"#8a8e96");
+    /* scatoloni e fotocopiatrice */
+    box(124,118,22,28,"#b8905a");poly([[124,118],[130,110],[146,114],[146,118]],"#c8a070");
+    box(150,112,44,34,"#ececee");box(148,102,48,10,"#d6d6da");r(150,100,40,3,"#3a3a40");r(175,104,14,5,"#2a3a4a");r(176,105,12,3,"#6a9ac8");
+    r(152,118,40,.6,"#a8a8ac");r(152,128,40,.6,"#a8a8ac");r(152,138,40,.6,"#a8a8ac");txt("RICOH",160,116,2.4,"#5a5a60");
+    /* libreria stretta e armadio grigio */
+    box(198,52,14,94,"#eeeadc");for(const y of[70,90,110,128])r(199,y,12,1.5,"#eeeadc");for(let i=0;i<10;i++){const y=[56,74,94,114,131][i%5];r(200+(i>4?5:0),y,4,12,["#c0283a","#2f5fb0","#e8e0c8","#1a1a1a","#d8b048"][i%5])}r(200,96,5,6,"#e070b0");
+    box(214,44,78,102,"#b8bcb8");r(216,46,36,98,"#c4c8c4");r(253,46,37,98,"#c0c4c0");r(252.5,46,1,98,"#8a8e8a");box(256,84,3,12,"#1a1a1a");
+    box(222,56,16,20,"#f4f4f4");disc(229,59,1.4,"#c0283a");for(let i=0;i<3;i++)r(224,64+i*3,12,.5,"#c04050");disc(228,74,1,"#2f5fb0");
+    box(262,52,22,28,"#f4f4f4");for(let i=0;i<8;i++)r(264,55+i*3,18,.4,"#6a6a70");disc(266,53,1,"#2f5fb0");
+    box(220,84,16,18,"#f4f4f4");for(let i=0;i<5;i++)r(222,87+i*3,12,.4,"#6a6a70");box(266,86,16,18,"#e8e0d0");r(268,88,12,8,"#c8a080");r(268,98,12,.5,"#e06a8a");
+    box(220,108,24,14,"#ffffff");txt("REGISTRAZIONI",232,114,1.9,"#1a1a1a");txt("IN CORSO",232,118,1.9,"#1a1a1a");
+    box(240,74,6,5,"#f4f4f4");r(233,124,1,1,"#000");
+    box(216,36,64,8,"#c8a070");r(218,38,30,1.4,"#5a3a1a");r(248,39,22,1,"#8a6a3a");box(262,20,26,16,"#d0d0d4");for(let i=0;i<4;i++)r(264+i*6,22,4,13,"#b8b8bc");r(250,28,10,8,"#c8a070");
+    /* condizionatore e porta */
+    box(290,4,58,13,"#f4f4f2");r(292,14,54,1.2,"#c8c8c8");txt("LG",318,9,2,"#9a9aa0");
+    poly([[352,6],[384,0],[384,196],[352,148]],sh(W,.94));poly([[357,24],[384,18],[384,190],[357,147]],"#f0eee8");poly([[357,24],[384,18],[384,20],[357,26]],"#d8d6d0");r(358,90,2,1,"#c8a040");
+    /* scrivania bianca a L con lampada, pianta, calendarino */
+    r(40,108,2,22,"#9ac0cc");r(40,107,8,2,"#9ac0cc");poly([[46,106],[52,108],[50,111]],"#9ac0cc");r(37,128,8,2,"#c8d0d4");
+    [[60,114,"#2a7a3a"],[66,110,"#3a9a4a"],[72,113,"#2a7a3a"],[63,106,"#4aaa5a"],[70,105,"#3a9a4a"],[76,109,"#2a7a3a"]].forEach(([x,y,c])=>disc(x,y,3.4,c));r(64,118,10,10,"#f4f4f4");
+    box(30,128,178,6,"#f4f4f2");r(30,133,178,1,"#c8c8c4");r(34,134,2,40,"#1a1a1a");r(118,134,2,40,"#1a1a1a");box(136,134,40,40,"#ececea");r(138,148,36,.6,"#c8c8c4");r(138,160,36,.6,"#c8c8c4");
+    box(34,123,22,5,"#1a1a1a");r(42,122,8,2.5,"#e8f040");r(58,121,6,7,"#f4f4f4");r(64,123,1.5,3,"#c8c8c8");box(78,123,16,5,"#a8c8e8");r(78,123,16,1,"#2f6fd0");
+    {const cx=98;poly([[cx,128],[cx+7,116],[cx+14,128]],"#f4f4f4");for(let i=0;i<3;i++)r(cx+4,120+i*2.6,6,.5,"#c0283a");r(cx+3,126,8,.5,"#9a9aa6")}
+    box(116,118,8,10,"#1a1a1a");r(117,121,6,1,"#f4f4f4");r(118,115,.6,4,"#c0283a");r(120,114,.6,5,"#2f6fd0");r(122,116,.6,3,"#f0d020");disc(142,126,2,"#1a1a1a");
+    /* sedia nera dietro e sedia rossa davanti all'armadio */
+    box(92,104,26,24,"#1e1e22");for(let i=0;i<5;i++)r(95,107+i*4,20,.5,"#3a3a40");
+    box(238,124,14,26,"#1a1a1a");r(240,126,10,22,"#8a1a30");r(228,150,30,5,"#1a1a1a");r(226,140,3,12,"#1a1a1a");r(256,140,3,12,"#1a1a1a");r(242,155,2,12,"#9a9aa0");
+    [[-14,6],[-6,8],[6,8],[14,6]].forEach(([dx,dy])=>{poly([[243,166],[243+dx,166+dy-1],[243+dx,166+dy+.5],[243,167.5]],"#9a9aa0");disc(243+dx,167+dy,1.4,"#1a1a1a")});
+    /* cestino nero */
+    box(8,160,20,26,"#1a1a1e");r(8,160,20,2,"#3a3a40");for(let i=0;i<3;i++)r(12+i*5,157,3,4,"#f4f4ff")}
   if(k==="amministrazione"){r(0,0,384,150,"#ece0c2");r(0,0,384,8,"#f2e8d0");r(0,8,384,.5,"#d6c8a8");tiles("#d2d0ca",150);r(0,149,384,1.5,"#c8c2b4");r(375,0,2,150,"#e0ded8");
     winFrame(24,38,154,57,3,"#d8752e",[]);
     winFrame(225,40,124,51,3,"#d8752e",[1,2]);disc(334,55,5.5,"#f4f0d0");disc(332,53.5,1.3,"#d8d2b0");disc(336,57,1,"#d8d2b0");r(310,42,10,47,"#2a2a1a");
@@ -1103,7 +1143,7 @@ function roomAnim(k){
     disc(68,68,10,"#2a2a2e");disc(68,68,9,"#141418");for(let i=0;i<12;i++){const a=i*Math.PI/6;r(68+Math.cos(a)*7.5,68+Math.sin(a)*7.5,.8,.8,"#f4f4f4")}
     const m=S.t%60,h=(S.t/60)%12;[[m/60,7,.5],[h/12,4.5,.8]].forEach(([qq,L,w])=>{const a=qq*Math.PI*2-Math.PI/2;for(let d=0;d<L;d+=.5)r(68+Math.cos(a)*d,68+Math.sin(a)*d,w,w,"#f4f4f4")});disc(68,68,.8,"#c0283a")}
   if(k==="sala"){r(195,178,2,2,(F>>2)%2?"#ff3b5c":"#600")}
-  if(k==="organizzatrici")r(256,108,(F>>1)%2?6:.5,.5,"#5ee6ff");
+  if(k==="organizzatrici")r(186,105,(F>>2)%2?2:.5,.8,"#5ee68a");
 }
 function tenda(){const W="#ddd4c2",Wd="#bdb4a2",RB="#7a1a22";
   [[96,92,40],[150,70,46],[330,74,48],[384,96,40],[60,110,30]].forEach(([x,y,R],i)=>{disc(x,y,R,i%2?"#13281a":"#173020");disc(x-R*.3,y-R*.3,R*.6,"#1d3a26")});
