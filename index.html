@@ -511,7 +511,7 @@ const ROOMS = {
     objs:[{n:"il tappeto puzzle",b:[30,156,170,58],txt:"Il tappeto a incastri dei piccoli. Manca un pezzo giallo: chissà dove l'hanno nascosto.",th:"¿Dónde está el pezzo?"},{n:"la lavagnetta",b:[92,144,22,32],txt:"Una lavagnetta da bambini. C'è scritto CIAO, con la C al contrario.",th:"¡Qué bonito!"},{n:"le tende",b:[118,84,148,62],txt:"Le tende a pannello sono tirate. Fuori è buio pesto.",th:"Noche."}]},
   sb:{n:"ITC Studio, aula B",m:"Aula B",z:"studio",wall:"#1c1f22",th:"Aula B. Nadie.",
     ppl:[],
-    objs:[{n:"le sedie pieghevoli",b:[2,148,62,68],txt:"Una pila di sedie pieghevoli di legno. Valentino le conta: ci sono tutte.",th:"Todas aquí."},{n:"l'appendiabiti",b:[30,90,42,66],txt:"Grucce di legno vuote. Stasera nessuno ha lasciato il cappotto.",th:"Nada."},{n:"le casse",b:[274,118,26,32],txt:"Due casse su un tavolino. Spente. Valentino non tocca niente.",th:"No toco."}]},
+    objs:[{n:"la finestra",b:[96,48,74,96],txt:"Le tende a pannello sono tirate. Fuori, buio e il riflesso di un lampione.",th:"Noche."},{n:"il tavolo",b:[146,116,94,32],txt:"Un tavolo nero a quattro gambe contro il muro. Sopra, niente. Valentino passa lo straccio lo stesso.",th:"Limpio."},{n:"il condizionatore",b:[304,104,26,50],txt:"Il condizionatore ronza piano. Qualcuno l'ha lasciato acceso.",th:"Lo apago? No, no toco."},{n:"la finestra alta",b:[328,24,46,170],txt:"Una finestra stretta e altissima, con le tende a pannello.",th:"Qué alta."}]},
   sc:{n:"ITC Studio, aula C",m:"Aula C",z:"studio",wall:"#1c2022",th:"Aula C. Larga, larga.",
     ppl:[],
     objs:[{n:"la finestra",b:[110,44,164,88],txt:"Le tende beige sono aperte solo ai lati. Fuori, il parcheggio e un'antenna con la lucina rossa.",th:"Noche."},{n:"le casse",b:[94,40,24,16],txt:"Due casse appese alla barra delle luci. Mute.",th:"Silencio."},{n:"il tavolino",b:[116,128,34,18],txt:"Un tavolino nero sotto la finestra. Sopra, niente. Valentino passa lo straccio lo stesso.",th:"Limpio."}]},
@@ -1230,14 +1230,18 @@ function aulaA(){const o={x0:110,x1:274,y0:62,y1:150,side:"#1e2224",back:"#1a1d2
   r(96,148,1.2,26,"#c8a070");r(110,148,1.2,26,"#c8a070");box(94,146,18,14,"#2a4a3a");r(95,147,16,1,"#f4f4f4");floorShine(o,.06)}
 /* AULA B: sedie pieghevoli e appendiabiti */
 function aulaB(){const o={x0:92,x1:300,y0:30,y1:146,side:"#1c1f22",back:"#17191c",ceil:"#111214"};aulaShell(o);
-  {const X0=12,X1=80,q=(x,t)=>[x,yOnL(o,x,t)];poly([q(X0,.08),q(X1,.12),q(X1,.8),q(X0,.82)],"#2a6a9a");
-   for(let i=0;i<6;i++){const a=X0+2+(X1-X0-4)*i/6,b=X0+2+(X1-X0-4)*(i+1)/6-.8;poly([q(a,.1),q(b,.14),q(b,.78),q(a,.8)],mix("#9a8e72","#8a8064",hs(i,7)))}}
-  r(40,98,2,58,"#9a9aa0");r(64,92,2,60,"#9a9aa0");r(38,98,30,2,"#b8b8c0");for(let i=0;i<6;i++){const x=40+i*4;poly([[x,100],[x+6,104],[x-6,104]],"#b06a34")}
-  box(140,126,92,3,"#1e2226");r(146,129,1.4,22,"#9a9aa0");r(226,129,1.4,22,"#9a9aa0");r(182,129,1.4,16,"#9a9aa0");
-  box(244,114,30,24,"#ece8e0");for(let i=0;i<6;i++)r(247,130+i*1.1,24,.4,"#a8a8a4");r(247,117,8,2,"#c8c8c4");
-  box(276,128,22,2,"#1a1a1a");r(278,130,1.2,18,"#1a1a1a");r(294,130,1.2,18,"#1a1a1a");box(278,121,5,7,"#222");disc(280.5,125,1.2,"#555");box(291,122,5,6,"#222");
-  r(300,30,10,118,"#0e1012");{const q=(x,t)=>[x,yOnR(o,x,t)];poly([q(318,.1),q(370,.06),q(370,.86),q(318,.82)],"#2a6a9a");for(let i=0;i<4;i++){const a=320+i*12.5,b=a+11.6;poly([q(a,.12),q(b,.1),q(b,.84),q(a,.8)],mix("#9a8e72","#8a8064",hs(i,9)))}}
-  for(let i=0;i<7;i++){const y=150+i*7;box(4+i*1.5,y,58,5,"#c8843a");r(8+i*1.5,y+1,50,1,"#e0a060")}box(10,184,44,30,"#c8843a");r(16,190,32,22,"#141416");r(6,180,52,3,"#5a5a5e");floorShine(o,.07)}
+  /* finestra sulla parete di fondo, tende a pannello */
+  box(96,48,74,96,"#2a6a9a");r(99,51,68,90,"#0b1030");panelsC(99,51,68,90,5,"#9a8e72");r(96,96,74,2,"#2a6a9a");r(96,142,74,2,"#1e4a6e");
+  /* tavolo a quattro gambe */
+  poly([[152,118],[240,118],[234,127],[146,127]],"#2a2e32");r(146,127,88,2,"#16181a");
+  for(const[x,y1]of[[147,146],[230,146]])r(x,129,1.6,y1-129,"#9a9aa0");for(const[x,y1]of[[156,138],[236,138]])r(x,121,1.2,y1-121,"#7a7a80");
+  r(300,30,8,118,"#0e1012");
+  /* finestra alta sulla parete destra */
+  {const q=(x,t)=>[x,yOnR(o,x,t)];poly([q(330,.06),q(372,.02),q(372,.95),q(330,.86)],"#2a6a9a");
+   for(let i=0;i<3;i++){const a=332+i*13.3,b=a+12.5;poly([q(a,.08),q(b,.05),q(b,.93),q(a,.84)],mix("#9a8e72","#8a8064",hs(i,9)));poly([q(a,.08),q(b,.05),q(b,.07),q(a,.1)],"#6a624e")}
+  /* condizionatore a pavimento */
+   poly([q(306,.62),q(328,.62),q(328,.88),q(306,.86)],"#e8e4dc");for(let i=0;i<5;i++){const t=.78+i*.015;poly([q(308,t),q(326,t),q(326,t+.006),q(308,t+.006)],"#a8a8a4")}poly([q(308,.65),q(314,.65),q(314,.67),q(308,.67)],"#c8c8c4")}
+  floorShine(o,.07)}
 /* AULA C: lunga, pareti nere a gradoni */
 function aulaC(){const o={x0:76,x1:292,y0:30,y1:150,side:"#1a1d1f",back:"#15181a",ceil:"#86827a"};aulaShell(o);ceilTiles(o,"#726e66");beams(o,"#9a6a34");
   stepsL(o,"#0e1012",4,70,10);stepsR(o,"#0e1012",6,22,9);
