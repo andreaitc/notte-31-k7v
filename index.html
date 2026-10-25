@@ -1231,16 +1231,18 @@ function aulaA(){const o={x0:110,x1:274,y0:62,y1:150,side:"#1e2224",back:"#1a1d2
 /* AULA B: sedie pieghevoli e appendiabiti */
 function aulaB(){const o={x0:92,x1:300,y0:30,y1:146,side:"#1c1f22",back:"#17191c",ceil:"#111214"};aulaShell(o);
   /* finestra sulla parete di fondo, tende a pannello */
-  box(96,48,74,96,"#2a6a9a");r(99,51,68,90,"#0b1030");panelsC(99,51,68,90,5,"#9a8e72");r(96,96,74,2,"#2a6a9a");r(96,142,74,2,"#1e4a6e");
+  box(96,48,74,96,"#2a6a9a");r(99,51,68,90,"#0b1030");panelsC(99,51,68,90,5,"#9a8e72");r(96,142,74,2,"#1e4a6e");
   /* tavolo a quattro gambe */
   poly([[152,118],[240,118],[234,127],[146,127]],"#2a2e32");r(146,127,88,2,"#16181a");
-  for(const x of[157,234]){r(x,123,1.8,17,"#6a6a72");r(x+1.2,123,.6,17,"#4a4a50");r(x-.4,139.6,2.6,1,"#2a2a2e")}
+  for(const x of[157,234]){r(x,123,1.8,22,"#6a6a72");r(x+1.2,123,.6,22,"#4a4a50");r(x-.4,144.6,2.6,1,"#2a2a2e")}
   r(150,126.8,84,1.6,"#101214");
   for(const x of[148,228]){r(x,129,2.4,18,"#9a9aa4");r(x,129,.8,18,"#c8c8d0");r(x+1.8,129,.6,18,"#5a5a62");r(x-.6,146.4,3.6,1.2,"#1a1a1e")}
   r(300,30,8,118,"#0e1012");
   /* finestra alta sulla parete destra */
-  {const q=(x,t)=>[x,yOnR(o,x,t)];poly([q(330,.06),q(372,.02),q(372,.95),q(330,.86)],"#2a6a9a");
-   for(let i=0;i<3;i++){const a=332+i*13.3,b=a+12.5;poly([q(a,.08),q(b,.05),q(b,.93),q(a,.84)],mix("#9a8e72","#8a8064",hs(i,9)));poly([q(a,.08),q(b,.05),q(b,.07),q(a,.1)],"#6a624e")}
+  {const q=(x,t)=>[x,yOnR(o,x,t)],T0=.05,T1=.9;poly([q(329,T0-.02),q(373,T0-.02),q(373,T1+.02),q(329,T1+.02)],"#2a6a9a");
+   const xs=[331];for(const w of[.27,.33,.4])xs.push(xs[xs.length-1]+w*40);
+   for(let i=0;i<3;i++){const a=xs[i],b=xs[i+1]-.8,c=mix("#9a8e72","#8a8064",hs(i,9));poly([q(a,T0),q(b,T0),q(b,T1),q(a,T1)],c);
+     poly([q(a,T0),q(b,T0),q(b,T0+.02),q(a,T0+.02)],"#6a624e");for(let k=1;k<4;k++){const xx=a+(b-a)*k/4;poly([q(xx,T0+.03),q(xx+.5,T0+.03),q(xx+.5,T1-.02),q(xx,T1-.02)],sh(c,.88))}}
   /* condizionatore a pavimento */
    {const D=[-7,1.5],m=p=>[p[0]+D[0],p[1]+D[1]],A=q(306,.62),B=q(328,.62),C=q(328,.88),E=q(306,.86);
     poly([A,B,m(B),m(A)],"#f8f6f0");poly([B,C,m(C),m(B)],"#b8b4ac");poly([m(A),m(B),m(C),m(E)],"#e6e2da");
