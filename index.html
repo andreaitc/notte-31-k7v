@@ -501,7 +501,7 @@ const ROOMS = {
       foto:"«Paolucci doveva passare a fare gli auguri ai gruppi. È passato di corsa, con una signora in rosso, e non ha cantato neanche una nota.»",
       strano:"«Dall'aula G si sentono le prove. Stasera c'è una voce in più. Una voce che conosco.»",
       aiuto:"«Gentile. Allora dai un'occhiata alla macchinetta del caffè: stasera fa le bizze.»"})],
-    objs:[{n:"l'angolo caffè",b:[354,44,30,106],txt:"Il passaggio verso l'angolo caffè. Da lì arriva un ronzio.",th:"El cafè.",go:"scaffe"},{n:"il registro presenze",b:[228,108,36,10],txt:"Tra le firme di stasera, una tutta curve e svolazzi. Illeggibile.",th:"Esta firma..."},{n:"la bacheca dei corsi",b:[16,36,54,42],txt:"Corsi di teatro per tutte le età. Qualcuno ha aggiunto a penna: “Corso di travestimento, livello avanzato”.",th:"Ja."}]},
+    objs:[{n:"il registro presenze",b:[228,108,36,10],txt:"Tra le firme di stasera, una tutta curve e svolazzi. Illeggibile.",th:"Esta firma..."},{n:"la bacheca dei corsi",b:[16,36,54,42],txt:"Corsi di teatro per tutte le età. Qualcuno ha aggiunto a penna: “Corso di travestimento, livello avanzato”.",th:"Ja."}]},
   sa:{n:"ITC Studio, aula A",m:"Aula A",z:"studio",wall:"#1e2224",th:"La sala de los niños. Vacía.",
     ppl:[],
     objs:[{n:"il tappeto puzzle",b:[30,156,170,58],txt:"Il tappeto a incastri dei piccoli. Manca un pezzo giallo: chissà dove l'hanno nascosto.",th:"¿Dónde está el pezzo?"},{n:"la lavagnetta",b:[92,144,22,32],txt:"Una lavagnetta da bambini. C'è scritto CIAO, con la C al contrario.",th:"¡Qué bonito!"},{n:"le tende",b:[118,84,148,62],txt:"Le tende a pannello sono tirate. Fuori è buio pesto.",th:"Noche."}]},
@@ -1281,7 +1281,7 @@ function studioFront(){const W="#d4d0c8";r(0,0,384,150,W);r(0,0,384,26,"#c4c0b8"
   for(const x of[146,176,206]){box(x,126,22,24,"#3a3c44");r(x+1,150,20,3,"#2a2c32");r(x+2,153,1.6,24,"#1e1e22");r(x+18,153,1.6,24,"#1e1e22");r(x+2,168,18,1,"#6a6a70")}
   for(const x of[300,326]){box(x,118,18,16,"#3a3c44");r(x+2,134,1.4,30,"#1e1e22");r(x+14,134,1.4,30,"#1e1e22")}
   box(230,110,32,5,"#f4f4ff");r(245.5,110,.5,5,"#888");box(214,111,12,4,"#ffe07a");box(300,108,8,8,"#9ad0ff");
-  box(356,56,28,94,"#2a2a30");r(358,58,26,92,"#141418");box(360,46,22,8,"#1f8a4f");txt("CAFFÈ",371,52,3.4,"#f4f4f4");floorShineF()}
+  floorShineF()}
 function floorShineF(){al(.07,()=>poly([[120,150],[280,150],[320,216],[90,216]],"#fff0d0"))}
 /* ANGOLO CAFFÈ: la macchinetta fuori servizio */
 function studioCaffe(){const W="#d8d2c8";r(0,0,384,216,W);poly([[0,0],[66,18],[66,176],[0,210]],"#cec8be");poly([[384,0],[306,18],[306,180],[384,206]],"#c8c2b8");
@@ -1454,6 +1454,7 @@ function draw(){
   if(ph==="title"||ph==="brief"){titleYard();if(F%70<18)boom(300,40,F%70*1.6,"#ff3b5c");if((F+30)%90<18)boom(200,30,((F+30)%90)*1.6,"#ffd23c");
     if(ph==="title"){const x=((F*3.2)%560)-110;van(x,GY+12)}fog();light("yard",spec("yard"));return}
   if(ph==="play"&&S.mode==="travel"){travelScene();return}
+  if(ph==="play"&&S.cafCut&&!S.cafCut.done&&cafT()>=CAF.walk&&cafT()<CAF.pan){cafPan();return}
   if(ph==="play"){const k=S.loc,R=ROOMS[k];
     if(k==="cortile")cortileScene();
     else if(k==="lab"){sky();ground();layer("tenda",tenda);tendaAnim()}
@@ -1466,7 +1467,8 @@ function draw(){
     R.ppl.filter(p=>!gone(p.id)).forEach(p=>{if(p.id==="jessica"&&S.jc&&!S.jc.done){jessCut(p,0);return}if(p.screen)screenFace(p);else if(p.hang){const cf=S.called[p.id],dr=cf!=null&&cf<30?Math.max(0,1-cf/26):0,sy=NPCY-46+Math.sin(F/6)*1.5-dr*dr*120;r(p.x+9,0,2,sy-36,"#d0203a");r(p.x+9.5,0,.5,sy-36,"#ff6a7a");person(p.x,sy,p.c,false);r(p.x+9,sy-24,2,22,"#d0203a")}else if(p.id==="cristina"&&S.loc==="direzione")person(p.x,NPCY,!(S.turned&&S.turned.cristina)&&S.visited.direzione?Object.assign({},p.c,{back:1}):p.c,false);else if(p.id==="micaela"&&S.loc==="direzione"){person(p.x,NPCY,Object.assign({},p.c,{tel:1}),false);phone(p.x,NPCY,p.c)}else if(sgFight()&&(p.id==="biljana"||p.id==="izzo"||p.id==="caterina")){const i=p.id==="biljana"?0:p.id==="izzo"?1:2,j=Math.sin(F*1.3+i*2)*1.4,hop=-Math.abs(Math.sin(F/3+i))*3,dir=i===0?1:i===2?-1:((F>>4)%2?1:-1);personSide(p.x+j,NPCY+hop,p.c,dir,(F>>2)%3===i)}else person(p.x,NPCY-plift(p),S.loc==="sg"&&S.sgLook&&S.mode==="arrive"&&(p.id==="biljana"||p.id==="izzo"||p.id==="caterina")?Object.assign({},p.c,{gaze:1}):p.c,false)});
     if(k==="sg"){const tY=NPCY-15;r(266,tY+3,2,16,"#3a2a20");r(342,tY+3,2,16,"#3a2a20");box(262,tY,86,4,"#6a4a38");r(262,tY+4,86,1,"#3a2a20");box(294,tY-2,22,2,"#f4f4ec");r(322,tY-3,10,3,"#2a2a30");
       g.save();g.translate(S.vx,NPCY+16);g.scale(1.22,1.22);cart(24,0);person(0,0,VAL,S.vx!==s);g.restore()}
-    else{const vy=k==="bus"?NPCY+8:NPCY+4;cart(S.vx+24,vy);person(S.vx,vy,VAL,S.vx!==s);}
+    else if(S.cafCut&&!S.cafCut.done)cafValDraw(k);
+    else{const vy=k==="bus"?NPCY+8:NPCY+4;if(k!=="scaffe")cart(S.vx+24,vy);person(S.vx,vy,VAL,S.vx!==s);}
     if(k==="organizzatrici"&&S.jc&&!S.jc.done)jessCut(PID.jessica,1);
     if(R.z==="fuori"&&k!=="tin")fog();
     const lk=k==="cortile"?"cortileL":k==="bus"?"bus"+(S.found.length===3?1:0):k;light(lk,k==="cortile"?SPEC2.cortileL:(spec(k)||SPEC2[k]));
@@ -1562,7 +1564,7 @@ function hud(){
     <div class="slots">${["b1","b2","b3","chiavi"].map(id=>S.found.includes(id)?`<div class="slot on"><canvas width="24" height="24" data-ic="${id}"></canvas></div>`:`<div class="slot">?</div>`).join("")}</div>
     <div class="btns">${S.mode==="explore"||S.mode==="say"?`<button class="hb big" id="bmap" type="button">MAPPA</button>`:""}<button class="hb" id="bsnd" type="button">${SND?"SUONO":"MUTO"}</button><button class="hb" id="bfs" type="button">&#9974;</button></div></div>
     <div class="place">${ROOMS[S.loc].n.toUpperCase()}</div>
-    ${S.mode==="explore"&&!(S.jc&&!S.jc.done)?`<div class="goal ${S.goalNew?"flash":""}"><b>${S.goalNew?"NUOVO OBIETTIVO":"OBIETTIVO"}</b> ${esc(goalText())}${mapRoom(curRoom())!==S.loc&&!(cur().room==="tin"&&S.loc==="lab")?` <button type="button" class="gm" id="bgoalmap">APRI LA MAPPA</button>`:stepObjIndex(S.loc)>=0?" · <i>TOCCA CIÒ CHE BRILLA</i>":cur().room==="tin"&&S.loc==="lab"?" · <i>ENTRA DALLA PORTA DEL TENDONE</i>":curRoom()==="scaffe"&&S.loc==="sfront"?" · <i>VAI ALL'ANGOLO CAFFÈ</i>":""}</div>`:""}`;
+    ${S.mode==="explore"&&!(S.jc&&!S.jc.done)&&!(S.cafCut&&!S.cafCut.done)?`<div class="goal ${S.goalNew?"flash":""}"><b>${S.goalNew?"NUOVO OBIETTIVO":"OBIETTIVO"}</b> ${esc(goalText())}${mapRoom(curRoom())!==S.loc&&!(cur().room==="tin"&&S.loc==="lab")&&!(curRoom()==="scaffe"&&S.loc==="scaffe")?` <button type="button" class="gm" id="bgoalmap">APRI LA MAPPA</button>`:stepObjIndex(S.loc)>=0?" · <i>TOCCA CIÒ CHE BRILLA</i>":cur().room==="tin"&&S.loc==="lab"?" · <i>ENTRA DALLA PORTA DEL TENDONE</i>":""}</div>`:""}`;
 }
 function bindHud(){
   const m=$("bmap");if(m)m.onclick=e=>{e.stopPropagation();openMap()};
@@ -1617,7 +1619,7 @@ function render(){
   if(SERVICE){const c=svcCode();if(c)h+=`<div class="svc">#${c}</div>`}
   h+=gearHTML();
   L().innerHTML=h;bindHud();bindGear();
-  if(S.goalNew&&ph==="play"&&S.mode==="explore"&&!(S.jc&&!S.jc.done)){S.goalNew=false;sfx("goal");setTimeout(()=>{const gq=document.querySelector(".goal.flash");if(gq){gq.classList.remove("flash");const b=gq.querySelector("b");if(b)b.textContent="OBIETTIVO"}},2600)}
+  if(S.goalNew&&ph==="play"&&S.mode==="explore"&&!(S.jc&&!S.jc.done)&&!(S.cafCut&&!S.cafCut.done)){S.goalNew=false;sfx("goal");setTimeout(()=>{const gq=document.querySelector(".goal.flash");if(gq){gq.classList.remove("flash");const b=gq.querySelector("b");if(b)b.textContent="OBIETTIVO"}},2600)}
   const on=(id,fn)=>{const e=$(id);if(e)e.onclick=ev=>{ev.stopPropagation();fn()}};
   {const ih=$("ioshint");if(ih)ih.addEventListener("click",e=>e.stopPropagation())}
   on("bioshint",()=>{S.iosHide=1;try{localStorage.setItem("iosHint","1")}catch(e){}render()});
@@ -2791,7 +2793,7 @@ function look(i){
     if(s.lock){S.step++;S.sub=false;newGoal()}}
   else if(stepObjIndex(k)===i){spend(COST.guarda);sfx("clue");
     if(s.note){S.note=Object.assign({},s.note);S.step++;S.sub=false;setTimeout(newGoal,200)}
-    else{const it=ITEMS[s.item];S.found.push(s.item);S.note={t1:it.t1,txt:it.txt+(it.after?" "+it.after:""),letter:it.letter,th:it.th,clue:s.item};S.step++;S.sub=false;setTimeout(newGoal,200)}}
+    else{const it=ITEMS[s.item];S.found.push(s.item);S.note={t1:it.t1,txt:it.txt+(it.after?" "+it.after:""),letter:it.letter,th:it.th,clue:s.item,back:s.objRoom==="scaffe"?"sfront":null};S.step++;S.sub=false;setTimeout(newGoal,200)}}
   else if(k==="magazzino"&&o.n==="la cassetta del pronto soccorso"){S.prs=(S.prs||0)+1;if(S.prs>=4){S.prs=0;startOp();return}spend(COST.guarda);sfx("blip");
     S.note=[{t1:"JACK",txt:"«Hai bisogno della cassetta del pronto soccorso? Stai bene?»",th:"Sì, sì... estoy bien."},{t1:"JACK",txt:"«Non mi sembra tu abbia una bella cera.»",th:"¿La cera? La cera la passo yo, sul pavimento."},{t1:"JACK",txt:"«Forse faresti bene a sederti.»",th:"Ay... me gira la testa..."}][S.prs-1]}
   else if(k==="direzione"&&o.n==="l'Apeatro"){S.apec=(S.apec||0)+1;if(S.apec>=4){S.apec=0;startApe();return}spend(COST.guarda);sfx("blip");
@@ -2852,7 +2854,24 @@ function typeNote(){const N=S.note;N.len=N.txt.length;N.shown=calmo?N.len:0;clea
   typeNote.h=setInterval(()=>{if(S.note!==N||S.mode!=="look"){clearInterval(typeNote.h);return}n++;N.shown=Math.min(N.len,N.shown+2);if(n%2)sfx("type");
     if(N.shown>=N.len){clearInterval(typeNote.h);render()}else{const e=$("ntx");if(e)e.textContent=N.txt.slice(0,N.shown)}},34)}
 function noteClick(){const N=S.note;if(N&&N.shown<N.len){N.shown=N.len;clearInterval(typeNote.h);render();return}closeNote()}
-function closeNote(){const go_=S.note&&S.note.go;S.note=null;S.mode="explore";if(go_)go(go_);else render()}
+/* la Bagnara parla della macchinetta: Valentino va da solo verso di noi, l'inquadratura gira di 180 gradi */
+const CAF={walk:1.8,pan:2.5,end:3.7};
+function cafT(){return S.cafCut?(performance.now()-S.cafCut.t0)/1000:0}
+function startCafCut(){S.cafCut={t0:performance.now(),vx0:S.vx};sfx("step");render();
+  const L=()=>{const J=S.cafCut;if(!J||J.done)return;const t=cafT();
+    if(t>=CAF.pan&&S.loc!=="scaffe"){S.loc="scaffe";S.visited.scaffe=true;S.vx=180;S.say=null;render()}
+    if(t>=CAF.end){J.done=1;S.mode="explore";render();return}
+    draw();requestAnimationFrame(L)};requestAnimationFrame(L)}
+function cafValDraw(k){const J=S.cafCut,t=cafT(),e=x=>x*x*(3-2*x);
+  if(k==="sfront"){cart(J.vx0+24,NPCY+4);const f=Math.min(1,t/CAF.walk),x=J.vx0+(150-J.vx0)*e(f),y=NPCY+4+90*f*f,sc=1+1.7*f*f;
+    g.save();g.translate(x,y);g.scale(sc,sc);person(0,0,VAL,true);g.restore()}
+  else{const f=Math.min(1,(t-CAF.pan)/(CAF.end-CAF.pan)),q=1-e(f),x=180-30*q,y=NPCY+4+90*q*q,sc=1+1.7*q*q;
+    g.save();g.translate(x,y);g.scale(sc,sc);person(0,0,Object.assign({},VAL,{back:1}),f<1);g.restore()}}
+function cafPan(){const t=cafT(),f=Math.min(1,(t-CAF.walk)/(CAF.pan-CAF.walk)),dx=384*f*f*(3-2*f);
+  if(!CACHE.room_sfront)layer("room_sfront",STUDIO.sfront);if(!CACHE.room_scaffe)layer("room_scaffe",STUDIO.scaffe);
+  g.setTransform(1,0,0,1,0,0);g.drawImage(CACHE.room_sfront,Math.round(-dx*2),0);g.drawImage(CACHE.room_scaffe,Math.round((384-dx)*2),0);g.setTransform(2,0,0,2,0,0);
+  light("sfront",spec("sfront")||SPEC2.sfront);const a=Math.sin(f*Math.PI);al(.35*a,()=>{for(let i=0;i<40;i++)r(hs(i,F)*384,hs(F,i)*216,30+hs(i,2)*60,.6,"#ffffff")})}
+function closeNote(){const go_=S.note&&S.note.go,back=S.note&&S.note.back;S.note=null;S.mode="explore";if(back)enter(back);else if(go_)go(go_);else render()}
 
 /* mappa e viaggi */
 function openMap(){S.mode="map";sfx("blip");render()}
@@ -2886,6 +2905,7 @@ $("screen").addEventListener("click",e=>{
   if(S.phase==="scossa"&&!S.menu){scossaNext();return}
   if(S.menu)return;
   if(S.jc&&!S.jc.done&&S.phase==="play")return;
+  if(S.cafCut&&!S.cafCut.done&&S.phase==="play")return;
   if(S.phase==="title"){if(SND&&!e.target.closest("#bstart")&&(!TA||!AC||AC.state!=="running")){titleAudio();if(AC)AC.resume();return}const b=$("bstart");if(b)b.click();return}
   if(S.phase==="vint"){vintNext();return}
   if(S.phase==="timmy"){const[x,y]=toLogic(e);timmyHit(x,y);return}
@@ -2909,7 +2929,7 @@ document.addEventListener("keyup",e=>{if(S&&S.phase==="cc"&&S.cc){const k=BJK[e.
 document.addEventListener("keydown",e=>{if(S&&S.phase==="pac"&&S.pac){const d={ArrowRight:0,ArrowDown:1,ArrowLeft:2,ArrowUp:3}[e.key];if(d!==undefined){S.pac.p.want=d;e.preventDefault()}}if(S&&S.phase==="ape"&&S.ape&&!S.ape.end){if(e.key==="ArrowLeft"){S.ape.steer=-1;e.preventDefault()}if(e.key==="ArrowRight"){S.ape.steer=1;e.preventDefault()}}if(e.key===" "||e.key==="Enter"){if(S.phase==="play"&&S.mode==="arrive"){e.preventDefault();advance()}else if(S.phase==="play"&&S.mode==="look"){e.preventDefault();noteClick()}}
   if(e.key==="m"&&S.phase==="play"&&S.mode==="explore")openMap();if(e.key==="Escape"&&S.phase==="play"&&(S.mode==="map"||S.mode==="talk")){S.mode="explore";render()}});
 
-function tick(){F++;if(S.phase==="play"&&S.loc==="organizzatrici"&&S.step>0&&!S.jc&&S.mode==="explore"&&!S.talk&&!S.note){S.jc={t0:performance.now()};render();const L=()=>{if(!S.jc||S.jc.done)return;draw();requestAnimationFrame(L)};requestAnimationFrame(L)}if(S.phase==="title"&&SND){if(!TA)titleAudio();vanSound()}else if(TA)stopTitleAudio();if(S.phase==="scossa")scossaTick();if(S.phase==="vint"&&S.vi)vintTick();if(S.phase==="timmy"&&S.wm)timmyTick();if(S.phase==="play"&&S.loc==="foyer"&&!S.catOk&&(S.mode==="explore")){S.catF=(S.catF||0)+1;if(S.catF>=170){S.catOk=1;S.mode="say";S.say={pid:"mario",txt:"Marra! Cash! Smettetela!",code:"52"};sfx("blip");render()}}if(S.called)for(const k in S.called)if(S.called[k]<30){S.called[k]++;if(S.called[k]===30)render()}if(S.phase==="win"){S.wf=(S.wf||0)+1;if(S.wf===44)render();if(S.wf>44&&S.wf<80&&S.wf%6===0)sfx("step");if(S.wf===118)sfx("whoosh");if(S.wf===150)sfx("laugh");if(S.wf===185)render()}
+function tick(){F++;if(S.phase==="play"&&S.loc==="sfront"&&S.sub&&curRoom()==="scaffe"&&S.mode==="explore"&&!S.talk&&!S.note&&!(S.cafCut&&!S.cafCut.done))startCafCut();if(S.phase==="play"&&S.loc==="organizzatrici"&&S.step>0&&!S.jc&&S.mode==="explore"&&!S.talk&&!S.note){S.jc={t0:performance.now()};render();const L=()=>{if(!S.jc||S.jc.done)return;draw();requestAnimationFrame(L)};requestAnimationFrame(L)}if(S.phase==="title"&&SND){if(!TA)titleAudio();vanSound()}else if(TA)stopTitleAudio();if(S.phase==="scossa")scossaTick();if(S.phase==="vint"&&S.vi)vintTick();if(S.phase==="timmy"&&S.wm)timmyTick();if(S.phase==="play"&&S.loc==="foyer"&&!S.catOk&&(S.mode==="explore")){S.catF=(S.catF||0)+1;if(S.catF>=170){S.catOk=1;S.mode="say";S.say={pid:"mario",txt:"Marra! Cash! Smettetela!",code:"52"};sfx("blip");render()}}if(S.called)for(const k in S.called)if(S.called[k]<30){S.called[k]++;if(S.called[k]===30)render()}if(S.phase==="win"){S.wf=(S.wf||0)+1;if(S.wf===44)render();if(S.wf>44&&S.wf<80&&S.wf%6===0)sfx("step");if(S.wf===118)sfx("whoosh");if(S.wf===150)sfx("laugh");if(S.wf===185)render()}
   if(S.phase==="sgc"&&!S.zT&&performance.now()-S.cT>=2000)sgcNext();
   if(S.phase==="sgc"&&S.zT){const el=performance.now()-S.zT;if(F%4===0&&el<3400)sfx("step");if(el>=3400&&!S.zS){S.zS=1;theme(false);sfx("shout")}if(el>=6000)sgcEnd()}
   if(S.phase==="post"){S.pf=(S.pf||0)+1;if(S.pf===36)render();if(S.pi===POST.length-1&&!S.pdark&&(S.pz||0)<PZ){S.pz=(S.pz||0)+1;if(S.pz===PZ){theme(false);S.pT=performance.now();S.gz=0;S.pLine=0}}if(S.pi===POST.length-1&&S.pT){const el=performance.now()-S.pT;S.gz=Math.max(0,Math.min(1,(el-1000)/600));if(el>=2600&&!S.pLine){S.pLine=1;render()}if(el>=5600){S.pT=0;S.phase="tbc";S.tbcShake=8;boomSfx();render()}}}
