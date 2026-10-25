@@ -356,6 +356,8 @@ button:focus-visible{outline:2px solid var(--giallo);outline-offset:2px}
 .plan2 .rm i{font-size:.85em;color:#111;line-height:1.1}
 .plan2 .rm.tent{border-radius:50%;width:auto;aspect-ratio:1/1;transform:translateX(-50%)}
 .plan2 .rm.af.hov{border-color:var(--giallo)}
+.rm.nop{opacity:.45;background:repeating-linear-gradient(45deg,transparent 0 6px,rgba(255,59,92,.25) 6px 12px)}
+.rm.nop .lb::after{content:"NO PATTY";display:block;font-size:.55em;color:var(--rosso);margin-top:.3em}
 .map{padding-bottom:3.5%}.map .maphead span{margin-left:2.4em}
 @media (hover:hover) and (pointer:fine){.bjpad{display:none!important}}.bjpad{position:absolute;left:var(--cx);width:var(--cw);top:calc(var(--cy) + var(--ch) - 3.4em);display:flex;gap:.6em;padding:0 .8em;box-sizing:border-box;z-index:30;pointer-events:none}.bjpad button{pointer-events:auto;min-width:3.2em;height:2.8em;font-size:.9em!important;touch-action:none;user-select:none;-webkit-user-select:none;opacity:.85}.bjpad .bjj{margin-left:auto;min-width:5em}
 .ioshint{position:absolute;left:calc(var(--cx) + var(--cw) * .5);transform:translateX(-50%);bottom:calc(100% - var(--cy) - var(--ch) + .6em);width:min(88%,32em);box-sizing:border-box;z-index:40;background:#0b0f2aee;border:2px solid #ffd23c;color:#f4f4ff;padding:.6em .8em;display:grid;gap:.4em;font-family:var(--pix);font-size:.55em;line-height:1.6;text-align:center}.ioshint b{color:#ffd23c}.ioshint u{color:#5ee6ff;text-decoration:none}.ioshint button{justify-self:center;font-size:1em!important;padding:.4em 1em}
@@ -1470,6 +1472,7 @@ function draw(){
     if(k==="sg"){const tY=NPCY-15;r(266,tY+3,2,16,"#3a2a20");r(342,tY+3,2,16,"#3a2a20");box(262,tY,86,4,"#6a4a38");r(262,tY+4,86,1,"#3a2a20");box(294,tY-2,22,2,"#f4f4ec");r(322,tY-3,10,3,"#2a2a30");
       g.save();g.translate(S.vx,NPCY+16);g.scale(1.22,1.22);cart(24,0);person(0,0,VAL,S.vx!==s);g.restore()}
     else if(S.cafCut&&!S.cafCut.done)cafValDraw(k);
+    else if(S.backCut&&!S.backCut.done&&k==="sfront")backValDraw();
     else{const vy=k==="bus"?NPCY+8:NPCY+4;if(k!=="scaffe")cart(S.vx+24,vy);person(S.vx,vy,k==="scaffe"?Object.assign({},VAL,{back:1}):VAL,S.vx!==s);}
     if(k==="organizzatrici"&&S.jc&&!S.jc.done)jessCut(PID.jessica,1);
     if(R.z==="fuori"&&k!=="tin")fog();
@@ -1566,7 +1569,7 @@ function hud(){
     <div class="slots">${["b1","b2","b3","chiavi"].map(id=>S.found.includes(id)?`<div class="slot on"><canvas width="24" height="24" data-ic="${id}"></canvas></div>`:`<div class="slot">?</div>`).join("")}</div>
     <div class="btns">${S.mode==="explore"||S.mode==="say"?`<button class="hb big" id="bmap" type="button">MAPPA</button>`:""}<button class="hb" id="bsnd" type="button">${SND?"SUONO":"MUTO"}</button><button class="hb" id="bfs" type="button">&#9974;</button></div></div>
     <div class="place">${ROOMS[S.loc].n.toUpperCase()}</div>
-    ${S.mode==="explore"&&!(S.jc&&!S.jc.done)&&!(S.cafCut&&!S.cafCut.done)?`<div class="goal ${S.goalNew?"flash":""}"><b>${S.goalNew?"NUOVO OBIETTIVO":"OBIETTIVO"}</b> ${esc(goalText())}${mapRoom(curRoom())!==S.loc&&!(cur().room==="tin"&&S.loc==="lab")&&!(curRoom()==="scaffe"&&S.loc==="scaffe")?` <button type="button" class="gm" id="bgoalmap">APRI LA MAPPA</button>`:stepObjIndex(S.loc)>=0?" · <i>TOCCA CIÒ CHE BRILLA</i>":cur().room==="tin"&&S.loc==="lab"?" · <i>ENTRA DALLA PORTA DEL TENDONE</i>":""}</div>`:""}`;
+    ${S.mode==="explore"&&!(S.jc&&!S.jc.done)&&!(S.cafCut&&!S.cafCut.done)&&!(S.backCut&&!S.backCut.done)?`<div class="goal ${S.goalNew?"flash":""}"><b>${S.goalNew?"NUOVO OBIETTIVO":"OBIETTIVO"}</b> ${esc(goalText())}${mapRoom(curRoom())!==S.loc&&!(cur().room==="tin"&&S.loc==="lab")&&!(curRoom()==="scaffe"&&S.loc==="scaffe")?` <button type="button" class="gm" id="bgoalmap">APRI LA MAPPA</button>`:stepObjIndex(S.loc)>=0?" · <i>TOCCA CIÒ CHE BRILLA</i>":cur().room==="tin"&&S.loc==="lab"?" · <i>ENTRA DALLA PORTA DEL TENDONE</i>":""}</div>`:""}`;
 }
 function bindHud(){
   const m=$("bmap");if(m)m.onclick=e=>{e.stopPropagation();openMap()};
@@ -1656,7 +1659,7 @@ function render(){
   if(S.mode==="talk"&&ph==="play"){bindTalk();const pc=$("pc");if(pc)portrait(pc,PID[S.talk.pid])}
   if(S.mode==="map"&&ph==="play"){const hs=[...document.querySelectorAll(".plan2 .rm:not(.vert) .lb")];const fit=(v,f)=>{v.style.fontSize=f+"em";const b=v.closest(".rm");return v.scrollWidth<=b.clientWidth*.92&&v.offsetHeight<=b.clientHeight*.8};hs.forEach(v=>{let f=1.45;while(f>.7&&!fit(v,f))f-=.05})}
   document.querySelectorAll(".plan2 .vl").forEach(v=>{const b=v.closest(".rm"),lim=b.clientHeight*.9-(b.querySelector("i")?b.querySelector("i").offsetHeight+6:0),lw=b.clientWidth*.9;let f=1.5;v.style.fontSize=f+"em";while(f>.6&&(v.offsetHeight>lim||v.offsetWidth>lw)){f-=.05;v.style.fontSize=f+"em"}});
-  document.querySelectorAll(".rm").forEach(b=>{b.onclick=e=>{e.stopPropagation();go(b.dataset.k)};if(b.classList.contains("af")){const all=()=>document.querySelectorAll(".rm.af");b.onmouseenter=()=>all().forEach(x=>x.classList.add("hov"));b.onmouseleave=()=>all().forEach(x=>x.classList.remove("hov"))}});
+  document.querySelectorAll(".rm").forEach(b=>{b.onclick=e=>{e.stopPropagation();go(b.dataset.k)};if(b.classList.contains("nop"))b.onclick=e=>{e.stopPropagation();sfx("nada")};});
   const cm=$("bclose");if(cm)cm.onclick=e=>{e.stopPropagation();S.mode="explore";render()};
   const nc=$("nc");if(nc&&S.note&&S.note.clue)clueIcon(nc,S.note.clue);
 }
@@ -1830,6 +1833,7 @@ function newGoal(){S.goalNew=true}
 
 /* PRESENTAZIONE */
 const AULE=["sa","sb","sc","sd","se","sf"],NOPATTY=["Aquí no está la Patty.","Vacía. ¿Patty? ¿Patty?","Nada. Otra aula.","Ni la Patty, ni nadie.","Uff... ¿Dónde se ha metido?"];
+const noPatty=k=>cur().who==="patty"&&!S.pattyAt&&(S.pAule||[]).includes(k)&&k!==S.loc;
 function pattySearch(k){if(cur().who!=="patty"||S.pattyAt||!AULE.includes(k))return 0;S.pAule=S.pAule||[];if(!S.pAule.includes(k))S.pAule.push(k);
   if(S.pAule.length>=6){S.pattyAt=k;moveP("patty",k,190);const st=cur();st.room=k;return 0}return S.pAule.length}
 function enter(k){
@@ -2866,6 +2870,12 @@ function typeNote(){const N=S.note;N.len=N.txt.length;N.shown=calmo?N.len:0;clea
 function noteClick(){const N=S.note;if(N&&N.shown<N.len){N.shown=N.len;clearInterval(typeNote.h);render();return}closeNote()}
 /* la Bagnara parla della macchinetta: Valentino va da solo verso di noi, l'inquadratura gira di 180 gradi */
 const CAF={walk:1.8,pan:2.5,end:3.7};
+function startBackCut(){const x0=S.cafCut&&S.cafCut.vx0||80;S.backCut={t0:performance.now(),vx0:x0};S.vx=x0;S.seq=[];S.mode="explore";render();
+  const L=()=>{const J=S.backCut;if(!J||J.done)return;if((performance.now()-J.t0)/1000>=1.2){J.done=1;
+    S.seq=[{who:"bagnara",txt:"Vai dalla Patty: è sicuramente in una delle aule, ma non ricordo quale."}];S.seqI=0;S.seqT=0;S.mode="arrive";render();return}
+    draw();requestAnimationFrame(L)};requestAnimationFrame(L)}
+function backValDraw(){const J=S.backCut,f=Math.min(1,(performance.now()-J.t0)/1000/1.2),e=f*f*(3-2*f),q=1-e,x=J.vx0+(150-J.vx0)*q,y=NPCY+4+90*q*q,sc=1+1.7*q*q;
+  cart(J.vx0+24,NPCY+4);g.save();g.translate(x,y);g.scale(sc,sc);person(0,0,Object.assign({},VAL,{back:1}),f<1);g.restore()}
 function cafT(){return S.cafCut?(performance.now()-S.cafCut.t0)/1000:0}
 function startCafCut(){S.cafCut={t0:performance.now(),vx0:S.vx};sfx("step");render();
   const L=()=>{const J=S.cafCut;if(!J||J.done)return;const t=cafT();
@@ -2881,7 +2891,7 @@ function cafPan(){const t=cafT(),f=Math.min(1,(t-CAF.walk)/(CAF.pan-CAF.walk)),d
   if(!CACHE.room_sfront)layer("room_sfront",STUDIO.sfront);if(!CACHE.room_scaffe)layer("room_scaffe",STUDIO.scaffe);
   g.setTransform(1,0,0,1,0,0);g.drawImage(CACHE.room_sfront,Math.round(-dx*2),0);g.drawImage(CACHE.room_scaffe,Math.round((384-dx)*2),0);g.setTransform(2,0,0,2,0,0);
   light("sfront",spec("sfront")||SPEC2.sfront);const a=Math.sin(f*Math.PI);al(.35*a,()=>{for(let i=0;i<40;i++)r(hs(i,F)*384,hs(F,i)*216,30+hs(i,2)*60,.6,"#ffffff")})}
-function closeNote(){const go_=S.note&&S.note.go,back=S.note&&S.note.back;S.note=null;S.mode="explore";if(back){enter(back);if(back==="sfront"){S.seq=[{who:"bagnara",txt:"Vai dalla Patty: è sicuramente in una delle aule, ma non ricordo quale."}];S.seqI=0;S.seqT=0;S.mode="arrive";render()}}else if(go_)go(go_);else render()}
+function closeNote(){const go_=S.note&&S.note.go,back=S.note&&S.note.back;S.note=null;S.mode="explore";if(back){enter(back);if(back==="sfront")startBackCut()}else if(go_)go(go_);else render()}
 
 /* mappa e viaggi */
 function openMap(){S.mode="map";sfx("blip");render()}
@@ -2899,7 +2909,7 @@ function mapHTML(){const cell=(k,b,lab,o)=>{o=o||{};const here=k===S.loc,ld=acti
    ${cell("organizzatrici",[1,41.5,6.5,56.5],"Organizzazione",{vert:1})}${cell("corridoi",[8,41.5,13.5,10],"Bagni")}${cell("biglietteria",[8,52.5,13.5,14],"Bigliet|teria")}
    ${cell("foyer",[8,67.5,13.5,30.5],"Foyer")}${cell("amministrazione",[22,41.5,8,56.5],"Amministrazione",{vert:1})}${cell("direzione",[30.5,41.5,5.5,56.5],"Direzione",{vert:1})}
    ${cell("lab",[49.25,6,"c",40],"Tendone",{cls:"tent"})}${cell("cortile",[39,50,12,46],"Cortile")}${cell("bus",[52.5,50,6.5,46],"Teatrobus",{vert:1})}
-   ${"ABCDEF".split("").map((l,n)=>cell("s"+l.toLowerCase(),afb[l],"Sala"+("CDE".includes(l)?"~":" ")+l,{cls:"af"})).join("")}${cell("sfront",[71.5,6,6.5,92],"Front office",{vert:1})}${cell("sg",[78.5,60,12.5,38],"Sala G")}
+   ${"ABCDEF".split("").map((l,n)=>cell("s"+l.toLowerCase(),afb[l],"Sala"+("CDE".includes(l)?"~":" ")+l,{cls:"af"+(noPatty("s"+l.toLowerCase())?" nop":"")})).join("")}${cell("sfront",[71.5,6,6.5,92],"Front office",{vert:1})}${cell("sg",[78.5,60,12.5,38],"Sala G")}
   </div></div>`}
 function go(k){if(k===S.loc){S.mode="explore";render();return}
   if(far(S.loc,k)){spend(COST.lontano);S.mode="travel";S.travel={f:0,to:k,dir:ROOMS[k].z==="studio"?1:-1};sfx("step");render()}
@@ -2916,6 +2926,7 @@ $("screen").addEventListener("click",e=>{
   if(S.menu)return;
   if(S.jc&&!S.jc.done&&S.phase==="play")return;
   if(S.cafCut&&!S.cafCut.done&&S.phase==="play")return;
+  if(S.backCut&&!S.backCut.done&&S.phase==="play")return;
   if(S.phase==="title"){if(SND&&!e.target.closest("#bstart")&&(!TA||!AC||AC.state!=="running")){titleAudio();if(AC)AC.resume();return}const b=$("bstart");if(b)b.click();return}
   if(S.phase==="vint"){vintNext();return}
   if(S.phase==="timmy"){const[x,y]=toLogic(e);timmyHit(x,y);return}
