@@ -1234,13 +1234,18 @@ function aulaB(){const o={x0:92,x1:300,y0:30,y1:146,side:"#1c1f22",back:"#17191c
   box(96,48,74,96,"#2a6a9a");r(99,51,68,90,"#0b1030");panelsC(99,51,68,90,5,"#9a8e72");r(96,96,74,2,"#2a6a9a");r(96,142,74,2,"#1e4a6e");
   /* tavolo a quattro gambe */
   poly([[152,118],[240,118],[234,127],[146,127]],"#2a2e32");r(146,127,88,2,"#16181a");
-  for(const[x,y1]of[[147,146],[230,146]])r(x,129,1.6,y1-129,"#9a9aa0");for(const[x,y1]of[[156,138],[236,138]])r(x,121,1.2,y1-121,"#7a7a80");
+  for(const x of[157,234]){r(x,123,1.8,17,"#6a6a72");r(x+1.2,123,.6,17,"#4a4a50");r(x-.4,139.6,2.6,1,"#2a2a2e")}
+  r(150,126.8,84,1.6,"#101214");
+  for(const x of[148,228]){r(x,129,2.4,18,"#9a9aa4");r(x,129,.8,18,"#c8c8d0");r(x+1.8,129,.6,18,"#5a5a62");r(x-.6,146.4,3.6,1.2,"#1a1a1e")}
   r(300,30,8,118,"#0e1012");
   /* finestra alta sulla parete destra */
   {const q=(x,t)=>[x,yOnR(o,x,t)];poly([q(330,.06),q(372,.02),q(372,.95),q(330,.86)],"#2a6a9a");
    for(let i=0;i<3;i++){const a=332+i*13.3,b=a+12.5;poly([q(a,.08),q(b,.05),q(b,.93),q(a,.84)],mix("#9a8e72","#8a8064",hs(i,9)));poly([q(a,.08),q(b,.05),q(b,.07),q(a,.1)],"#6a624e")}
   /* condizionatore a pavimento */
-   poly([q(306,.62),q(328,.62),q(328,.88),q(306,.86)],"#e8e4dc");for(let i=0;i<5;i++){const t=.78+i*.015;poly([q(308,t),q(326,t),q(326,t+.006),q(308,t+.006)],"#a8a8a4")}poly([q(308,.65),q(314,.65),q(314,.67),q(308,.67)],"#c8c8c4")}
+   {const D=[-7,1.5],m=p=>[p[0]+D[0],p[1]+D[1]],A=q(306,.62),B=q(328,.62),C=q(328,.88),E=q(306,.86);
+    poly([A,B,m(B),m(A)],"#f8f6f0");poly([B,C,m(C),m(B)],"#b8b4ac");poly([m(A),m(B),m(C),m(E)],"#e6e2da");
+    const Q=(u,v)=>{const a=m(A),b=m(B),c=m(C),e=m(E);const tx=a[0]+(b[0]-a[0])*u,ty=a[1]+(b[1]-a[1])*u,bx=e[0]+(c[0]-e[0])*u,by=e[1]+(c[1]-e[1])*u;return[tx+(bx-tx)*v,ty+(by-ty)*v]};
+    for(let i=0;i<5;i++){const v=.6+i*.07;poly([Q(.1,v),Q(.9,v),Q(.9,v+.025),Q(.1,v+.025)],"#9a9a96")}poly([Q(.1,.12),Q(.35,.12),Q(.35,.2),Q(.1,.2)],"#c4c4c0");poly([Q(.7,.12),Q(.85,.12),Q(.85,.18),Q(.7,.18)],"#5ad080")}}
   floorShine(o,.07)}
 /* AULA C: lunga, pareti nere a gradoni */
 function aulaC(){const o={x0:76,x1:292,y0:30,y1:150,side:"#1a1d1f",back:"#15181a",ceil:"#86827a"};aulaShell(o);ceilTiles(o,"#726e66");beams(o,"#9a6a34");
