@@ -496,10 +496,10 @@ const ROOMS = {
       greet:["Vuoi un caffè? La macchinetta stasera fa le bizze. Più del solito.", "Io e la Bagnara l'abbiamo segnalato in dodici mail. Dodici.", "Ma siccome sono qua e non sono là, non le ho potute leggere."],again:["La macchinetta ci odia ancora."],
       foto:"«Io e la Bagnara ce lo siamo dette subito: quella signora non ce la racconta giusta.»",
       strano:"«Paolucci stasera ha trafficato un sacco con la macchinetta del caffè. Mentre la signora guardava altrove, eh.»",
-      aiuto:"«Aiutare? Dai un colpo alla macchinetta. Lato destro. Funziona sempre.»"}),P("laura","Laura","insegnante di teatro e aiuto regia",{body:"#2a2a2a",hair:"#1a1a20",long:1},262,{greet:["Valentino! Se vedi Mattia, digli che la prova è spostata."],again:["Hai visto Mattia? No? Va bene."],foto:"«Paolucci doveva vedere la prova dell'aula G. Gli ho tenuto la sedia. È ancora vuota.»",strano:"«Stasera ho fatto fare l'esercizio dello specchio. Un gruppo si è bloccato: fuori dalla finestra c'era una signora col cappello rosso che li imitava. Benissimo, tra l'altro.»"}),P("monia","Monia","insegnante di canto",{body:"#6a3a8a",hair:"#2a1a14",long:1},300,{
+      aiuto:"«Aiutare? Dai un colpo alla macchinetta. Lato destro. Funziona sempre.»"}),P("laura","Laura","insegnante di teatro e aiuto regia",{body:"#2a2a2a",hair:"#1a1a20",long:1},262,{greet:["Valentino! Se vedi Mattia, digli che la prova è spostata."],again:["Hai visto Mattia? No? Va bene."],foto:"«Paolucci doveva vedere una prova. Gli ho tenuto la sedia, è ancora vuota. Chiedi a Patty, lei sa sempre dove va la gente.»",strano:"«Stasera ho fatto fare l'esercizio dello specchio. Un gruppo si è bloccato: fuori dalla finestra c'era una signora col cappello rosso che li imitava. Benissimo, tra l'altro.»"}),P("monia","Monia","insegnante di canto",{body:"#6a3a8a",hair:"#2a1a14",long:1},300,{
       greet:["Mmmm-maaaa! Scusa, Valentino, scaldavo la voce."],again:["Gennaio arriva presto."],
       foto:"«Paolucci doveva passare a fare gli auguri ai gruppi. È passato di corsa, con una signora in rosso, e non ha cantato neanche una nota.»",
-      strano:"«Dall'aula G si sentono le prove. Stasera c'è una voce in più. Una voce che conosco.»",
+      strano:"«Da qualche aula si sentono le prove. Stasera c'è una voce in più. Una voce che conosco.»",
       aiuto:"«Gentile. Allora dai un'occhiata alla macchinetta del caffè: stasera fa le bizze.»"})],
     objs:[{n:"il registro presenze",b:[228,108,36,10],txt:"Tra le firme di stasera, una tutta curve e svolazzi. Illeggibile.",th:"Esta firma..."},{n:"la bacheca dei corsi",b:[16,36,54,42],txt:"Corsi di teatro per tutte le età. Qualcuno ha aggiunto a penna: “Corso di travestimento, livello avanzato”.",th:"Ja."}]},
   sa:{n:"ITC Studio, aula A",m:"Aula A",z:"studio",wall:"#1e2224",th:"La sala de los niños. Vacía.",
@@ -517,7 +517,7 @@ const ROOMS = {
   se:{n:"ITC Studio, aula E",m:"Aula E",z:"studio",wall:"#d4d0c6",th:"Aula E.",
     ppl:[P("patty","Patty","insegnante di danza",{body:"#c08a3a",hair:"#9a7a5a",gl:1},190,{
       greet:["Cinque, sei, sette, otto! Ah, ciao Valentino.", "Ho appena finito con i piccoli. Hanno ballato, hanno disegnato, hanno urlato. Io sono a pezzi, loro freschissimi."],again:["I disegni sono ancora lì."],
-      foto:"«Paolucci? È passato con la signora in rosso a vedere i disegni dei bambini. Poi sono andati in aula G, da Mattia.»",
+      foto:"«Paolucci? È passato con la signora in rosso a vedere i disegni dei bambini. A quest'ora dovrebbero essere già in sala G.»",
       strano:"«La signora in rosso ha guardato i disegni di Bonazzi e ha riso tantissimo. Una risata... boh, familiare.»",
       aiuto:"«Grazie. Ma qui è tutto in ordine: stasera le altre aule sono vuote.»"})],
     objs:[{n:"la tenda bianca",b:[306,90,78,100],txt:"La tenda bianca lungo la parete. Dietro c'è solo il muro. Valentino controlla due volte.",th:"Nadie."},{n:"il tavolo ripiegato",b:[150,118,74,32],txt:"Un tavolo pieghevole appoggiato sotto la finestra, pronto per la prossima prova.",th:"Bien."}]},
@@ -1726,9 +1726,9 @@ const STEPS=[
   open:"«Stasera qui è un via vai.»",ov:"Cerco a Paolucci. ¿Lo ha vistado?",
   say:"«Strano? Sì: mentre la signora in rosso guardava la bacheca, Paolucci ha armeggiato con la macchinetta del caffè. Passandomi vicino ha detto qualcosa sulla macchinetta, ma non ho capito cosa.»",th:"La machinetta del cafè...",
   obj:"la macchinetta del caffè",objRoom:"scaffe",objGoal:"Controlla la macchinetta del caffè",item:"b1"},
- {room:"se",who:"patty",trig:["si","pao"],goal:"In aula E: chiedi a Patty",tell:"Dopo il caffè sono andati verso le aule: chiedi a Patty.",yes:"Guarda i disegni",
+ {room:"se",who:"patty",trig:["si","pao"],goal:"Cerca Patty in una delle aule A-F",tell:"La Bagnara dice che Patty è in una delle aule, ma non ricorda quale.",yes:"Guarda i disegni",
   open:"«Valentino! Vieni a vedere i disegni dei bambini?»",ov:"¡Ciertamente que sì!",
-  pics:1,say:"«Guarda: i bambini hanno disegnato il presidente. Chi Paolucci, chi Bonazzi, uno Floridia. Paolucci è passato a vederli con la signora in rosso, lei si è fermata un sacco. Poi sono andati in aula G, da Mattia.»",th:"Aula G."},
+  pics:1,say:"«Guarda: i bambini hanno disegnato il presidente. Chi Paolucci, chi Bonazzi, uno Floridia. Paolucci è passato a vederli con la signora in rosso, lei si è fermata un sacco. A quest'ora dovrebbero essere già in sala G.»",th:"Sala G."},
  {room:"sg",who:"mattia",goal:"In aula G: chiedi a Mattia",tell:"In aula G, Mattia ha visto la prova con loro.",
   open:"«Scusa la scenata, era il secondo atto. Dimmi tutto, Valentino.»",ov:"Permesso, permesito.",
   say:"«Sì, sono passati. La signora in rosso ha guardato la prova in prima fila, senza fiatare. Paolucci invece, mentre lei non guardava, ha scarabocchiato qualcosa sul mio copione. Guarda qua:»",paper:"SOS CANALE 14",th:"Canale catorche... ¡una radiolina! William."},
@@ -1817,21 +1817,28 @@ function jessCut(p,layer){const J=S.jc,t0=(performance.now()-J.t0)/1000,T0=3,STE
   if(t>=3.0&&t<5.7){const tx=x+10,ty=NPCY-64,lines=["Brava bimba,","continua a dormire."];
     box(tx-56,ty-10,112,19,"#f4f4ff");poly([[tx-6,ty+9],[tx+2,ty+9],[tx-4,ty+14]],"#f4f4ff");
     txt(lines[0],tx,ty-1.5,5,"#1a1a24");txt(lines[1],tx,ty+5.5,5,"#1a1a24")}}
-const gone=pid=>(pid==="jessica"&&S.step>0&&!(S.jc&&!S.jc.done))||(!!(PID[pid]&&PID[pid].hang)&&!(S.called&&S.called[pid]!=null));
+const PIDX=()=>STEPS.findIndex(s=>s.who==="patty"),SGPPL=["gio","mattia","biljana","izzo","caterina"];
+const gone=pid=>(pid==="jessica"&&S.step>0&&!(S.jc&&!S.jc.done))||(pid==="patty"&&!S.pattyAt&&S.step<=PIDX())||(SGPPL.includes(pid)&&S.step<=PIDX())||(!!(PID[pid]&&PID[pid].hang)&&!(S.called&&S.called[pid]!=null));
 const mapRoom=k=>k==="tin"?"lab":k==="scaffe"?"sfront":k;
 function goalText(){const s=cur();return S.sub?s.objGoal:s.goal}
-function activeLead(){return mapRoom(curRoom())}
+function activeLead(){if(cur().who==="patty"&&!S.pattyAt)return null;return mapRoom(curRoom())}
 function curRoom(){const s=cur();return S.sub&&s.objRoom||s.room}
 function stepObjIndex(k){const s=cur();if(k!==curRoom())return -1;if(s.final||s.lock)return ROOMS.bus.objs.findIndex(o=>o.knock);if(!S.sub||!s.obj)return -1;return ROOMS[k].objs.findIndex(o=>o.n===s.obj)}
 function newGoal(){S.goalNew=true}
 
 /* PRESENTAZIONE */
+const AULE=["sa","sb","sc","sd","se","sf"],NOPATTY=["Aquí no está la Patty.","Vacía. ¿Patty? ¿Patty?","Nada. Otra aula.","Ni la Patty, ni nadie.","Uff... ¿Dónde se ha metido?"];
+function pattySearch(k){if(cur().who!=="patty"||S.pattyAt||!AULE.includes(k))return 0;S.pAule=S.pAule||[];if(!S.pAule.includes(k))S.pAule.push(k);
+  if(S.pAule.length>=6){S.pattyAt=k;moveP("patty",k,190);const st=cur();st.room=k;return 0}return S.pAule.length}
 function enter(k){
   S.loc=k;S.mode="arrive";S.talk=null;S.note=null;S.say=null;const R=ROOMS[k],first=!S.visited[k];S.visited[k]=true;
+  const ps=pattySearch(k);
   S.vx=FROMR[k]?(first?424:364):first||k==="bus"?-40:20;const pp=R.ppl.filter(p=>!gone(p.id));S.seq=[];
   if(first&&pp.length)pp.forEach(p=>p.L.greet.forEach(t=>S.seq.push(typeof t==="string"?{who:p.id,txt:t}:Object.assign({who:p.id,txt:t.t},t))));
   else if(first||!pp.length)S.seq=[{who:"val",txt:R.th||"..."}];
-  if(k==="sg"&&first){S.vx=80;S.seq=[];S.mode="explore";startSgc();return}
+  if(ps)S.seq=[{who:"val",txt:NOPATTY[(ps-1)%NOPATTY.length]}];
+  if(k==="sg"&&S.step<=PIDX())S.seq=[{who:"val",txt:"La sala G. Vacía. ¿Dónde están todos?"}];
+  if(k==="sg"&&!S.sgcDone&&S.step>PIDX()){S.sgcDone=1;S.vx=80;S.seq=[];S.mode="explore";startSgc();return}
   S.seqI=0;S.seqT=0;sfx("step");if(!S.seq.length)S.mode="explore";render();
 }
 const SGC=[["biljana","Non ti permettere! Dieci anni che lavoro qui e non mi hai MAI detto grazie!",1,1],
@@ -2413,7 +2420,8 @@ function gearHTML(){let h=`<button class="gear" id="bgear" type="button" aria-la
     <button type="button" class="go" id="breset">RICOMINCIA DALL'INIZIO</button>
     <p class="ml">SALTA A UNA TAPPA <i>(tutto quello che viene prima è già risolto)</i></p>
     <div class="mlist"><button type="button" class="mj" data-x="vint"><b>3</b> Valentino nel corridoio</button>${items}<button type="button" class="mj" data-x="chiavi"><b>47.c</b> Amministrazione: il quadro delle chiavi</button><button type="button" class="mj" data-x="win"><b>60</b> Finale nel Teatrobus</button><button type="button" class="mj" data-x="end"><b>65</b> Titoli di coda</button><button type="button" class="mj" data-x="post"><b>66</b> Dopo i titoli</button></div></div>`}
-function jumpTo(i){hdStop();theme(false);noise(false);clearInterval(typeOn.h);clearInterval(typeNote.h);clearInterval(startRadio.h);nuova();S.phase="play";S.menu=false;
+function jumpTo(i){jumpTo0(i);if(cur().who==="patty"){S.pAule=[];S.pattyAt=null}}
+function jumpTo0(i){hdStop();theme(false);noise(false);clearInterval(typeOn.h);clearInterval(typeNote.h);clearInterval(startRadio.h);nuova();S.phase="play";S.menu=false;
   S.step=i;S.found=[];if(i>2)S.found.push("b1");if(i>5)S.found.push("b2");if(i>10)S.found.push("b3");if(i>17)S.found.push("chiavi");
   for(let k=0;k<i;k++){S.heard[k]=true;const s=STEPS[k];if(s.who)S.met[s.who]=true}
   if(i>9){S.called.stella=30;S.called.clio=30}
@@ -2871,7 +2879,7 @@ function cafPan(){const t=cafT(),f=Math.min(1,(t-CAF.walk)/(CAF.pan-CAF.walk)),d
   if(!CACHE.room_sfront)layer("room_sfront",STUDIO.sfront);if(!CACHE.room_scaffe)layer("room_scaffe",STUDIO.scaffe);
   g.setTransform(1,0,0,1,0,0);g.drawImage(CACHE.room_sfront,Math.round(-dx*2),0);g.drawImage(CACHE.room_scaffe,Math.round((384-dx)*2),0);g.setTransform(2,0,0,2,0,0);
   light("sfront",spec("sfront")||SPEC2.sfront);const a=Math.sin(f*Math.PI);al(.35*a,()=>{for(let i=0;i<40;i++)r(hs(i,F)*384,hs(F,i)*216,30+hs(i,2)*60,.6,"#ffffff")})}
-function closeNote(){const go_=S.note&&S.note.go,back=S.note&&S.note.back;S.note=null;S.mode="explore";if(back)enter(back);else if(go_)go(go_);else render()}
+function closeNote(){const go_=S.note&&S.note.go,back=S.note&&S.note.back;S.note=null;S.mode="explore";if(back){enter(back);if(back==="sfront"){S.seq=[{who:"bagnara",txt:"Vai dalla Patty: è sicuramente in una delle aule, ma non ricordo quale."}];S.seqI=0;S.seqT=0;S.mode="arrive";render()}}else if(go_)go(go_);else render()}
 
 /* mappa e viaggi */
 function openMap(){S.mode="map";sfx("blip");render()}
