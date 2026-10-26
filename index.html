@@ -2972,7 +2972,7 @@ function closeNote(){const go_=S.note&&S.note.go,back=S.note&&S.note.back;S.note
 /* mappa e viaggi */
 function openMap(){S.mode="map";sfx("blip");render()}
 function far(a,b){return(ROOMS[a].z==="studio")!==(ROOMS[b].z==="studio")}
-const bachecaOn=()=>S.bagSaid&&S.step===PIDX();
+const bachecaOn=()=>S.bagSaid&&S.step===PIDX()&&!S.pattyAt;
 const BSALE=[["sf",[0.5,29,20,33],"Sala F","#1a1a1a"],["sg",[21.3,29,43.5,32],"Sala G","#f2e64a"],["sb",[80,0,19.5,31],"Sala B","#f4f4f4"],["sa",[71.5,41,22,27],"Sala A","#2a9a4a"],["se",[3.5,72,18,27],"Sala E","#d8282a"],["sd",[22.5,72,20.5,27],"Sala D","#e090d8"],["sc",[44,72,20.5,27],"Sala C","#1a2a8a"]];
 const visitedAula=k=>cur().who==="patty"&&!S.pattyAt&&(S.pAule||[]).includes(k);
 function miniBacheca(){return `<span class="mplan">${BSALE.map(([k,b,l,c])=>`<i class="${k===S.loc?"here":""} ${visitedAula(k)?"x":""}" style="left:${b[0]}%;top:${b[1]}%;width:${b[2]}%;height:${b[3]}%"><u style="background:${c}"></u></i>`).join("")}<i class="fo ${S.loc==="sfront"?"here":""}" style="left:65.5%;top:69%;width:10%;height:17%"></i></span><span class="mlab">BACHECA · TOCCA PER APRIRE</span>`}
