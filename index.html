@@ -2972,7 +2972,7 @@ function closeNote(){const go_=S.note&&S.note.go,back=S.note&&S.note.back;S.note
 /* mappa e viaggi */
 function openMap(){S.mode="map";sfx("blip");render()}
 function far(a,b){return(ROOMS[a].z==="studio")!==(ROOMS[b].z==="studio")}
-const bachecaOn=()=>S.bagSaid&&S.step>=PIDX()&&S.step<=PIDX()+1&&!S.sgcDone;
+const bachecaOn=()=>S.bagSaid&&S.step===PIDX();
 const BSALE=[["sf",[0.5,29,20,33],"Sala F","#1a1a1a"],["sg",[21.3,29,43.5,32],"Sala G","#f2e64a"],["sb",[80,0,19.5,31],"Sala B","#f4f4f4"],["sa",[71.5,41,22,27],"Sala A","#2a9a4a"],["se",[3.5,72,18,27],"Sala E","#d8282a"],["sd",[22.5,72,20.5,27],"Sala D","#e090d8"],["sc",[44,72,20.5,27],"Sala C","#1a2a8a"]];
 const visitedAula=k=>cur().who==="patty"&&!S.pattyAt&&(S.pAule||[]).includes(k);
 function miniBacheca(){return `<span class="mplan">${BSALE.map(([k,b,l,c])=>`<i class="${k===S.loc?"here":""} ${visitedAula(k)?"x":""}" style="left:${b[0]}%;top:${b[1]}%;width:${b[2]}%;height:${b[3]}%"><u style="background:${c}"></u></i>`).join("")}<i class="fo ${S.loc==="sfront"?"here":""}" style="left:65.5%;top:69%;width:10%;height:17%"></i></span><span class="mlab">BACHECA · TOCCA PER APRIRE</span>`}
@@ -2998,7 +2998,7 @@ function mapHTML(){if(S.bach&&bachecaOn())return bachecaHTML();const cell=(k,b,l
    ${cell("organizzatrici",[1,41.5,6.5,56.5],"Organizzazione",{vert:1})}${cell("corridoi",[8,41.5,13.5,10],"Bagni")}${cell("biglietteria",[8,52.5,13.5,14],"Bigliet|teria")}
    ${cell("foyer",[8,67.5,13.5,30.5],"Foyer")}${cell("amministrazione",[22,41.5,8,56.5],"Amministrazione",{vert:1})}${cell("direzione",[30.5,41.5,5.5,56.5],"Direzione",{vert:1})}
    ${cell("lab",[49.25,6,"c",40],"Tendone",{cls:"tent"})}${cell("cortile",[39,50,12,46],"Cortile")}${cell("bus",[52.5,50,6.5,46],"Teatrobus",{vert:1})}
-   ${"ABCDEF".split("").map((l,n)=>cell("s"+l.toLowerCase(),afb[l],"Sala"+("CDE".includes(l)?"~":" ")+l,{cls:"af"+(noPatty("s"+l.toLowerCase())?" nop":"")})).join("")}${cell("sfront",[71.5,6,6.5,92],"Front office",{vert:1})}${cell("sg",[78.5,60,12.5,38],"Sala G")}
+   ${"ABCDEF".split("").map((l,n)=>cell("s"+l.toLowerCase(),afb[l],"Sala"+("CDE".includes(l)?"~":" ")+l,{cls:"af"})).join("")}${cell("sfront",[71.5,6,6.5,92],"Front office",{vert:1})}${cell("sg",[78.5,60,12.5,38],"Sala G")}
   </div></div>`}
 function go(k){if(k===S.loc){S.mode="explore";render();return}
   if(far(S.loc,k)){spend(COST.lontano);S.mode="travel";S.travel={f:0,to:k,dir:ROOMS[k].z==="studio"?1:-1};sfx("step");render()}
