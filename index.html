@@ -522,26 +522,26 @@ const ROOMS = {
     objs:[{n:"il registro presenze",b:[228,108,36,10],txt:"Tra le firme di stasera, una tutta curve e svolazzi. Illeggibile.",th:"Esta firma..."},{n:"la bacheca dei corsi",b:[16,36,54,42],txt:"Corsi di teatro per tutte le età. Qualcuno ha aggiunto a penna: “Corso di travestimento, livello avanzato”.",th:"Ja."}]},
   sa:{n:"ITC Studio, aula A",m:"Aula A",z:"studio",wall:"#1e2224",th:"La sala de los niños. Vacía.",
     ppl:[],
-    objs:[{n:"il tappeto puzzle",b:[30,156,170,58],txt:"Il tappeto a incastri dei piccoli. Manca un pezzo giallo: chissà dove l'hanno nascosto.",th:"¿Dónde está el pezzo?"},{n:"la lavagnetta",b:[92,144,22,32],txt:"Una lavagnetta da bambini. C'è scritto CIAO, con la C al contrario.",th:"¡Qué bonito!"},{n:"le tende",b:[118,84,148,62],txt:"Le tende a pannello sono tirate. Fuori è buio pesto.",th:"Noche."}]},
+    objs:[]},
   sb:{n:"ITC Studio, aula B",m:"Aula B",z:"studio",wall:"#1c1f22",th:"Aula B. Nadie.",
     ppl:[],
-    objs:[{n:"la finestra",b:[96,48,74,96],txt:"Le tende a pannello sono tirate. Fuori, buio e il riflesso di un lampione.",th:"Noche."},{n:"il tavolo",b:[146,116,94,32],txt:"Un tavolo nero a quattro gambe contro il muro. Sopra, niente. Valentino passa lo straccio lo stesso.",th:"Limpio."},{n:"il condizionatore",b:[304,104,26,50],txt:"Il condizionatore ronza piano. Qualcuno l'ha lasciato acceso.",th:"Lo apago? No, no toco."},{n:"la finestra alta",b:[328,24,46,170],txt:"Una finestra stretta e altissima, con le tende a pannello.",th:"Qué alta."}]},
+    objs:[]},
   sc:{n:"ITC Studio, aula C",m:"Aula C",z:"studio",wall:"#1c2022",th:"Aula C. Larga, larga.",
     ppl:[],
-    objs:[{n:"la finestra",b:[110,44,164,88],txt:"Le tende beige sono aperte solo ai lati. Fuori, il parcheggio e un'antenna con la lucina rossa.",th:"Noche."},{n:"le casse",b:[94,40,24,16],txt:"Due casse appese alla barra delle luci. Mute.",th:"Silencio."},{n:"il tavolino",b:[116,128,34,18],txt:"Un tavolino nero sotto la finestra. Sopra, niente. Valentino passa lo straccio lo stesso.",th:"Limpio."}]},
+    objs:[]},
   sd:{n:"ITC Studio, aula D",m:"Aula D",z:"studio",wall:"#1a1c1e",th:"Aula D. Oscura.",
     ppl:[],
-    objs:[{n:"la vetrata",b:[108,52,168,82],txt:"Le tende beige sono tirate. Tra le pieghe si intravedono le luci dei palazzi.",th:"Silencio."},{n:"i riflettori",b:[108,44,170,14],txt:"Due piccoli fari sulla barra. Spenti.",th:"Apagados."}]},
+    objs:[]},
   se:{n:"ITC Studio, aula E",m:"Aula E",z:"studio",wall:"#d4d0c6",th:"Aula E.",
     ppl:[P("patty","Patty","insegnante di danza",{body:"#c08a3a",hair:"#9a7a5a",gl:1},190,{
       greet:["Cinque, sei, sette, otto! Ah, ciao Valentino.", "Ho appena finito con i piccoli. Hanno ballato, hanno disegnato, hanno urlato. Io sono a pezzi, loro freschissimi."],again:["I disegni sono ancora lì."],
       foto:"«Paolucci? È passato con la signora in rosso a vedere i disegni dei bambini. A quest'ora dovrebbero essere già in sala G.»",
       strano:"«La signora in rosso ha guardato i disegni di Bonazzi e ha riso tantissimo. Una risata... boh, familiare.»",
       aiuto:"«Grazie. Ma qui è tutto in ordine: stasera le altre aule sono vuote.»"})],
-    objs:[{n:"la tenda bianca",b:[306,90,78,100],txt:"La tenda bianca lungo la parete. Dietro c'è solo il muro. Valentino controlla due volte.",th:"Nadie."},{n:"il tavolo ripiegato",b:[150,118,74,32],txt:"Un tavolo pieghevole appoggiato sotto la finestra, pronto per la prossima prova.",th:"Bien."}]},
+    objs:[]},
   sf:{n:"ITC Studio, aula F",m:"Aula F",z:"studio",wall:"#222426",th:"Aula F. ¡Qué alta!",
     ppl:[],
-    objs:[{n:"i tessuti aerei",b:[90,0,160,62],txt:"I tessuti viola per l'aerea, appesi alle travi. Valentino ci prova: niente, non sale.",th:"Mañana entreno."},{n:"i materassini",b:[0,116,220,76],txt:"Materassini blu, grigi e rossi, allineati contro il muro.",th:"Ordenados."},{n:"la scala",b:[146,54,16,88],txt:"Una scala appoggiata alla vetrata. Per ora resta lì.",th:"No toco."}]},
+    objs:[]},
   sg:{n:"ITC Studio, aula G",m:"Aula G",z:"studio",wall:"#1c1c26",
     ppl:[P("mattia","Mattia","drammaturgo",{body:"#2a2a3a",hair:"#3a2a1a",beard:"#3a2a1a"},312,{
       greet:["Valentino! Entra, stiamo provando. Il testo è mio, gli errori sono degli attori.", "Se vedi Gio, digli che la sua entrata era debole. Lui lo sa, ma diglielo."],again:["Prova ancora, Valentino."],
@@ -567,13 +567,14 @@ ROOMS.tin={n:"Dentro il tendone",z:"fuori",hidden:1,ppl:[],th:"Dentro al circo."
   objs:[{n:"il buffet",b:[86,130,90,62]},{n:"il palco",b:[60,124,264,30],txt:"Il palco del tendone. Legno scuro, graffiato da mille prove. In fondo, una panca sola, come in uno spettacolo che non è ancora cominciato.",th:"Que bello."},{n:"le americane",b:[48,10,280,40],txt:"Le americane delle luci. Tutti i fari puntati sul centro. Sul centro, nessuno.",th:"Silencio."},{n:"le gradinate",b:[0,118,42,90],txt:"Novanta posti. Stasera tutti vuoti, tranne uno: c'è una sciarpa dimenticata. Non rossa, per fortuna.",th:"Meno male."},{n:"l'uscita",b:[344,86,40,120],txt:"L'uscita del tendone. Valentino torna fuori.",th:"Fuori, ¡vamos!",go:"lab"},{n:"il vaso col fuoco",b:[304,170,28,30]}]};
 function moveP(id,to,x,extra){for(const k in ROOMS){const R=ROOMS[k],i=R.ppl.findIndex(p=>p.id===id);if(i>=0){const p=R.ppl.splice(i,1)[0];p.x=x;Object.assign(p,extra||{});ROOMS[to].ppl.push(p);return}}}
 const SCP={};for(const id of["monia","laura","giulia","lea"])for(const k in ROOMS){const R=ROOMS[k],i=R.ppl.findIndex(p=>p.id===id);if(i>=0)SCP[id]=R.ppl.splice(i,1)[0]}
-const SCX={monia:224,laura:330,giulia:300,lea:222};
+const SCX={monia:224,laura:330,giulia:300,lea:222};for(const id in SCX)if(SCP[id])SCP[id].x=SCX[id];
+const SCLINE={sf:["laura",["Forza, riempite lo spazio!","E ricordate: siete un mazzetto d'asparagi!"]],sb:["monia",["Dal diaframma, ragazzi! Ancora una volta!"]],sc:["giulia",["Prima di lanciare, dite il nome!"]],sd:["lea",["Tre tigri contro tre tigri. Tutti insieme!"]]};
 moveP("stella","tin",196,{hang:1});moveP("izzo","sg",56);moveP("clio","tin",252,{hang:1});moveP("martina","tin",140);
 ROOMS.lab.objs=[{n:"la porta del tendone",b:[220,146,40,42],txt:"La porta del tendone è aperta. Dentro, le lezioni.",th:"Dentro.",go:"tin"},{n:"la luna",b:[46,20,28,28],txt:"«Di’ su, Ottorino, te cosa pensi che ci sia là sopra? Io mi figuro… ecco io mi figuro che c’è la risposta a tutti i nostri mali»",th:"¡El pueblo unido jamás será vencido!"},{n:"l'insegna",b:[66,144,66,18],txt:"ITC LAB. Una lampadina è fulminata. Valentino se lo segna.",th:"Domani. Mañana. Forse."}];
 ROOMS.sg.objs=[{n:"le tende",b:[120,32,104,60],txt:"Sulle tende c'è una nota, come se l'avesse lasciata chi ha programmato questo gioco: “E ricordatevi di aprire le tende se dovete aprire o chiudere le finestre. Abbiamo già speso troppo!”",th:"Capito, capitissimo."},{n:"le finestre",b:[244,40,132,40],txt:"Fuori è buio. Si vede il cortile del teatro, lontano.",th:"Nada."},{n:"il riflettore",b:[226,26,26,126],txt:"Un riflettore su stativo, puntato sugli attori. Scotta.",th:"¡Caliente!"},{n:"il copione sul tavolo",b:[292,172,28,12],txt:"Il copione di Mattia. Sul margine, scritto a mano da Paolucci: SOS CANALE 14.",th:"Canal 14."},{n:"gli attori",b:[18,138,96,54],txt:"Gli attori ripassano la scena del litigio. Adesso sembrano tranquillissimi.",th:"Me la sono bevuta tutta."}];
 ROOMS.sfront.objs.forEach(o=>{if(o.n==="la bacheca dei corsi"){o.txt="Corsi di teatro per tutte le età. Uno dei fogli appesi è dell'anno scorso: “Discorso di fine anno del presidente: ore 23:55”. Qualcuno ci ha disegnato sopra dei baffi.";o.th="El año passato..."}});
 const PEOPLE=[];Object.entries(ROOMS).forEach(([k,R])=>R.ppl.forEach(p=>{p.room=k;PEOPLE.push(p)}));
-const PID={};PEOPLE.forEach(p=>PID[p.id]=p);
+const PID={};PEOPLE.forEach(p=>PID[p.id]=p);for(const id in SCP)if(!PID[id])PID[id]=SCP[id];
 /* foto dei colleghi: id della persona -> ritratto a pixel (numeri di colleghi_numerati.png) */
 const PHOTO={igor:IMGD.igor,cavrini:IMGD.cavrini,bagnara:IMGD.bagnara,biljana:IMGD.biljana,carlo:IMGD.carlo,caterina:IMGD.caterina,clio:IMGD.clio,cristina:IMGD.cristina,deca:IMGD.deca,gio:IMGD.gio,giulia:IMGD.giulia,giuliappi:IMGD.giuliappi,gloria:IMGD.gloria,ida:IMGD.ida,irene:IMGD.irene,izzo:IMGD.izzo,jack:IMGD.jack,jessichina:IMGD.jessichina,laura:IMGD.laura,lea:IMGD.lea,mario:IMGD.mario,martina:IMGD.martina,mattia:IMGD.mattia,micaela:IMGD.micaela,monia:IMGD.monia,paolo:IMGD.paolo,patty:IMGD.patty,sonia:IMGD.sonia,stella:IMGD.stella,tacconi:IMGD.tacconi};
 Object.entries(PHOTO).forEach(([id,src])=>{if(PID[id]){PID[id].img=src;PID[id].autoC=true}});
@@ -1631,7 +1632,7 @@ function hud(){
     <div class="slots">${["b1","b2","b3","chiavi"].map(id=>S.found.includes(id)?`<div class="slot on"><canvas width="24" height="24" data-ic="${id}"></canvas></div>`:`<div class="slot">?</div>`).join("")}</div>
     <div class="btns">${S.mode==="explore"||S.mode==="say"?`<button class="hb big" id="bmap" type="button">MAPPA</button>`:""}<button class="hb" id="bsnd" type="button">${SND?"SUONO":"MUTO"}</button><button class="hb" id="bfs" type="button">&#9974;</button></div></div>
     <div class="place">${ROOMS[S.loc].n.toUpperCase()}</div>
-    ${S.mode==="explore"&&!(S.jc&&!S.jc.done)&&!(S.cafCut&&!S.cafCut.done)&&!(S.backCut&&!S.backCut.done)?`<div class="goal ${S.goalNew?"flash":""}"><b>${S.goalNew?"NUOVO OBIETTIVO":"OBIETTIVO"}</b> ${esc(goalText())}${mapRoom(curRoom())!==S.loc&&!(cur().room==="tin"&&S.loc==="lab")&&!(curRoom()==="scaffe"&&S.loc==="scaffe")?` <button type="button" class="gm" id="bgoalmap">APRI LA MAPPA</button>`:stepObjIndex(S.loc)>=0?" · <i>TOCCA CIÒ CHE BRILLA</i>":cur().room==="tin"&&S.loc==="lab"?" · <i>ENTRA DALLA PORTA DEL TENDONE</i>":""}</div>`:""}`;
+    ${S.mode==="explore"&&!(S.jc&&!S.jc.done)&&!(S.cafCut&&!S.cafCut.done)&&!(S.backCut&&!S.backCut.done)?`<div class="goal ${S.goalNew?"flash":""}"><b>${S.goalNew?"NUOVO OBIETTIVO":"OBIETTIVO"}</b> ${esc(goalText())}${mapRoom(curRoom())!==S.loc&&!(cur().room==="tin"&&S.loc==="lab")&&!(curRoom()==="scaffe"&&S.loc==="scaffe")?` <button type="button" class="gm" id="bgoalmap">${bachecaOn()?"APRI LA BACHECA":"APRI LA MAPPA"}</button>`:stepObjIndex(S.loc)>=0?" · <i>TOCCA CIÒ CHE BRILLA</i>":cur().room==="tin"&&S.loc==="lab"?" · <i>ENTRA DALLA PORTA DEL TENDONE</i>":""}</div>`:""}`;
 }
 function bindHud(){
   const m=$("bmap");if(m)m.onclick=e=>{e.stopPropagation();openMap()};
@@ -1905,6 +1906,7 @@ function enter(k){
   if(first&&pp.length)pp.forEach(p=>p.L.greet.forEach(t=>S.seq.push(typeof t==="string"?{who:p.id,txt:t}:Object.assign({who:p.id,txt:t.t},t))));
   else if(first||!pp.length)S.seq=[{who:"val",txt:R.th||"..."}];
   if(ps)S.seq=[{who:"val",txt:NOPATTY[(ps-1)%NOPATTY.length]}];
+  if(SCLINE[k]){const[w,L]=SCLINE[k];S.seq=L.map(t=>({who:w,txt:t})).concat(S.seq)}
   if(k==="sg"&&S.step<=PIDX())S.seq=[{who:"val",txt:"La sala G. Vacía. ¿Dónde están todos?"}];
   if(k==="sg"&&!S.sgcDone&&S.step>PIDX()){S.sgcDone=1;S.vx=80;S.seq=[];S.mode="explore";startSgc();return}
   S.seqI=0;S.seqT=0;sfx("step");if(!S.seq.length)S.mode="explore";render();
