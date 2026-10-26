@@ -370,8 +370,13 @@ button:focus-visible{outline:2px solid var(--giallo);outline-offset:2px}
 .bmap .rm.bs em{font-style:normal;font-size:.75em;background:var(--giallo);color:#111;padding:0 .3em}
 .bmap .rm.bs.here{border-color:var(--giallo);box-shadow:0 0 0 3px var(--giallo)}
 .bmap .rm.bs:hover{outline:3px solid var(--giallo)}
-.rm.nop{opacity:.45;background:repeating-linear-gradient(45deg,transparent 0 6px,rgba(255,59,92,.25) 6px 12px)}
-.rm.nop .lb::after{content:"NO PATTY";display:block;font-size:.55em;color:var(--rosso);margin-top:.3em}
+.rm.nop{position:absolute}.rm.nop::after{content:"";position:absolute;inset:6%;background:linear-gradient(to top right,transparent calc(50% - 3px),#e0203a calc(50% - 3px),#e0203a calc(50% + 3px),transparent calc(50% + 3px)),linear-gradient(to bottom right,transparent calc(50% - 3px),#e0203a calc(50% - 3px),#e0203a calc(50% + 3px),transparent calc(50% + 3px));pointer-events:none}
+.minib{position:absolute;left:0;top:2.7em;width:7.2em;height:4.6em;pointer-events:auto;padding:.25em;background:linear-gradient(#c8ccd4,#9aa0aa);border:2px solid #6a707a;box-shadow:0 .2em 0 #000;cursor:pointer}
+.minib .mplan{position:absolute;left:.3em;right:.3em;top:.3em;bottom:1.1em;background:#f6f6f2}
+.minib .mplan i{position:absolute;box-sizing:border-box;border:1px solid #111;background:#cfcfcf}.minib .mplan i u{position:absolute;left:35%;top:25%;width:30%;height:50%}
+.minib .mplan i.here{border-color:#ffd23c;box-shadow:0 0 0 2px #ffd23c;z-index:2}.minib .mplan i.fo{background:#e8e8e4}
+.minib .mplan i.x::after{content:"";position:absolute;inset:0;background:linear-gradient(to top right,transparent calc(50% - 1.5px),#e0203a calc(50% - 1.5px),#e0203a calc(50% + 1.5px),transparent calc(50% + 1.5px)),linear-gradient(to bottom right,transparent calc(50% - 1.5px),#e0203a calc(50% - 1.5px),#e0203a calc(50% + 1.5px),transparent calc(50% + 1.5px))}
+.minib .mlab{position:absolute;left:0;right:0;bottom:.15em;font-size:.55em;color:#1a1a24;font-weight:700;text-align:center}
 .map{padding-bottom:3.5%}.map .maphead span{margin-left:2.4em}
 @media (hover:hover) and (pointer:fine){.bjpad{display:none!important}}.bjpad{position:absolute;left:var(--cx);width:var(--cw);top:calc(var(--cy) + var(--ch) - 3.4em);display:flex;gap:.6em;padding:0 .8em;box-sizing:border-box;z-index:30;pointer-events:none}.bjpad button{pointer-events:auto;min-width:3.2em;height:2.8em;font-size:.9em!important;touch-action:none;user-select:none;-webkit-user-select:none;opacity:.85}.bjpad .bjj{margin-left:auto;min-width:5em}
 .ioshint{position:absolute;left:calc(var(--cx) + var(--cw) * .5);transform:translateX(-50%);bottom:calc(100% - var(--cy) - var(--ch) + .6em);width:min(88%,32em);box-sizing:border-box;z-index:40;background:#0b0f2aee;border:2px solid #ffd23c;color:#f4f4ff;padding:.6em .8em;display:grid;gap:.4em;font-family:var(--pix);font-size:.55em;line-height:1.6;text-align:center}.ioshint b{color:#ffd23c}.ioshint u{color:#5ee6ff;text-decoration:none}.ioshint button{justify-self:center;font-size:1em!important;padding:.4em 1em}
@@ -568,7 +573,7 @@ ROOMS.tin={n:"Dentro il tendone",z:"fuori",hidden:1,ppl:[],th:"Dentro al circo."
 function moveP(id,to,x,extra){for(const k in ROOMS){const R=ROOMS[k],i=R.ppl.findIndex(p=>p.id===id);if(i>=0){const p=R.ppl.splice(i,1)[0];p.x=x;Object.assign(p,extra||{});ROOMS[to].ppl.push(p);return}}}
 const SCP={};for(const id of["monia","laura","giulia","lea"])for(const k in ROOMS){const R=ROOMS[k],i=R.ppl.findIndex(p=>p.id===id);if(i>=0)SCP[id]=R.ppl.splice(i,1)[0]}
 const SCX={monia:224,laura:330,giulia:300,lea:222};for(const id in SCX)if(SCP[id])SCP[id].x=SCX[id];
-const SCLINE={sf:["laura",["Forza, riempite lo spazio!","E ricordate: siete un mazzetto d'asparagi!"]],sb:["monia",["Dal diaframma, ragazzi! Ancora una volta!"]],sc:["giulia",["Prima di lanciare, dite il nome!"]],sd:["lea",["Tre tigri contro tre tigri. Tutti insieme!"]]};
+const SCLINE={sf:["laura",["Forza, riempite lo spazio! Non lasciate buchi, la zattera si inclina!","E ricordate: siete un mazzetto d'asparagi! Stretti, dritti, tutti insieme.","Chi resta indietro cade in acqua. E l'acqua stasera è gelida!"]],sb:["monia",["Dal diaframma, ragazzi! La voce parte dalla pancia, non dalla gola.","Spalle giù, mento dritto, e respirate come se annusaste un fiore.","Ancora una volta dall'inizio: a gennaio vi devono sentire fino all'ultima fila!"]],sc:["giulia",["Prima di lanciare, dite il nome di chi la riceve. Forte e chiaro!","Guardatevi negli occhi, non la pallina: la pallina arriva da sola.","Se cade non ci si scusa: la si raccoglie e si rilancia. Come in scena."]],sd:["lea",["Tre tigri contro tre tigri. Tutti insieme, e scandite bene!","Pèsca e pésca: una si mangia, l'altra si fa al lago. Sentite la differenza?","Respiro, appoggio, e poi la consonante. Le parole vanno lanciate, non sputate."]]};
 moveP("stella","tin",196,{hang:1});moveP("izzo","sg",56);moveP("clio","tin",252,{hang:1});moveP("martina","tin",140);
 ROOMS.lab.objs=[{n:"la porta del tendone",b:[220,146,40,42],txt:"La porta del tendone è aperta. Dentro, le lezioni.",th:"Dentro.",go:"tin"},{n:"la luna",b:[46,20,28,28],txt:"«Di’ su, Ottorino, te cosa pensi che ci sia là sopra? Io mi figuro… ecco io mi figuro che c’è la risposta a tutti i nostri mali»",th:"¡El pueblo unido jamás será vencido!"},{n:"l'insegna",b:[66,144,66,18],txt:"ITC LAB. Una lampadina è fulminata. Valentino se lo segna.",th:"Domani. Mañana. Forse."}];
 ROOMS.sg.objs=[{n:"le tende",b:[120,32,104,60],txt:"Sulle tende c'è una nota, come se l'avesse lasciata chi ha programmato questo gioco: “E ricordatevi di aprire le tende se dovete aprire o chiudere le finestre. Abbiamo già speso troppo!”",th:"Capito, capitissimo."},{n:"le finestre",b:[244,40,132,40],txt:"Fuori è buio. Si vede il cortile del teatro, lontano.",th:"Nada."},{n:"il riflettore",b:[226,26,26,126],txt:"Un riflettore su stativo, puntato sugli attori. Scotta.",th:"¡Caliente!"},{n:"il copione sul tavolo",b:[292,172,28,12],txt:"Il copione di Mattia. Sul margine, scritto a mano da Paolucci: SOS CANALE 14.",th:"Canal 14."},{n:"gli attori",b:[18,138,96,54],txt:"Gli attori ripassano la scena del litigio. Adesso sembrano tranquillissimi.",th:"Me la sono bevuta tutta."}];
@@ -1237,8 +1242,12 @@ function sceneF(front){const t=nowS(),la=SCP.laura;if(!la)return;const lx=SCX.la
   const hx=lx-2,hy=NPCY-20,cr=Math.floor(t*1.4)%3===0;g.save();g.strokeStyle="#3a2a1a";g.lineWidth=1.2;g.lineCap="round";g.beginPath();g.moveTo(hx,hy);
   if(cr){g.quadraticCurveTo(hx-14,hy-26,hx-34,hy-8)}else{g.quadraticCurveTo(hx-8,hy+6,hx-16,hy+14)}g.stroke();g.restore();r(hx-1,hy-1,3,3,"#5a3a1a");
   if(cr)al(.8,()=>txt("✶",hx-35,hy-6,6,"#fff3c8"))}
+/* E: due allievi provano una scena */
+function sceneE2(front){if(!front)return;const t=nowS(),a=Math.floor(t/1.4)%2;
+  mini(186,NPCY+2,Object.assign({},STU[3],{gaze:1,up:a?1:0}),1,false);mini(238,NPCY+2,Object.assign({},STU[2],{gaze:-1,up:a?0:1}),1,false);
+  if(Math.floor(t*2)%2)al(.6,()=>txt(a?"!":"?",a?196:248,NPCY-36,7,"#ffd23c"))}
 function auleScene(k,front){if(S.mode!=="explore"&&S.mode!=="say"&&S.mode!=="arrive")return;
-  if(k==="sb")sceneB(front);if(k==="sc")sceneC(front);if(k==="sd")sceneD(front);if(k==="sf")sceneF(front);}
+  if(k==="sb")sceneB(front);if(k==="se")sceneE2(front);if(k==="sc")sceneC(front);if(k==="sd")sceneD(front);if(k==="sf")sceneF(front);}
 
 function woodFloor(y0,b){r(0,y0,384,216-y0,b);let row=0;for(let y=y0;y<216;row++){const h=1.6+row*.75,L=26+row*5,off=(row*37)%L;
   for(let x=-L+off;x<384;x+=L){const c=mix(sh(b,.84),sh(b,1.14),hs(x|0,row));r(x,y,L,h,c);r(x,y,.5,h,sh(b,.62))}r(0,y,384,.4,sh(b,.55));y+=h}}
@@ -1628,14 +1637,14 @@ function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")}
 function hud(){
   if(S.phase!=="play"||S.mode==="travel")return S.mode==="travel"?`<div class="ov toast" style="top:12%">${S.travel&&S.travel.dir<0?"SI TORNA A TEATRO...":"VERSO L'ITC STUDIO..."}</div>`:"";
   const late=S.t>=23*60;
-  return `<div class="hud"><div class="chip">ORE <b class="${late?"late":""}">${hhmm(S.t)}</b>${S.t>=END?" <span class=\"blink\">!</span>":""}</div>
+  return `<div class="hud"><div class="chip">ORE <b class="${late?"late":""}">${hhmm(S.t)}</b>${S.t>=END?" <span class=\"blink\">!</span>":""}</div>${bachecaOn()&&(S.mode==="explore"||S.mode==="say")?`<button type="button" class="minib" id="bminib">${miniBacheca()}</button>`:""}
     <div class="slots">${["b1","b2","b3","chiavi"].map(id=>S.found.includes(id)?`<div class="slot on"><canvas width="24" height="24" data-ic="${id}"></canvas></div>`:`<div class="slot">?</div>`).join("")}</div>
     <div class="btns">${S.mode==="explore"||S.mode==="say"?`<button class="hb big" id="bmap" type="button">MAPPA</button>`:""}<button class="hb" id="bsnd" type="button">${SND?"SUONO":"MUTO"}</button><button class="hb" id="bfs" type="button">&#9974;</button></div></div>
     <div class="place">${ROOMS[S.loc].n.toUpperCase()}</div>
     ${S.mode==="explore"&&!(S.jc&&!S.jc.done)&&!(S.cafCut&&!S.cafCut.done)&&!(S.backCut&&!S.backCut.done)?`<div class="goal ${S.goalNew?"flash":""}"><b>${S.goalNew?"NUOVO OBIETTIVO":"OBIETTIVO"}</b> ${esc(goalText())}${mapRoom(curRoom())!==S.loc&&!(cur().room==="tin"&&S.loc==="lab")&&!(curRoom()==="scaffe"&&S.loc==="scaffe")?` <button type="button" class="gm" id="bgoalmap">${bachecaOn()?"APRI LA BACHECA":"APRI LA MAPPA"}</button>`:stepObjIndex(S.loc)>=0?" · <i>TOCCA CIÒ CHE BRILLA</i>":cur().room==="tin"&&S.loc==="lab"?" · <i>ENTRA DALLA PORTA DEL TENDONE</i>":""}</div>`:""}`;
 }
 function bindHud(){
-  const m=$("bmap");if(m)m.onclick=e=>{e.stopPropagation();openMap()};
+  const m=$("bmap");if(m)m.onclick=e=>{e.stopPropagation();S.bach=0;openMap()};
   const s=$("bsnd");if(s)s.onclick=e=>{e.stopPropagation();SND=!SND;render()};
   const f=$("bfs");if(f)f.onclick=e=>{e.stopPropagation();fullscreen()};
   document.querySelectorAll("[data-ic]").forEach(c=>clueIcon(c,c.dataset.ic));
@@ -1717,13 +1726,13 @@ function render(){
   on("bpost",()=>{theme(false);S.phase="post";S.pi=0;S.pf=0;S.pz=0;S.pdark=0;S.pT=0;S.pLine=0;S.gz=0;render()});
   const crr=document.querySelector(".credits .cr");if(crr)crr.addEventListener("animationend",()=>{if(S.phase==="end"){theme(false);S.phase="post";S.pi=0;S.pf=0;S.pz=0;S.pdark=0;S.pT=0;S.pLine=0;S.gz=0;sfx("blip");render()}},{once:true});
   const rd=$("brdone");if(rd)rd.onclick=e=>{e.stopPropagation();endRadio()};
-  const gm=$("bgoalmap");if(gm)gm.onclick=e=>{e.stopPropagation();openMap()};
+  const gm=$("bgoalmap");if(gm)gm.onclick=e=>{e.stopPropagation();S.bach=bachecaOn()?1:0;openMap()};const mb=$("bminib");if(mb)mb.onclick=e=>{e.stopPropagation();S.bach=1;openMap()};
   const bk=$("bask");if(bk)bk.onclick=e=>{e.stopPropagation();openTalk(S.say.pid)};
   if(S.mode==="talk"&&ph==="play"){bindTalk();const pc=$("pc");if(pc)portrait(pc,PID[S.talk.pid])}
   if(S.mode==="map"&&ph==="play"){const hs=[...document.querySelectorAll(".plan2 .rm:not(.vert) .lb")];const fit=(v,f)=>{v.style.fontSize=f+"em";const b=v.closest(".rm");return v.scrollWidth<=b.clientWidth*.92&&v.offsetHeight<=b.clientHeight*.8};hs.forEach(v=>{let f=1.45;while(f>.7&&!fit(v,f))f-=.05})}
   document.querySelectorAll(".plan2 .vl").forEach(v=>{const b=v.closest(".rm"),lim=b.clientHeight*.9-(b.querySelector("i")?b.querySelector("i").offsetHeight+6:0),lw=b.clientWidth*.9;let f=1.5;v.style.fontSize=f+"em";while(f>.6&&(v.offsetHeight>lim||v.offsetWidth>lw)){f-=.05;v.style.fontSize=f+"em"}});
   document.querySelectorAll(".rm").forEach(b=>{b.onclick=e=>{e.stopPropagation();go(b.dataset.k)};if(b.classList.contains("nop"))b.onclick=e=>{e.stopPropagation();sfx("nada")};});
-  const cm=$("bclose");if(cm)cm.onclick=e=>{e.stopPropagation();S.mode="explore";S.fullMap=0;render()};const bp=$("bpiant");if(bp)bp.onclick=e=>{e.stopPropagation();S.fullMap=1;render()};
+  const cm=$("bclose");if(cm)cm.onclick=e=>{e.stopPropagation();S.mode="explore";S.bach=0;render()};const bp=$("bpiant");if(bp)bp.onclick=e=>{e.stopPropagation();S.bach=0;render()};
   const nc=$("nc");if(nc&&S.note&&S.note.clue)clueIcon(nc,S.note.clue);
 }
 function toast(t){return;if(S.mode==="talk"){S.pend=(S.pend||[]).concat(t);return}S.toast=t;render();clearTimeout(toast.h);toast.h=setTimeout(()=>{S.toast=null;render()},2600)}
@@ -2960,18 +2969,20 @@ function closeNote(){const go_=S.note&&S.note.go,back=S.note&&S.note.back;S.note
 /* mappa e viaggi */
 function openMap(){S.mode="map";sfx("blip");render()}
 function far(a,b){return(ROOMS[a].z==="studio")!==(ROOMS[b].z==="studio")}
-const bachecaOn=()=>S.bagSaid&&S.step>=PIDX()&&S.step<=PIDX()+1&&!S.sgcDone&&!S.fullMap;
-function bachecaHTML(){const B=(k,b,lab,col,dark)=>{const here=k===S.loc,np=noPatty(k);
-    return `<button type="button" class="rm bs ${here?"here":""} ${np?"nop":""}" data-k="${k}" style="left:${b[0]}%;top:${b[1]}%;width:${b[2]}%;height:${b[3]}%"><span class="lb">${lab}</span>${col?`<span class="card" style="background:${col}"><i></i></span>`:""}${here?"<em>SEI QUI</em>":""}</button>`},
+const bachecaOn=()=>S.bagSaid&&S.step>=PIDX()&&S.step<=PIDX()+1&&!S.sgcDone;
+const BSALE=[["sf",[0.5,29,20,33],"Sala F","#1a1a1a"],["sg",[21.3,29,43.5,32],"Sala G","#f2e64a"],["sb",[80,0,19.5,31],"Sala B","#f4f4f4"],["sa",[71.5,41,22,27],"Sala A","#2a9a4a"],["se",[3.5,72,18,27],"Sala E","#d8282a"],["sd",[22.5,72,20.5,27],"Sala D","#e090d8"],["sc",[44,72,20.5,27],"Sala C","#1a2a8a"]];
+const visitedAula=k=>cur().who==="patty"&&!S.pattyAt&&(S.pAule||[]).includes(k);
+function miniBacheca(){return `<span class="mplan">${BSALE.map(([k,b,l,c])=>`<i class="${k===S.loc?"here":""} ${visitedAula(k)?"x":""}" style="left:${b[0]}%;top:${b[1]}%;width:${b[2]}%;height:${b[3]}%"><u style="background:${c}"></u></i>`).join("")}<i class="fo ${S.loc==="sfront"?"here":""}" style="left:65.5%;top:69%;width:10%;height:17%"></i></span><span class="mlab">BACHECA</span>`}
+function bachecaHTML(){const B=(k,b,lab,col,dark)=>{const here=k===S.loc,np=noPatty(k),vx=visitedAula(k);
+    return `<button type="button" class="rm bs ${here?"here":""} ${np?"nop":""} ${vx?"vx":""}" data-k="${k}" style="left:${b[0]}%;top:${b[1]}%;width:${b[2]}%;height:${b[3]}%"><span class="lb">${lab}</span>${col?`<span class="card" style="background:${col}"><i></i></span>`:""}${here?"<em>SEI QUI</em>":""}</button>`},
     D=(b,cls,h)=>`<div class="bd ${cls||""}" style="left:${b[0]}%;top:${b[1]}%;width:${b[2]}%;height:${b[3]}%">${h||""}</div>`;
   return `<div class="ov map bmap"><div class="maphead"><span>LA BACHECA DEL CORRIDOIO · ${hhmm(S.t)}</span><span><button class="hb" id="bpiant" type="button">PIANTA COMPLETA</button> <button class="hb" id="bclose" type="button">CHIUDI</button></span></div>
   <div class="board"><div class="paper"><div class="btitle">Di che colore sei?<br><span>In che aula vai?</span></div><div class="plan3">
    ${D([0,29,66,71],"fl")}${D([65,0,35,100],"fl")}
    ${D([65,0,7.5,18],"wc","🚺")}${D([72.5,0,7.5,18],"wc","🚹♿")}${D([0.5,63,15,9],"mag","Magazzino")}${D([76,69,12,11],"st")}${D([65.5,86,13,14],"lift","⇅")}
-   ${B("sf",[0.5,29,20,33],"Sala F","#1a1a1a")}${B("sg",[21.3,29,43.5,32],"Sala G","#f2e64a")}${B("sb",[80,0,19.5,31],"Sala B","#f4f4f4")}${B("sa",[71.5,41,22,27],"Sala A","#2a9a4a")}
-   ${B("se",[3.5,72,18,27],"Sala E","#d8282a")}${B("sd",[22.5,72,20.5,27],"Sala D","#e090d8")}${B("sc",[44,72,20.5,27],"Sala C","#1a2a8a")}${B("sfront",[65.5,69,10,17],"<small>FRONT<br>OFFICE</small><b class=\"arr\">▲</b>",null)}
+   ${BSALE.map(([k,b,l,c])=>B(k,b,l,c)).join("")}${B("sfront",[65.5,69,10,17],"<small>FRONT<br>OFFICE</small><b class=\"arr\">▲</b>",null)}
   </div></div></div></div>`}
-function mapHTML(){if(bachecaOn())return bachecaHTML();const cell=(k,b,lab,o)=>{o=o||{};const here=k===S.loc,ld=activeLead()===k;
+function mapHTML(){if(S.bach&&bachecaOn())return bachecaHTML();const cell=(k,b,lab,o)=>{o=o||{};const here=k===S.loc,ld=activeLead()===k;
     const L=o.vert?`<span class="vl">${esc(lab)}</span>`:esc(lab).replace(/\|/g,"-<br>").replace(/~/g,"<br>");
     return `<button type="button" class="rm ${here?"here":""} ${ld?"lead":""} ${o.cls||""} ${o.vert?"vert":""}" data-k="${k}" style="left:${b[0]}%;top:${b[1]}%;${b[2]==="c"?`height:${b[3]}%`:`width:${b[2]}%;height:${b[3]}%`}"><span class="lb">${L}${ld?"<em>!</em>":""}</span>${here&&!o.nohere?`<i>${o.vert?"SEI<br>QUI":"SEI QUI"}</i>`:""}</button>`};
   const afb={A:[62,6,9,38],B:[62,60,9,38],C:[78.5,6,7,38],D:[85.5,6,7,38],E:[92.5,6,7.5,38],F:[91.5,60,8.5,38]};
