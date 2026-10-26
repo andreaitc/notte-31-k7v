@@ -1230,8 +1230,7 @@ function sceneE(front){const pa=PID.patty;if(!pa)return;const t=nowS();
     mini(x,NPCY+8-hop,{f:1,hl:"bob",hair:["#d8b878","#2a1a14","#9a5a2a","#141414","#e8c890"][i],body:TUTU[i],skirt:TUTU[i],legs:"#f4e4e8",up:Math.sin(t*2+i)>.3?1:0,shut:Math.sin(t*3+i)>.8},.66,false)});
   if(Math.floor(t/3)%2===0)bubble(pa.x+10,NPCY-62,[["E plié...","e relevé!"],["Braccia in alto,","principesse!"]][Math.floor(t/6)%2])}
 function auleScene(k,front){if(S.mode!=="explore"&&S.mode!=="say"&&S.mode!=="arrive")return;
-  if(k==="sb")sceneB(front);if(k==="sc")sceneC(front);if(k==="sd")sceneD(front);if(k==="sf")sceneF(front);
-  if(PID.patty&&!gone("patty")&&ROOMS[k]&&ROOMS[k].ppl.includes(PID.patty))sceneE(front)}
+  if(k==="sb")sceneB(front);if(k==="sc")sceneC(front);if(k==="sd")sceneD(front);if(k==="sf")sceneF(front);}
 
 function woodFloor(y0,b){r(0,y0,384,216-y0,b);let row=0;for(let y=y0;y<216;row++){const h=1.6+row*.75,L=26+row*5,off=(row*37)%L;
   for(let x=-L+off;x<384;x+=L){const c=mix(sh(b,.84),sh(b,1.14),hs(x|0,row));r(x,y,L,h,c);r(x,y,.5,h,sh(b,.62))}r(0,y,384,.4,sh(b,.55));y+=h}}
