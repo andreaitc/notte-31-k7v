@@ -543,7 +543,7 @@ const ROOMS = {
   se:{n:"ITC Studio, aula E",m:"Aula E",z:"studio",wall:"#d4d0c6",th:"Aula E.",
     ppl:[P("patty","Patty","insegnante di danza",{body:"#c08a3a",hair:"#9a7a5a",gl:1},190,{
       greet:["Cinque, sei, sette, otto! Ah, ciao Valentino.", "Ho appena finito con i piccoli. Hanno ballato, hanno disegnato, hanno urlato. Io sono a pezzi, loro freschissimi."],again:["I disegni sono ancora lì."],
-      foto:"«Paolucci? È passato con la signora in rosso a vedere i disegni dei bambini. A quest'ora dovrebbero essere già in sala G.»",
+      foto:"«Paolucci? È passato con la signora in rosso a vedere i disegni dei bambini. A quest'ora dovrebbero essere già arrivati in sala G per le prove.»",
       strano:"«La signora in rosso ha guardato i disegni di Bonazzi e ha riso tantissimo. Una risata... boh, familiare.»",
       aiuto:"«Grazie. Ma qui è tutto in ordine: stasera le altre aule sono vuote.»"})],
     objs:[]},
@@ -1808,7 +1808,7 @@ const STEPS=[
   obj:"la macchinetta del caffè",objRoom:"scaffe",objGoal:"Controlla la macchinetta del caffè",item:"b1"},
  {room:"se",who:"patty",trig:["si","pao"],goal:"Cerca Patty in una delle aule A-F",tell:"La Bagnara dice che Patty è in una delle aule, ma non ricorda quale.",yes:"Guarda i disegni",
   open:"«Valentino! Vieni a vedere i disegni dei bambini?»",ov:"¡Ciertamente que sì!",
-  pics:1,say:"«Guarda: i bambini hanno disegnato il presidente. Chi Paolucci, chi Bonazzi, uno Floridia. Paolucci è passato a vederli con la signora in rosso, lei si è fermata un sacco. A quest'ora dovrebbero essere già in sala G.»",th:"Sala G."},
+  pics:1,say:"«Guarda: i bambini hanno disegnato il presidente. Chi Paolucci, chi Bonazzi, uno Floridia. Paolucci è passato a vederli con la signora in rosso, lei si è fermata un sacco. A quest'ora dovrebbero essere già arrivati in sala G per le prove. Vai da Mattia.»",th:"Sala G, ¡vamos!"},
  {room:"sg",who:"mattia",goal:"In aula G: chiedi a Mattia",tell:"In aula G, Mattia ha visto la prova con loro.",
   open:"«Scusa la scenata, era il secondo atto. Dimmi tutto, Valentino.»",ov:"Permesso, permesito.",
   say:"«Sì, sono passati. La signora in rosso ha guardato la prova in prima fila, senza fiatare. Paolucci invece, mentre lei non guardava, ha scarabocchiato qualcosa sul mio copione. Guarda qua:»",paper:"SOS CANALE 14",th:"Canale catorche... ¡una radiolina! William."},
@@ -1908,8 +1908,8 @@ function newGoal(){S.goalNew=true}
 
 /* PRESENTAZIONE */
 const AULE=["sa","sb","sc","sd","se","sf"],NOPATTY=["Aquí no está la Patty.","Vacía. ¿Patty? ¿Patty?","Nada. Otra aula.","Ni la Patty, ni nadie.","Uff... ¿Dónde se ha metido?"];
-const noPatty=k=>cur().who==="patty"&&!S.pattyAt&&(S.pAule||[]).includes(k)&&k!==S.loc;
-function pattySearch(k){if(cur().who!=="patty"||S.pattyAt||!AULE.includes(k))return 0;S.pAule=S.pAule||[];if(!S.pAule.includes(k))S.pAule.push(k);
+const noPatty=k=>cur().who==="patty"&&!S.pattyAt&&((S.pAule||[]).includes(k)||k==="sg"&&S.pGvis)&&k!==S.loc;
+function pattySearch(k){if(cur().who==="patty"&&!S.pattyAt&&k==="sg")S.pGvis=1;if(cur().who!=="patty"||S.pattyAt||!AULE.includes(k))return 0;S.pAule=S.pAule||[];if(!S.pAule.includes(k))S.pAule.push(k);
   if(S.pAule.length>=6){S.pattyAt=k;moveP("patty",k,190);const st=cur();st.room=k;return 0}return S.pAule.length}
 function enter(k){
   S.loc=k;S.mode="arrive";S.talk=null;S.note=null;S.say=null;const R=ROOMS[k],first=!S.visited[k];S.visited[k]=true;
@@ -2502,7 +2502,7 @@ function gearHTML(){let h=`<button class="gear" id="bgear" type="button" aria-la
     <button type="button" class="go" id="breset">RICOMINCIA DALL'INIZIO</button>
     <p class="ml">SALTA A UNA TAPPA <i>(tutto quello che viene prima è già risolto)</i></p>
     <div class="mlist"><button type="button" class="mj" data-x="vint"><b>3</b> Valentino nel corridoio</button>${items}<button type="button" class="mj" data-x="chiavi"><b>47.c</b> Amministrazione: il quadro delle chiavi</button><button type="button" class="mj" data-x="win"><b>60</b> Finale nel Teatrobus</button><button type="button" class="mj" data-x="end"><b>65</b> Titoli di coda</button><button type="button" class="mj" data-x="post"><b>66</b> Dopo i titoli</button></div></div>`}
-function jumpTo(i){jumpTo0(i);if(cur().who==="patty"){S.pAule=[];S.pattyAt=null}if(S.step>=PIDX())S.bagSaid=1}
+function jumpTo(i){jumpTo0(i);if(cur().who==="patty"){S.pAule=[];S.pattyAt=null;S.pGvis=0}if(S.step>=PIDX())S.bagSaid=1}
 function jumpTo0(i){hdStop();theme(false);noise(false);clearInterval(typeOn.h);clearInterval(typeNote.h);clearInterval(startRadio.h);nuova();S.phase="play";S.menu=false;
   S.step=i;S.found=[];if(i>2)S.found.push("b1");if(i>5)S.found.push("b2");if(i>10)S.found.push("b3");if(i>17)S.found.push("chiavi");
   for(let k=0;k<i;k++){S.heard[k]=true;const s=STEPS[k];if(s.who)S.met[s.who]=true}
@@ -2974,7 +2974,7 @@ function openMap(){S.mode="map";sfx("blip");render()}
 function far(a,b){return(ROOMS[a].z==="studio")!==(ROOMS[b].z==="studio")}
 const bachecaOn=()=>S.bagSaid&&S.step===PIDX()&&!S.pattyAt;
 const BSALE=[["sf",[0.5,29,20,33],"Sala F","#1a1a1a"],["sg",[21.3,29,43.5,32],"Sala G","#f2e64a"],["sb",[80,0,19.5,31],"Sala B","#f4f4f4"],["sa",[71.5,41,22,27],"Sala A","#2a9a4a"],["se",[3.5,72,18,27],"Sala E","#d8282a"],["sd",[22.5,72,20.5,27],"Sala D","#e090d8"],["sc",[44,72,20.5,27],"Sala C","#1a2a8a"]];
-const visitedAula=k=>cur().who==="patty"&&!S.pattyAt&&(S.pAule||[]).includes(k);
+const visitedAula=k=>cur().who==="patty"&&!S.pattyAt&&((S.pAule||[]).includes(k)||k==="sg"&&S.pGvis);
 function miniBacheca(){return `<span class="mplan">${BSALE.map(([k,b,l,c])=>`<i class="${k===S.loc?"here":""} ${visitedAula(k)?"x":""}" style="left:${b[0]}%;top:${b[1]}%;width:${b[2]}%;height:${b[3]}%"><u style="background:${c}"></u></i>`).join("")}<i class="fo ${S.loc==="sfront"?"here":""}" style="left:65.5%;top:69%;width:10%;height:17%"></i></span><span class="mlab">BACHECA · TOCCA PER APRIRE</span>`}
 function bachecaHTML(){const B=(k,b,lab,col,dark)=>{const here=k===S.loc,np=noPatty(k),vx=visitedAula(k);
     return `<button type="button" class="rm bs ${here?"here":""} ${np?"nop":""} ${vx?"vx":""}" data-k="${k}" style="left:${b[0]}%;top:${b[1]}%;width:${b[2]}%;height:${b[3]}%"><span class="lb">${lab}</span>${col?`<span class="card" style="background:${col}"><i></i></span>`:""}${here?"<em>SEI QUI</em>":""}</button>`},
