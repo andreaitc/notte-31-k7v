@@ -2741,11 +2741,15 @@ function svcCode(){const ph=S.phase;
 function hintFor(pid){const s=cur();
   if(isKey(pid)&&!S.sub)return"";
   if(S.sub&&curRoom()===S.loc)return pick([`Se fossi in te guarderei ${s.obj}.`,`Hai guardato ${s.obj}? Io guarderei lì.`]);
-  if(s.room===S.loc&&s.who&&s.who!==pid)return pick([`Forse ${PID[s.who].n} ne sa di più.`,`Magari ${PID[s.who].n} ha visto qualcosa.`,`Io sentirei ${PID[s.who].n}.`]);
+  if(s.room===S.loc&&s.who&&s.who!==pid)return (n=>pick([`Forse ${n} ne sa di più.`,`Magari ${n} ha visto qualcosa.`,`Io sentirei ${n}.`,`Prova a chiedere a ${n}.`,`Fossi in te parlerei con ${n}.`,`Per quello, ${n} è la persona giusta.`,`Io farei due chiacchiere con ${n}.`]))(PID[s.who].n);
   if(S.sub&&s.objTell)return s.objTell;
   if(s.lock&&S.loc==="cortile")return"Il Teatrobus è lì in fondo, vai!";
   return s.tell;
 }
+const HCON=["E comunque, ","Scusa se torno sul punto: ","Ah, a proposito: ","Ma tornando a noi: ","Senti, un'ultima cosa: ","Comunque, per quello che cerchi: ","Ah, e prima che me ne dimentichi: ","Detto questo: "];let hconLast=-1;
+function hintTail(pid){const h=hintFor(pid);if(!h)return"";let i;do{i=Math.floor(Math.random()*HCON.length)}while(i===hconLast&&HCON.length>1);hconLast=i;
+  const fw=h.split(/[ ,:.!?']/)[0],isName=Object.values(PID).some(q=>q.n&&q.n.split(" ")[0]===fw&&!/^(La|Il|Lo|I|Le)$/.test(fw));
+  return HCON[i]+(isName?h:lc(h))}
 const TACC=["...pi... krrr... ù... f...orte!","An...cora pi...ù f... krrr... orte, mam...mo...letta!","Tut...to qui? krrr... Pro...va...ci an...cora, se... hai co... krrr... raggio!"];
 function circost(pid){if(S.loc==="sg"&&S.sgLook&&["biljana","izzo","caterina","gio","mattia"].includes(pid)&&!S.sgHi){S.sgOpen=S.sgHi?null:"«Ciao Valentino! Che ci fai qui di sera?»";S.sgHi=1;return openTalk(pid)}
 if(pid==="tacconi"&&S.step>6){S.tacN=S.tacN||0;if(S.tacN>=TACC.length){S.tacN=0;startTimmy();return}S.mode="say";S.say={pid,txt:TACC[S.tacN],code:"53."+(S.tacN+1),glitch:1};crackle(2600);voice(TACC[S.tacN],"tac");S.tacN++;render();return}
@@ -2832,12 +2836,12 @@ function ask(kind){
   let a,th,done0=false,media=null,cut=null,auto=null,paper=null,a2=null;const s=cur();
   if(kind==="si"&&s.seats&&!S.seatFound&&isKey(p.id)&&!S.sub){startSeats();return}let code=PC(p.id)+"."+(QN[kind]||0);
   if(p.screen&&S.step>6){a="«...krrr...» (Il monitor è nero. Nessun segnale.)";th="Los problemas de comunicassione de siempre.";sfx("nada")}
-  else if(/^x\d$/.test(kind)&&C&&C.qx&&C.qx[+kind[1]]){const q=C.qx[+kind[1]];a=q.a;th=q.th;code=PC(p.id)+"."+kind;const h=hintFor(p.id);if(h)a+=" «"+h+"»";sfx("talk")}
+  else if(/^x\d$/.test(kind)&&C&&C.qx&&C.qx[+kind[1]]){const q=C.qx[+kind[1]];a=q.a;th=q.th;code=PC(p.id)+"."+kind;const h=hintTail(p.id);if(h)a=/»$/.test(a)?a.slice(0,-1)+" "+h+"»":a+" «"+h+"»";sfx("talk")}
   else if(kind==="foto"){a="«Eccola di nuovo: Paolucci e la signora in rosso, di spalle. E il tuo scarabocchio, girato: una linea e due ruote. Il Teatrobus.»";th="El Teatrobus.";media="photo";sfx("talk")}
   else if(isKey(p.id)&&!S.sub&&!s.final&&!s.lock&&trigOf(s).includes(kind)){a=s.say;th=s.th;sfx("talk");if(s.only)done0=true;code=SC(S.step)+".b";a2=s.say2||null;cut=s.cut||null;paper=s.paper||null;auto=s.radio?"radio":s.call?"call":null;media=s.pics?"pics":null;if(s.give){S.found.push(s.give);media=s.media||null;sfx("clue")}
     resolveStep()}
   else if(isKey(p.id)&&!S.sub&&s.xa&&s.xa[kind]){a=s.xa[kind].a;th=s.xa[kind].th;code=SC(S.step)+"."+kind;sfx("talk")}
-  else if(C.divaga&&!S.wasted[p.id]){S.wasted[p.id]=true;code=PC(p.id)+".d";a=C.divaga;const h=hintFor(p.id);if(h)a+=" «"+h+"»";th="Cinque minutos perdidos. Ay.";sfx("nada")}
+  else if(C.divaga&&!S.wasted[p.id]){S.wasted[p.id]=true;code=PC(p.id)+".d";a=C.divaga;const h=hintTail(p.id);if(h)a=/»$/.test(a)?a.slice(0,-1)+" "+h+"»":a+" «"+h+"»";th="Cinque minutos perdidos. Ay.";sfx("nada")}
   else{
     if(kind==="scar"){a=S.found.includes("b3")?"«Un autobus! Ora che me l'hai detto, lo vedo anch'io.»":(C.scar||SCAR[(p.id.length*7+p.id.charCodeAt(0))%SCAR.length]);th=S.found.includes("b3")?"Adesso sí, sí.":"Nadie lo capisce."}
     else if(kind==="wa")a=C.wa||WAR[(p.id.length*3+p.id.charCodeAt(1))%WAR.length];
@@ -2846,7 +2850,7 @@ function ask(kind){
     else if(kind==="si")a="«Bene!»";
     else if(kind==="pao")a=C.foto||FOTO[(p.id.length*11+p.id.charCodeAt(0))%FOTO.length];
     else a=(again&&C.foto)?C.foto:(C.strano||pick(STRANO));
-    const h=hintFor(p.id);if(h)a+=" «"+h+"»";
+    const h=hintTail(p.id);if(h)a=/»$/.test(a)?a.slice(0,-1)+" "+h+"»":a+" «"+h+"»";
     th=th||(p.id==="cristina"?pick(["Sì, señorita Cristina... (¡Oh mamma! ¡La señora Cristina!)","Perdone, señorita Cristina.","¡Oh mamma! ¡La señora Cristina!"]):kind==="wa"?"Hmm.":kind==="brin"?"¡Salud!":"Interesantissimo.");sfx("talk")}
   const qq=kind==="si"&&s.yes&&/^(Mostra|Prendi|Chiedi|Dove|Guarda|Cerca)/.test(s.yes)?"Valentino: "+lc(s.yes)+".":(Q||(()=>{const o=(s.only||[]).concat((C&&C.qx||[]).map((q,i)=>({k:"x"+i,l:q.l}))).find(o=>o.k===kind);return o?"Valentino: "+lc(o.l):""})());
   S.talk={pid:p.id,q:qq,a,a2,v:th?`«${th}»`:null,done0,media,cut,auto,paper,code};typeOn();render();
