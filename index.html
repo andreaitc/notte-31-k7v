@@ -1957,30 +1957,37 @@ function startSgi(){S.phase="sgi";S.iT=performance.now();S.iE=0;theme(false);ren
 function sgiTick(){const el=(performance.now()-S.iT)/1000,ev=[...SGI.k.map(t=>[t,"knock"]),[SGI.bong,"bong"],[SGI.sbeng,"crash"],[SGI.slam,"slam"]];
   while(S.iE<ev.length&&el>=ev[S.iE][0]){sfx(ev[S.iE][1]);S.iE++}
   if(el<SGI.walk&&F%3===0)sfx("step");if(el>=SGI.end)startSgc()}
-function sgiDoor(x,y,w,h,off,bulge){g.save();g.translate(x+w/2,y+h);g.rotate(off);g.translate(-w/2,-h);
-  r(-.5,-.5,w+1,h+1,OL);r(0,0,w,h,"#7a4e2c");r(w-3,0,3,h,"#5e3a1e");r(1,1,w-2,1,"#9a6a40");
-  disc(w/2,h*.28,5,"#16161c");disc(w/2,h*.28,4,"#1e2a44");r(w/2-2,h*.28-2,1.5,1.5,"#8ab0d8");
-  r(3,h*.55,w-6,3,"#c8c8d0");r(3,h*.55+3,w-6,1,"#8a8a94");if(bulge)r(w*.3,h*.4,w*.4,h*.3,"rgba(0,0,0,.18)");g.restore()}
+function sgiDoor(x,y,w,h,off,bulge,hs0){r(x-3,y-3,w+6,h+3,"#6a6a72");r(x-1.5,y-1.5,w+3,h+1.5,"#45454c");
+  g.save();g.translate(x+w/2,y+h);g.rotate(off);g.translate(-w/2,-h);
+  r(-.5,-.5,w+1,h+1,OL);r(0,0,w,h,"#7a4e2c");r(hs0?0:w-3,0,3,h,"#5e3a1e");r(1,1,w-2,1,"#9a6a40");
+  box(4,6,w-8,h*.38,"#6e4626");box(4,h*.5,w-8,h*.44,"#6e4626");
+  const hx=hs0?3:w-9;r(hx,h*.52,6,2,"#c8c8d0");r(hs0?hx:hx+4.5,h*.52,1.5,4,"#9a9aa4");
+  if(bulge)al(.25,()=>r(w*.2,h*.35,w*.6,h*.35,"#000"));g.restore()}
 function sgiScene(){const el=(performance.now()-S.iT)/1000,boom=el>=SGI.bong,sk=boom&&el<SGI.slam+1?Math.sin(F*2.3)*(el<SGI.slam+.4?4:1.5):0;
   g.save();g.translate(sk,sk?Math.cos(F*1.7)*1.5:0);
   r(-6,-6,396,160,"#d9d5cc");r(-6,-6,396,20,"#c4c0b6");r(-6,14,396,1.5,"#eae6de");for(let x=20;x<384;x+=96){r(x,4,40,4,"#f4f4ee");al(.2,()=>poly([[x,8],[x+40,8],[x+60,60],[x-20,60]],"#fff8d8"))}
   woodFloor(150,"#8a5a3a");r(-6,146,396,4,"#5a3a24");
-  /* bacheca e targa */
-  box(40,62,52,36,"#b89a6a");r(44,66,44,28,"#e8dcc0");r(48,70,14,10,"#f4f4ff");r(66,72,16,12,"#ffd23c");r(50,84,12,7,"#9ad8ff");
-  const dx=232,dy=58,dw=34,dh=92,kn=SGI.k.some(t=>el>=t&&el<t+.12),hit=boom&&el<SGI.slam+.6;
-  r(dx-6,dy-6,dw*2+12,dh+6,"#5a5a62");r(dx-4,dy-4,dw*2+8,dh+4,"#3a3a40");
-  box(dx+dw-22,dy-22,44,12,"#1e2a44");txt("SALA G",dx+dw,dy-13,7,"#ffd23c");
-  const j=hit?Math.sin(F*3.1)*.05:kn?.008:0;sgiDoor(dx,dy,dw,dh,-j,hit);sgiDoor(dx+dw,dy,dw,dh,j,hit);
-  if(hit)for(let k=0;k<10;k++){const a=hs(k,F>>1);al(.6,()=>disc(dx+dw+(a-.5)*90,dy+dh-4-hs(F>>1,k)*30,2+a*3,"#cfc8b8"))}
+  const dx=226,dy=58,dw=40,dh=92,kn=SGI.k.some(t=>el>=t&&el<t+.12),hit=boom&&el<SGI.slam+.6;
+  /* bacheca a destra */
+  box(290,82,34,24,"#b89a6a");r(293,85,28,18,"#e8dcc0");disc(298,90,2.6,"#f4f4ff");disc(305,90,2.6,"#ffd23c");disc(312,90,2.6,"#9ad8ff");disc(298,98,2.6,"#ff9ac8");disc(305,98,2.6,"#9ad08a");disc(312,98,2.6,"#f4f4ff");disc(318,94,2,"#d0203a");
+  /* cartello G. */
+  box(183,84,20,16,"#f4f4f0");txt("G.",193,97,9,"#1a1a24");
+  /* porta sinistra */
+  sgiDoor(122,dy,dw,dh,hit?Math.sin(F*2.7)*.02:0,false,0);
+  /* bidone bianco */
+  r(184.5,121.5,19,29,OL);r(185,122,18,28,"#ecece8");r(185,122,18,3,"#d8d8d2");r(199,125,4,25,"#c8c8c2");r(186.5,121,15,1.5,"#f8f8f4");r(189,126,1,22,"#dcdcd6");
+  /* porta destra della sala G */
+  sgiDoor(dx,dy,dw,dh,hit?-Math.sin(F*3.1)*.05:kn?-.01:0,hit,1);
+  if(hit)for(let k=0;k<10;k++){const a=hs(k,F>>1);al(.6,()=>disc(dx+dw/2+(a-.5)*90,dy+dh-4-hs(F>>1,k)*30,2+a*3,"#cfc8b8"))}
   /* Valentino col carrello, verso destra */
-  const t=Math.min(1,el/SGI.walk),vx=-30+t*230,knock=el>=SGI.k[0]-.2&&el<SGI.bong;
+  const t=Math.min(1,el/SGI.walk),vx=-30+t*242,knock=el>=SGI.k[0]-.2&&el<SGI.bong;
   g.save();g.translate(vx+32,198);g.scale(-1.6,1.6);cart(24,0);
   person(0,0,Object.assign({},VAL,{gaze:-1},knock&&!boom?{armOut:kn?9:7}:{},boom?{shut:el<SGI.slam+.3?1:0}:{}),el<SGI.walk);g.restore();
   /* fumetti */
-  SGI.k.forEach((tk,i)=>{if(el>=tk&&el<(i<2?SGI.k[2]-.6:SGI.bong-.3)){const x=dx-8+i%2*22,y=dy+20+(i%2)*14-(i>1?4:0);txt("TOC",x+1,y+1,9,"#000");txt("TOC",x,y,9,"#fff3c8")}});
+  SGI.k.forEach((tk,i)=>{if(el>=tk&&el<(i<2?SGI.k[2]-.6:SGI.bong-.3)){const x=dx+10+i%2*20,y=dy+24+(i%2)*14-(i>1?4:0);txt("TOC",x+1,y+1,9,"#000");txt("TOC",x,y,9,"#fff3c8")}});
   if(el>=SGI.k[1]+.6&&el<SGI.k[2]-.2)txt("...",vx+6,118,10,"#1a1a24");
   if(el>=SGI.k[3]+.7&&el<SGI.bong){const b=Math.floor(el*3)%2;txt("?",vx+6+b,116,14,"#1a1a24")}
-  const BW=[["BONG!",SGI.bong,250,62,24,"#ffd23c"],["SBENG!",SGI.sbeng,150,98,20,"#ff3b5c"],["SLAM!",SGI.slam,290,124,28,"#5ee6ff"]];
+  const BW=[["BONG!",SGI.bong,262,50,24,"#ffd23c"],["SBENG!",SGI.sbeng,120,96,20,"#ff3b5c"],["SLAM!",SGI.slam,300,128,28,"#5ee6ff"]];
   BW.forEach(([w,t0,x,y,px,c])=>{if(el<t0)return;const z=Math.min(1,(el-t0)/.18),s=z<1?1.8-z*.8:1;g.save();g.translate(x,y);g.rotate(-.12+(w.length%3)*.08);g.scale(s,s);txt(w,3,3,px,"#000");txt(w,0,0,px,c);g.restore()});
   if(el>=SGI.end-.35)al(Math.min(1,(el-(SGI.end-.35))/.35),()=>r(-6,-6,396,228,"#fff"));
   g.restore()}
