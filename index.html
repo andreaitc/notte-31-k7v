@@ -1659,8 +1659,8 @@ const POST=[["bonazzi","Allora? Ci hanno creduto tutti?"],["paolucci","Tutti. An
 function postScene(){r(0,0,384,216,"#120a14");r(0,0,384,30,"#2a1a20");for(let i=0;i<6;i++){const x=10+i*64;r(x,34,54,46,"#0b1030");r(x+2,36,50,42,"#141a44");for(let j=0;j<4;j++)r(x+4+hs(i,j)*44,40+hs(j,i)*36,.5,.5,"#fff");r(x-2,34,8,48,"#c0283a");r(x+48,34,8,48,"#c0283a")}
   r(0,150,384,66,"#2a2a34");r(0,150,384,1,"#4a4a5a");for(let i=0;i<5;i++){const x=12+i*78;box(x,112,30,40,"#3f4f80");box(x+4,106,22,8,"#4a5a90")}
   r(0,82,384,2,"#c9a15a");disc(192,20,6,"#ffe8a0");al(.18,()=>poly([[186,22],[198,22],[260,216],[124,216]],"#ffe8a0"));
-  g.save();g.translate(150,206);g.scale(2.6,2.6);person(0,0,BONB,false);g.restore();
-  g.save();g.translate(214,206);g.scale(2.6,2.6);person(0,0,Object.assign({},PAO,{gag:0,rope:0,gaze:-(S.gz||0)}),false);g.restore();
+  g.save();g.translate(150,206);g.scale(2.6,2.6);person(0,0,Object.assign({},BONB,{body:PAO.body,legs:"#2a2f4a",collar:0}),false);g.restore();
+  g.save();g.translate(214,206);g.scale(2.6,2.6);person(0,0,Object.assign({},PAO,{gag:0,rope:0,gaze:-(S.gz||0),body:BONB.body,legs:BONB.legs,collar:1}),false);g.restore();
   r(120,206,40,4,"#8a8a8a");r(124,208,30,1,"#6a6a6a");}
 /* ---------- ritratti ---------- */
 const IMG={};
@@ -1781,7 +1781,7 @@ function render(){
   on("btimmy",()=>{S.phase="play";S.mode="explore";S.wm=null;render()});
   on("bagain",()=>{nuova();S.phase="brief";render()});
   on("bpost",()=>{theme(false);S.phase="post";S.pi=0;S.pf=0;S.pz=0;S.pdark=0;S.pT=0;S.pLine=0;S.gz=0;render()});
-  const crr=document.querySelector(".credits .cr");if(crr)crr.addEventListener("animationend",()=>{if(S.phase==="end"){theme(false);S.phase="post";S.pi=0;S.pf=0;S.pz=0;S.pdark=0;S.pT=0;S.pLine=0;S.gz=0;sfx("blip");render()}},{once:true});
+  const crr=document.querySelector(".credits .cr");if(crr){const toPost=()=>{if(S.phase==="end"){theme(false);S.phase="post";S.pi=0;S.pf=0;S.pz=0;S.pdark=0;S.pT=0;S.pLine=0;S.gz=0;sfx("blip");render()}};crr.addEventListener("animationend",toPost,{once:true});const cw=crr.parentElement,lp=crr.lastElementChild;const chk=()=>{if(S.phase!=="end"||!lp||!lp.isConnected)return;if(lp.getBoundingClientRect().bottom<cw.getBoundingClientRect().top+1){setTimeout(toPost,350);return}requestAnimationFrame(chk)};requestAnimationFrame(chk)}
   const rd=$("brdone");if(rd)rd.onclick=e=>{e.stopPropagation();endRadio()};
   const gm=$("bgoalmap");if(gm)gm.onclick=e=>{e.stopPropagation();S.bach=bachecaOn()?1:0;openMap()};const mb=$("bminib");if(mb)mb.onclick=e=>{e.stopPropagation();S.bach=1;openMap()};
   const bk=$("bask");if(bk)bk.onclick=e=>{e.stopPropagation();openTalk(S.say.pid)};
