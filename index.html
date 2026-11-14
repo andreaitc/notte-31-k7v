@@ -1280,9 +1280,22 @@ function sceneF(front){const t=nowS(),la=SCP.laura;if(!la)return;const lx=SCX.la
 function sceneE2(front){if(!front)return;const t=nowS(),a=Math.floor(t/1.4)%2;
   mini(186,NPCY+2,Object.assign({},STU[3],{gaze:1,up:a?1:0}),1,false);mini(238,NPCY+2,Object.assign({},STU[2],{gaze:-1,up:a?0:1}),1,false);
   if(Math.floor(t*2)%2)al(.6,()=>txt(a?"!":"?",a?196:248,NPCY-36,7,"#ffd23c"))}
-function sceneWC(front){if(front)return;const t=nowS(),Q=[[204,{body:"#c0283a",hair:"#6a3a1a",f:1,long:1}],[226,{body:"#1f8a4f",hair:"#141414"}],[248,{body:"#e8a020",hair:"#9a6a3a",f:1,hl:"bob"}]];
-  Q.forEach(([x,o],i)=>{const hop=i===1?Math.max(0,Math.sin(t*9))*1.5:0;person(x,NPCY-hop,Object.assign({},o,{gaze:1}),false)});
-  const L=[["Dai, dai, dai..."],["Quanto ci vuole?!"],["Sono qui","da venti minuti!"]][Math.floor(t/3.5)%3];if(Math.floor(t/3.5)%2===0)bubble([214,236,258][Math.floor(t/3.5)%3],NPCY-70,L)}
+function personSide(x,y,o,ph){const sk=o.skin||"#e8b896",bo=o.body,hr=o.hair,lg=o.legs||"#2a2f4a",bd=sh(bo,.78),st=Math.sin(ph||0)*1.2;
+  /* contorno */
+  r(x+4.5,y-13.5,7,14,OL);r(x+3.5,y-27.5,10,15,OL);r(x+4.5,y-39.5,10,13,OL);r(x+13.5,y-34.5,2,3,OL);
+  /* gambe e scarpe */
+  r(x+5,y-13,3,12.5,sh(lg,.85));r(x+8+st*.3,y-13,3,12.5,lg);r(x+5,y-1.5,4,1.5,"#1a1a1e");r(x+8+st*.3,y-1.5,4.5,1.5,"#1a1a1e");
+  /* busto */
+  r(x+4,y-27,9,14.5,bo);r(x+4,y-27,2,14.5,bd);if(o.f&&o.long)r(x+3.5,y-14,10,2.5,bo);
+  /* braccio */
+  r(x+7,y-26+st*.2,3,11,bd);r(x+7,y-15.5+st*.2,3,2,sk);
+  /* testa di profilo, guarda a destra */
+  r(x+6.5,y-29,4,2.5,sk);r(x+5,y-39,9,12,sk);r(x+14,y-34,1.2,2.2,sk);r(x+11.5,y-35.5,1.2,1.2,"#141418");r(x+11,y-37,2,.5,hr);r(x+12,y-30.5,2,.6,sh(sk,.7));
+  /* capelli */
+  r(x+4.5,y-40,9.5,3.2,hr);r(x+4.5,y-40,4,8,hr);if(o.long)r(x+4,y-37,3.5,11,hr);if(o.hl==="bob")r(x+4,y-37,4,8,hr);r(x+8,y-33.5,1.5,2,sh(sk,.85))}
+function sceneWC(front){if(front)return;const t=nowS(),C=[{body:"#c0283a",hair:"#6a3a1a",f:1,long:1},{body:"#1f8a4f",hair:"#141414"},{body:"#e8a020",hair:"#9a6a3a",f:1,hl:"bob"},{body:"#8a4ac0",hair:"#2a1a14",f:1,long:1},{body:"#4a4a56",hair:"#d8b878"},{body:"#2f6fd0",hair:"#2a1a10",skin:"#b27a52"}];
+  C.forEach((o,i)=>{const x=176+i*13,hop=i===2?Math.max(0,Math.sin(t*9))*1.2:0;g.save();g.translate(x,NPCY-30-hop);g.scale(.88,.88);personSide(0,0,o,i===4?t*6:0);g.restore()});
+  const k=Math.floor(t/3.5)%3,L=[["Dai, dai, dai..."],["Quanto ci vuole?!"],["Sono qui","da venti minuti!"]][k];if(Math.floor(t/3.5)%2===0)bubble([210,248,226][k],NPCY-70,L)}
 function auleScene(k,front){if(S.mode==="travel")return;if(k==="corridoi"){sceneWC(front);return}if(PID.patty&&ROOMS[k]&&ROOMS[k].ppl.includes(PID.patty)&&!gone("patty"))return;
   if(k==="sb")sceneB(front);if(k==="se")sceneE2(front);if(k==="sc")sceneC(front);if(k==="sd")sceneD(front);if(k==="sf")sceneF(front);}
 
