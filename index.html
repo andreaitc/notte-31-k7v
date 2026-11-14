@@ -1892,7 +1892,7 @@ const STEPS=[
  {room:"corridoi",who:"paolo",hk:"le chiavi",goal:"Nei corridoi: chiedi a Paolo la copia delle chiavi",tell:"Paolo, nei corridoi, sa dov'è finita la copia delle chiavi.",yes:"Dove sono le chiavi?",
   open:"«Valentino! C'è fila anche stasera.»",ov:"Siempre la fila, siempre.",
   say:"«Le chiavi? Erano per terra davanti al bagno. Le ho portate in amministrazione e le ho appese al quadro delle chiavi: quando si perde una chiave, finisce lì.»",th:"El quadro de las chiaves. ¡Andiamos!",
-  obj:"il quadro delle chiavi",objRoom:"amministrazione",objGoal:"In amministrazione: prendi la copia delle chiavi dal quadro delle chiavi",objTell:"La copia delle chiavi è appesa al quadro delle chiavi, in amministrazione.",item:"chiavi"},
+  obj:"il quadro delle chiavi",objRoom:"amministrazione",objGoal:"In amministrazione: prendi la copia delle chiavi dal quadro delle chiavi",objTell:"La copia delle chiavi è appesa al quadro delle chiavi, in amministrazione.",nudge:{vittoriaA:"La copia delle chiavi? Se l'ha portata Paolo, è sul quadro delle chiavi, lì sulla parete. Prendila pure. Il modulo giallo lo firmi domani.",sonia:"Il quadro delle chiavi è quello sulla parete. Paolo ci ha appeso qualcosa poco fa: prendilo tu, io qui non posso alzarmi.",tacconi:"Dalla webcam la vedo! Un portachiavi a forma di autobus, sul quadro delle chiavi. Prendila, Valentino!"},item:"chiavi"},
  {room:"bus",goal:"Apri il Teatrobus con la copia delle chiavi",tell:"Hai la copia delle chiavi! Il Teatrobus, in fondo al cortile. Corri!",final:1}
 ];
 const WAR=["«Okkio je... Sembra scritto correndo.»", "«“Maledetto T9”: almeno su questo ha ragione.»", "«Mezzano? Mezzanotte? Mezzanino? Boh.»", "«Pollicino? Ma le briciole le ha lasciate o se le è mangiate?»", "«Ment.o... mentolo? Sta male?»", "«Questo messaggio sembra un esercizio di improvvisazione.»", "«Press... pressione? Gli è salita la pressione?»", "«Non so cosa voglia dire, ma lo stampo e lo appendo.»", "«Paolucci scrive come parla: di corsa.»", "«Briciole, Pollicino... sembra una favola, non un messaggio.»", "«Di solito mette pure le virgole. Doveva essere molto agitato.»", "«Il T9 ha colpito ancora. Povero presidente.»", "«Leggilo tu, io senza occhiali vedo solo puntini.»", "«Sembra un codice segreto. O un dito troppo grosso.»"];
@@ -2836,8 +2836,9 @@ function openTalk(pid){const p=PID[pid];S.met[pid]=true;S.mode="talk";S.say=null
   if(isKey(pid)&&!S.sub&&!S.heard[S.step]){code=SC(S.step)+".a";a=s.open;msg=s.msg||null;after=s.after||null;v=s.ov||null;
     if(s.give&&!s.yes){media=s.media||null;S.heard[S.step]=true;S.found.push(s.give);S.step++;S.sub=false;newGoal()}}
   else{if(pid==="cristina")v=pick(["Buonasera, señorita Cristina...","Sì, señorita Cristina. Subito, señorita."]);a=p.screen&&S.step>6?"«...krrr... (il monitor è nero: NESSUN SEGNALE)»":p.screen?"«Ti sento a scatti, Valentino! Dimmi!»":S.sgOpen||(p.L.open0?`«${pick(p.L.open0)}»`:`«${OPEN[(pid.length+Object.keys(S.asked).length)%OPEN.length]}»`)}
-  S.sgOpen=null;
-  S.talk={pid,q:null,a,msg,after,v:v?`«${v}»`:null,media,code};typeOn();render()}
+  S.sgOpen=null;let done0=false;
+  if(s.nudge&&S.sub&&S.loc===s.objRoom){a=`«${s.nudge[pid]||"Il quadro delle chiavi è lì sulla parete. Quello che brilla."}»`;done0=true;v=null;code=PC(pid)+".k"}
+  S.talk={pid,q:null,a,msg,after,v:v?`«${v}»`:null,media,code,done0};typeOn();render()}
 function questions(){const s=cur(),T=S.talk;if(T&&isKey(T.pid)&&s.only&&!S.sub)return S.heard[S.step]?[]:s.only;if(T&&T.done0)return[];
   const out=[],key=!!(T&&isKey(T.pid)&&!S.sub&&!S.heard[S.step]),tr=key?trigOf(s):[];
   if(key&&s.yes)out.push({k:"si",l:s.yes});
