@@ -43,10 +43,10 @@ button:focus-visible{outline:2px solid var(--giallo);outline-offset:2px}
 .slot{width:2.4em;height:2.4em;display:grid;place-items:center;background:rgba(11,15,42,.82);border:2px dashed var(--linea);font-family:var(--pix);font-size:.55em;color:var(--tenue)}
 .slot.on{border:2px solid var(--giallo);background:#3a2a08}
 .slot canvas{width:100%;height:100%;image-rendering:pixelated}
-.slots{cursor:pointer}
-.clv{left:6%;right:6%;top:14%;bottom:6%;z-index:40;background:rgba(6,9,28,.96);border:3px solid var(--giallo);padding:2% 2.5%;display:flex;flex-direction:column;gap:3%;font-size:.95em;color:var(--bianco)}
+.slot.on{cursor:pointer}
+.clv{left:30%;right:30%;top:14%;bottom:6%;z-index:40;background:rgba(6,9,28,.96);border:3px solid var(--giallo);padding:2% 2.5%;display:flex;flex-direction:column;gap:3%;font-size:.95em;color:var(--bianco)}
 .clv h4{margin:0;font-family:var(--pix);font-weight:400;font-size:.6em;color:var(--giallo);text-align:center}
-.clvg{flex:1;min-height:0;display:grid;grid-template-columns:repeat(4,1fr);gap:2.5%}
+.clvg{flex:1;min-height:0;display:grid;grid-template-columns:1fr}
 .clvc{display:flex;flex-direction:column;gap:.4em;min-height:0;border:2px dashed var(--linea);padding:4%;background:rgba(11,15,42,.7)}
 .clvc.on{border:2px solid var(--giallo);background:#2a2008}
 .clvp{flex:1;min-height:0;display:grid;place-items:center;background:#141a44;overflow:hidden}
@@ -1673,18 +1673,18 @@ function hud(){
   if(S.phase!=="play"||S.mode==="travel")return S.mode==="travel"?`<div class="ov toast" style="top:12%">${S.travel&&S.travel.dir<0?"SI TORNA A TEATRO...":"VERSO L'ITC STUDIO..."}</div>`:"";
   const late=S.t>=23*60;
   return `<div class="hud"><div class="chip">ORE <b class="${late?"late":""}">${hhmm(S.t)}</b>${S.t>=END?" <span class=\"blink\">!</span>":""}</div>
-    <div class="slots" id="bslots">${["b1","b2","b3","chiavi"].map(id=>S.found.includes(id)?`<div class="slot on"><canvas width="24" height="24" data-ic="${id}"></canvas></div>`:`<div class="slot">?</div>`).join("")}</div>
+    <div class="slots">${["b1","b2","b3","chiavi"].map(id=>S.found.includes(id)?`<div class="slot on" data-cl="${id}"><canvas width="24" height="24" data-ic="${id}"></canvas></div>`:`<div class="slot">?</div>`).join("")}</div>
     <div class="btns">${S.mode==="explore"||S.mode==="say"?`<button class="hb big" id="bmap" type="button">MAPPA</button>${bachecaOn()?`<button class="hb big" id="bminib" type="button">BACHECA</button>`:""}`:""}<button class="hb" id="bsnd" type="button">${SND?"SUONO":"MUTO"}</button><button class="hb" id="bfs" type="button">&#9974;</button></div></div>
 
     <div class="place">${ROOMS[S.loc].n.toUpperCase()}</div>${S.clv?clvHTML():""}
     ${S.mode==="explore"&&!(S.jc&&!S.jc.done)&&!(S.cafCut&&!S.cafCut.done)&&!(S.backCut&&!S.backCut.done)&&!bachecaOn()&&!(cur().who==="patty"&&S.pattyAt)?`<div class="goal ${S.goalNew?"flash":""}"><b>${S.goalNew?"NUOVO OBIETTIVO":"OBIETTIVO"}</b> ${esc(goalText())}${mapRoom(curRoom())!==S.loc&&!(cur().room==="tin"&&S.loc==="lab")&&!(curRoom()==="scaffe"&&S.loc==="scaffe")?` <button type="button" class="gm" id="bgoalmap">${bachecaOn()?"APRI LA BACHECA":"APRI LA MAPPA"}</button>`:stepObjIndex(S.loc)>=0?" · <i>TOCCA CIÒ CHE BRILLA</i>":cur().room==="tin"&&S.loc==="lab"?" · <i>ENTRA DALLA PORTA DEL TENDONE</i>":""}</div>`:""}`;
 }
 function clvHTML(){const L=[["b1",()=>`<img class="clvimg wide" src="${scribSrc()}" alt="">`],["b2",()=>`<canvas class="clvimg" width="24" height="24" data-ic="b2"></canvas>`],["b3",()=>`<img class="clvimg tall" src="${photoSrc()}" alt="">`],["chiavi",()=>`<canvas class="clvimg" width="24" height="24" data-ic="chiavi"></canvas>`]];
-  return `<div class="ov clv" id="clv"><h4>LE BRICIOLE DI PAOLUCCI</h4><div class="clvg">${L.map(([id,f],i)=>{const it=ITEMS[id],ok=S.found.includes(id);
+  return `<div class="ov clv" id="clv"><h4>${S.clv==="chiavi"?"BONUS":"BRICIOLA "+(["b1","b2","b3"].indexOf(S.clv)+1)}</h4><div class="clvg">${L.filter(([id])=>id===S.clv).map(([id,f],i)=>{const it=ITEMS[id],ok=S.found.includes(id);
     return `<div class="clvc ${ok?"on":""}"><div class="clvp">${ok?f():"<span>?</span>"}</div><b>${ok?esc(it.t1.replace(/^[^:]*:\s*/,"")):(id==="chiavi"?"BONUS":"BRICIOLA "+(i+1))}</b><p>${ok?esc(id==="b1"&&S.found.includes("b3")?"Lo scarabocchio della macchinetta del caffè. Girato dal verso giusto è un autobus: il Teatrobus.":it.txt):"Non ancora trovata."}</p></div>`}).join("")}</div><p class="clvx">TOCCA PER CHIUDERE</p></div>`}
 function bindHud(){
   const m=$("bmap");if(m)m.onclick=e=>{e.stopPropagation();S.bach=0;openMap()};
-  const sl=$("bslots");if(sl)sl.onclick=e=>{e.stopPropagation();S.clv=!S.clv;sfx("blip");render()};
+  document.querySelectorAll("[data-cl]").forEach(el=>el.onclick=e=>{e.stopPropagation();S.clv=S.clv===el.dataset.cl?0:el.dataset.cl;sfx("blip");render()});
   const cv=$("clv");if(cv)cv.onclick=e=>{e.stopPropagation();S.clv=0;render()};
   const s=$("bsnd");if(s)s.onclick=e=>{e.stopPropagation();SND=!SND;render()};
   const f=$("bfs");if(f)f.onclick=e=>{e.stopPropagation();fullscreen()};
@@ -1937,7 +1937,7 @@ function jessCut(p,layer){const J=S.jc,t0=(performance.now()-J.t0)/1000,T0=3,STE
     box(tx-56,ty-10,112,19,"#f4f4ff");poly([[tx-6,ty+9],[tx+2,ty+9],[tx-4,ty+14]],"#f4f4ff");
     txt(lines[0],tx,ty-1.5,5,"#1a1a24");txt(lines[1],tx,ty+5.5,5,"#1a1a24")}}
 const PIDX=()=>STEPS.findIndex(s=>s.who==="patty"),SGPPL=["gio","mattia","biljana","izzo","caterina"];
-const gone=pid=>(pid==="jessica"&&S.step>0&&!(S.jc&&!S.jc.done))||(pid==="patty"&&!S.pattyAt&&S.step<=PIDX())||(SGPPL.includes(pid)&&S.step<=PIDX())||(!!(PID[pid]&&PID[pid].hang)&&!(S.called&&S.called[pid]!=null));
+const gone=pid=>(pid==="irene"&&S.step>=12)||(pid==="jessica"&&S.step>0&&!(S.jc&&!S.jc.done))||(pid==="patty"&&!S.pattyAt&&S.step<=PIDX())||(SGPPL.includes(pid)&&S.step<=PIDX())||(!!(PID[pid]&&PID[pid].hang)&&!(S.called&&S.called[pid]!=null));
 const mapRoom=k=>k==="tin"?"lab":k==="scaffe"?"sfront":k;
 function goalText(){const s=cur();return S.sub?s.objGoal:s.goal}
 function activeLead(){if(cur().who==="patty"&&!S.pattyAt)return null;return mapRoom(curRoom())}
@@ -1950,7 +1950,7 @@ const AULE=["sa","sb","sc","sd","se","sf"],NOPATTY=["Aquí no está la Patty.","
 const noPatty=k=>cur().who==="patty"&&!S.pattyAt&&((S.pAule||[]).includes(k)||k==="sg"&&S.pGvis)&&k!==S.loc;
 function pattySearch(k){if(cur().who==="patty"&&!S.pattyAt&&k==="sg")S.pGvis=1;if(cur().who!=="patty"||S.pattyAt||!AULE.includes(k))return 0;S.pAule=S.pAule||[];if(!S.pAule.includes(k))S.pAule.push(k);
   if(S.pAule.length>=6){S.pattyAt=k;moveP("patty",k,190);const st=cur();st.room=k;return 0}return S.pAule.length}
-function enter(k){S.bachT0=0;
+function enter(k){S.bachT0=0;if(k==="lab"&&PID.carlo)PID.carlo.x=S.step>=12?300:140;
   S.loc=k;S.mode="arrive";S.talk=null;S.note=null;S.say=null;const R=ROOMS[k],first=!S.visited[k];S.visited[k]=true;
   const ps=pattySearch(k);
   S.vx=FROMR[k]?(first?424:364):first||k==="bus"?-40:20;const pp=R.ppl.filter(p=>!gone(p.id));S.seq=[];
