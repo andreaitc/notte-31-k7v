@@ -1873,9 +1873,9 @@ const STEPS=[
   open:"«Stasera qui è un via vai.»",ov:"Cerco a Paolucci. ¿Lo ha vistado?",
   say:"«Strano? Sì: mentre la signora in rosso guardava la bacheca, Paolucci ha armeggiato con la macchinetta del caffè. Passandomi vicino ha detto qualcosa sulla macchinetta, ma non ho capito cosa.»",th:"La machinetta del cafè...",
   obj:"la macchinetta del caffè",objRoom:"scaffe",objGoal:"Controlla la macchinetta del caffè",item:"b1"},
- {room:"se",who:"patty",trig:["si"],only:[{k:"si",l:"Guarda i disegni"},{k:"p1",l:"Cosa ne pensi della marinera?"},{k:"p2",l:"Dove hai comprato quei leggings?"}],xa:{p1:{a:"«La marinera? Il ballo peruviano col fazzoletto! Bellissimo. A gennaio me lo insegni, ai piccoli piacerà da morire.»",th:"¡Con pañuelo, claro!"},p2:{a:"«Al mercato del martedì, banco dodici. Tre paia dieci euro. Non dirlo a nessuno, eh.»",th:"Banco doce. Apuntado."}},goal:"Cerca Patty in una delle aule A-F",tell:"La Bagnara dice che Patty è in una delle aule, ma non ricorda quale.",yes:"Guarda i disegni",
-  open:"«Stavo mettendo via i disegni dei bambini. Vuoi vederli?»",ov:"¡Ciertamente que sì!",
-  pics:1,say:"«Stavo mettendo via i disegni dei bambini. Guarda che belli! Hanno disegnato il presidente. Chi Paolucci, chi Bonazzi, uno Floridia. Poco fa Paolucci e la signora in rosso sono passati a vederli: lei si è fermata un sacco.»",th:"Mmm... ¡Los presidentos soy una mucchia! ¡Nunca avaría mai pensado!"},
+ {room:"se",who:"patty",trig:["dove"],only:[{k:"dove",l:"E adesso dove sono andati?"}],goal:"Cerca Patty in una delle aule A-F",tell:"La Bagnara dice che Patty è in una delle aule, ma non ricorda quale.",
+  open:"«Stavo mettendo via i disegni dei bambini. Guarda che belli! Hanno disegnato il presidente. Chi Paolucci, chi Bonazzi, uno Floridia. Poco fa Paolucci e la signora in rosso sono passati a vederli: lei si è fermata un sacco.»",ov:"Mmm... ¡Los presidentos soy una mucchia! ¡Nunca avaría mai pensado!",
+  say:"«Hanno detto che andavano in sala G a vedere le prove. Mattia e gli attori a quest'ora sono già lì.»",th:"Sala G. ¡Vamos!"},
  {room:"sg",who:"mattia",goal:"Vai in sala G: trova Mattia",tell:"In aula G, Mattia ha visto la prova con loro.",
   open:"«Scusa la scenata, era il secondo atto. Dimmi tutto, Valentino.»",ov:"Permesso, permesito.",
   say:"«Sì, sono passati. La signora in rosso ha guardato la prova in prima fila, senza fiatare. Paolucci invece, mentre lei non guardava, ha scarabocchiato qualcosa sul mio copione. Guarda qua:»",paper:"SOS CANALE 14",th:"Canale catorche... ¡una radiolina! William."},
@@ -2867,9 +2867,9 @@ function openTalk(pid){const p=PID[pid];S.met[pid]=true;S.mode="talk";S.say=null
   S.sgOpen=null;let done0=false;
   if(s.nudge&&S.sub&&S.loc===s.objRoom){a=`«${s.nudge[pid]||"Il quadro delle chiavi è lì sulla parete. Quello che brilla."}»`;done0=true;v=null;code=PC(pid)+".k"}
   S.talk={pid,q:null,a,msg,after,v:v?`«${v}»`:null,media,code,done0};
-  if(pid==="patty"&&s.who==="patty"&&!S.heard[S.step]&&S.loc===S.pattyAt){ask("si");if(S.talk)S.talk.q=null;render();return}
+  if(pid==="patty"&&s.who==="patty"&&!S.heard[S.step]&&S.loc===S.pattyAt){if(!S.pattyPics){S.pattyPics=1;S.talk.media="pics"}else{S.talk.a="«Eccomi, Valentino. Ti serve altro?»";S.talk.v=null}}
   typeOn();render()}
-function questions(){const s=cur(),T=S.talk;if(T&&T.pid==="patty"&&S.step===PIDX()+1&&!S.asked.pattydove)return[{k:"dove",l:"E adesso dove sono andati?"}];if(T&&isKey(T.pid)&&s.only&&!S.sub)return S.heard[S.step]?[]:s.only;if(T&&T.done0)return[];
+function questions(){const s=cur(),T=S.talk;if(T&&isKey(T.pid)&&s.only&&!S.sub)return S.heard[S.step]?[]:s.only;if(T&&T.done0)return[];
   const out=[],key=!!(T&&isKey(T.pid)&&!S.sub&&!S.heard[S.step]),tr=key?trigOf(s):[];
   if(key&&s.yes)out.push({k:"si",l:s.yes});
   if(key&&tr.includes("pao"))out.push({k:"pao",l:"Mostra una foto di Paolucci"});
@@ -2902,7 +2902,7 @@ function runAuto(T){if(T.auto==="radio")startRadio();else startCall()}
 function bindTalk(){
   document.querySelectorAll(".ch[data-q]").forEach(b=>b.onclick=e=>{e.stopPropagation();ask(b.dataset.q)});
   document.querySelectorAll(".tab").forEach(b=>b.onclick=e=>{e.stopPropagation();if(b.dataset.p!==S.talk.pid)openTalk(b.dataset.p)});
-  const x=$("bexit");if(x)x.onclick=e=>{e.stopPropagation();const T=S.talk;S.talk=null;if(false){S.mode="arrive";S.seq=[{who:"val",txt:"¡Vamos! ¡Todo el mundo in sala G!"}];S.seqI=0;S.seqT=0;S.exitG=1;render();return}if(T&&T.auto){if(!T.autoRun){T.autoRun=1;runAuto(T)}return}S.mode="explore";render();flushPend()};
+  const x=$("bexit");if(x)x.onclick=e=>{e.stopPropagation();const T=S.talk;S.talk=null;if(T&&T.pid==="patty"&&cur().who==="patty"&&!S.heard[S.step])S.met.patty=false;if(false){S.mode="arrive";S.seq=[{who:"val",txt:"¡Vamos! ¡Todo el mundo in sala G!"}];S.seqI=0;S.seqT=0;S.exitG=1;render();return}if(T&&T.auto){if(!T.autoRun){T.autoRun=1;runAuto(T)}return}S.mode="explore";render();flushPend()};
   const s=$("talk");if(s)s.onclick=e=>{if(e.target.closest("button"))return;e.stopPropagation();skipType()};
   const mv=$("mview");if(mv)mv.onclick=e=>{e.stopPropagation();closeMedia()};
 }
@@ -2946,7 +2946,6 @@ function ask(kind){
   if(kind==="si"&&s.seats&&!S.seatFound&&isKey(p.id)&&!S.sub){startSeats();return}let code=PC(p.id)+"."+(QN[kind]||0);
   if(p.screen&&S.step>6){a="«...krrr...» (Il monitor è nero. Nessun segnale.)";th="Los problemas de comunicassione de siempre.";sfx("nada")}
   else if(/^x\d$/.test(kind)&&C&&C.qx&&C.qx[+kind[1]]){const q=C.qx[+kind[1]];a=q.a;th=q.th;code=PC(p.id)+"."+kind;const h=hintTail(p.id);if(h)a=/»$/.test(a)?a.slice(0,-1)+" "+h+"»":a+" «"+h+"»";sfx("talk")}
-  else if(kind==="dove"&&p.id==="patty"){a="«Hanno detto che andavano in sala G a vedere le prove. Mattia e gli attori a quest'ora sono già lì.»";th="Sala G. ¡Vamos!";code=SC(PIDX())+".d";done0=true;sfx("talk")}
   else if(kind==="foto"){a="«Eccola di nuovo: Paolucci e la signora in rosso, di spalle. E il tuo scarabocchio, girato: una linea e due ruote. Il Teatrobus.»";th="El Teatrobus.";media="photo";sfx("talk")}
   else if(isKey(p.id)&&!S.sub&&!s.final&&!s.lock&&trigOf(s).includes(kind)){a=s.say;th=s.th;sfx("talk");if(s.only)done0=true;code=SC(S.step)+".b";a2=s.say2||null;cut=s.cut||null;paper=s.paper||null;auto=s.radio?"radio":s.call?"call":null;media=s.pics?"pics":null;if(s.give){S.found.push(s.give);media=s.media||null;sfx("clue")}
     resolveStep()}
@@ -3183,6 +3182,12 @@ function fitScreen(){const land=innerWidth>innerHeight,gap=TOPGAP&&land&&!docume
   sc.style.setProperty("--cw",w+"px");sc.style.setProperty("--ch",hh+"px");sc.style.setProperty("--cx",(W-w)/2+"px");sc.style.setProperty("--cy",(H-hh)/2+"px")}
 addEventListener("resize",fitScreen);addEventListener("orientationchange",()=>setTimeout(fitScreen,300));
 function start(d){fitScreen();Object.assign(PAO,{hair:"#3a2a1a",body:"#8a8a8a",stub:1,fixed:1});deriveColors({img:PAOIMG,autoC:1,c:PAO});nuova();S.called=S.called||{};if(S.mode==="talk"&&S.talk){S.talk.shown=S.talk.len||0;S.talk.vshown=S.talk.v?S.talk.v.length:0;S.talk.qok=1}if(S.mode==="travel")S.mode="explore";render();draw();setInterval(tick,90);{const sc=$("screen");sc.addEventListener("pointerdown",e=>{if(S.phase==="op"&&!e.target.closest("button"))opDown(e);if(S.phase==="ape"&&!e.target.closest("button"))apeSteer(e,1);if(S.phase==="pac"&&!e.target.closest("button"))pacInput(e,0)});sc.addEventListener("pointermove",e=>{if(S.phase==="op")opMove(e);if(S.phase==="ape"&&S.ape&&S.ape.steer&&e.pointerType!=="mouse")apeSteer(e,1);if(S.phase==="ape"&&e.buttons&&e.pointerType==="mouse")apeSteer(e,1);if(S.phase==="pac")pacInput(e,1)});sc.addEventListener("pointerup",e=>{if(S.phase==="op")opUp(e);if(S.phase==="ape")apeSteer(e,0);if(S.phase==="pac"&&!e.target.closest("button"))pacInput(e,2)});sc.addEventListener("pointercancel",e=>{if(S.phase==="op")opUp(e);if(S.phase==="ape")apeSteer(e,0)});sc.addEventListener("touchmove",e=>{if(S.phase==="op")e.preventDefault()},{passive:false})}$("screen").addEventListener("pointermove",brkMove);$("screen").addEventListener("touchmove",e=>{if(S.phase==="brk"){e.preventDefault();brkMove(e)}},{passive:false});document.addEventListener("keydown",e=>{if(S.phase!=="brk"||!S.bk)return;if(e.key==="ArrowLeft")S.bk.px=Math.max(24,S.bk.px-16);if(e.key==="ArrowRight")S.bk.px=Math.min(360,S.bk.px+16);if(e.key===" ")brkLaunch()})}
+/* pulsanti dell'interfaccia: il clic vale su tutto il rettangolo anche se l'interfaccia si ridisegna tra pressione e rilascio */
+(()=>{const IDS=["bmap","bsnd","bfs","bgear","bico","bgoalmap","bclose","bpiant"];let downId=null,fired=0;
+  const btnAt=e=>{const el=document.elementFromPoint(e.clientX,e.clientY);const b=el&&el.closest("button");return b&&IDS.includes(b.id)?b:null};
+  document.addEventListener("pointerdown",e=>{if(e.pointerType!=="mouse")return;const b=btnAt(e);downId=b?b.id:null},true);
+  document.addEventListener("pointerup",e=>{if(e.pointerType!=="mouse"||!downId)return;const b=btnAt(e)||(document.getElementById(downId));const id=downId;downId=null;if(!b||b.id!==id)return;const r=b.getBoundingClientRect();if(e.clientX<r.left-4||e.clientX>r.right+4||e.clientY<r.top-4||e.clientY>r.bottom+4)return;fired=Date.now();b.click()},true);
+  document.addEventListener("click",e=>{if(e.isTrusted&&Date.now()-fired<500){const b=e.target&&e.target.closest&&e.target.closest("button");if(b&&IDS.includes(b.id)||!b){e.stopImmediatePropagation();e.preventDefault()}}},true)})();
 start({});
 
 </script>
