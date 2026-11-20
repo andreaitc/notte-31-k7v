@@ -369,8 +369,17 @@ canvas.clvimg{width:70%;height:auto;aspect-ratio:1}
 .plan2 .rm i{font-size:.85em;color:#111;line-height:1.1}
 .plan2 .rm.tent{border-radius:50%;width:auto;aspect-ratio:1/1;transform:translateX(-50%)}
 .plan2 .rm.af.hov{border-color:var(--giallo)}
-.ov.map.bmap{inset:10% 10%;animation:bmin .7s cubic-bezier(.3,1.5,.5,1) both}
-@keyframes bmin{0%{transform:translateY(-140%) rotate(-6deg) scale(.6);opacity:0}70%{opacity:1}100%{transform:none;opacity:1}}
+.ov.map.bmap{inset:10% 10%;transform-origin:0 0;animation:bgrow .4s cubic-bezier(.2,.9,.3,1) both}
+.ov.map.bmap.shrink{animation:bshrink .3s ease-in both}
+@keyframes bgrow{0%{transform:translate(-10.5%,-2%) scale(.07);opacity:.5}100%{transform:none;opacity:1}}
+@keyframes bshrink{0%{transform:none;opacity:1}100%{transform:translate(-10.5%,-2%) scale(.07);opacity:.4}}
+.bico{position:absolute;left:.45em;top:2.9em;z-index:16;width:4.4em;height:3.3em;padding:0;background:linear-gradient(#c8ccd4,#9aa0aa);border:2px solid #6a707a;box-shadow:0 .2em 0 #000;cursor:pointer;animation:bpop .4s cubic-bezier(.3,1.6,.5,1) both}
+.bico:hover{border-color:var(--giallo)}
+.bico .pp{position:absolute;inset:.28em;background:#f4f1e6;display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:1fr;gap:.14em;padding:.18em;box-sizing:border-box}
+.bico .pp b{grid-column:1/-1;background:#2a2a30;height:.22em;align-self:center}
+.bico .pp i{display:block;border-radius:1px}
+.bico::after{content:"";position:absolute;left:50%;top:-.25em;width:.45em;height:.45em;margin-left:-.22em;border-radius:50%;background:#d0203a;box-shadow:0 1px 0 #000}
+@keyframes bpop{0%{transform:scale(.2);opacity:0}100%{transform:none;opacity:1}}
 .bmap .board{flex:1;min-height:0;width:100%;box-sizing:border-box;background:linear-gradient(#c8ccd4,#9aa0aa);border-radius:.5em;padding:1.1%;box-shadow:inset 0 0 0 3px #6a707a,0 .3em 0 #000}
 .bmap .paper{position:relative;height:100%;width:100%;background:#f6f6f2;border-radius:.2em}
 .bmap .btitle{position:absolute;left:2%;top:4%;font-family:"Courier New",monospace;font-weight:700;color:#c0203a;font-size:.95em;line-height:1.25}.bmap .btitle span{padding-left:3.5em}
@@ -1690,11 +1699,15 @@ function hud(){
   const late=S.t>=23*60;
   return `<div class="hud"><div class="chip">ORE <b class="${late?"late":""}">${hhmm(S.t)}</b>${S.t>=END?" <span class=\"blink\">!</span>":""}</div>
     <div class="slots">${["b1","b2","b3","chiavi"].map(id=>S.found.includes(id)?`<div class="slot on" data-cl="${id}"><canvas width="24" height="24" data-ic="${id}"></canvas></div>`:`<div class="slot">?</div>`).join("")}</div>
-    <div class="btns">${S.mode==="explore"||S.mode==="say"?`<button class="hb big" id="bmap" type="button">MAPPA</button>${bachecaOn()?`<button class="hb big" id="bminib" type="button">BACHECA</button>`:""}`:""}<button class="hb" id="bsnd" type="button">${SND?"SUONO":"MUTO"}</button><button class="hb" id="bfs" type="button">&#9974;</button></div></div>
+    <div class="btns">${S.mode==="explore"||S.mode==="say"?`<button class="hb big" id="bmap" type="button">MAPPA</button>`:""}<button class="hb" id="bsnd" type="button">${SND?"SUONO":"MUTO"}</button><button class="hb" id="bfs" type="button">&#9974;</button></div></div>
 
-    <div class="place">${ROOMS[S.loc].n.toUpperCase()}</div>${S.clv?clvHTML():""}
+    <div class="place">${ROOMS[S.loc].n.toUpperCase()}</div>${S.clv?clvHTML():""}${bicoHTML()}
     ${S.mode==="explore"&&!(S.jc&&!S.jc.done)&&!(S.cafCut&&!S.cafCut.done)&&!(S.backCut&&!S.backCut.done)&&!bachecaOn()&&!(cur().who==="patty"&&S.pattyAt)?`<div class="goal ${S.goalNew?"flash":""}"><b>${S.goalNew?"NUOVO OBIETTIVO":"OBIETTIVO"}</b> ${esc(goalText())}${mapRoom(curRoom())!==S.loc&&!(cur().room==="tin"&&S.loc==="lab")&&!(curRoom()==="scaffe"&&S.loc==="scaffe")?` <button type="button" class="gm" id="bgoalmap">${bachecaOn()?"APRI LA BACHECA":"APRI LA MAPPA"}</button>`:stepObjIndex(S.loc)>=0?" · <i>TOCCA CIÒ CHE BRILLA</i>":cur().room==="tin"&&S.loc==="lab"?" · <i>ENTRA DALLA PORTA DEL TENDONE</i>":""}</div>`:""}`;
 }
+function bicoHTML(){const vis=S.phase==="play"&&bachecaOn()&&(S.mode==="explore"||S.mode==="say");if(!vis){S.bicoT0=0;return""}if(!S.bicoT0)S.bicoT0=Date.now();
+  const C=BSALE.map(x=>x[3]||"#d8d4c8");return `<button class="bico" id="bico" type="button" aria-label="Apri la bacheca" style="animation-delay:-${Date.now()-S.bicoT0}ms"><span class="pp"><b></b>${C.map(c=>`<i style="background:${c}"></i>`).join("")}</span></button>`}
+function bachOpen(){S.bach=1;S.bachT0=Date.now();openMap()}
+function bachShrink(then){const el=document.querySelector(".ov.map.bmap");if(!el){then();return}el.style.animationDelay="0ms";el.classList.add("shrink");sfx("blip");setTimeout(then,300)}
 function clvHTML(){const L=[["b1",()=>`<img class="clvimg wide" src="${scribSrc()}" alt="">`],["b2",()=>`<canvas class="clvimg" width="24" height="24" data-ic="b2"></canvas>`],["b3",()=>`<img class="clvimg tall" src="${photoSrc()}" alt="">`],["chiavi",()=>`<canvas class="clvimg" width="24" height="24" data-ic="chiavi"></canvas>`]];
   return `<div class="ov clv" id="clv"><h4>${S.clv==="chiavi"?"BONUS":"BRICIOLA "+(["b1","b2","b3"].indexOf(S.clv)+1)}</h4><div class="clvg">${L.filter(([id])=>id===S.clv).map(([id,f],i)=>{const it=ITEMS[id],ok=S.found.includes(id);
     return `<div class="clvc ${ok?"on":""}"><div class="clvp">${ok?f():"<span>?</span>"}</div><b>${ok?esc(it.t1.replace(/^[^:]*:\s*/,"")):(id==="chiavi"?"BONUS":"BRICIOLA "+(i+1))}</b><p>${ok?esc(id==="b1"&&S.found.includes("b3")?"Lo scarabocchio della macchinetta del caffè. Girato dal verso giusto è un autobus: il Teatrobus.":it.txt):"Non ancora trovata."}</p></div>`}).join("")}</div><p class="clvx">TOCCA PER CHIUDERE</p></div>`}
@@ -1783,13 +1796,13 @@ function render(){
   on("bpost",()=>{theme(false);S.phase="post";S.pi=0;S.pf=0;S.pz=0;S.pdark=0;S.pT=0;S.pLine=0;S.gz=0;render()});
   const crr=document.querySelector(".credits .cr");if(crr){const toPost=()=>{if(S.phase==="end"){theme(false);S.phase="post";S.pi=0;S.pf=0;S.pz=0;S.pdark=0;S.pT=0;S.pLine=0;S.gz=0;sfx("blip");render()}};crr.addEventListener("animationend",toPost,{once:true});const cw=crr.parentElement,lp=crr.lastElementChild;const chk=()=>{if(S.phase!=="end"||!lp||!lp.isConnected)return;if(lp.getBoundingClientRect().bottom<cw.getBoundingClientRect().top+1){setTimeout(toPost,350);return}requestAnimationFrame(chk)};requestAnimationFrame(chk)}
   const rd=$("brdone");if(rd)rd.onclick=e=>{e.stopPropagation();endRadio()};
-  const gm=$("bgoalmap");if(gm)gm.onclick=e=>{e.stopPropagation();S.bach=bachecaOn()?1:0;openMap()};const mb=$("bminib");if(mb)mb.onclick=e=>{e.stopPropagation();S.bach=1;openMap()};
+  const gm=$("bgoalmap");if(gm)gm.onclick=e=>{e.stopPropagation();if(bachecaOn())bachOpen();else{S.bach=0;openMap()}};const bi=$("bico");if(bi)bi.onclick=e=>{e.stopPropagation();bachOpen()};
   const bk=$("bask");if(bk)bk.onclick=e=>{e.stopPropagation();openTalk(S.say.pid)};
   if(S.mode==="talk"&&ph==="play"){bindTalk();const pc=$("pc");if(pc)portrait(pc,PID[S.talk.pid])}
   if(S.mode==="map"&&ph==="play"){const hs=[...document.querySelectorAll(".plan2 .rm:not(.vert) .lb")];const fit=(v,f)=>{v.style.fontSize=f+"em";const b=v.closest(".rm");return v.scrollWidth<=b.clientWidth*.92&&v.offsetHeight<=b.clientHeight*.8};hs.forEach(v=>{let f=1.45;while(f>.7&&!fit(v,f))f-=.05})}
   document.querySelectorAll(".plan2 .vl").forEach(v=>{const b=v.closest(".rm"),lim=b.clientHeight*.9-(b.querySelector("i")?b.querySelector("i").offsetHeight+6:0),lw=b.clientWidth*.9;let f=1.5;v.style.fontSize=f+"em";while(f>.6&&(v.offsetHeight>lim||v.offsetWidth>lw)){f-=.05;v.style.fontSize=f+"em"}});
-  document.querySelectorAll(".rm").forEach(b=>{b.onclick=e=>{e.stopPropagation();go(b.dataset.k)};if(b.classList.contains("nop"))b.onclick=e=>{e.stopPropagation();sfx("nada")};});
-  const cm=$("bclose");if(cm)cm.onclick=e=>{e.stopPropagation();S.mode="explore";S.bach=0;render()};const bp=$("bpiant");if(bp)bp.onclick=e=>{e.stopPropagation();S.bach=0;render()};
+  document.querySelectorAll(".rm").forEach(b=>{b.onclick=e=>{e.stopPropagation();const k=b.dataset.k;if(S.bach&&bachecaOn()&&b.classList.contains("bs")&&k!==S.loc)bachShrink(()=>go(k));else go(k)};if(b.classList.contains("nop"))b.onclick=e=>{e.stopPropagation();sfx("nada")};});
+  const cm=$("bclose");if(cm)cm.onclick=e=>{e.stopPropagation();const fin=()=>{S.mode="explore";S.bach=0;render()};if(S.bach&&bachecaOn())bachShrink(fin);else fin()};const bp=$("bpiant");if(bp)bp.onclick=e=>{e.stopPropagation();S.bach=0;render()};
   const nc=$("nc");if(nc&&S.note&&S.note.clue)clueIcon(nc,S.note.clue);
 }
 function toast(t){return;if(S.mode==="talk"){S.pend=(S.pend||[]).concat(t);return}S.toast=t;render();clearTimeout(toast.h);toast.h=setTimeout(()=>{S.toast=null;render()},2600)}
