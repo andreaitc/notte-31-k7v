@@ -1876,7 +1876,7 @@ const STEPS=[
  {room:"se",who:"patty",trig:["si"],only:[{k:"si",l:"Guarda i disegni"},{k:"p1",l:"Cosa ne pensi della marinera?"},{k:"p2",l:"Dove hai comprato quei leggings?"}],xa:{p1:{a:"«La marinera? Il ballo peruviano col fazzoletto! Bellissimo. A gennaio me lo insegni, ai piccoli piacerà da morire.»",th:"¡Con pañuelo, claro!"},p2:{a:"«Al mercato del martedì, banco dodici. Tre paia dieci euro. Non dirlo a nessuno, eh.»",th:"Banco doce. Apuntado."}},goal:"Cerca Patty in una delle aule A-F",tell:"La Bagnara dice che Patty è in una delle aule, ma non ricorda quale.",yes:"Guarda i disegni",
   open:"«Stavo mettendo via i disegni dei bambini. Vuoi vederli?»",ov:"¡Ciertamente que sì!",
   pics:1,say:"«Guarda: i bambini hanno disegnato il presidente. Chi Paolucci, chi Bonazzi, uno Floridia. Paolucci è passato a vederli con la signora in rosso, lei si è fermata un sacco. A quest'ora dovrebbero essere già arrivati in sala G per le prove. Vai da Mattia.»",th:"Mmm... ¡Los presidentos soy una mucchia! ¡Nunca avaría mai pensado!"},
- {room:"sg",who:"mattia",goal:"In aula G: chiedi a Mattia",tell:"In aula G, Mattia ha visto la prova con loro.",
+ {room:"sg",who:"mattia",goal:"Vai in sala G: trova Mattia",tell:"In aula G, Mattia ha visto la prova con loro.",
   open:"«Scusa la scenata, era il secondo atto. Dimmi tutto, Valentino.»",ov:"Permesso, permesito.",
   say:"«Sì, sono passati. La signora in rosso ha guardato la prova in prima fila, senza fiatare. Paolucci invece, mentre lei non guardava, ha scarabocchiato qualcosa sul mio copione. Guarda qua:»",paper:"SOS CANALE 14",th:"Canale catorche... ¡una radiolina! William."},
  {room:"sala",who:"william",goal:"Torna al teatro: chiedi a William una radiolina",tell:"Canale 14 è una frequenza delle radioline dei tecnici: chiedi a William, in sala.",yes:"Cerca la radiolina",
@@ -2900,7 +2900,7 @@ function runAuto(T){if(T.auto==="radio")startRadio();else startCall()}
 function bindTalk(){
   document.querySelectorAll(".ch[data-q]").forEach(b=>b.onclick=e=>{e.stopPropagation();ask(b.dataset.q)});
   document.querySelectorAll(".tab").forEach(b=>b.onclick=e=>{e.stopPropagation();if(b.dataset.p!==S.talk.pid)openTalk(b.dataset.p)});
-  const x=$("bexit");if(x)x.onclick=e=>{e.stopPropagation();const T=S.talk;S.talk=null;if(T&&T.pid==="patty"&&S.step===PIDX()+1&&S.loc===S.pattyAt&&!S.sgcDone){S.mode="arrive";S.seq=[{who:"val",txt:"¡Vamos! ¡Todo el mundo in sala G!"}];S.seqI=0;S.seqT=0;S.exitG=1;render();return}if(T&&T.auto){if(!T.autoRun){T.autoRun=1;runAuto(T)}return}S.mode="explore";render();flushPend()};
+  const x=$("bexit");if(x)x.onclick=e=>{e.stopPropagation();const T=S.talk;S.talk=null;if(false){S.mode="arrive";S.seq=[{who:"val",txt:"¡Vamos! ¡Todo el mundo in sala G!"}];S.seqI=0;S.seqT=0;S.exitG=1;render();return}if(T&&T.auto){if(!T.autoRun){T.autoRun=1;runAuto(T)}return}S.mode="explore";render();flushPend()};
   const s=$("talk");if(s)s.onclick=e=>{if(e.target.closest("button"))return;e.stopPropagation();skipType()};
   const mv=$("mview");if(mv)mv.onclick=e=>{e.stopPropagation();closeMedia()};
 }
@@ -3095,7 +3095,7 @@ function closeNote(){const go_=S.note&&S.note.go,back=S.note&&S.note.back;S.note
 /* mappa e viaggi */
 function openMap(){S.mode="map";sfx("blip");render()}
 function far(a,b){return(ROOMS[a].z==="studio")!==(ROOMS[b].z==="studio")}
-const bachecaOn=()=>S.bagSaid&&((S.step===PIDX()&&!S.pattyAt)||S.step===PIDX()+1);
+const bachecaOn=()=>S.bagSaid&&S.step===PIDX()&&!S.pattyAt;
 const BSALE=[["sf",[0.5,29,20,33],"Sala F","#1a1a1a"],["sg",[21.3,29,43.5,32],"Sala G","#f2e64a"],["sb",[80,0,19.5,31],"Sala B","#f4f4f4"],["sa",[71.5,41,22,27],"Sala A","#2a9a4a"],["se",[3.5,72,18,27],"Sala E","#d8282a"],["sd",[22.5,72,20.5,27],"Sala D","#e090d8"],["sc",[44,72,20.5,27],"Sala C","#1a2a8a"]];
 const visitedAula=k=>cur().who==="patty"&&!S.pattyAt&&((S.pAule||[]).includes(k)||k==="sg"&&S.pGvis);
 function miniBacheca(){return `<span class="mplan">${BSALE.map(([k,b,l,c])=>`<i class="${k===S.loc?"here":""} ${visitedAula(k)?"x":""}" style="left:${b[0]}%;top:${b[1]}%;width:${b[2]}%;height:${b[3]}%"><b>${l}</b><u style="background:${c}"></u></i>`).join("")}<i class="fo ${S.loc==="sfront"?"here":""}" style="left:65.5%;top:69%;width:10%;height:17%"></i></span><span class="mlab">BACHECA · TOCCA PER APRIRE</span>`}
