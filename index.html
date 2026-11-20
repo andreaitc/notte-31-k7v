@@ -1875,7 +1875,7 @@ const STEPS=[
   obj:"la macchinetta del caffè",objRoom:"scaffe",objGoal:"Controlla la macchinetta del caffè",item:"b1"},
  {room:"se",who:"patty",trig:["si"],only:[{k:"si",l:"Guarda i disegni"},{k:"p1",l:"Cosa ne pensi della marinera?"},{k:"p2",l:"Dove hai comprato quei leggings?"}],xa:{p1:{a:"«La marinera? Il ballo peruviano col fazzoletto! Bellissimo. A gennaio me lo insegni, ai piccoli piacerà da morire.»",th:"¡Con pañuelo, claro!"},p2:{a:"«Al mercato del martedì, banco dodici. Tre paia dieci euro. Non dirlo a nessuno, eh.»",th:"Banco doce. Apuntado."}},goal:"Cerca Patty in una delle aule A-F",tell:"La Bagnara dice che Patty è in una delle aule, ma non ricorda quale.",yes:"Guarda i disegni",
   open:"«Stavo mettendo via i disegni dei bambini. Vuoi vederli?»",ov:"¡Ciertamente que sì!",
-  pics:1,say:"«Guarda: i bambini hanno disegnato il presidente. Chi Paolucci, chi Bonazzi, uno Floridia. Poco fa Paolucci e la signora in rosso sono passati a vederli: lei si è fermata un sacco.»",th:"Mmm... ¡Los presidentos soy una mucchia! ¡Nunca avaría mai pensado!"},
+  pics:1,say:"«Stavo mettendo via i disegni dei bambini. Guarda che belli! Hanno disegnato il presidente. Chi Paolucci, chi Bonazzi, uno Floridia. Poco fa Paolucci e la signora in rosso sono passati a vederli: lei si è fermata un sacco.»",th:"Mmm... ¡Los presidentos soy una mucchia! ¡Nunca avaría mai pensado!"},
  {room:"sg",who:"mattia",goal:"Vai in sala G: trova Mattia",tell:"In aula G, Mattia ha visto la prova con loro.",
   open:"«Scusa la scenata, era il secondo atto. Dimmi tutto, Valentino.»",ov:"Permesso, permesito.",
   say:"«Sì, sono passati. La signora in rosso ha guardato la prova in prima fila, senza fiatare. Paolucci invece, mentre lei non guardava, ha scarabocchiato qualcosa sul mio copione. Guarda qua:»",paper:"SOS CANALE 14",th:"Canale catorche... ¡una radiolina! William."},
@@ -2866,7 +2866,9 @@ function openTalk(pid){const p=PID[pid];S.met[pid]=true;S.mode="talk";S.say=null
   else{if(pid==="cristina")v=pick(["Buonasera, señorita Cristina...","Sì, señorita Cristina. Subito, señorita."]);a=p.screen&&S.step>6?"«...krrr... (il monitor è nero: NESSUN SEGNALE)»":p.screen?"«Ti sento a scatti, Valentino! Dimmi!»":S.sgOpen||(p.L.open0?`«${pick(p.L.open0)}»`:`«${OPEN[(pid.length+Object.keys(S.asked).length)%OPEN.length]}»`)}
   S.sgOpen=null;let done0=false;
   if(s.nudge&&S.sub&&S.loc===s.objRoom){a=`«${s.nudge[pid]||"Il quadro delle chiavi è lì sulla parete. Quello che brilla."}»`;done0=true;v=null;code=PC(pid)+".k"}
-  S.talk={pid,q:null,a,msg,after,v:v?`«${v}»`:null,media,code,done0};typeOn();render()}
+  S.talk={pid,q:null,a,msg,after,v:v?`«${v}»`:null,media,code,done0};
+  if(pid==="patty"&&s.who==="patty"&&!S.heard[S.step]&&S.loc===S.pattyAt){ask("si");if(S.talk)S.talk.q=null;render();return}
+  typeOn();render()}
 function questions(){const s=cur(),T=S.talk;if(T&&T.pid==="patty"&&S.step===PIDX()+1&&!S.asked.pattydove)return[{k:"dove",l:"E adesso dove sono andati?"}];if(T&&isKey(T.pid)&&s.only&&!S.sub)return S.heard[S.step]?[]:s.only;if(T&&T.done0)return[];
   const out=[],key=!!(T&&isKey(T.pid)&&!S.sub&&!S.heard[S.step]),tr=key?trigOf(s):[];
   if(key&&s.yes)out.push({k:"si",l:s.yes});
