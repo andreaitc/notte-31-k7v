@@ -52,6 +52,18 @@ button:focus-visible{outline:2px solid var(--giallo);outline-offset:2px}
 .gchz{position:absolute;left:50%;bottom:calc(var(--cy) + var(--ch)*.1);transform:translateX(-50%);z-index:30;display:flex;flex-direction:column;align-items:center;gap:.5em;background:rgba(11,15,42,.92);border:2px solid var(--giallo);padding:.6em 1.1em;text-align:center}
 .gchz b{font-family:var(--pix);font-weight:400;font-size:.45em;color:var(--ciano)}
 .gchz span{font-size:1.3em;color:var(--bianco)}
+.ig{position:relative;height:calc(var(--ch)*.86);aspect-ratio:9/16;background:#000;border-radius:1.2em;border:.35em solid #111;box-shadow:0 .5em 1.6em rgba(0,0,0,.7);overflow:hidden;font-family:system-ui,-apple-system,sans-serif;color:#fff}
+.ig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.igbar{position:absolute;left:4%;right:4%;top:2.5%;height:.18em;background:rgba(255,255,255,.35);border-radius:1em;z-index:2;overflow:hidden}.igbar i{display:block;height:100%;background:#fff;animation:igp 5s linear forwards}
+@keyframes igp{from{width:0}to{width:100%}}
+.igh{position:absolute;left:4%;top:5%;z-index:2;display:flex;align-items:center;gap:.4em;font-size:.62em;text-shadow:0 1px 2px #000}
+.igh .av{width:1.9em;height:1.9em;border-radius:50%;display:grid;place-items:center;background:#c13584;border:.15em solid #fff;font-weight:700}
+.igh b{font-weight:700}.igh em{font-style:normal;opacity:.75}
+.igcap{position:absolute;left:4%;right:4%;bottom:13%;z-index:2;font-size:.6em;font-weight:600;background:rgba(0,0,0,.45);padding:.3em .5em;border-radius:.4em;text-align:center}
+.igf{position:absolute;left:4%;right:4%;bottom:3%;z-index:2;display:flex;align-items:center;gap:.6em;font-size:.7em}
+.igf .msg{flex:1;border:1px solid rgba(255,255,255,.7);border-radius:2em;padding:.35em .8em;font-size:.85em;opacity:.9}
+.flo{position:absolute;inset:0;z-index:3;pointer-events:none}.flo span{position:absolute;bottom:10%;opacity:0;animation:flo 2.6s ease-out infinite}
+@keyframes flo{0%{transform:translateY(0) scale(.6);opacity:0}15%{opacity:1}100%{transform:translateY(-260%) translateX(.6em) scale(1.15);opacity:0}}
 .pol{background:#fff;padding:.5em .5em .2em;box-shadow:0 .5em 1.4em rgba(0,0,0,.65)}
 .pol img{display:block;height:calc(var(--ch)*.6);width:auto}
 .pol p{margin:.35em 0 .1em;text-align:center;color:#222;font-size:.8em}
@@ -1718,7 +1730,7 @@ function hud(){
     <div class="place">${ROOMS[S.loc].n.toUpperCase()}</div>${S.clv?clvHTML():""}${bicoHTML()}
     ${S.mode==="explore"&&!(S.jc&&!S.jc.done)&&!(S.cafCut&&!S.cafCut.done)&&!(S.backCut&&!S.backCut.done)&&!bachecaOn()&&!(cur().who==="patty"&&S.pattyAt)?`<div class="goal ${S.goalNew?"flash":""}"><b>${S.goalNew?"NUOVO OBIETTIVO":"OBIETTIVO"}</b> ${esc(goalText())}${mapRoom(curRoom())!==S.loc&&!(cur().room==="tin"&&S.loc==="lab")&&!(curRoom()==="scaffe"&&S.loc==="scaffe")?` <button type="button" class="gm" id="bgoalmap">${bachecaOn()?"APRI LA BACHECA":"APRI LA MAPPA"}</button>`:stepObjIndex(S.loc)>=0?" · <i>TOCCA CIÒ CHE BRILLA</i>":cur().room==="tin"&&S.loc==="lab"?" · <i>ENTRA DALLA PORTA DEL TENDONE</i>":""}</div>`:""}`;
 }
-const GAMEVER="v194";
+const GAMEVER="v195";
 function bicoHTML(){const vis=S.phase==="play"&&bachecaOn()&&(S.mode==="explore"||S.mode==="say");if(!vis){S.bicoT0=0;return""}if(!S.bicoT0)S.bicoT0=Date.now();
   const C=BSALE.map(x=>x[3]||"#d8d4c8");return `<button class="bico" id="bico" type="button" aria-label="Apri la bacheca" style="animation-delay:-${Date.now()-S.bicoT0}ms"><span class="pp"><b></b>${C.map(c=>`<i style="background:${c}"></i>`).join("")}</span></button>`}
 function bachOpen(){S.bach=1;S.bachT0=Date.now();openMap()}
@@ -2098,7 +2110,7 @@ function gphTick(){if(!S.gph){S.gph={t0:performance.now()};sfx("whoosh")}const e
   if(el>=GPH.rise&&!S.gph.w){S.gph.w=1;render()}
   if(c>=GPH.flash&&!S.gph.f){S.gph.f=1;sfx("shutter");render()}if(c>=GPH.photo&&!S.gph.s){S.gph.s=1;render()}}
 function gphShoot(){if(!S.gph||S.gph.tc)return;S.gph.tc=performance.now();sfx("blip");render()}
-function gphHTML(){if(!S.gph)return"";if(S.gph.f&&!S.gph.s)return `<div class="gflash"></div>`;if(S.gph.s)return `<div class="gflash out"></div><div class="gph"><div class="pol"><img src="${VALFOTO}" alt="Valentino"><p>Valentino · 31.12 ♥</p></div></div><div class="tap">TOCCA PER CONTINUARE</div>`;
+function gphHTML(){if(!S.gph)return"";if(S.gph.f&&!S.gph.s)return `<div class="gflash"></div>`;if(S.gph.s)return `<div class="gflash out"></div><div class="gph"><div class="ig"><div class="igbar"><i></i></div><div class="igh"><span class="av">G</span><b>giuliappi</b><em>adesso</em></div><img src="${VALFOTO}" alt="Valentino"><div class="igcap">Il nostro Valentino 🎉 #capodanno #ITC</div><div class="igf"><span class="msg">Invia messaggio</span><span>♡</span><span>➤</span></div><div class="flo">${["❤️","👍","❤️","❤️","👍","❤️","👍","❤️","❤️","👍"].map((e,i)=>`<span style="left:${8+((i*37)%80)}%;animation-delay:${(i*.33).toFixed(2)}s;font-size:${1.1+(i%3)*.35}em">${e}</span>`).join("")}</div></div></div><div class="tap">TOCCA PER CONTINUARE</div>`;
   if(S.gph.w&&!S.gph.tc)return `<div class="gchz"><b>GIULIAPPI</b><span>«Valentino, di' cheese!»</span><button class="hb big" id="bqueso" type="button">¡QUEEEEESO!</button></div>`;return""}
 function gphDraw(){const p=PID.giuliappi;if(!p||!S.gph)return;const el=gphT(),c=gphC();
   if(c<GPH.full){/* primo piano di Giuliappi */
