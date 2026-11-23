@@ -1718,6 +1718,7 @@ function hud(){
     <div class="place">${ROOMS[S.loc].n.toUpperCase()}</div>${S.clv?clvHTML():""}${bicoHTML()}
     ${S.mode==="explore"&&!(S.jc&&!S.jc.done)&&!(S.cafCut&&!S.cafCut.done)&&!(S.backCut&&!S.backCut.done)&&!bachecaOn()&&!(cur().who==="patty"&&S.pattyAt)?`<div class="goal ${S.goalNew?"flash":""}"><b>${S.goalNew?"NUOVO OBIETTIVO":"OBIETTIVO"}</b> ${esc(goalText())}${mapRoom(curRoom())!==S.loc&&!(cur().room==="tin"&&S.loc==="lab")&&!(curRoom()==="scaffe"&&S.loc==="scaffe")?` <button type="button" class="gm" id="bgoalmap">${bachecaOn()?"APRI LA BACHECA":"APRI LA MAPPA"}</button>`:stepObjIndex(S.loc)>=0?" · <i>TOCCA CIÒ CHE BRILLA</i>":cur().room==="tin"&&S.loc==="lab"?" · <i>ENTRA DALLA PORTA DEL TENDONE</i>":""}</div>`:""}`;
 }
+const GAMEVER="v193";
 function bicoHTML(){const vis=S.phase==="play"&&bachecaOn()&&(S.mode==="explore"||S.mode==="say");if(!vis){S.bicoT0=0;return""}if(!S.bicoT0)S.bicoT0=Date.now();
   const C=BSALE.map(x=>x[3]||"#d8d4c8");return `<button class="bico" id="bico" type="button" aria-label="Apri la bacheca" style="animation-delay:-${Date.now()-S.bicoT0}ms"><span class="pp"><b></b>${C.map(c=>`<i style="background:${c}"></i>`).join("")}</span></button>`}
 function bachOpen(){S.bach=1;S.bachT0=Date.now();openMap()}
@@ -2645,7 +2646,7 @@ function vintHTML(){const V=S.vi;if(V.end||V.hide)return"";if(V.f>=134){const n=
 /* MENU IMPOSTAZIONI (ingranaggio) */
 function gearHTML(){let h=`<button class="gear" id="bgear" type="button" aria-label="Impostazioni">&#9881;</button>`;if(!S.menu)return h;
   const items=STEPS.map((s,i)=>{const who=s.who?PID[s.who].n:(s.final?"Apertura del Teatrobus":"Teatrobus chiuso");return`<button type="button" class="mj" data-j="${i}"><b>${SC(i)}</b> ${esc(who)} <i>${esc(ROOMS[s.room].n)}</i></button>`}).join("");
-  return h+`<div class="ov menu" id="menu"><div class="mh"><span>IMPOSTAZIONI</span><button class="hb" id="bmclose" type="button">CHIUDI</button></div>
+  return h+`<div class="ov menu" id="menu"><div class="mh"><span>IMPOSTAZIONI <small style="opacity:.6">${GAMEVER}</small></span><button class="hb" id="bmclose" type="button">CHIUDI</button></div>
     <button type="button" class="go" id="breset">RICOMINCIA DALL'INIZIO</button>
     <p class="ml">SALTA A UNA TAPPA <i>(tutto quello che viene prima è già risolto)</i></p>
     <div class="mlist"><button type="button" class="mj" data-x="vint"><b>3</b> Valentino nel corridoio</button>${items}<button type="button" class="mj" data-x="chiavi"><b>47.c</b> Amministrazione: il quadro delle chiavi</button><button type="button" class="mj" data-x="win"><b>60</b> Finale nel Teatrobus</button><button type="button" class="mj" data-x="end"><b>65</b> Titoli di coda</button><button type="button" class="mj" data-x="post"><b>66</b> Dopo i titoli</button></div></div>`}
