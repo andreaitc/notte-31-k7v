@@ -1718,7 +1718,7 @@ function hud(){
     <div class="place">${ROOMS[S.loc].n.toUpperCase()}</div>${S.clv?clvHTML():""}${bicoHTML()}
     ${S.mode==="explore"&&!(S.jc&&!S.jc.done)&&!(S.cafCut&&!S.cafCut.done)&&!(S.backCut&&!S.backCut.done)&&!bachecaOn()&&!(cur().who==="patty"&&S.pattyAt)?`<div class="goal ${S.goalNew?"flash":""}"><b>${S.goalNew?"NUOVO OBIETTIVO":"OBIETTIVO"}</b> ${esc(goalText())}${mapRoom(curRoom())!==S.loc&&!(cur().room==="tin"&&S.loc==="lab")&&!(curRoom()==="scaffe"&&S.loc==="scaffe")?` <button type="button" class="gm" id="bgoalmap">${bachecaOn()?"APRI LA BACHECA":"APRI LA MAPPA"}</button>`:stepObjIndex(S.loc)>=0?" · <i>TOCCA CIÒ CHE BRILLA</i>":cur().room==="tin"&&S.loc==="lab"?" · <i>ENTRA DALLA PORTA DEL TENDONE</i>":""}</div>`:""}`;
 }
-const GAMEVER="v193";
+const GAMEVER="v194";
 function bicoHTML(){const vis=S.phase==="play"&&bachecaOn()&&(S.mode==="explore"||S.mode==="say");if(!vis){S.bicoT0=0;return""}if(!S.bicoT0)S.bicoT0=Date.now();
   const C=BSALE.map(x=>x[3]||"#d8d4c8");return `<button class="bico" id="bico" type="button" aria-label="Apri la bacheca" style="animation-delay:-${Date.now()-S.bicoT0}ms"><span class="pp"><b></b>${C.map(c=>`<i style="background:${c}"></i>`).join("")}</span></button>`}
 function bachOpen(){S.bach=1;S.bachT0=Date.now();openMap()}
@@ -2099,7 +2099,7 @@ function gphTick(){if(!S.gph){S.gph={t0:performance.now()};sfx("whoosh")}const e
   if(c>=GPH.flash&&!S.gph.f){S.gph.f=1;sfx("shutter");render()}if(c>=GPH.photo&&!S.gph.s){S.gph.s=1;render()}}
 function gphShoot(){if(!S.gph||S.gph.tc)return;S.gph.tc=performance.now();sfx("blip");render()}
 function gphHTML(){if(!S.gph)return"";if(S.gph.f&&!S.gph.s)return `<div class="gflash"></div>`;if(S.gph.s)return `<div class="gflash out"></div><div class="gph"><div class="pol"><img src="${VALFOTO}" alt="Valentino"><p>Valentino · 31.12 ♥</p></div></div><div class="tap">TOCCA PER CONTINUARE</div>`;
-  if(S.gph.w&&!S.gph.tc)return `<div class="gchz"><b>GIULIAPPI</b><span>«Valentino, di' cheese!»</span><button class="hb big" id="bqueso" type="button">¡QUESO!</button></div>`;return""}
+  if(S.gph.w&&!S.gph.tc)return `<div class="gchz"><b>GIULIAPPI</b><span>«Valentino, di' cheese!»</span><button class="hb big" id="bqueso" type="button">¡QUEEEEESO!</button></div>`;return""}
 function gphDraw(){const p=PID.giuliappi;if(!p||!S.gph)return;const el=gphT(),c=gphC();
   if(c<GPH.full){/* primo piano di Giuliappi */
     for(let y=-6;y<222;y+=4){r(-6,y,396,2,"#141a44");r(-6,y+2,396,2,"#1b2256")}[[30,50,16,"#ffd23c"],[20,150,22,"#ff6a8a"],[340,40,20,"#5ab0ff"],[350,150,26,"#ffd23c"],[300,100,12,"#9ad08a"]].forEach(([x,y,R,cc])=>al(.16,()=>disc(x,y,R,cc)));
