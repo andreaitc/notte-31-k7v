@@ -527,6 +527,8 @@ const ROOMS = {
       strano:"«Dalla rastrelliera manca un impermeabile rosso. Era il mio preferito per gli inchini.»",
       aiuto:"«Grazie, Valentino. Allora guarda dietro gli specchi: qualcuno ci ha infilato qualcosa.»"}),P("ida","Ida","attrice",{body:"#444",hair:"#222"},206,{greet:["Valentino! Annyeong! Ho appena finito una coreografia K-pop in camerino."],again:["Ancora qui? Ti insegno il ritornello."],foto:"«Paolucci? In un manga sarebbe il protagonista che sparisce al capitolo uno. Al capitolo tre torna con i poteri. Al cinque si scopre il cattivo: quella col cappello.»",strano:"«Una donna con l'impermeabile rosso mi ha chiesto gli arrosticini, con un accento stranissimo. Gli ho detto che quelli veri li fa solo mia nonna, in Abruzzo.»",aiuto:"«Ti aiuto io! Dammi il mocio, faccio io. Tu guarda dietro gli specchi.»"}),P("giulia","Giulia","attrice e regista",{body:"#444",hair:"#222"},232,{greet:["Valentino! Serve qualcosa? Aggiusto, monto, smonto, recito."],again:["Dimmi cosa serve, ci penso io."],foto:"«Da scout te lo dico: tracce fresche verso il cortile. Due persone. Una con un impermeabile molto lungo.»",strano:"«Qualcuno ha fatto un nodo da scout alla maniglia del Teatrobus. Fatto male. Non è dei nostri.»",aiuto:"«Lascia, faccio io. Tu guarda dietro gli specchi, io controllo il resto.»"})],
     objs:[{n:"gli specchi",b:[40,46,276,70],main:1},{n:"la rastrelliera dei costumi",b:[2,56,38,56],txt:"Manca una gruccia. Sull'etichetta: IMPERMEABILE ROSSO, TAGLIA PRESIDENTE.",th:"¿Taglia presidente?"},{n:"le lampadine",b:[40,44,278,10]},{n:"la lampadina che lampeggia",b:[245,43,13,12]},{n:"la parrucca",b:[282,92,18,24],txt:"Una parrucca su una testa di polistirolo. Ha l'aria di aver visto tutto.",th:"Si potesse parlare..."}]},
+  sottoscala:{n:"Sottoscala",z:"itc",wall:"#d6d2c8",th:"El sottoscala. Aquí termina todo lo que nadie quiere.",ppl:[],
+    objs:[{n:"il carrello della spesa",b:[150,136,78,56],txt:"Un carrello della spesa pieno di stoffe rosse e bianche e una corda arrotolata. Nessuno sa da quale supermercato arrivi.",th:"Yo no lo he robado."},{n:"i bidoni verdi",b:[234,122,146,80],txt:"Tre bidoni della raccolta, pieni di fari. La raccolta differenziata dei tecnici.",th:"Plástica, vidrio, luces."},{n:"le aste appoggiate al muro",b:[10,40,110,170],txt:"Aste, bastoni, scale da pittore e una pala da neve. In caso di nevicata, siamo pronti.",th:"Nieve en Bologna... ¡ja!"}]},
   magazzino:{n:"Magazzino",z:"itc",th:"El magazzino. Puzza de vernisa.",ppl:[P("jack","Jack","attore",{body:"#2a2a2a",hair:"#1a1a20",beard:"#1a1a20"},186,{greet:["Cerco un costume. Mi manca l'impermeabile rosso per la scena."],again:["Ancora niente impermeabile."],foto:"«Paolucci? No. Però chi ha preso l'impermeabile rosso aveva la sua taglia. Anzi, una taglia più grande. Taglia presidente.»",strano:"«Il baule dei costumi è stato richiuso al contrario. Così lo chiude solo chi non lavora qui. O chi ci lavorava una volta.»",aiuto:"«Aiutami a cercare nel baule, va'.»"})],
     objs:[{n:"il baule dei costumi",b:[150,164,40,24],main:1},{n:"gli scaffali",b:[66,64,134,72],txt:"Fari, cavi, prolunghe, scatoloni. Un cartello dice: PORTATA MASSIMA PER RIPIANO 20 KG. Nessuno l'ha mai pesato.",th:"Veinte chili. Más o meno."},{n:"il banco da lavoro",b:[200,130,134,40],txt:"Il banco da lavoro. Morsa, nastro, viti contate una per una. Sotto, una cassetta con scritto: NON TOCCARE.",th:"No toco nada."},{n:"il frigo",b:[296,100,32,72],txt:"Il frigo del magazzino. Dentro, una sola lattina con scritto a pennarello: «NON È TUA».",th:"No es mía."},{n:"le sedie appese",b:[346,34,38,44],txt:"Sedie appese al muro, a testa in giù. Pronte per una scenografia che nessuno ricorda più.",th:"Sillas volantes."},{n:"il cono",b:[14,148,34,30],txt:"Un cono stradale. Nessuno sa da quale strada venga.",th:"Misterio."},{n:"la cassetta del pronto soccorso",b:[362,94,22,18]}]},
   corridoi:{n:"Corridoi e bagni",z:"itc",wall:"#1c1c22",
@@ -763,6 +765,7 @@ function spec(k){
     direzione:{amb:[.74,.72,.76],L:[[100,10,150,[.5,.48,.4]],[320,10,150,[.5,.48,.4]],[306,70,40,[.15,.18,.3]]]},
     sala:{amb:[.66,.64,.7],L:[[192,90,150,[.9,.82,.6]],[192,200,170,[.45,.4,.32]],[110,100,70,[.5,.42,.28]]]},
     camerini:{amb:[.86,.85,.84],L:[[180,48,150,[.35,.3,.2]],[192,4,140,[.25,.25,.25]]]},
+    sottoscala:{amb:[.62,.6,.62],L:[[190,40,170,[.55,.55,.6]]]},
     magazzino:{amb:[.62,.6,.6],L:[[192,10,190,[.5,.48,.42]],[196,40,96,[.5,.56,.62]]]},
     biglietteria:{amb:[.72,.7,.7],L:[[190,90,160,[.5,.45,.32]],lamp]},
     foyer:{amb:[.74,.7,.68],L:[[60,20,140,[.5,.46,.36]],[220,60,120,[.4,.38,.3]],[226,118,30,[.1,.2,.4]]]},
@@ -1131,6 +1134,43 @@ function room(k){
     [[30,"#2f8a4f",14],[38,"#6a3a1a",13],[46,"#d8e8ec",9],[58,"#e8c8c8",8],[66,"#6a3a1a",14]].forEach(([x,c,hh])=>{box(x,116-hh,6,hh,c);r(x+2,116-hh-3,2,3,sh(c,.7))});
     r(286,98,10,14,"#e8e4dc");disc(291,100,6,"#6a3a1a");r(284,98,3,10,"#6a3a1a");r(296,98,2,8,"#6a3a1a");r(288,112,6,4,"#c8c4bc");
     r(318,110,10,6,"#f4f4f2");r(320,111,2,2,"#9a9a9a")}
+  if(k==="sottoscala"){/* sottoscala: soffitto inclinato, pavimento in cotto */
+    r(0,0,384,216,"#d6d2c8");
+    poly([[0,0],[118,44],[118,150],[0,196]],"#cfcac0");for(let q=0;q<6;q++)r(14+q*16,60+q*6,.5,90-q*4,"#c4beb2");
+    poly([[118,44],[214,44],[300,124],[300,150],[118,150]],"#dcd8ce");
+    poly([[96,0],[384,0],[384,176],[300,150],[300,124],[214,44],[118,44],[96,36]],"#e6e2da");
+    for(let q=0;q<5;q++)poly([[230+q*30,0+q*8],[232+q*30,0+q*8],[384,96+q*14],[384,98+q*14]],"#d8d4ca");
+    poly([[0,8],[112,34],[112,48],[0,24]],"#55565c");poly([[0,24],[112,48],[112,52],[0,30]],"#3a3b40");r(0,30,112,.6,"#7a7a80");
+    poly([[264,72],[300,76],[294,86],[258,82]],"#121214");
+    /* porta in fondo con scatoloni */
+    r(146,70,40,80,"#5e5e62");r(149,73,34,77,"#26262c");box(152,112,14,10,"#e8e4dc");box(166,106,14,16,"#f0ece4");box(156,98,12,10,"#e8e4dc");disc(158,84,4,"#e8e4dc");disc(172,84,4,"#e8e4dc");r(150,122,6,28,"#c9955a");
+    /* specchio tondo e rastrelliera di aste */
+    disc(204,86,8,"#1a1a1e");disc(204,86,6.6,"#b8c0c8");r(200,83,3,2,"#e8eef4");
+    r(186,98,74,3,"#2a2a2e");for(let q=0;q<14;q++){r(189+q*5,100,1.2,32+hs(q,5)*6,"#4a4a52");r(188.5+q*5,128+hs(q,5)*6,2.2,5,"#16161a")}disc(252,96,6,"#1a1a1e");
+    /* flight case */
+    box(256,114,36,30,"#26262c");r(256,114,36,1.5,"#8a8a90");r(256,128,36,1,"#8a8a90");r(273,114,1,30,"#8a8a90");box(262,104,22,10,"#1a1a1e");
+    /* neon */
+    r(189.5,0,1.2,22,"#9a9aa0");al(.18,()=>disc(190,40,40,"#ffffff"));r(182,22,16,30,"#b8b8c0");r(183,23,14,28,"#fbfbff");r(185,25,10,24,"#ffffff");
+    /* pavimento in cotto */
+    poly([[0,196],[118,150],[300,150],[384,176],[384,216],[0,216]],"#9a4a36");
+    g.save();g.beginPath();g.moveTo(0,196);g.lineTo(118,150);g.lineTo(300,150);g.lineTo(384,176);g.lineTo(384,216);g.lineTo(0,216);g.closePath();g.clip();for(let y=150,q=0;y<216;y+=4+q*.8,q++){r(0,y,384,.7,"#c08a72");const w=10+q*2.2;for(let x=-(q%2)*w/2;x<384;x+=w)r(x,y,.7,4+q*.8,"#7a3628")}g.restore();
+    al(.35,()=>poly([[0,196],[118,150],[118,152],[0,200]],"#3a1a12"));
+    /* aste e scale appoggiate a sinistra */
+    g.save();g.lineCap="round";[[16,206,52,40,3.2,"#c8a070"],[30,214,70,58,3,"#d0aa78"],[44,210,26,64,3.4,"#c09060"],[52,204,40,70,2.6,"#2a5ab0"],[70,208,118,140,2.6,"#c8a070"]].forEach(([x1,y1,x2,y2,w,c])=>{g.strokeStyle=c;g.lineWidth=w;g.beginPath();g.moveTo(x1,y1);g.lineTo(x2,y2);g.stroke()});
+    g.strokeStyle="#8e8e88";g.lineWidth=2;[[60,200,36,66],[80,196,58,70]].forEach(([x1,y1,x2,y2])=>{g.beginPath();g.moveTo(x1,y1);g.lineTo(x2,y2);g.stroke()});for(let q=0;q<6;q++){const t=q/6;r(36+24*(1-t)+t*0,70+t*126,22,1.6,"#8e8e88")}g.restore();
+    /* bidoni neri con coperchio giallo */
+    box(92,138,30,34,"#1a1a1e");r(90,135,34,5,"#f2c81a");r(96,128,22,8,"#1a1a1e");g.fillStyle="#f2c81a";g.beginPath();g.ellipse(107,124,14,10,-.25,Math.PI*.95,Math.PI*2.05);g.fill();r(101,119,8,3,"#1a1a1e");disc(96,174,2,"#555");disc(118,174,2,"#555");
+    /* carrello della spesa pieno di stoffe */
+    box(150,152,16,30,"#2a5ad8");r(152,150,12,3,"#1a3a9a");
+    r(162,146,64,30,"#a8a8b0");r(164,148,60,26,"#7a1a2a");for(let q=0;q<8;q++)disc(170+q*7,148+hs(q,7)*6,5+hs(7,q)*2,["#d8202a","#f4f4f4","#c0283a","#ececec","#8a1a2a"][q%5]);
+    g.strokeStyle="#e8dcc0";g.lineWidth=2.2;for(let q=0;q<3;q++){g.beginPath();g.ellipse(176,140-q*2.5,12-q*1.5,4.5,0,0,Math.PI*2);g.stroke()}
+    for(let q=0;q<9;q++)r(163+q*7.5,146,.6,30,"#c8c8d0");for(let q=0;q<4;q++)r(162,148+q*7,64,.6,"#c8c8d0");r(168,176,54,1.2,"#9a9aa2");r(170,177,1.2,12,"#9a9aa2");r(218,177,1.2,12,"#9a9aa2");disc(171,190,2.2,"#c05a3a");disc(219,190,2.2,"#c05a3a");
+    /* tre bidoni verdi pieni di fari */
+    [[236,0],[284,1],[332,2]].forEach(([x,i])=>{for(let q=0;q<3;q++){box(x+5+q*12,128-hs(i,q)*6,9,22+hs(i,q)*6,"#16161a");r(x+7+q*12,131-hs(i,q)*6,5,2,"#3a3a40")}
+      box(x,148,44,50,"#2e6e34");r(x,144,46,6,"#255a2a");r(x+2,150,1.5,46,"#3e8a44");r(x+30,150,1.5,46,"#245a28");if(i===0)box(x+8,160,10,13,"#f4f4f4");disc(x+8,200,4.5,"#141414");disc(x+8,200,1.8,"#555");});
+    /* cassetta coi cavi */
+    box(212,186,28,20,"#5a5a62");r(214,188,24,4,"#2a2a2e");g.strokeStyle="#141418";g.lineWidth=1.2;g.beginPath();g.ellipse(226,192,9,2.5,0,0,Math.PI*2);g.stroke();
+    poly([[350,196],[384,186],[384,216],[340,216]],"#efece6");r(352,192,30,3,"#c8a070")}
   if(k==="magazzino"){r(0,0,384,150,"#e6e0d2");r(0,0,384,22,"#ece8de");r(0,22,384,.5,"#cfc8b8");poly([[0,0],[52,22],[52,150],[0,160]],"#ddd6c6");r(250,8,134,3,"#d4cec2");r(300,0,3,40,"#d4cec2");tiles("#ddd6c6",150);r(0,149,384,1.5,"#b8b0a0");
     box(0,66,20,44,"#c9955a");for(let q=0;q<8;q++){r(3+(q%4)*4.5,70+(q>>2)*20,1,10,"#3a3a3a");r(2+(q%4)*4.5,70+(q>>2)*20,3,1.5,"#c0283a")}
     for(let q=0;q<14;q++){const x=22+q*3.2;r(x,72+hs(q,2)*12,1.4,98-hs(q,2)*12,q%3?"#9a9aa2":"#2a2a2e")}poly([[18,176],[44,176],[34,150],[28,150]],"#e8562a");r(26,160,10,3,"#f4f4f4");r(14,175,34,3,"#c04a2a");
@@ -1730,7 +1770,7 @@ function hud(){
     <div class="place">${ROOMS[S.loc].n.toUpperCase()}</div>${S.clv?clvHTML():""}${bicoHTML()}
     ${S.mode==="explore"&&!(S.jc&&!S.jc.done)&&!(S.cafCut&&!S.cafCut.done)&&!(S.backCut&&!S.backCut.done)&&!bachecaOn()&&!(cur().who==="patty"&&S.pattyAt)?`<div class="goal ${S.goalNew?"flash":""}"><b>${S.goalNew?"NUOVO OBIETTIVO":"OBIETTIVO"}</b> ${esc(goalText())}${mapRoom(curRoom())!==S.loc&&!(cur().room==="tin"&&S.loc==="lab")&&!(curRoom()==="scaffe"&&S.loc==="scaffe")?` <button type="button" class="gm" id="bgoalmap">${bachecaOn()?"APRI LA BACHECA":"APRI LA MAPPA"}</button>`:stepObjIndex(S.loc)>=0?" · <i>TOCCA CIÒ CHE BRILLA</i>":cur().room==="tin"&&S.loc==="lab"?" · <i>ENTRA DALLA PORTA DEL TENDONE</i>":""}</div>`:""}`;
 }
-const GAMEVER="v195";
+const GAMEVER="v196";
 function bicoHTML(){const vis=S.phase==="play"&&bachecaOn()&&(S.mode==="explore"||S.mode==="say");if(!vis){S.bicoT0=0;return""}if(!S.bicoT0)S.bicoT0=Date.now();
   const C=BSALE.map(x=>x[3]||"#d8d4c8");return `<button class="bico" id="bico" type="button" aria-label="Apri la bacheca" style="animation-delay:-${Date.now()-S.bicoT0}ms"><span class="pp"><b></b>${C.map(c=>`<i style="background:${c}"></i>`).join("")}</span></button>`}
 function bachOpen(){S.bach=1;S.bachT0=Date.now();openMap()}
@@ -1957,7 +1997,7 @@ const OPEN=["Dimmi, Valentino. Cosa ti serve?","Ehi! Hai bisogno di qualcosa?","
 const LUNE={"organizzatrici": ["«Tintarella di luna, tintarella color latte»", "Color latte, sì. Ma a esta hora yo prefiero el cafesito de la macchinetta.", [222, 47, 14, 14]], "amministrazione": ["«Che fai tu, luna, in ciel? dimmi, che fai, silenziosa luna?»", "¡Ah, Joaquín Leopardos! ¡Yo amo la poesía!", null], "bus": ["«La settima luna era quella del luna park».", "...Lucito...", [48, 20, 28, 28]], "camerini": ["«Spunta la luna dal monte»", "Peruviani y Sardi. Misma razza misma faccia", [358, 56, 16, 16]], "cortile": ["«Guarda che luna, guarda che mare»", "¿Entre estos dos, quién es luna y quién es mare?", null], "direzione": ["«Non voglio mica la luna»", "YO CHIEDO SOLAMENTE UN MOMENTITO PARA STARE CON TI. ¡NA-NA-NA! ¡Oh, señora Cristina❤️!", null], "foyer": ["«E Ciàula si mise a piangere, senza saperlo, senza volerlo, dal gran conforto, dalla grande dolcezza che sentiva»", "Me sa que en esto teatro son poquitos quei chi san chi es Ciàula. ¡Cavrones!", null], "lab": ["«Di’ su, Ottorino, te cosa pensi che ci sia là sopra? Io mi figuro… ecco io mi figuro che c’è la risposta a tutti i nostri mali»", "¡Qué recuerdos. El pueblo unido jamás será vencido!", null], "sg": ["«Dov’era la luna? chè il cielo notava in un’alba di perla»", "Juan Páscolos. ¡Mica pippes!", [310, 42, 16, 16]]};
 (()=>{const fy=()=>{const yt=x=>57-(x-276)*.826,yb=x=>143+(x-276)*.507;return yt(289.5)+(yb(289.5)-yt(289.5))*.2};LUNE.foyer[2]=[282,Math.round(fy())-8,15,15];
 Object.entries(LUNE).forEach(([k,[t,th,b]])=>{const R=ROOMS[k];if(!R)return;let o=R.objs.find(o=>o.n==="la luna");if(!o){o={n:"la luna",b};R.objs.push(o)}o.txt=t;o.th=th})})();
-const INW={foyer:"nel foyer",biglietteria:"in biglietteria",organizzatrici:"nell'ufficio delle organizzatrici",amministrazione:"in amministrazione",direzione:"in direzione",sala:"in sala grande",camerini:"nei camerini",magazzino:"in magazzino",corridoi:"nei corridoi",cortile:"nel cortile",lab:"davanti al tendone",tin:"dentro il tendone",bus:"nel Teatrobus",sfront:"al front office dell'ITC Studio",scaffe:"all'angolo caffè dell'ITC Studio",sa:"nell'aula A dell'ITC Studio",sb:"nell'aula B dell'ITC Studio",sc:"nell'aula C dell'ITC Studio",sd:"nell'aula D dell'ITC Studio",se:"nell'aula E dell'ITC Studio",sf:"nell'aula F dell'ITC Studio",sg:"nell'aula G dell'ITC Studio"};
+const INW={foyer:"nel foyer",biglietteria:"in biglietteria",organizzatrici:"nell'ufficio delle organizzatrici",amministrazione:"in amministrazione",direzione:"in direzione",sala:"in sala grande",camerini:"nei camerini",magazzino:"in magazzino",sottoscala:"nel sottoscala",corridoi:"nei corridoi",cortile:"nel cortile",lab:"davanti al tendone",tin:"dentro il tendone",bus:"nel Teatrobus",sfront:"al front office dell'ITC Studio",scaffe:"all'angolo caffè dell'ITC Studio",sa:"nell'aula A dell'ITC Studio",sb:"nell'aula B dell'ITC Studio",sc:"nell'aula C dell'ITC Studio",sd:"nell'aula D dell'ITC Studio",se:"nell'aula E dell'ITC Studio",sf:"nell'aula F dell'ITC Studio",sg:"nell'aula G dell'ITC Studio"};
 const pick=a=>a[Math.floor(Math.random()*a.length)];
 const PURL={};
 function VALIMG(){return VALPHOTO||portraitSrc({id:"valentino",c:VAL})}
@@ -2873,7 +2913,7 @@ function hdDraw(k,t){const cam=Math.sin(t*.15)*30;
 
 /* NUMERI DI SERVIZIO: per indicare a Claude cosa correggere */
 const SERVICE=true;
-const RC={organizzatrici:10,direzione:11,amministrazione:12,biglietteria:13,foyer:14,sala:15,camerini:16,magazzino:17,corridoi:18,cortile:19,lab:20,tin:21,bus:22,sfront:23,sa:24,sg:25,sb:26,sc:27,sd:28,se:29,sf:30,scaffe:31};
+const RC={organizzatrici:10,direzione:11,amministrazione:12,biglietteria:13,foyer:14,sala:15,camerini:16,magazzino:17,corridoi:18,cortile:19,lab:20,tin:21,bus:22,sfront:23,sa:24,sg:25,sb:26,sc:27,sd:28,se:29,sf:30,scaffe:31,sottoscala:32};
 const SC=i=>30+i, PC=pid=>100+PEOPLE.findIndex(p=>p.id===pid);
 const QN={pao:1,wa:2,strano:3,radio:3,brin:4,scar:4,foto:5,si:6,start:6};
 function svcCode(){const ph=S.phase;
@@ -3171,7 +3211,7 @@ function mapHTML(){if(S.bach&&bachecaOn())return bachecaHTML();const cell=(k,b,l
    <div class="zone zt" style="left:0;top:0;width:36.5%;height:100%"><b>ITC TEATRO</b></div>
    <div class="zone zc" style="left:38%;top:0;width:22.5%;height:100%"><b>CORTILE</b></div>
    <div class="zone zs" style="left:61.5%;top:0;width:38.5%;height:100%"><b>ITC STUDIO</b></div>
-   ${cell("sala",[1,7,20.5,33],"Sala grande")}${cell("camerini",[22,7,14,16],"Camerini")}${cell("magazzino",[22,24,14,16],"Magazzino")}
+   ${cell("sala",[1,7,20.5,26],"Sala grande")}${cell("sottoscala",[1,34,20.5,6],"Sottoscala")}${cell("camerini",[22,7,14,16],"Camerini")}${cell("magazzino",[22,24,14,16],"Magazzino")}
    ${cell("organizzatrici",[1,41.5,6.5,56.5],"Organizzazione",{vert:1})}${cell("corridoi",[8,41.5,13.5,10],"Bagni")}${cell("biglietteria",[8,52.5,13.5,14],"Bigliet|teria")}
    ${cell("foyer",[8,67.5,13.5,30.5],"Foyer")}${cell("amministrazione",[22,41.5,8,56.5],"Amministrazione",{vert:1})}${cell("direzione",[30.5,41.5,5.5,56.5],"Direzione",{vert:1})}
    ${cell("lab",[49.25,6,"c",40],"Tendone",{cls:"tent"})}${cell("cortile",[39,50,12,46],"Cortile")}${cell("bus",[52.5,50,6.5,46],"Teatrobus",{vert:1})}
