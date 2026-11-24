@@ -1158,8 +1158,8 @@ function room(k){
     /* librerie piene di scatoloni lungo la parete sinistra, fino al bidone */
     {const X0=0,X1=90,yt=x=>34+x*.28,yf=x=>196-x*.39,ys=(x,i)=>yt(x)+(yf(x)-yt(x))*i/4;
      poly([[X0,yt(X0)],[X1,yt(X1)],[X1,yf(X1)],[X0,yf(X0)]],"#3a3632");
-     for(let i=0;i<4;i++){const XS=[0,14,26,38,50,62,72,82,90];for(let j=0;j<XS.length-1;j++){if(hs(i,j)<.18)continue;const a=XS[j]+1,b=XS[j+1]-1,h=.55+hs(j,i)*.35,col=["#c9955a","#b8844a","#d8a868","#e8e4dc","#a87a42"][(i*3+j)%5];
-       const ya=ys(a,i+1),yb=ys(b,i+1),ha=(ys(a,i+1)-ys(a,i))*h,hb=(ys(b,i+1)-ys(b,i))*h;poly([[a,ya-ha],[b,yb-hb],[b,yb],[a,ya]],col);poly([[a,ya-ha],[b,yb-hb],[b,yb-hb+1],[a,ya-ha+1]],sh(col,1.15));r(a+(b-a)*.4,ya-ha*.55,(b-a)*.25,1.2,"#f4f0e8")}}
+     for(let i=0;i<4;i++){const XS=i%2?[0,24,48,70,90]:[0,20,44,68,90];for(let j=0;j<XS.length-1;j++){if(hs(i,j)<.15)continue;const a=XS[j]+1,b=XS[j+1]-1,h=.36+hs(j,i)*.2,col=["#c9955a","#b8844a","#d8a868","#e8e4dc","#a87a42"][(i*3+j)%5];
+       const ya=ys(a,i+1),yb=ys(b,i+1),ha=(ys(a,i+1)-ys(a,i))*h,hb=(ys(b,i+1)-ys(b,i))*h;poly([[a,ya-ha],[b,yb-hb],[b,yb],[a,ya]],col);poly([[a,ya-ha],[b,yb-hb],[b,yb-hb+1],[a,ya-ha+1]],sh(col,1.15));r(a+(b-a)*.4,ya-ha*.55,(b-a)*.25,1.2,"#f4f0e8");if(hs(j+3,i)>.3){const a2=a+(b-a)*.12,b2=b-(b-a)*.12,c2=["#d8a868","#c9955a","#e8e4dc","#b8844a"][(i+j)%4],ya2=ys(a2,i+1)-(ys(a2,i+1)-ys(a2,i))*h,yb2=ys(b2,i+1)-(ys(b2,i+1)-ys(b2,i))*h,h2a=(ys(a2,i+1)-ys(a2,i))*.32,h2b=(ys(b2,i+1)-ys(b2,i))*.32;poly([[a2,ya2-h2a],[b2,yb2-h2b],[b2,yb2],[a2,ya2]],c2);poly([[a2,ya2-h2a],[b2,yb2-h2b],[b2,yb2-h2b+1],[a2,ya2-h2a+1]],sh(c2,1.15))}}}
      for(let i=0;i<=4;i++)poly([[X0,ys(X0,i)-1.2],[X1,ys(X1,i)-.8],[X1,ys(X1,i)+.8],[X0,ys(X0,i)+1.2]],"#7a7a80");
      [0,30,60,X1].forEach(x=>poly([[x-1.4,yt(x)],[x+1.4,yt(x)],[x+1.4,yf(x)],[x-1.4,yf(x)]],"#6a6a70"))}
     /* aste e scale appoggiate a sinistra */
@@ -1777,7 +1777,7 @@ function hud(){
     <div class="place">${ROOMS[S.loc].n.toUpperCase()}</div>${S.clv?clvHTML():""}${bicoHTML()}
     ${S.mode==="explore"&&!(S.jc&&!S.jc.done)&&!(S.cafCut&&!S.cafCut.done)&&!(S.backCut&&!S.backCut.done)&&!bachecaOn()&&!(cur().who==="patty"&&S.pattyAt)?`<div class="goal ${S.goalNew?"flash":""}"><b>${S.goalNew?"NUOVO OBIETTIVO":"OBIETTIVO"}</b> ${esc(goalText())}${mapRoom(curRoom())!==S.loc&&!(cur().room==="tin"&&S.loc==="lab")&&!(curRoom()==="scaffe"&&S.loc==="scaffe")?` <button type="button" class="gm" id="bgoalmap">${bachecaOn()?"APRI LA BACHECA":"APRI LA MAPPA"}</button>`:stepObjIndex(S.loc)>=0?" · <i>TOCCA CIÒ CHE BRILLA</i>":cur().room==="tin"&&S.loc==="lab"?" · <i>ENTRA DALLA PORTA DEL TENDONE</i>":""}</div>`:""}`;
 }
-const GAMEVER="v197";
+const GAMEVER="v198";
 function bicoHTML(){const vis=S.phase==="play"&&bachecaOn()&&(S.mode==="explore"||S.mode==="say");if(!vis){S.bicoT0=0;return""}if(!S.bicoT0)S.bicoT0=Date.now();
   const C=BSALE.map(x=>x[3]||"#d8d4c8");return `<button class="bico" id="bico" type="button" aria-label="Apri la bacheca" style="animation-delay:-${Date.now()-S.bicoT0}ms"><span class="pp"><b></b>${C.map(c=>`<i style="background:${c}"></i>`).join("")}</span></button>`}
 function bachOpen(){S.bach=1;S.bachT0=Date.now();openMap()}
