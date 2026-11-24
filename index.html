@@ -1138,8 +1138,8 @@ function room(k){
     r(0,0,384,216,"#d6d2c8");
     poly([[0,0],[118,44],[118,150],[0,196]],"#cfcac0");for(let q=0;q<6;q++)r(14+q*16,60+q*6,.5,90-q*4,"#c4beb2");
     poly([[118,44],[214,44],[300,124],[300,150],[118,150]],"#dcd8ce");
-    poly([[96,0],[384,0],[384,176],[300,150],[300,124],[214,44],[118,44],[96,36]],"#e6e2da");
-    for(let q=0;q<5;q++)poly([[230+q*30,0+q*8],[232+q*30,0+q*8],[384,96+q*14],[384,98+q*14]],"#d8d4ca");
+    poly([[96,0],[384,0],[384,176],[300,150],[300,124],[214,44],[118,44],[96,36]],"#8e8a82");
+    for(let q=0;q<5;q++)poly([[230+q*30,0+q*8],[232+q*30,0+q*8],[384,96+q*14],[384,98+q*14]],"#7e7a72");
     poly([[0,8],[112,34],[112,48],[0,24]],"#55565c");poly([[0,24],[112,48],[112,52],[0,30]],"#3a3b40");r(0,30,112,.6,"#7a7a80");
     poly([[264,72],[300,76],[294,86],[258,82]],"#121214");
     /* porta in fondo con scatoloni */
@@ -1155,6 +1155,13 @@ function room(k){
     poly([[0,196],[118,150],[300,150],[384,176],[384,216],[0,216]],"#9a4a36");
     g.save();g.beginPath();g.moveTo(0,196);g.lineTo(118,150);g.lineTo(300,150);g.lineTo(384,176);g.lineTo(384,216);g.lineTo(0,216);g.closePath();g.clip();for(let y=150,q=0;y<216;y+=4+q*.8,q++){r(0,y,384,.7,"#c08a72");const w=10+q*2.2;for(let x=-(q%2)*w/2;x<384;x+=w)r(x,y,.7,4+q*.8,"#7a3628")}g.restore();
     al(.35,()=>poly([[0,196],[118,150],[118,152],[0,200]],"#3a1a12"));
+    /* librerie piene di scatoloni lungo la parete sinistra, fino al bidone */
+    {const X0=0,X1=90,yt=x=>34+x*.28,yf=x=>196-x*.39,ys=(x,i)=>yt(x)+(yf(x)-yt(x))*i/4;
+     poly([[X0,yt(X0)],[X1,yt(X1)],[X1,yf(X1)],[X0,yf(X0)]],"#3a3632");
+     for(let i=0;i<4;i++){const XS=[0,14,26,38,50,62,72,82,90];for(let j=0;j<XS.length-1;j++){if(hs(i,j)<.18)continue;const a=XS[j]+1,b=XS[j+1]-1,h=.55+hs(j,i)*.35,col=["#c9955a","#b8844a","#d8a868","#e8e4dc","#a87a42"][(i*3+j)%5];
+       const ya=ys(a,i+1),yb=ys(b,i+1),ha=(ys(a,i+1)-ys(a,i))*h,hb=(ys(b,i+1)-ys(b,i))*h;poly([[a,ya-ha],[b,yb-hb],[b,yb],[a,ya]],col);poly([[a,ya-ha],[b,yb-hb],[b,yb-hb+1],[a,ya-ha+1]],sh(col,1.15));r(a+(b-a)*.4,ya-ha*.55,(b-a)*.25,1.2,"#f4f0e8")}}
+     for(let i=0;i<=4;i++)poly([[X0,ys(X0,i)-1.2],[X1,ys(X1,i)-.8],[X1,ys(X1,i)+.8],[X0,ys(X0,i)+1.2]],"#7a7a80");
+     [0,30,60,X1].forEach(x=>poly([[x-1.4,yt(x)],[x+1.4,yt(x)],[x+1.4,yf(x)],[x-1.4,yf(x)]],"#6a6a70"))}
     /* aste e scale appoggiate a sinistra */
     g.save();g.lineCap="round";[[16,206,52,40,3.2,"#c8a070"],[30,214,70,58,3,"#d0aa78"],[44,210,26,64,3.4,"#c09060"],[52,204,40,70,2.6,"#2a5ab0"],[70,208,118,140,2.6,"#c8a070"]].forEach(([x1,y1,x2,y2,w,c])=>{g.strokeStyle=c;g.lineWidth=w;g.beginPath();g.moveTo(x1,y1);g.lineTo(x2,y2);g.stroke()});
     g.strokeStyle="#8e8e88";g.lineWidth=2;[[60,200,36,66],[80,196,58,70]].forEach(([x1,y1,x2,y2])=>{g.beginPath();g.moveTo(x1,y1);g.lineTo(x2,y2);g.stroke()});for(let q=0;q<6;q++){const t=q/6;r(36+24*(1-t)+t*0,70+t*126,22,1.6,"#8e8e88")}g.restore();
@@ -1770,7 +1777,7 @@ function hud(){
     <div class="place">${ROOMS[S.loc].n.toUpperCase()}</div>${S.clv?clvHTML():""}${bicoHTML()}
     ${S.mode==="explore"&&!(S.jc&&!S.jc.done)&&!(S.cafCut&&!S.cafCut.done)&&!(S.backCut&&!S.backCut.done)&&!bachecaOn()&&!(cur().who==="patty"&&S.pattyAt)?`<div class="goal ${S.goalNew?"flash":""}"><b>${S.goalNew?"NUOVO OBIETTIVO":"OBIETTIVO"}</b> ${esc(goalText())}${mapRoom(curRoom())!==S.loc&&!(cur().room==="tin"&&S.loc==="lab")&&!(curRoom()==="scaffe"&&S.loc==="scaffe")?` <button type="button" class="gm" id="bgoalmap">${bachecaOn()?"APRI LA BACHECA":"APRI LA MAPPA"}</button>`:stepObjIndex(S.loc)>=0?" · <i>TOCCA CIÒ CHE BRILLA</i>":cur().room==="tin"&&S.loc==="lab"?" · <i>ENTRA DALLA PORTA DEL TENDONE</i>":""}</div>`:""}`;
 }
-const GAMEVER="v196";
+const GAMEVER="v197";
 function bicoHTML(){const vis=S.phase==="play"&&bachecaOn()&&(S.mode==="explore"||S.mode==="say");if(!vis){S.bicoT0=0;return""}if(!S.bicoT0)S.bicoT0=Date.now();
   const C=BSALE.map(x=>x[3]||"#d8d4c8");return `<button class="bico" id="bico" type="button" aria-label="Apri la bacheca" style="animation-delay:-${Date.now()-S.bicoT0}ms"><span class="pp"><b></b>${C.map(c=>`<i style="background:${c}"></i>`).join("")}</span></button>`}
 function bachOpen(){S.bach=1;S.bachT0=Date.now();openMap()}
