@@ -1161,7 +1161,15 @@ function room(k){
      for(let i=0;i<4;i++){const XS=i%2?[0,24,48,70,90]:[0,20,44,68,90];for(let j=0;j<XS.length-1;j++){if(hs(i,j)<.15)continue;const a=XS[j]+1,b=XS[j+1]-1,h=.36+hs(j,i)*.2,col=["#c9955a","#b8844a","#d8a868","#e8e4dc","#a87a42"][(i*3+j)%5];
        const ya=ys(a,i+1),yb=ys(b,i+1),ha=(ys(a,i+1)-ys(a,i))*h,hb=(ys(b,i+1)-ys(b,i))*h;poly([[a,ya-ha],[b,yb-hb],[b,yb],[a,ya]],col);poly([[a,ya-ha],[b,yb-hb],[b,yb-hb+1],[a,ya-ha+1]],sh(col,1.15));r(a+(b-a)*.4,ya-ha*.55,(b-a)*.25,1.2,"#f4f0e8");if(hs(j+3,i)>.3){const a2=a+(b-a)*.12,b2=b-(b-a)*.12,c2=["#d8a868","#c9955a","#e8e4dc","#b8844a"][(i+j)%4],ya2=ys(a2,i+1)-(ys(a2,i+1)-ys(a2,i))*h,yb2=ys(b2,i+1)-(ys(b2,i+1)-ys(b2,i))*h,h2a=(ys(a2,i+1)-ys(a2,i))*.32,h2b=(ys(b2,i+1)-ys(b2,i))*.32;poly([[a2,ya2-h2a],[b2,yb2-h2b],[b2,yb2],[a2,ya2]],c2);poly([[a2,ya2-h2a],[b2,yb2-h2b],[b2,yb2-h2b+1],[a2,ya2-h2a+1]],sh(c2,1.15))}}}
      for(let i=0;i<=4;i++)poly([[X0,ys(X0,i)-1.2],[X1,ys(X1,i)-.8],[X1,ys(X1,i)+.8],[X0,ys(X0,i)+1.2]],"#7a7a80");
-     [0,30,60,X1].forEach(x=>poly([[x-1.4,yt(x)],[x+1.4,yt(x)],[x+1.4,yf(x)],[x-1.4,yf(x)]],"#6a6a70"))}
+     [0,30,60,X1].forEach(x=>poly([[x-1.4,yt(x)],[x+1.4,yt(x)],[x+1.4,yf(x)],[x-1.4,yf(x)]],"#6a6a70"))
+     /* oggetti di scena che escono dagli scatoloni */
+     const sy=(x,i)=>ys(x,i+1),bh=(x,i)=>(ys(x,i+1)-ys(x,i));
+     [[30,0,"#b0182a"],[12,1,"#d8b030"],[70,2,"#6a2a8a"],[46,3,"#1f6a8a"]].forEach(([x,i,c])=>{const y=sy(x,i)-bh(x,i)*.45;poly([[x-5,y],[x+6,y-.6],[x+7,y+bh(x,i)*.5+6],[x+3,y+bh(x,i)*.4+9],[x-1,y+bh(x,i)*.55+5],[x-4,y+bh(x,i)*.3+7]],c);poly([[x-5,y],[x+6,y-.6],[x+6,y+1],[x-5,y+1.4]],sh(c,1.25));r(x+1,y+2,.8,bh(x,i)*.4,sh(c,.75))});
+     g.save();g.lineCap="round";[[52,0,-.5],[80,2,.35],[20,3,-.3]].forEach(([x,i,a])=>{const y=sy(x,i)-bh(x,i)*.4;g.save();g.translate(x,y);g.rotate(a);g.strokeStyle="#d8dce4";g.lineWidth=1.3;g.beginPath();g.moveTo(0,0);g.lineTo(0,-16);g.stroke();r(-3,0,6,1.3,"#c9a030");r(-.7,1.3,1.4,4,"#5a3a1a");disc(0,5.8,1,"#c9a030");g.restore()});g.restore();
+     [[40,2],[86,0],[64,1]].forEach(([x,i])=>{const y=sy(x,i)-bh(x,i)*.4-.5;poly([[x-2.4,y-6],[x+2.4,y-6],[x+1,y-3],[x-1,y-3]],"#e8c040");r(x-.4,y-3,.8,2.5,"#c9a030");r(x-1.6,y-.6,3.2,.9,"#c9a030");r(x-1.6,y-5.6,1,1,"#fff4c0")});
+     {const x=22,y=sy(x,0)-bh(x,0)*.42;poly([[x-5,y],[x+5,y],[x+5,y-5],[x+3,y-2.6],[x+1.5,y-6],[x,y-2.6],[x-1.5,y-6],[x-3,y-2.6],[x-5,y-5]],"#e8c040");disc(x,y-2,.8,"#c0283a")}
+     {const x=8,y=sy(x,2)-bh(x,2)*.4;for(let q=0;q<7;q++)disc(x+q*1.8,y+Math.sin(q)*1.2+q*.5,1.6,q%2?"#ff7ab8":"#ff9ac8")}
+     {const x=74,y=sy(x,1)-bh(x,1)*.42;poly([[x-4,y-1],[x+4,y-1],[x+3,y-4],[x,y-5],[x-3,y-4]],"#f4f4f0");disc(x-1.6,y-2.6,.7,"#1a1a1e");disc(x+1.6,y-2.6,.7,"#1a1a1e")}}
     /* aste e scale appoggiate a sinistra */
     g.save();g.lineCap="round";[[16,206,52,40,3.2,"#c8a070"],[30,214,70,58,3,"#d0aa78"],[44,210,26,64,3.4,"#c09060"],[52,204,40,70,2.6,"#2a5ab0"],[70,208,118,140,2.6,"#c8a070"]].forEach(([x1,y1,x2,y2,w,c])=>{g.strokeStyle=c;g.lineWidth=w;g.beginPath();g.moveTo(x1,y1);g.lineTo(x2,y2);g.stroke()});
     g.strokeStyle="#8e8e88";g.lineWidth=2;[[60,200,36,66],[80,196,58,70]].forEach(([x1,y1,x2,y2])=>{g.beginPath();g.moveTo(x1,y1);g.lineTo(x2,y2);g.stroke()});for(let q=0;q<6;q++){const t=q/6;r(36+24*(1-t)+t*0,70+t*126,22,1.6,"#8e8e88")}g.restore();
@@ -1777,7 +1785,7 @@ function hud(){
     <div class="place">${ROOMS[S.loc].n.toUpperCase()}</div>${S.clv?clvHTML():""}${bicoHTML()}
     ${S.mode==="explore"&&!(S.jc&&!S.jc.done)&&!(S.cafCut&&!S.cafCut.done)&&!(S.backCut&&!S.backCut.done)&&!bachecaOn()&&!(cur().who==="patty"&&S.pattyAt)?`<div class="goal ${S.goalNew?"flash":""}"><b>${S.goalNew?"NUOVO OBIETTIVO":"OBIETTIVO"}</b> ${esc(goalText())}${mapRoom(curRoom())!==S.loc&&!(cur().room==="tin"&&S.loc==="lab")&&!(curRoom()==="scaffe"&&S.loc==="scaffe")?` <button type="button" class="gm" id="bgoalmap">${bachecaOn()?"APRI LA BACHECA":"APRI LA MAPPA"}</button>`:stepObjIndex(S.loc)>=0?" · <i>TOCCA CIÒ CHE BRILLA</i>":cur().room==="tin"&&S.loc==="lab"?" · <i>ENTRA DALLA PORTA DEL TENDONE</i>":""}</div>`:""}`;
 }
-const GAMEVER="v198";
+const GAMEVER="v199";
 function bicoHTML(){const vis=S.phase==="play"&&bachecaOn()&&(S.mode==="explore"||S.mode==="say");if(!vis){S.bicoT0=0;return""}if(!S.bicoT0)S.bicoT0=Date.now();
   const C=BSALE.map(x=>x[3]||"#d8d4c8");return `<button class="bico" id="bico" type="button" aria-label="Apri la bacheca" style="animation-delay:-${Date.now()-S.bicoT0}ms"><span class="pp"><b></b>${C.map(c=>`<i style="background:${c}"></i>`).join("")}</span></button>`}
 function bachOpen(){S.bach=1;S.bachT0=Date.now();openMap()}
