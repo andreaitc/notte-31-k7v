@@ -1785,7 +1785,7 @@ function hud(){
     <div class="place">${ROOMS[S.loc].n.toUpperCase()}</div>${S.clv?clvHTML():""}${bicoHTML()}
     ${S.mode==="explore"&&!(S.jc&&!S.jc.done)&&!(S.cafCut&&!S.cafCut.done)&&!(S.backCut&&!S.backCut.done)&&!bachecaOn()&&!(cur().who==="patty"&&S.pattyAt)?`<div class="goal ${S.goalNew?"flash":""}"><b>${S.goalNew?"NUOVO OBIETTIVO":"OBIETTIVO"}</b> ${esc(goalText())}${mapRoom(curRoom())!==S.loc&&!(cur().room==="tin"&&S.loc==="lab")&&!(curRoom()==="scaffe"&&S.loc==="scaffe")?` <button type="button" class="gm" id="bgoalmap">${bachecaOn()?"APRI LA BACHECA":"APRI LA MAPPA"}</button>`:stepObjIndex(S.loc)>=0?" · <i>TOCCA CIÒ CHE BRILLA</i>":cur().room==="tin"&&S.loc==="lab"?" · <i>ENTRA DALLA PORTA DEL TENDONE</i>":""}</div>`:""}`;
 }
-const GAMEVER="v199";
+const GAMEVER="v200";
 function bicoHTML(){const vis=S.phase==="play"&&bachecaOn()&&(S.mode==="explore"||S.mode==="say");if(!vis){S.bicoT0=0;return""}if(!S.bicoT0)S.bicoT0=Date.now();
   const C=BSALE.map(x=>x[3]||"#d8d4c8");return `<button class="bico" id="bico" type="button" aria-label="Apri la bacheca" style="animation-delay:-${Date.now()-S.bicoT0}ms"><span class="pp"><b></b>${C.map(c=>`<i style="background:${c}"></i>`).join("")}</span></button>`}
 function bachOpen(){S.bach=1;S.bachT0=Date.now();openMap()}
@@ -2061,7 +2061,7 @@ const AULE=["sa","sb","sc","sd","se","sf"],NOPATTY=["Aquí no está la Patty.","
 const noPatty=k=>cur().who==="patty"&&!S.pattyAt&&((S.pAule||[]).includes(k)||k==="sg"&&S.pGvis)&&k!==S.loc;
 function pattySearch(k){if(cur().who==="patty"&&!S.pattyAt&&k==="sg")S.pGvis=1;if(cur().who!=="patty"||S.pattyAt||!AULE.includes(k))return 0;S.pAule=S.pAule||[];if(!S.pAule.includes(k))S.pAule.push(k);
   if(S.pAule.length>=6){S.pattyAt=k;moveP("patty",k,190);const st=cur();st.room=k;return 0}return S.pAule.length}
-function enter(k){S.bachT0=0;if(k==="lab"&&PID.carlo)PID.carlo.x=S.step>=12?300:140;
+function enter(k){S.bachT0=0;if(k==="lab"&&PID.carlo)PID.carlo.x=S.step>=12?244:140;
   S.loc=k;S.mode="arrive";S.talk=null;S.note=null;S.say=null;const R=ROOMS[k],first=!S.visited[k];S.visited[k]=true;
   const ps=pattySearch(k);
   S.vx=FROMR[k]?(first?424:364):first||k==="bus"?-40:20;const pp=R.ppl.filter(p=>!gone(p.id));S.seq=[];
