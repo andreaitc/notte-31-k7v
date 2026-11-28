@@ -357,7 +357,7 @@ canvas.clvimg{width:70%;height:auto;aspect-ratio:1}
 .vbub{position:absolute;z-index:20;transform:translate(-50%,-100%);max-width:56%;background:#fff;color:#111;border:3px solid #111;border-radius:1.2em;padding:.45em .8em;font-size:1.25em;line-height:1.05;box-shadow:3px 3px 0 rgba(0,0,0,.4);pointer-events:none;text-align:center}
 .vbub::after{content:"";position:absolute;left:50%;bottom:-.95em;width:1em;height:1em;background:#fff;border-right:3px solid #111;border-bottom:3px solid #111;transform:translateX(-50%) rotate(45deg) skew(10deg,10deg)}
 .shout{position:absolute;left:3%;top:22%;z-index:21;pointer-events:none;background:#ffd23c;color:#c0283a;padding:1.1em 1.6em;clip-path:polygon(0 18%,12% 22%,8% 0,30% 16%,42% 2%,52% 18%,70% 0,74% 20%,96% 8%,88% 34%,100% 48%,86% 60%,98% 84%,74% 76%,70% 100%,52% 80%,38% 98%,30% 78%,8% 92%,14% 70%,0 58%,10% 42%);animation:shk .12s steps(2) infinite}
-.vtail{position:absolute;right:0;top:20%;width:14%;height:12%;z-index:20;pointer-events:none;background:#ffd23c;clip-path:polygon(0 30%,100% 0,100% 100%,0 70%);animation:shk .12s steps(2) infinite}
+.vtail{position:absolute;right:.5%;top:18%;width:17%;height:11%;z-index:20;pointer-events:none;background:#ffd23c;clip-path:polygon(0 0,100% 50%,0 100%);animation:shk .12s steps(2) infinite}
 .shout span{font-family:var(--pix);font-size:1.1em;white-space:nowrap}
 @keyframes shk{0%{transform:translate(0,0) rotate(-3deg)}100%{transform:translate(2px,-1px) rotate(-1deg)}}
 .gear{position:absolute;left:.4em;top:.4em;z-index:70;width:2em;height:2em;font-size:1.1em;line-height:1;color:var(--bianco);background:rgba(11,15,42,.85);border:2px solid var(--linea);display:grid;place-items:center}
@@ -1786,7 +1786,7 @@ function hud(){
     <div class="place">${ROOMS[S.loc].n.toUpperCase()}</div>${S.clv?clvHTML():""}${bicoHTML()}
     ${S.mode==="explore"&&!(S.jc&&!S.jc.done)&&!(S.cafCut&&!S.cafCut.done)&&!(S.backCut&&!S.backCut.done)&&!bachecaOn()&&!(cur().who==="patty"&&S.pattyAt)?`<div class="goal ${S.goalNew?"flash":""}"><b>${S.goalNew?"NUOVO OBIETTIVO":"OBIETTIVO"}</b> ${esc(goalText())}${mapRoom(curRoom())!==S.loc&&!(cur().room==="tin"&&S.loc==="lab")&&!(curRoom()==="scaffe"&&S.loc==="scaffe")?` <button type="button" class="gm" id="bgoalmap">${bachecaOn()?"APRI LA BACHECA":"APRI LA MAPPA"}</button>`:stepObjIndex(S.loc)>=0?" · <i>TOCCA CIÒ CHE BRILLA</i>":cur().room==="tin"&&S.loc==="lab"?" · <i>ENTRA DALLA PORTA DEL TENDONE</i>":""}</div>`:""}`;
 }
-const GAMEVER="v204";
+const GAMEVER="v205";
 function bicoHTML(){const vis=S.phase==="play"&&bachecaOn()&&(S.mode==="explore"||S.mode==="say");if(!vis){S.bicoT0=0;return""}if(!S.bicoT0)S.bicoT0=Date.now();
   const C=BSALE.map(x=>x[3]||"#d8d4c8");return `<button class="bico" id="bico" type="button" aria-label="Apri la bacheca" style="animation-delay:-${Date.now()-S.bicoT0}ms"><span class="pp"><b></b>${C.map(c=>`<i style="background:${c}"></i>`).join("")}</span></button>`}
 function bachOpen(){S.bach=1;S.bachT0=Date.now();openMap()}
