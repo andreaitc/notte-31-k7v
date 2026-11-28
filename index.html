@@ -357,7 +357,7 @@ canvas.clvimg{width:70%;height:auto;aspect-ratio:1}
 .vbub{position:absolute;z-index:20;transform:translate(-50%,-100%);max-width:56%;background:#fff;color:#111;border:3px solid #111;border-radius:1.2em;padding:.45em .8em;font-size:1.25em;line-height:1.05;box-shadow:3px 3px 0 rgba(0,0,0,.4);pointer-events:none;text-align:center}
 .vbub::after{content:"";position:absolute;left:50%;bottom:-.95em;width:1em;height:1em;background:#fff;border-right:3px solid #111;border-bottom:3px solid #111;transform:translateX(-50%) rotate(45deg) skew(10deg,10deg)}
 .shout{position:absolute;left:3%;top:22%;z-index:21;pointer-events:none;background:#ffd23c;color:#c0283a;padding:1.1em 1.6em;clip-path:polygon(0 18%,12% 22%,8% 0,30% 16%,42% 2%,52% 18%,70% 0,74% 20%,96% 8%,88% 34%,100% 48%,86% 60%,98% 84%,74% 76%,70% 100%,52% 80%,38% 98%,30% 78%,8% 92%,14% 70%,0 58%,10% 42%);animation:shk .12s steps(2) infinite}
-.vfc{position:absolute;right:1.5%;top:25%;z-index:22;pointer-events:none;font-family:var(--pix);font-size:.55em;color:#ffd23c;background:rgba(0,0,0,.75);padding:.35em .6em;letter-spacing:.06em}
+.vtail{position:absolute;right:0;top:20%;width:14%;height:12%;z-index:20;pointer-events:none;background:#ffd23c;clip-path:polygon(0 30%,100% 0,100% 100%,0 70%);animation:shk .12s steps(2) infinite}
 .shout span{font-family:var(--pix);font-size:1.1em;white-space:nowrap}
 @keyframes shk{0%{transform:translate(0,0) rotate(-3deg)}100%{transform:translate(2px,-1px) rotate(-1deg)}}
 .gear{position:absolute;left:.4em;top:.4em;z-index:70;width:2em;height:2em;font-size:1.1em;line-height:1;color:var(--bianco);background:rgba(11,15,42,.85);border:2px solid var(--linea);display:grid;place-items:center}
@@ -1786,7 +1786,7 @@ function hud(){
     <div class="place">${ROOMS[S.loc].n.toUpperCase()}</div>${S.clv?clvHTML():""}${bicoHTML()}
     ${S.mode==="explore"&&!(S.jc&&!S.jc.done)&&!(S.cafCut&&!S.cafCut.done)&&!(S.backCut&&!S.backCut.done)&&!bachecaOn()&&!(cur().who==="patty"&&S.pattyAt)?`<div class="goal ${S.goalNew?"flash":""}"><b>${S.goalNew?"NUOVO OBIETTIVO":"OBIETTIVO"}</b> ${esc(goalText())}${mapRoom(curRoom())!==S.loc&&!(cur().room==="tin"&&S.loc==="lab")&&!(curRoom()==="scaffe"&&S.loc==="scaffe")?` <button type="button" class="gm" id="bgoalmap">${bachecaOn()?"APRI LA BACHECA":"APRI LA MAPPA"}</button>`:stepObjIndex(S.loc)>=0?" · <i>TOCCA CIÒ CHE BRILLA</i>":cur().room==="tin"&&S.loc==="lab"?" · <i>ENTRA DALLA PORTA DEL TENDONE</i>":""}</div>`:""}`;
 }
-const GAMEVER="v203";
+const GAMEVER="v204";
 function bicoHTML(){const vis=S.phase==="play"&&bachecaOn()&&(S.mode==="explore"||S.mode==="say");if(!vis){S.bicoT0=0;return""}if(!S.bicoT0)S.bicoT0=Date.now();
   const C=BSALE.map(x=>x[3]||"#d8d4c8");return `<button class="bico" id="bico" type="button" aria-label="Apri la bacheca" style="animation-delay:-${Date.now()-S.bicoT0}ms"><span class="pp"><b></b>${C.map(c=>`<i style="background:${c}"></i>`).join("")}</span></button>`}
 function bachOpen(){S.bach=1;S.bachT0=Date.now();openMap()}
@@ -1832,7 +1832,7 @@ function render(){
     <p class="sub">Musiche a 8 bit: un computer molto paziente<br>Nessun presidente è stato maltrattato durante la lavorazione. Quasi.</p>
     <div class="last"><img src="${VALIMG()}" alt="Valentino"><p>«Felice año nuevo, compañeros. Y mañana... ¿chi lo pulisce el autobús?»</p></div>
     <p class="sub">FINE</p></div><button class="go cgo" id="bagain" type="button">GIOCA ANCORA</button><button class="hb cpost" id="bpost" type="button">ASPETTA...</button></div>`}
-  else if(ph==="sgc"){const l=SGC[S.ci];const zt=S.zT?performance.now()-S.zT:-1;h=zt>=3400?(()=>{const T="STOOOOOP!",n=Math.min(T.length,Math.floor((zt-3400)/60)+1);return `<div class="shout" style="left:auto;right:-3%;top:30%;font-size:1.7em;padding-right:2.4em"><span>${T.slice(0,n)}</span></div><div class="vfc">VOCE FUORI CAMPO ▶</div>`})():!l||S.zT?"":`<div class="pres post" style="left:calc(var(--cx) + var(--cw) * ${Math.max(.235,Math.min(.765,{biljana:70,izzo:140,caterina:210}[l[0]]/384)).toFixed(3)})"><img src="${IMGD[l[0]]}" alt=""><div><b>${SGN[l[0]]}</b><span>${esc(l[1])}</span></div></div><div class="tap">TOCCA PER CONTINUARE · ${S.ci+1}/${SGC.length}</div>`}
+  else if(ph==="sgc"){const l=SGC[S.ci];const zt=S.zT?performance.now()-S.zT:-1;h=zt>=3400?(()=>{const T="STOOOOOP!",n=Math.min(T.length,Math.floor((zt-3400)/60)+1);return `<div class="vtail"></div><div class="shout" style="left:auto;right:4%;top:9%;font-size:1.7em"><span>${T.slice(0,n)}</span></div>`})():!l||S.zT?"":`<div class="pres post" style="left:calc(var(--cx) + var(--cw) * ${Math.max(.235,Math.min(.765,{biljana:70,izzo:140,caterina:210}[l[0]]/384)).toFixed(3)})"><img src="${IMGD[l[0]]}" alt=""><div><b>${SGN[l[0]]}</b><span>${esc(l[1])}</span></div></div><div class="tap">TOCCA PER CONTINUARE · ${S.ci+1}/${SGC.length}</div>`}
   else if(ph==="post"){const l=POST[S.pi];h=(S.pf||0)<36||!l||S.pdark||(S.pi===POST.length-1&&!S.pLine)?"":`<div class="pres post ${l[0]==="paolucci"?"r":""}"><img src="${IMGD[l[0]]}" alt=""><div><b>${l[0].toUpperCase()}</b><span>${esc(l[1])}</span></div></div>${S.pi===POST.length-1?"":`<div class="tap">TOCCA PER CONTINUARE · ${S.pi+1}/${POST.length}</div>`}`}
   else if(ph==="vint")h=vintHTML();
   else if(ph==="scossa")h=scossaHTML();
@@ -2140,7 +2140,7 @@ function sgcScene(){const l=SGC[Math.min(S.ci,SGC.length-1)],fight=l[2],sk=(S.zT
     disc(cx,cy,30,"#e8e8f0");["@#!","%&*!","BAM!","SBEM!"].forEach((t,k)=>{if(((F>>2)+k)%3===0)txt(t,cx-40+k*26,cy-24+hs(k,F>>2)*40,9,["#ff3b3b","#ffd23c","#2f4fd0","#c0283a"][k])});
   }
   else [["biljana",50],["izzo",120],["caterina",190]].forEach(([id,x],i)=>{const P=PID[id];g.save();
-    if(fight){const hop=-Math.abs(Math.sin(F/3+i*1.7))*5,j=Math.sin(F*1.3+i*2)*2,dir=i===0?1:i===2?-1:((F>>4)%2?1:-1);g.translate(x+j,194+hop);g.scale(2,2);personSide(0,0,P.c,dir,(F>>2)%3===i)}
+    if(fight){const hop=-Math.abs(Math.sin(F/3+i*1.7))*5,j=Math.sin(F*1.3+i*2)*2,dir=i===0?1:i===2?-1:((F>>5)%2?1:-1);g.translate(x+j+20,194+hop);g.scale(2*dir,2);g.translate(-10,0);personSide(0,0,P.c,0)}
     else{g.translate(x,194);g.scale(2,2);person(0,0,P.c,false)}g.restore()});
   if(!S.zT&&SGC[S.ci]){const hx={biljana:70,izzo:140,caterina:210}[SGC[S.ci][0]];let by=73;
     const el=document.querySelector(".pres.post"),cr=$("cv").getBoundingClientRect();if(el&&cr.width){const br=el.getBoundingClientRect();by=(br.bottom-cr.top)/cr.height*216}
