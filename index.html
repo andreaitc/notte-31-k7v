@@ -1786,7 +1786,7 @@ function hud(){
     <div class="place">${ROOMS[S.loc].n.toUpperCase()}</div>${S.clv?clvHTML():""}${bicoHTML()}
     ${S.mode==="explore"&&!(S.jc&&!S.jc.done)&&!(S.cafCut&&!S.cafCut.done)&&!(S.backCut&&!S.backCut.done)&&!bachecaOn()&&!(cur().who==="patty"&&S.pattyAt)?`<div class="goal ${S.goalNew?"flash":""}"><b>${S.goalNew?"NUOVO OBIETTIVO":"OBIETTIVO"}</b> ${esc(goalText())}${mapRoom(curRoom())!==S.loc&&!(cur().room==="tin"&&S.loc==="lab")&&!(curRoom()==="scaffe"&&S.loc==="scaffe")?` <button type="button" class="gm" id="bgoalmap">${bachecaOn()?"APRI LA BACHECA":"APRI LA MAPPA"}</button>`:stepObjIndex(S.loc)>=0?" · <i>TOCCA CIÒ CHE BRILLA</i>":cur().room==="tin"&&S.loc==="lab"?" · <i>ENTRA DALLA PORTA DEL TENDONE</i>":""}</div>`:""}`;
 }
-const GAMEVER="v205";
+const GAMEVER="v206";
 function bicoHTML(){const vis=S.phase==="play"&&bachecaOn()&&(S.mode==="explore"||S.mode==="say");if(!vis){S.bicoT0=0;return""}if(!S.bicoT0)S.bicoT0=Date.now();
   const C=BSALE.map(x=>x[3]||"#d8d4c8");return `<button class="bico" id="bico" type="button" aria-label="Apri la bacheca" style="animation-delay:-${Date.now()-S.bicoT0}ms"><span class="pp"><b></b>${C.map(c=>`<i style="background:${c}"></i>`).join("")}</span></button>`}
 function bachOpen(){S.bach=1;S.bachT0=Date.now();openMap()}
@@ -1956,7 +1956,7 @@ const STEPS=[
   open:"«Stasera qui è un via vai.»",ov:"Cerco a Paolucci. ¿Lo ha vistado?",
   say:"«Strano? Sì: mentre la signora in rosso guardava la bacheca, Paolucci ha armeggiato con la macchinetta del caffè. Passandomi vicino ha detto qualcosa sulla macchinetta, ma non ho capito cosa.»",th:"La machinetta del cafè...",
   obj:"la macchinetta del caffè",objRoom:"scaffe",objGoal:"Controlla la macchinetta del caffè",item:"b1"},
- {room:"se",who:"patty",trig:["dove"],only:[{k:"dove",l:"E adesso dove sono andati?"}],goal:"Cerca Patty in una delle aule A-F",tell:"La Bagnara dice che Patty è in una delle aule, ma non ricorda quale.",
+ {room:"se",who:"patty",trig:["dove"],only:[{k:"dove",l:"E adesso dove sono andati?"}],goal:"Cerca Patty in una delle aule A-F",tell:"La Bagnara dice che Patty è in una delle aule, ma non ricorda quale.",tellMe:{bagnara:"Patty è in una delle aule, ma non ricordo quale. Guarda la bacheca nel corridoio."},
   open:"«Stavo mettendo via i disegni dei bambini. Guarda che belli! Hanno disegnato il presidente. Chi Paolucci, chi Bonazzi, uno Floridia. Poco fa Paolucci e la signora in rosso sono passati a vederli: lei si è fermata un sacco.»",ov:"Mmm... ¡Los presidentos soy una mucchia! ¡Nunca avaría mai pensado!",
   say:"«Hanno detto che andavano in sala G a vedere le prove. Mattia e gli attori a quest'ora sono già lì.»",th:"Sala G. ¡Vamos!"},
  {room:"sg",who:"mattia",goal:"Vai in sala G: trova Mattia",tell:"In aula G, Mattia ha visto la prova con loro.",
@@ -2952,6 +2952,7 @@ function hintFor(pid){const s=cur();
   if(s.room===S.loc&&s.who&&s.who!==pid&&s.hk)return (n=>{const prev=STEPS[S.step-1];return prev&&prev.who===pid?pick([`Per ${s.hk} te l'ho detto: chiedi a ${n}.`,`Te l'ho già detto: ${s.hk} le sa ${n}.`.replace("le sa","chiedile a")]):pick([`Per ${s.hk}, prova con ${n}.`,`Su ${s.hk}, ${n} è la persona giusta.`])})(PID[s.who].n);
   if(s.room===S.loc&&s.who&&s.who!==pid)return (n=>pick([`Forse ${n} ne sa di più.`,`Magari ${n} ha visto qualcosa.`,`Io sentirei ${n}.`,`Prova a chiedere a ${n}.`,`Fossi in te parlerei con ${n}.`,`Per quello, ${n} è la persona giusta.`,`Io farei due chiacchiere con ${n}.`]))(PID[s.who].n);
   if(S.sub&&s.objTell)return s.objTell;
+  if(s.tellMe&&s.tellMe[pid])return s.tellMe[pid];
   if(PID[pid]&&s.tell&&s.tell.includes("da "+PID[pid].n+"."))return s.tell.replace("da "+PID[pid].n+".","da me.");
   if(s.lock&&S.loc==="cortile")return"Il Teatrobus è lì in fondo, vai!";
   return s.tell;
