@@ -1785,7 +1785,7 @@ function hud(){
     <div class="place">${ROOMS[S.loc].n.toUpperCase()}</div>${S.clv?clvHTML():""}${bicoHTML()}
     ${S.mode==="explore"&&!(S.jc&&!S.jc.done)&&!(S.cafCut&&!S.cafCut.done)&&!(S.backCut&&!S.backCut.done)&&!bachecaOn()&&!(cur().who==="patty"&&S.pattyAt)?`<div class="goal ${S.goalNew?"flash":""}"><b>${S.goalNew?"NUOVO OBIETTIVO":"OBIETTIVO"}</b> ${esc(goalText())}${mapRoom(curRoom())!==S.loc&&!(cur().room==="tin"&&S.loc==="lab")&&!(curRoom()==="scaffe"&&S.loc==="scaffe")?` <button type="button" class="gm" id="bgoalmap">${bachecaOn()?"APRI LA BACHECA":"APRI LA MAPPA"}</button>`:stepObjIndex(S.loc)>=0?" · <i>TOCCA CIÒ CHE BRILLA</i>":cur().room==="tin"&&S.loc==="lab"?" · <i>ENTRA DALLA PORTA DEL TENDONE</i>":""}</div>`:""}`;
 }
-const GAMEVER="v201";
+const GAMEVER="v202";
 function bicoHTML(){const vis=S.phase==="play"&&bachecaOn()&&(S.mode==="explore"||S.mode==="say");if(!vis){S.bicoT0=0;return""}if(!S.bicoT0)S.bicoT0=Date.now();
   const C=BSALE.map(x=>x[3]||"#d8d4c8");return `<button class="bico" id="bico" type="button" aria-label="Apri la bacheca" style="animation-delay:-${Date.now()-S.bicoT0}ms"><span class="pp"><b></b>${C.map(c=>`<i style="background:${c}"></i>`).join("")}</span></button>`}
 function bachOpen(){S.bach=1;S.bachT0=Date.now();openMap()}
@@ -1831,7 +1831,7 @@ function render(){
     <p class="sub">Musiche a 8 bit: un computer molto paziente<br>Nessun presidente è stato maltrattato durante la lavorazione. Quasi.</p>
     <div class="last"><img src="${VALIMG()}" alt="Valentino"><p>«Felice año nuevo, compañeros. Y mañana... ¿chi lo pulisce el autobús?»</p></div>
     <p class="sub">FINE</p></div><button class="go cgo" id="bagain" type="button">GIOCA ANCORA</button><button class="hb cpost" id="bpost" type="button">ASPETTA...</button></div>`}
-  else if(ph==="sgc"){const l=SGC[S.ci];const zt=S.zT?performance.now()-S.zT:-1;h=zt>=3400?(()=>{const T="STOOOOOP!",n=Math.min(T.length,Math.floor((zt-3400)/60)+1);return `<div class="shout"><span>${T.slice(0,n)}</span></div>`})():!l||S.zT?"":`<div class="pres post" style="left:calc(var(--cx) + var(--cw) * ${Math.max(.235,Math.min(.765,{biljana:70,izzo:140,caterina:210}[l[0]]/384)).toFixed(3)})"><img src="${IMGD[l[0]]}" alt=""><div><b>${SGN[l[0]]}</b><span>${esc(l[1])}</span></div></div><div class="tap">TOCCA PER CONTINUARE · ${S.ci+1}/${SGC.length}</div>`}
+  else if(ph==="sgc"){const l=SGC[S.ci];const zt=S.zT?performance.now()-S.zT:-1;h=zt>=3400?(()=>{const T="STOOOOOP!",n=Math.min(T.length,Math.floor((zt-3400)/60)+1);return `<div class="shout" style="left:auto;right:2%;top:30%;font-size:1.7em"><span>${T.slice(0,n)}</span></div>`})():!l||S.zT?"":`<div class="pres post" style="left:calc(var(--cx) + var(--cw) * ${Math.max(.235,Math.min(.765,{biljana:70,izzo:140,caterina:210}[l[0]]/384)).toFixed(3)})"><img src="${IMGD[l[0]]}" alt=""><div><b>${SGN[l[0]]}</b><span>${esc(l[1])}</span></div></div><div class="tap">TOCCA PER CONTINUARE · ${S.ci+1}/${SGC.length}</div>`}
   else if(ph==="post"){const l=POST[S.pi];h=(S.pf||0)<36||!l||S.pdark||(S.pi===POST.length-1&&!S.pLine)?"":`<div class="pres post ${l[0]==="paolucci"?"r":""}"><img src="${IMGD[l[0]]}" alt=""><div><b>${l[0].toUpperCase()}</b><span>${esc(l[1])}</span></div></div>${S.pi===POST.length-1?"":`<div class="tap">TOCCA PER CONTINUARE · ${S.pi+1}/${POST.length}</div>`}`}
   else if(ph==="vint")h=vintHTML();
   else if(ph==="scossa")h=scossaHTML();
